@@ -18,7 +18,7 @@ export default function Product({p}) {
                         <p>{p.descr}</p>
                         <p className="mb-4">{p.descr}</p>
                         <ul className="alert alert-info">
-                             <small><strong>Cantidad disponible: {p.cantidad}</strong></small>
+                             <small><strong>Cantidad disponible:{p.cantidad}</strong></small>
                         </ul>
                         <h1 class="text-danger">$ <strong >{p.precio}</strong></h1>
                          
