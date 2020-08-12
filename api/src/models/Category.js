@@ -7,7 +7,8 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
+      primaryKey: true
+    }
   });
 };
 // Vincular User con Page
