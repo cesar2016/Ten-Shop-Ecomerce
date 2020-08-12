@@ -14,7 +14,6 @@ export function getProduct (keyword) {
     };
   }
 
-  // getAllProduct , te trae todos los productos que tengan STOCK
   export function getAllProduct () {
     return function(dispatch) {
       return fetch("http://localhost:3001/catalogue")
