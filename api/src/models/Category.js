@@ -8,9 +8,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   });
 };
-// Vincular User con Page
-// Tu código acá:
-// categories.hasMany(products);
-// Page.belongsTo(User);

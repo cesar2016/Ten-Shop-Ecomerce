@@ -23,6 +23,6 @@ const { conn } = require('./src/db.js');
 // Syncing all the models at once.
 conn.sync({ force: <i class="fas fa-sliders-h-square    "></i> }).then(() => {
   server.listen(3000, () => {
-    console.log('%s listening at 3000'); // eslint-disable-line no-console
+    console.log('###### listening at 3000 ######'); // eslint-disable-line no-console
   });
 });
