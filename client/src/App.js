@@ -1,3 +1,5 @@
+import { Provider } from 'react-redux'
+import { BrowserRouter, Route } from 'react-router-dom';
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -23,7 +25,12 @@ function App() {
         <div className="App jumbotron">
             <NavBar handleSubmit={handleSubmit}/>
 
-            <Product p = {producto}/>             
+            <Product p = {producto}/>
+
+            <Route path="/" component={NavBar} />
+            <Route path="/Product" component={Product} />
+            <Route exact path='/catalogue' component={Catalog} />
+            <Route exact path="/catalog/:id" component={ProductDetails} />
             
         </div>
     );
