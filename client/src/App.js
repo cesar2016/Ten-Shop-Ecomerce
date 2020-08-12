@@ -15,7 +15,8 @@ function App() {
      const producto = {
          title: 'Notebook HP ',
          precio: 3500,
-         Descr: 'sadsadasdasdas DASS '
+         cantidad: 10,      
+         descr: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt facere, natus soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga voluptas, distinctio, aperiam, ratione dolore.'
      }
 
 
