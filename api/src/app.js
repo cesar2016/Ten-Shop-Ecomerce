@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const categories = require("./routes/categories.js")
+const { Product, Category } = require("./db.js")
 
 require('./db.js');
 
@@ -21,7 +23,68 @@ server.use((req, res, next) => {
   next();
 });
 
+server.post("/", (req, res) => {
+    Category.create({
+        name: "Notebooks",
+        description: ""
+    });
+    Category.create({
+        name: "Televisores",
+        description: ""
+    });
+    Category.create({
+        name: "Heladeras",
+        description: ""
+    });
+    Category.create({
+        name: "Celulares",
+        description: ""
+    });
+    Product.create({
+        name: "HP Notebook 15 pulgadas",
+        description: "Descripcion del producto 1",
+        price: 10,
+        stock: 15,
+        image: "unaImagen1"
+    });
+    Product.create({
+        name: "Producto 2",
+        description: "Descripcion del producto 2",
+        price: 10,
+        stock: 15,
+        image: "unaImagen2"
+    });
+    Product.create({
+        name: "Producto 3",
+        description: "Descripcion del producto 3",
+        price: 15,
+        stock: 20,
+        image: "unaImagen3"
+    });
+    Product.create({
+        name: "Producto 4",
+        description: "Descripcion del producto 4",
+        price: 10,
+        stock: 15,
+        image: "unaImagen4"
+    });
+
+
+    res.send("LISTO")
+
+});
+
+
+server.get("/product", (req, res) => {
+    Category.findAll()
+        .then(prod => {
+            res.json(prod)
+        })
+})
+
 server.use('/', routes);
+
+
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
