@@ -44,32 +44,40 @@ server.post("/", async (req, res) => {
     })
     const producto1 = Product.create({
         name: "HP Notebook 15 pulgadas",
-        description: "Descripcion del producto 1",
-        price: 10,
-        stock: 15,
-        image: "unaImagen1",
+        description: "intel 9",
+        price: 37000,
+        stock: 14,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTn5Ry6GFw1QTYaGg_T_rN6C9YtXRpnKycNttRvQ38UUdFkwdJkFzs0QIJ5RDtGfnjJs2KoEAw&usqp=CAc",
     })
     const producto2 = Product.create({
-        name: "Producto 2",
-        description: "Descripcion del producto 2",
-        price: 10,
-        stock: 15,
-        image: "unaImagen2",
+        name: "Smart tv samngung",
+        description: "45 pulgadas 4k",
+        price: 31000,
+        stock: 11,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQEvsTTbXY-_n8wj1PVBeRtFBdZ5D7L7JGgi1vatfYIFwqSyAFJPWAO5alqmd_CDgCgS-TgyLk&usqp=CAc",
     });
     const producto3 = Product.create({
-        name: "Producto 3",
-        description: "Descripcion del producto 3",
-        price: 15,
-        stock: 20,
-        image: "unaImagen3",
+        name: "Heladera gama",
+        description: "25litros",
+        price: 55000,
+        stock: 13,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCDR2OLwHGdPy1ONWLy20dkFAo3zbe5kggFkd4lgruDFT-PKk9LC5s4EwubcCrxJD4tI4cSoE&usqp=CAc",
     });
     const producto4 = Product.create({
-        name: "Producto 4",
-        description: "Descripcion del producto 4",
-        price: 10,
-        stock: 15,
-        image: "unaImagen4",
+        name: "Celular Huawei",
+        description: "p20 mate",
+        price: 19500,
+        stock: 18,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRv4AnzcU0uTMcTG6FylWo1_zDB_-azy7smWNjmR9ot3kaqs7mzxZetg90zlRLWHIVrSS1USj8&usqp=CAc",
     });
+    const producto5 = Product.create({
+        name: "Notebook gaming asus",
+        description: "i9 y muchas cosas",
+        price: 85000,
+        stock: 5,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRqIlNjz8x0xOjn8Uy2KrVItX0ffXBLL4XHgQCNvMnM2EL1UaVrbMowR6EMKHkN09MqsWae3QI&usqp=CAc",
+    });
+    
 
     producto1.then((prod) => {
         prod.addCategory(categoria1)
@@ -85,6 +93,10 @@ server.post("/", async (req, res) => {
 
     producto4.then((prod) => {
         prod.addCategory(categoria4)
+    })
+
+    producto5.then((prod) => {
+        prod.addCategory(categoria1)
     })
 
     res.send("LISTO")

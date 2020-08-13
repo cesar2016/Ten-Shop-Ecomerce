@@ -10,7 +10,8 @@ import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
 import Catalogo from "./components/Products/Catalogo"
 import FormProduct from "./components/formularios/FormProduct"
-
+import Products from './components/Products/Products'
+import Home from "./components/Products/Home"
 
 
 
@@ -23,7 +24,7 @@ function App() {
         fetch("http://localhost:3001/categories/" + category)
         .then(r => r.json())
         .then((recurso) => {
-            console.log("ESTO ES LO QUE ME TRAE",   )
+            return recurso;
         })
     }
 
@@ -41,9 +42,11 @@ function App() {
     return (
         <div className="App jumbotron">
               <Route path="/" render={() => <NavBar logo={logo}  funcionTraeDatos={funcionTraeDatos}/> } />
-              <Route path="/product" render={() => <Product p = {producto}/> } />
-              <Route exact path="/" render={() => <Catalogo p = {producto}/> } />
+              <Route path="/" render={() => <Home/> } />
+              // <Route path="/product" render={() => <Product p = {producto}/> } />
+              {/* <Route exact path="/" render={() => <Catalogo p = {producto}/> } /> */}
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
+
         </div>
 
     );

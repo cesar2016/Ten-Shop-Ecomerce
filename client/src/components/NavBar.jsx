@@ -3,7 +3,7 @@ import "./NavBar.css"
 import SearchBar from "./SearchBar.jsx"
 
 
-export default function NavBar({ handleSubmit, logo, funcionTraeDatos }) {
+export default function NavBar({ handleSubmit, logo, funcionTraeDatos, products }) {
     return (
             <div>
             <div className="NavBar">
@@ -28,7 +28,7 @@ export default function NavBar({ handleSubmit, logo, funcionTraeDatos }) {
                         <a className="nav-link" href="#">Disabled</a>
                       </li>
                     </ul>
-                    <SearchBar funcionTraeDatos={funcionTraeDatos}/>
+                    <SearchBar funcionTraeDatos={funcionTraeDatos} products={products}/>
                     </div>
                     </nav>
             </div>

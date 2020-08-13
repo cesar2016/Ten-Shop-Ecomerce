@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 
-export default function SearchBar({ funcionTraeDatos }) {
+export default function SearchBar({ funcionTraeDatos, products }) {
     const [inputSearch, setInputSearch] = useState("");
 
     function handleChange(e) {
@@ -10,7 +10,10 @@ export default function SearchBar({ funcionTraeDatos }) {
     };
     function handleSubmit(e) {
         e.preventDefault();
-        funcionTraeDatos(inputSearch.inputSearch)
+        console.log("QUE TIENE EL PRODUCTS", products)
+        products = funcionTraeDatos(inputSearch.inputSearch)
+        console.log("QUE TIENE EL PRODUCTS DESPUES", products)
+
     };
 
     return (
