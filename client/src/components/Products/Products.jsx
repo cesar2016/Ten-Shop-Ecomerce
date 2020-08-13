@@ -8,9 +8,10 @@ export default function Products({products}) {
 
         <div className="container">
             {
-                products && products.map(product => {
-                return (<Catalogo p={product}/>
-                )})
+                products && products.then((e)=>{
+                    console.log('LODEL map', e)
+                    e.map(product => <Catalogo p={product}/>)
+                })
             }
         </div>
     );
