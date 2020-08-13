@@ -11,4 +11,7 @@ server.get("/:categoria", (req, res) => {
 });
 
 
+
+
+
 module.exports = server;

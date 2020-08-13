@@ -2,9 +2,11 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const product = require('./routes/product');
-const categories = require("./routes/categories")
+// const product = require('./routes/product');
+// const categories = require("./routes/categories")
 const { Product, Category } = require("./db.js")
+
+const ind = require('./routes/index')
 
 require('./db.js');
 
@@ -97,9 +99,10 @@ server.post("/", async (req, res) => {
 //         })
 // })
 
-
-server.use('/categories', categories);
+//Matchea con las rutas que definimos 
+// server.use('/categories', categories);
 // server.use('/product', product);
+server.use('/',ind)
 
 
 // Error catching endware.

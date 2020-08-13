@@ -15,17 +15,18 @@ import FormProduct from "./components/formularios/FormProduct"
 
 
 
-
 function App() {
+
     function funcionTraeDatos(category) {
         console.log("ENTRA A FUNCION TRAE DATOS")
         console.log("QUE ES CATEGORY", category)
         fetch("http://localhost:3001/categories/" + category)
         .then(r => r.json())
         .then((recurso) => {
-            console.log("ESTO ES LO QUE ME TRAE",recurso)
+            console.log("ESTO ES LO QUE ME TRAE",   )
         })
     }
+
 
      const producto = {
          id: 1,
