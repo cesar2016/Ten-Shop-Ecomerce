@@ -1,6 +1,14 @@
 const server = require('express').Router();
-const { categoriesxproducts } = require('../db.js');
+const { categoriesxproducts, Product, Category } = require('../db.js');
 
-server.get("/", (req, res) => {
-
+server.get("/:categoria", (req, res) => {
+    Category.findByPk(req.params.categoria).then(category => {
+        category.getProducts({ attributes: [ "name", "description", "price", "stock", "image" ] })
+        .then(products => {
+            res.json(products)
+        })
+    })
 });
+
+
+module.exports = server;

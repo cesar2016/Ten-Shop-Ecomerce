@@ -2,8 +2,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const routes = require('./routes/index.js');
-const categories = require("./routes/categories.js")
+const product = require('./routes/product');
+const categories = require("./routes/categories")
 const { Product, Category } = require("./db.js")
 
 require('./db.js');
@@ -23,67 +23,83 @@ server.use((req, res, next) => {
   next();
 });
 
-server.post("/", (req, res) => {
-    Category.create({
+server.post("/", async (req, res) => {
+    const categoria1 = await Category.create({
         name: "Notebooks",
         description: ""
     });
-    Category.create({
+    const categoria2 = await Category.create({
         name: "Televisores",
         description: ""
     });
-    Category.create({
+    const categoria3 = await Category.create({
         name: "Heladeras",
         description: ""
     });
-    Category.create({
+    const categoria4 = await Category.create({
         name: "Celulares",
         description: ""
-    });
-    Product.create({
+    })
+    const producto1 = Product.create({
         name: "HP Notebook 15 pulgadas",
         description: "Descripcion del producto 1",
         price: 10,
         stock: 15,
-        image: "unaImagen1"
-    });
-    Product.create({
+        image: "unaImagen1",
+    })
+    const producto2 = Product.create({
         name: "Producto 2",
         description: "Descripcion del producto 2",
         price: 10,
         stock: 15,
-        image: "unaImagen2"
+        image: "unaImagen2",
     });
-    Product.create({
+    const producto3 = Product.create({
         name: "Producto 3",
         description: "Descripcion del producto 3",
         price: 15,
         stock: 20,
-        image: "unaImagen3"
+        image: "unaImagen3",
     });
-    Product.create({
+    const producto4 = Product.create({
         name: "Producto 4",
         description: "Descripcion del producto 4",
         price: 10,
         stock: 15,
-        image: "unaImagen4"
+        image: "unaImagen4",
     });
 
+    producto1.then((prod) => {
+        prod.addCategory(categoria1)
+    })
+
+    producto2.then((prod) => {
+        prod.addCategory(categoria2)
+    })
+
+    producto3.then((prod) => {
+        prod.addCategory(categoria3)
+    })
+
+    producto4.then((prod) => {
+        prod.addCategory(categoria4)
+    })
 
     res.send("LISTO")
 
 });
 
 
-server.get("/product", (req, res) => {
-    Category.findAll()
-        .then(prod => {
-            res.json(prod)
-        })
-})
+// server.get("/product", (req, res) => {
+//     Category.findAll()
+//         .then(prod => {
+//             res.json(prod)
+//         })
+// })
 
-server.use('/', routes);
 
+server.use('/categories', categories);
+// server.use('/product', product);
 
 
 // Error catching endware.
