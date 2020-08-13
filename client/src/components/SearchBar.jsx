@@ -1,12 +1,16 @@
 import React, { Component, useState } from "react";
 
-export default function SearchBar({ handleSubmit }) {
+export default function SearchBar({ funcionTraeDatos }) {
     const [inputSearch, setInputSearch] = useState("");
 
     function handleChange(e) {
         setInputSearch({
             inputSearch: e.target.value
         });
+    };
+    function handleSubmit(e) {
+        e.preventDefault();
+        funcionTraeDatos(inputSearch.inputSearch)
     };
 
     return (
