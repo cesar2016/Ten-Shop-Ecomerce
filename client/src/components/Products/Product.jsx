@@ -11,7 +11,7 @@ export default function Product({p}) {
                 <div className="container">
                     <div className="row">
                     <div className="col-md-6">
-                        <img src="https://www.casanissei.com/media/catalog/product/cache/16a9529cefd63504739dab4fc3414065/n/b/nb_hp_15-da0073wm_i7-8550u_plata_-_1.jpg" alt="Image" className="img-fluid" height="479" width="340"/>
+                        <img src={p.image} alt="Image" className="img-fluid" height="479" width="340"/>
                     </div>
                     <div className="col-md-6">
                         <h2 className="text-black">{p.title}</h2>
