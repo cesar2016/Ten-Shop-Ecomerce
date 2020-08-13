@@ -1,9 +1,7 @@
-import { Provider } from 'react-redux'
+
 import { BrowserRouter, Route } from 'react-router-dom';
 import React from 'react';
 
-//mport { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom';
 
 import logo from './logo.svg';
 
@@ -11,6 +9,7 @@ import './App.css';
 import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
 import Catalogo from "./components/Products/Catalogo"
+import Crud from "./components/crud/Crud"
  
 
 
@@ -36,6 +35,7 @@ function App() {
               <Route path="/" render={() => <NavBar  handleSubmit={handleSubmit}/> } />                          
               <Route path="/product" render={() => <Product p = {producto}/> } /> 
               <Route exact path="/" render={() => <Catalogo p = {producto}/> } />
+              {/* <Route exact="/crud" render={() => <Crud p = {producto}/> } /> */}
 
         </div>
         
