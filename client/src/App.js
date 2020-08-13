@@ -1,5 +1,3 @@
-import { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom';
 import React from 'react';
 
 //mport { Provider } from 'react-redux'
@@ -11,6 +9,7 @@ import './App.css';
 import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
 import Catalogo from "./components/Products/Catalogo"
+import FormProduct from "./components/formularios/FormProduct"
  
 
 
@@ -31,15 +30,14 @@ function App() {
      
 
     return (
-        <div className="App jumbotron">
-             
-              <Route path="/" render={() => <NavBar  handleSubmit={handleSubmit}/> } />                          
+        <div className="App jumbotron">             
+              <Route path="/" render={() => <NavBar logo={logo}  handleSubmit={handleSubmit}/> } />                          
               <Route path="/product" render={() => <Product p = {producto}/> } /> 
               <Route exact path="/" render={() => <Catalogo p = {producto}/> } />
-
+              <Route exact path="/formProduct" render={() => <FormProduct/> } />
         </div>
         
     );
 }
-// Route es la ruta a un solo producto, 
+// Route product es la ruta a un solo producto, 
 export default App;
