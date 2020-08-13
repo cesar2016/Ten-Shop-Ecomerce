@@ -35,10 +35,10 @@ const { Product, Category, categoryxproduct } = sequelize.models;
 // Aca vendrian las relaciones
 
 
+
+
 Product.belongsToMany(Category, {through: 'categoriesxproducts', foreignKey: "product_id", otherKey: "category"});
 Category.belongsToMany(Product, {through: 'categoriesxproducts', foreignKey: "category", otherKey: "product_id"});
-
-
 
 
 
