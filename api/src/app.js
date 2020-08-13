@@ -25,7 +25,7 @@ server.use((req, res, next) => {
   next();
 });
 
-server.post("/", async (req, res) => {
+server.post("/cargaDatos", async (req, res) => {
     const categoria1 = await Category.create({
         name: "Notebooks",
         description: ""
@@ -77,7 +77,7 @@ server.post("/", async (req, res) => {
         stock: 5,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRqIlNjz8x0xOjn8Uy2KrVItX0ffXBLL4XHgQCNvMnM2EL1UaVrbMowR6EMKHkN09MqsWae3QI&usqp=CAc",
     });
-    
+
 
     producto1.then((prod) => {
         prod.addCategory(categoria1)
@@ -111,7 +111,7 @@ server.post("/", async (req, res) => {
 //         })
 // })
 
-//Matchea con las rutas que definimos 
+//Matchea con las rutas que definimos
 // server.use('/categories', categories);
 // server.use('/product', product);
 server.use('/',ind)
