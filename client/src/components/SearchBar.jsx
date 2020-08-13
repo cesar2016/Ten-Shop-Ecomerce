@@ -10,7 +10,10 @@ export default function SearchBar({ funcionTraeDatos, products }) {
     };
     function handleSubmit(e) {
         e.preventDefault();
+        console.log("QUE TIENE EL PRODUCTS", products)
         products = funcionTraeDatos(inputSearch.inputSearch)
+        console.log("QUE TIENE EL PRODUCTS DESPUES", products)
+
     };
 
     return (

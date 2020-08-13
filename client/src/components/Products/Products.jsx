@@ -1,14 +1,17 @@
 import React from 'react';
 import Product from './Product';
- 
-export default function Products({p}) { 
+import Catalogo from "./Catalogo"
 
-    return (         
-       
+export default function Products({products}) {
+    console.log("QUE TIENE EL P EN PRODUCTS", products)
+    return (
+
         <div className="container">
-            {p && p.map(product => {
-                return (<Product p={product}/>
-            )})}      
+            {
+                products && products.map(product => {
+                return (<Catalogo p={product}/>
+                )})
+            }
         </div>
     );
 };

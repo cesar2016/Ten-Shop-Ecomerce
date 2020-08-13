@@ -11,19 +11,21 @@ import Product from "./components/Products/Product"
 import Catalogo from "./components/Products/Catalogo"
 import FormProduct from "./components/formularios/FormProduct"
 import Products from './components/Products/Products'
+import Home from "./components/Products/Home"
 
 
 
 
 
 function App() {
+
     function funcionTraeDatos(category) {
         console.log("ENTRA A FUNCION TRAE DATOS")
         console.log("QUE ES CATEGORY", category)
         fetch("http://localhost:3001/categories/" + category)
         .then(r => r.json())
         .then((recurso) => {
-            console.log("ESTO ES LO QUE ME TRAE",recurso)
+            return recurso;
         })
     }
 
@@ -35,19 +37,15 @@ function App() {
          descr: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt facere, natus soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga voluptas, distinctio, aperiam, ratione dolore.'
      }
 
-     var products;
+
 
     return (
-
-        
-       
-
         <div className="App jumbotron">
               <Route path="/" render={() => <NavBar logo={logo}  funcionTraeDatos={funcionTraeDatos}/> } />
-              <Route path="/product" render={() => <Product p = {producto}/> } />
+              <Route path="/" render={() => <Home/> } />
+              // <Route path="/product" render={() => <Product p = {producto}/> } />
               {/* <Route exact path="/" render={() => <Catalogo p = {producto}/> } /> */}
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
-              <Route path="/" render={() => <Products  p={products}/> } />
 
         </div>
 

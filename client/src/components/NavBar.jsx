@@ -28,7 +28,7 @@ export default function NavBar({ handleSubmit, logo, funcionTraeDatos, products 
                         <a className="nav-link" href="#">Disabled</a>
                       </li>
                     </ul>
-                    <SearchBar funcionTraeDatos={funcionTraeDatos} bool={products}/>
+                    <SearchBar funcionTraeDatos={funcionTraeDatos} products={products}/>
                     </div>
                     </nav>
             </div>
