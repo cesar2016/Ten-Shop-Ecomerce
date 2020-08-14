@@ -8,6 +8,16 @@ server.get('/', (req, res, next) => {
 			res.send(data)
 	})
  });
+
+ server.get('/:id', (req, res, next) => {
+	Product.findAll({		
+		where: {
+		  id: req.params.id
+		}
+	  }).then(function(data){
+		  res.send(data)
+	  })   
+	});
    
 
 
