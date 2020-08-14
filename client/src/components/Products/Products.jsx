@@ -2,7 +2,7 @@ import React from 'react';
 import Product from './Product.jsx';
 
 
-export default function Cards({products}) { 
+export default function Cards({products}) {
     if(products){
       return (
         <div className='container'>
@@ -14,8 +14,8 @@ export default function Cards({products}) {
               description={c.description}
               price={c.price}
               stock={c.stock}
-              image={c.image}          
-              
+              image={c.image}
+
             /> )}
                   </div>
                 </div>
@@ -31,4 +31,3 @@ export default function Cards({products}) {
       )
     }
   }
-  
