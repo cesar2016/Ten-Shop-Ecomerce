@@ -1,12 +1,15 @@
 import React from 'react';
-import Product from './Product.jsx';
+import TarjetCatalogue from './TarjetCatalogue.jsx';
 
 
-export default function Cards({products}) { 
-    if(products){
+export default function Cards({objetos}) {
+    console.log(objetos)
+    //console.log('/products.jsx -------',products,'eeeeeentrando array 0 ->');
+    //console.log('aaaaaaaaa', products[0].name);
+    if(objetos){
       return (
         <div className='container'>
-          {products.map(c => <Product
+          {objetos.map(c => <TarjetCatalogue
               name={c.name}
               description={c.description}
               price={c.price}
