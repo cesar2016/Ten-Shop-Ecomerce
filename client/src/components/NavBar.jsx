@@ -3,7 +3,7 @@ import "./NavBar.css"
 import SearchBar from "./SearchBar.jsx"
 
 
-export default function NavBar({ handleSubmit, logo }) {
+export default function NavBar({ handleSubmit, logo, funcionTraeDatos }) {
     return (
             <div>
             <div className="NavBar">
@@ -13,7 +13,7 @@ export default function NavBar({ handleSubmit, logo }) {
                     </button>
                     <a class="navbar-brand" href="#">
                       <img src={logo} width="30" height="30" class="d-inline-block align-top" alt=""/>
-                       
+
                     </a>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <a className="navbar-brand" href="#"></a>
@@ -28,10 +28,10 @@ export default function NavBar({ handleSubmit, logo }) {
                         <a className="nav-link" href="#">Disabled</a>
                       </li>
                     </ul>
-                    <SearchBar handleSubmit={handleSubmit}/>
+                    <SearchBar funcionTraeDatos={funcionTraeDatos}/>
                     </div>
                     </nav>
-            </div>         
+            </div>
 
         </div>
 
