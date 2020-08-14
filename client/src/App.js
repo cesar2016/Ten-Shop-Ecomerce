@@ -8,7 +8,6 @@ import logo from './logo.svg';
 import './App.css';
 import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
-import Catalogo from "./components/Products/Catalogo"
 import FormProduct from "./components/formularios/FormProduct"
 import Catalogue from "./components/Products/Catalogue"
 
@@ -49,13 +48,21 @@ function App() {
         });
       },[]);
 
+      var productone = {
+        name: "asdasd",
+        price: 50,
+        description: 'asdasdasdasdasd',
+        stock: 20
+    }
+
 
     return (
-        <div className="App jumbotron">
+        <div className="App content">
               <Route path="/" render={() => <NavBar logo={logo}  funcionTraeDatos={funcionTraeDatos}/> } />
               <Route path="/" render={() => <Products products={products}/> } />
               <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />
               {/* <Route exact path="/catalogue" render={() => <Catalogo p = {products}/> } /> */}
+              <Route path="/product" render={() => <Product products={productone}/> } />
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
         </div>
 

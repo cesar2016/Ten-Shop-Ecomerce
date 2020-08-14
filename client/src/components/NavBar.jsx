@@ -6,8 +6,7 @@ import SearchBar from "./SearchBar.jsx"
 
 export default function NavBar({ handleSubmit, logo }) {
     return (
-            <div className="container">
-           
+            <div className="jumbotron fixed-top">    
 
             
             <header class="header-container">                
