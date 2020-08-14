@@ -10,6 +10,18 @@ server.get('/', (req, res, next) => {
  });
 
 
+ server.get('/:id', (req, res, next) => {
+	Product.findAll({		
+		where: {
+		  id: req.params.id
+		}
+	  }).then(function(data){
+		  res.send(data)
+	  })   
+	});
+   
+
+
 // este post devuelve un array con dos componentes,
 // el objeto con el producto recien publicado en la DB
 // y devuelve un booleano con true (si se agrego en la DB)
@@ -45,6 +57,7 @@ server.put("/:id", (req, res) => {
 			res.send(result)
 		});
 });
+
 
 
 

@@ -1,21 +1,21 @@
 import React from 'react';
-import Product from './Product.jsx';
+import TarjetCatalogue from './TarjetCatalogue.jsx';
 
 
-export default function Cards({products}) {
+export default function Cards({products}) { 
     if(products){
       return (
-        <div className='container'>
+        <div classNameName='container'>
            <section className="gallery-block gallery-front">
                 <div className="container">                    
                     <div className="row">  
-          {products.map(c => <Product
+          {products.map(c => <TarjetCatalogue
               name={c.name}
               description={c.description}
               price={c.price}
               stock={c.stock}
-              image={c.image}
-
+              image={c.image}          
+              
             /> )}
                   </div>
                 </div>
@@ -31,3 +31,4 @@ export default function Cards({products}) {
       )
     }
   }
+  
