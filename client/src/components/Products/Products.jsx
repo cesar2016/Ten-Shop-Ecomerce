@@ -6,6 +6,9 @@ export default function Cards({products}) {
     if(products){
       return (
         <div className='container'>
+           <section class="gallery-block gallery-front">
+                <div class="container">                    
+                    <div class="row">  
           {products.map(c => <Product
               name={c.name}
               description={c.description}
@@ -14,6 +17,12 @@ export default function Cards({products}) {
               image={c.image}          
               
             /> )}
+                  </div>
+                </div>
+            </section>
+              
+              
+               
         </div>
       );
     } else {
