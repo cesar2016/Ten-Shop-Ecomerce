@@ -1,16 +1,24 @@
 import React from 'react';
-import Product from './Product';
-import Catalogo from "./Catalogo"
+import Product from './Product.jsx';
 
-export default function Products({products}) {
-    console.log("QUE TIENE EL P EN PRODUCTS", products)
-    return (
 
-        <div className="container">
-            {
-                products && products.map(product => <Catalogo p={product}/>)
-                
-            }
+export default function Cards({products}) {
+    if(products){
+      return (
+        <div className='container'>
+          {products.map(c => <Product
+              name={c.name}
+              description={c.description}
+              price={c.price}
+              stock={c.stock}
+              image={c.image}
+
+            /> )}
         </div>
-    );
-};
+      );
+    } else {
+      return(
+        <div>Sin Productos</div>
+      )
+    }
+  }

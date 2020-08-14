@@ -4,11 +4,11 @@ const { Product } = require('../db.js');
 
 
 server.get('/', (req, res, next) => {
-	Product.findAll()
-		.then(products => {
-			res.send(products);
-		})
-		.catch(next);
-});
+	Product.findAll().then(function(data){
+			res.send(data)
+	})
+ });
+   
+
 
 module.exports = server;
