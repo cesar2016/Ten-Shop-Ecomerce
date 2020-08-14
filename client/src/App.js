@@ -19,7 +19,7 @@ function App() {
     const [products, setProducts] = useState([]);
     const [objetos, setObjetos] = useState([]);
 
-    function funcionTraeDatos(category) {        
+    function funcionTraeDatos(category) {
         fetch("http://localhost:3001/categories/" + category)
         .then(r => r.json())
         .then((recurso) => {
@@ -28,10 +28,9 @@ function App() {
             }
             else{
                 alert("Producto no encontrado");
-              }           
-          
+              }
         });
-        
+
     }
 
     useEffect(() => {
@@ -43,8 +42,7 @@ function App() {
             }
             else{
                 alert("Producto no encontrado");
-              }                  
-          
+              }
         });
       },[]);
 
@@ -61,7 +59,6 @@ function App() {
               <Route path="/" render={() => <NavBar logo={logo}  funcionTraeDatos={funcionTraeDatos}/> } />
               <Route path="/" render={() => <Products products={products}/> } />
               <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />
-              {/* <Route exact path="/catalogue" render={() => <Catalogo p = {products}/> } /> */}
               <Route path="/product" render={() => <Product products={productone}/> } />
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
         </div>
