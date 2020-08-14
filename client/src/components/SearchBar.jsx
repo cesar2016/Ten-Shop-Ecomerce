@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import { Link } from 'react-router-dom';
 
 export default function SearchBar({ funcionTraeDatos }) {
     const [inputSearch, setInputSearch] = useState("");
@@ -11,14 +12,20 @@ export default function SearchBar({ funcionTraeDatos }) {
     function handleSubmit(e) {
         e.preventDefault();
         funcionTraeDatos(inputSearch.inputSearch)
+        
+        
     };
 
     return (
         <div>
-            <form className="form-inline my-2 my-lg-0" onSubmit={(e) => handleSubmit(e)}>
+              <Link to="/asd">
+            <form  className="form-inline my-2 my-lg-0" onSubmit={(e) => handleSubmit(e)}>
               <input className="form-control mr-sm-2" type="search" placeholder="..." aria-label="Search" onChange={(e) => handleChange(e)}/>
-              <button className="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+              <button                          
+              className="btn btn-success my-2 my-sm-0" 
+              type="submit">Buscar</button>
             </form>
+              </Link>
         </div>
     );
 };

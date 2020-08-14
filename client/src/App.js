@@ -36,24 +36,26 @@ function App() {
     }
 
     useEffect(() => {
-        fetch("http://localhost:3001/products")
+       return fetch("http://localhost:3001/products")
         .then(r => r.json())
         .then((recurso) => {
             if(recurso){
                setObjetos(recurso);
             }
-                 
+            else{
+                alert("Producto no encontrado");
+              }                  
           
         });
-      });
+      },[]);
 
 
     return (
         <div className="App jumbotron">
               <Route path="/" render={() => <NavBar logo={logo}  funcionTraeDatos={funcionTraeDatos}/> } />
               <Route path="/" render={() => <Products products={products}/> } />
-              <Route path="/" render={() => <Catalogue objetos={objetos}/> } />
-              <Route exact path="/catalogue" render={() => <Catalogo p = {products}/> } />
+              <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />
+              {/* <Route exact path="/catalogue" render={() => <Catalogo p = {products}/> } /> */}
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
         </div>
 
