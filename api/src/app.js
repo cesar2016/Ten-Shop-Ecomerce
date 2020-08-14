@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const product = require('./routes/product');
 const categories = require("./routes/categories")
 const { Product, Category } = require("./db.js")
+const ind = require('./routes/index')
+
 
 require('./db.js');
 
@@ -68,6 +70,20 @@ server.post("/", async (req, res) => {
         stock: 15,
         image: "unaImagen4",
     });
+    const producto5 = Product.create({
+        name: "Producto NOte1",
+        description: "Descripcion del producto 4",
+        price: 10,
+        stock: 15,
+        image: "unaImagen4",
+    });
+    const producto6 = Product.create({
+        name: "Producto NOTE 2",
+        description: "Descripcion del producto 4",
+        price: 10,
+        stock: 15,
+        image: "unaImagen4",
+    });
 
     producto1.then((prod) => {
         prod.addCategory(categoria1)
@@ -84,6 +100,12 @@ server.post("/", async (req, res) => {
     producto4.then((prod) => {
         prod.addCategory(categoria4)
     })
+    producto5.then((prod) => {
+        prod.addCategory(categoria1)
+    })
+    producto6.then((prod) => {
+        prod.addCategory(categoria1)
+    })
 
     res.send("LISTO")
 
@@ -98,8 +120,9 @@ server.post("/", async (req, res) => {
 // })
 
 
-server.use('/categories', categories);
-// server.use('/product', product);
+/* server.use('/categories', categories);
+server.use('/product', product); */
+server.use('/',ind)
 
 
 // Error catching endware.

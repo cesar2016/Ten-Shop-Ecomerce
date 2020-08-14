@@ -5,7 +5,7 @@ server.get("/:categoria", (req, res) => {
     Category.findByPk(req.params.categoria).then(category => {
         category.getProducts({ attributes: [ "name", "description", "price", "stock", "image" ] })
         .then(products => {
-            res.json(products)
+            res.send(products)
         })
     })
 });
