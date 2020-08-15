@@ -118,6 +118,8 @@ server.post("/", async (req, res) => {
         prod.addCategory(categoria3)
     })
 
+
+
     res.send("LISTO")
 
 });

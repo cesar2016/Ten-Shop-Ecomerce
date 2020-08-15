@@ -1,22 +1,21 @@
 import React, { useState } from "react"
 import "./NavBar.css"
 import SearchBar from "./SearchBar.jsx"
-//port indent from "../../public/style/images/logo."
+import { Link } from "react-router-dom";
 
 
 export default function NavBar({ funcionTraeDatos, logo }) {
     return (
-            <div className="jumbotron fixed-top">    
+            <div className="jumbotron fixed-top">
 
-            
-            <header className="header-container">                
-                    
+
+            <header className="header-container">
+
                         <nav className="navbar navbar-expand-lg navbar-light  fixed-top">
                             <div className="col-md-2 col-sm-6 col-xs-6">
                                 <div id="logo">
-                                     {/* <a href="index.html"><img src="style/images/logo.png"/></a>  */}
-                                    <a href="index.html"><span>Ten</span>/ Shop</a>                                     
-                                </div>                       
+                                    <a href="index.html"><span>Ten</span>/ Shop</a>
+                                </div>
                             </div>
                             <div className="col-sm-6 visible-sm">
                                 <div className="text-right"><button type="button" className="book-now-btn">Book Now</button></div>
@@ -34,24 +33,32 @@ export default function NavBar({ funcionTraeDatos, logo }) {
                                     </div>
                                     <div className="collapse navigation navbar-collapse navbar-ex1-collapse remove-space">
                                         <ul className="list-unstyled nav1 cl-effect-10">
+                                        <Link to="/">
                                             <li><a  data-hover="Home" className="active"><span>Home</span></a></li>
-                                            <li><a data-hover="About"  href="about.html"><span>About</span></a></li>
-                                            <li><a data-hover="Rooms"  href="rooms.html"><span>Rooms</span></a></li>
+                                        </Link>
+                                        <Link to="/about">
+                                            <li><a data-hover="About"><span>About</span></a></li>
+                                        </Link>
+                                            <li><a data-hover="Rooms"  href="rooms.html"><span>Category</span></a></li>
                                             <li><a data-hover="Gallery"  href="gallery.html"><span>Gallery</span></a></li>
                                             <li><a data-hover="Dinning" href="dinning.html"><span>Dinning</span></a></li>
+                                        <Link to="/news">
                                             <li><a data-hover="News" href="news.html"><span>News</span></a></li>
+                                        </Link>
+                                        <Link to="/contact">
                                             <li><a data-hover="Contact Us" href="contact.html"><span>contact Us</span></a></li>
+                                        </Link>
                                         </ul>
-                                        
+
 
                                     </div>
                                 </nav>
-                            </div>                             
+                            </div>
                             <SearchBar funcionTraeDatos={funcionTraeDatos}/>
-                            
+
                         </nav>
-                  
-                
+
+
             </header>
 
         </div>

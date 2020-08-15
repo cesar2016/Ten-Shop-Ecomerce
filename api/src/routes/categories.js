@@ -1,8 +1,10 @@
 const server = require('express').Router();
 const { categoriesxproducts, Product, Category } = require('../db.js');
 
-server.get("/:categoria", (req, res) => {
-    Category.findByPk(req.params.categoria).then(category => {
+
+// MUESTRA LOS PRODUCTOS DE CIERTA CATEGORIA SEGUN EL NOMBRE DE LA MISMA
+server.get("/:idCategoria", (req, res) => {
+    Category.findByPk(req.params.idCategoria).then(category => {
         category.getProducts({ attributes: [ "name", "description", "price", "stock", "image" ] })
         .then(products => {
             res.send(products)
@@ -10,19 +12,24 @@ server.get("/:categoria", (req, res) => {
     })
 });
 
+
+// MUESTRA TODAS LAS CATEGORIAS
 server.get("/",  (req, res, next) => {
     Category.findAll().then(function(categorias){
         res.send(categorias);
     });
   });
 
-  server.put('/:id', (req, res) => {
-    const {id} = req.params;
-	const {body} = req;
-	Category.update(body, {where: {id} })
-	 .then(result => {
-		res.send(result);
-        })
+
+
+// MODIFICA ALGUNA CATEGORIA SEGUN ID
+server.put('/:id', (req, res) => {
+  const {id} = req.params;
+  const {body} = req;
+  Category.update(body, {where: {id} })
+    .then(result => {
+      res.send(result);
+    })
 })
 
 
@@ -40,6 +47,15 @@ server.post("/:categoria", (req, res) => {
     })
 });
 
+server.delete("/:category", (req, res) => {
+	const { category } = req.params;
+	Category.destroy({ where: { name: category } })
+		.then(result => {
+			if (result) return res.status(200)
+			res.send(false)
+		})
+		.catch(() => res.status(404))
+});
 
 
 

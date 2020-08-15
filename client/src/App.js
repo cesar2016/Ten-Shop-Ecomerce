@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CategoryProducts from './components/Products/CategoryProducts.jsx';
 //mport { Provider } from 'react-redux'
 import { BrowserRouter, Route } from 'react-router-dom';
-
+import Contact from "./components/Contact"
 import logo from './logo.svg';
 
 import './App.css';
@@ -10,6 +10,7 @@ import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
 import FormProduct from "./components/formularios/FormProduct"
 import Catalogue from "./components/Products/Catalogue"
+import About from "./components/About"
 
 
 
@@ -45,13 +46,6 @@ function App() {
         });
       },[]);
 
-      var productone = {
-        name: "asdasd",
-        price: 50,
-        description: 'asdasdasdasdasd',
-        stock: 20
-    }
-
 
     return (
         <div className="App content">
@@ -60,7 +54,8 @@ function App() {
               <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />
               <Route path="/product" render={({match}) => <Product match={match}/> } />
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
-
+              <Route exact path = "/contact" render = {() => <Contact/>} />
+              <Route exact path = "/about" render = {() => <About/>} />
         </div>
 
     );
