@@ -24,6 +24,7 @@ function App() {
         .then((recurso) => {
             if(recurso){
                 setProductos(recurso);
+                setObjetos([])
             }
             else{
                 alert("Producto no encontrado");
@@ -56,11 +57,10 @@ function App() {
     return (
         <div className="App content">
               <Route path="/" render={() => <NavBar logo={logo}  funcionTraeDatos={funcionTraeDatos}/> } />
-              <Route path="/" render={() => <CategoryProducts products={productos}/> } />
-              <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />
+              <Route exact path="/search" render={() => <CategoryProducts products={productos}/> } />{/*buscador*/}
+              <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />{/*HOME*/}
               <Route path="/product" render={({match}) => <Product match={match}/> } />
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
-
         </div>
 
     );
