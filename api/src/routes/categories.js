@@ -28,4 +28,17 @@ server.get("/",  (req, res, next) => {
 
 
 
+// este post devuelve un array con dos componentes,
+// el objeto con la categoria recien publicada en la DB
+// y devuelve un booleano con true (si se agrego en la DB)
+// o devuelve un booleano con false (si no se agregó en la tabla)
+server.post("/:categoria", (req, res) => {
+  const { categoria } = req.params
+  Category.findOrCreate({ where: { name: categoria, description: "" }})
+    .then(result =>{
+      res.send(result)
+    })
+});
+
+
 module.exports = server;
