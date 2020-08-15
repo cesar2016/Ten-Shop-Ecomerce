@@ -10,6 +10,23 @@ server.get("/:categoria", (req, res) => {
     })
 });
 
+server.get("/",  (req, res, next) => {
+    Category.findAll().then(function(categorias){
+        res.send(categorias);
+    });
+  });
+
+  server.put('/:id', (req, res) => {
+    const {id} = req.params;
+	const {body} = req;
+	Category.update(body, {where: {id} })
+	 .then(result => {
+		res.send(result);
+        })
+})
+
+
+
 
 // este post devuelve un array con dos componentes,
 // el objeto con la categoria recien publicada en la DB
