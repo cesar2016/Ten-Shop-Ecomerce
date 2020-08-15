@@ -11,6 +11,7 @@ export default function SearchBar({ funcionTraeDatos }) {
     };
 
     function handleSubmit(e) {
+      console.log("HANDLE", inputSearch.inputSearch)
         e.preventDefault();
         funcionTraeDatos(inputSearch.inputSearch)
     };
