@@ -10,6 +10,8 @@ import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
 import FormProduct from "./components/formularios/FormProduct"
 import Catalogue from "./components/Products/Catalogue"
+import About from "./components/About"
+import Contact from "./components/Contact"
 
 
 
@@ -34,7 +36,7 @@ function App() {
     }
 
     useEffect(() => {
-       return fetch("http://localhost:3001/products")
+      fetch("http://localhost:3001/products")
         .then(r => r.json())
         .then((recurso) => {
             if(recurso){
@@ -61,6 +63,8 @@ function App() {
               <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />{/*HOME*/}
               <Route path="/product" render={({match}) => <Product match={match}/> } />
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
+              <Route exact path="/about" render={() => <About/> } />
+              <Route exact path="/Contact" render={() => <Contact/> } />
         </div>
 
     );

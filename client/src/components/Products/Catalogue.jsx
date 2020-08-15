@@ -8,14 +8,13 @@ export default function Cards({objetos}) {
     //console.log('aaaaaaaaa', products[0].name);
     if(objetos){
       return (
-        <div className='container'>
+        <div className='container' style={{marginTop: "40px"}}>
           {objetos.map(c => <TarjetCatalogue
               name={c.name}
               description={c.description}
               price={c.price}
               stock={c.stock}
-              image={c.image}          
-              
+              image={c.image}
             /> )}
         </div>
       );
@@ -25,4 +24,3 @@ export default function Cards({objetos}) {
       )
     }
   }
-  
