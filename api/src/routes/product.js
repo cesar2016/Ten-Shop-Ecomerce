@@ -10,15 +10,21 @@ server.get('/', (req, res, next) => {
  });
 
 
- server.get('/:id', (req, res, next) => {
-	Product.findAll({		
-		where: {
-		  id: req.params.id
-		}
-	  }).then(function(data){
-		  res.send(data)
-	  })   
-	});
+ server.get('/:id', (req, res) => {
+	 Product.findByPk(req.params.id).then(post => {
+		 res.send(post);
+	 })
+ });
+
+ server.put('/:id', (req, res) => {
+	const {id} = req.params;
+	const {body} = req;
+	Product.update(body, {where: {id} })
+	 .then(result => {
+		res.send(result);
+	 });
+ });
+
    
 
 
