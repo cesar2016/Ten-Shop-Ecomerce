@@ -39,14 +39,20 @@ export default function NavBar({ funcionTraeDatos, logo }) {
                                         <Link to="/about">
                                             <li><a data-hover="About"><span>About</span></a></li>
                                         </Link>
-                                            <li><a data-hover="Rooms"  href="rooms.html"><span>Category</span></a></li>
-                                            <li><a data-hover="Gallery"  href="gallery.html"><span>Gallery</span></a></li>
-                                            <li><a data-hover="Dinning" href="dinning.html"><span>Dinning</span></a></li>
-                                        <Link to="/news">
-                                            <li><a data-hover="News" href="news.html"><span>News</span></a></li>
+                                        <Link to="/#">
+                                            <li><a data-hover="Rooms" ><span>Category</span></a></li>
+                                        </Link>
+                                        <Link to="/#">
+                                            <li><a data-hover="Gallery" ><span>Gallery</span></a></li>
+                                        </Link>
+                                        <Link to="/#">
+                                            <li><a data-hover="Dinning" ><span>Dinning</span></a></li>
+                                        </Link>
+                                        <Link to="/#">
+                                            <li><a data-hover="News" ><span>News</span></a></li>
                                         </Link>
                                         <Link to="/contact">
-                                            <li><a data-hover="Contact Us" href="contact.html"><span>contact Us</span></a></li>
+                                            <li><a data-hover="Contact Us"><span>contact Us</span></a></li>
                                         </Link>
                                         </ul>
 
