@@ -10,6 +10,7 @@ export default function Cards({objetos}) {
       return (
         <div className='container' style={{marginTop: "40px"}}>
           {objetos.map(c => <TarjetCatalogue
+              id={c.id}
               name={c.name}
               description={c.description}
               price={c.price}

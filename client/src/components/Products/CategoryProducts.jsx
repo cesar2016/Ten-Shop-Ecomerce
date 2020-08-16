@@ -7,14 +7,18 @@ export default function Cards({products}) {
     if(products){
       return (
         <div className='container'>
-          {products.map(c => <TarjetCatalogue
-              name={c.name}
-              description={c.description}
-              price={c.price}
-              stock={c.stock}
-              image={c.image}
+          {products.map(c => {
+            {console.log("ACAAAAA", c)}
+            return <TarjetCatalogue
+                id={c.id}
+                name={c.name}
+                description={c.description}
+                price={c.price}
+                stock={c.stock}
+                image={c.image}
 
-            /> )}
+              />
+          } )}
 
         </div>
       );

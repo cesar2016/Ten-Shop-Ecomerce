@@ -54,7 +54,7 @@ function App() {
         stock: 20
     }
 
-    if(productos != ""){  //Si la busqueda vine con algo carga solo el NavBar y CategoryProducts,
+    if(productos.length !== 0){  //Si la busqueda vine con algo carga solo el NavBar y CategoryProducts,
         // si no muesta todas las demas rutas
 
         return (
@@ -73,8 +73,9 @@ function App() {
         <div className="App jumbotron  bg-white">
               <Route path="/" render={() => <NavBar funcionTraeDatos={funcionTraeDatos}/> } />
               <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />
-              <Route path="/product" render={({match}) => <Product match={match}/> } />
+              <Route path="/product/:id" render={({match}) => <Product productos={objetos} id={match.params.id} productosBusqueda={productos}/> } />
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
+              <Route exact path="/about" render={() => <About/> } />
 
         </div>
 
