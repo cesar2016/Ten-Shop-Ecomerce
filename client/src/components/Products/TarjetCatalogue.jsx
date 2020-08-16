@@ -3,7 +3,7 @@ import "./Catalogo.css"
 import { NavLink } from 'react-router-dom'
 
 export default function Catalogo({price, name, stock, id}) {
-
+    //console.log("TarjetCatalogue", name)
     return (
 
         <div className="content">

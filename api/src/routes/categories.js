@@ -3,7 +3,7 @@ const { categoriesxproducts, Product, Category } = require('../db.js');
 
 server.get("/:category", (req, res) => {
     Category.findByPk(req.params.category).then(category => {
-        category.getProducts({ attributes: [ "name", "description", "price", "stock", "image" ] })
+        category.getProducts({ attributes: [ "name", "description", "price", "stock", "image", "id"] })
         .then(products => {
             res.send(products)
         })
