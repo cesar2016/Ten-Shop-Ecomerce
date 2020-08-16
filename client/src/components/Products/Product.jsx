@@ -51,13 +51,13 @@ export default function Product({id, productos, productosBusqueda}) {
                         <div className="view-set-block">
                             <div className="col-md-6 col-sm-6 col-xs-12">
                                 <div className="event-blog-image">
-                                    <img alt="image" className="img-responsive" src="https://www.casanissei.com/media/catalog/product/cache/16a9529cefd63504739dab4fc3414065/n/b/nb_hp_15-da0073wm_i7-8550u_plata_-_1.jpg"/>
+                                    <img alt="image" className="img-responsive" src={resultado.image}/>
                                 </div>
                             </div>
                             <div className="col-md-6 col-sm-6 col-xs-12 side-in-image">
                                 <div className="event-blog-details">
                                     <h4><a href="single-blog.html">{resultado.name}</a></h4>
-                                    <h5><i aria-hidden="true" className="fa fa-money  fa-lg"></i> $ {resultado.price} <i aria-hidden="true" className="fa fa-check fa-lg"></i>{resultado.stock}</h5>
+                                    <h5><i aria-hidden="true" className="fa fa-money  fa-lg"></i> <strong className= "text-danger">$ {resultado.price}</strong> <i aria-hidden="true" className="fa fa-check fa-lg"></i><strong className = "text-success">Stock: {resultado.stock}</strong></h5>
                                     <p>{resultado.description}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lorem nulla, ornare eu felis quis, efficitur posuere nulla. Aliquam ac luctus turpis, non faucibus sem. Fusce ornare turpis neque, eu commodo sapien porta sed. Nam ut ante turpis. Nam arcu odio, scelerisque a vehicula vitae, auctor sit amet lectus. </p>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lorem nulla, ornare eu felis quis, efficitur posuere nulla. Aliquam ac luctus turpis, non faucibus sem. Fusce ornard hendrerit tortor vulputate id. Vestibulum mauris nibh, luctus non maximus vitae, porttitor eget neque. Donec tristique nunc facilisis, dapibus libero ac</p>
 
