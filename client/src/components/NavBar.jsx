@@ -49,10 +49,10 @@ export default function NavBar({ funcionTraeDatos, logo }) {
                             </div>                             
                             <SearchBar funcionTraeDatos={funcionTraeDatos}/>
                             
-                        </nav>
-                  
+                        </nav>                 
                 
             </header>
+            
 
         </div>
 

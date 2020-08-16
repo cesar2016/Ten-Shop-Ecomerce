@@ -5,15 +5,15 @@ export default function SearchBar({ funcionTraeDatos }) {
 
     function handleChange(e) {       
         setInputSearch({
-            inputSearch: e.target.value
-        });
+            inputSearch: e.target.value            
+        });       
     };
 
     function handleSubmit(e) {
-        e.preventDefault();
-
-        funcionTraeDatos(inputSearch.inputSearch)
-        
+        e.preventDefault();      
+         
+         
+            funcionTraeDatos(inputSearch.inputSearch) 
         
     };
 
@@ -28,6 +28,7 @@ export default function SearchBar({ funcionTraeDatos }) {
                 </button>
             </form>
                 </div>
+                
         </div>
     );
 };

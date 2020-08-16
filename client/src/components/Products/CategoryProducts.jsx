@@ -5,29 +5,21 @@ import TarjetCatalogue from './TarjetCatalogue.jsx';
 export default function Cards({products}) { 
     if(products){
       return (
-        <div classNameName='container'>
-           <section className="gallery-block gallery-front">
-                <div className="container">                    
-                    <div className="row">  
+        <div className='container'>           
           {products.map(c => <TarjetCatalogue
               name={c.name}
               description={c.description}
               price={c.price}
               stock={c.stock}
-              image={c.image}          
+              image={c.image}              
               
             /> )}
-                  </div>
-                </div>
-            </section>
-              
-              
-               
+            
         </div>
       );
     } else {
       return(
-        <div>Sin Productos</div>
+        <div className="alert alert-danger">Sin Productos</div>
       )
     }
   }
