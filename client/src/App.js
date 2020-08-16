@@ -1,6 +1,7 @@
+import React, { useState, useEffect } from 'react';
+import CategoryProducts from './components/Products/CategoryProducts.jsx';
+//mport { Provider } from 'react-redux'
 import { BrowserRouter, Route } from 'react-router-dom';
-import React from 'react';
-
 
 import logo from './logo.svg';
 
@@ -8,7 +9,6 @@ import './App.css';
 import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
 import Catalogo from "./components/Products/Catalogo"
-import Crud from "./components/crud/Crud"
 import FormProduct from "./components/formularios/FormProduct"
 import Catalogue from "./components/Products/Catalogue"
 
