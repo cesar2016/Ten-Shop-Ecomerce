@@ -54,19 +54,32 @@ function App() {
         stock: 20
     }
 
+    if(productos != ""){  //Si la busqueda vine con algo carga solo el NavBar y CategoryProducts,
+        // si no muesta todas las demas rutas
 
+        return (
+
+            <div className="App jumbotron  bg-white">
+                  <Route path="/" render={() => <NavBar logo={logo}  funcionTraeDatos={funcionTraeDatos}/> } />
+                  <Route path="/" render={() => <CategoryProducts products={productos}/> } />
+
+            </div>
+
+        );
+
+    }else{
     return (
-        <div className="App content">
-              <Route path="/" render={() => <NavBar logo={logo}  funcionTraeDatos={funcionTraeDatos}/> } />
-              <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />{/*HOME*/}
-              <Route exact path="/search" render={() => <CategoryProducts products={productos}/> } />{/*buscador*/}
-              {/* <Route path="/product" render={({match}) => <Product match={match}/> } /> */}
+
+        <div className="App jumbotron  bg-white">
+              <Route path="/" render={() => <NavBar funcionTraeDatos={funcionTraeDatos}/> } />
+              <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />
+              <Route path="/product" render={({match}) => <Product match={match}/> } />
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
-              <Route exact path="/about" render={() => <About/> } />
-              <Route exact path="/contact" render={() => <Contact/> } />
+
         </div>
 
     );
+    }
 }
 // Route product es la ruta a un solo producto,
 export default App;

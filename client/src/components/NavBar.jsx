@@ -65,8 +65,8 @@ export default function NavBar({ funcionTraeDatos, logo }) {
 
                         </nav>
 
-
             </header>
+
 
         </div>
 
