@@ -60,10 +60,10 @@ function App() {
               <Route path="/" render={() => <NavBar logo={logo}  funcionTraeDatos={funcionTraeDatos}/> } />
               <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />{/*HOME*/}
               <Route exact path="/search" render={() => <CategoryProducts products={productos}/> } />{/*buscador*/}
-              <Route path="/product" render={({match}) => <Product match={match}/> } />
+              {/* <Route path="/product" render={({match}) => <Product match={match}/> } /> */}
               <Route exact path="/formProduct" render={() => <FormProduct/> } />
               <Route exact path="/about" render={() => <About/> } />
-              <Route exact path="/Contact" render={() => <Contact/> } />
+              <Route exact path="/contact" render={() => <Contact/> } />
         </div>
 
     );
