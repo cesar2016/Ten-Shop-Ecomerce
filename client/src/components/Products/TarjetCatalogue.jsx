@@ -2,7 +2,7 @@ import React from 'react';
 import "./Catalogo.css"
 import { NavLink } from 'react-router-dom'
 
-export default function Catalogo({price, name, stock, id}) {
+export default function Catalogo({price, name, stock, id, image}) {
     //console.log("TarjetCatalogue", name)
     return (
 
@@ -19,7 +19,7 @@ export default function Catalogo({price, name, stock, id}) {
 
                             <strong>Stock {stock}</strong>
                             <div className="gallery-image">
-                                <img className="img-responsive" src="https://www.venex.com.ar/products_images/1557757777_4zu3_hp_250_g6.jpg"/>
+                                <img className="img-responsive" src={image}/>
                                 <div className="overlay">
                                     <a className="info pop example-image-link img-responsive" href="https://www.venex.com.ar/products_images/1557757777_4zu3_hp_250_g6.jpg" data-lightbox="example-1"><i className="fa fa-search" aria-hidden="true"></i></a>
                                     <p><a className="text-warning">{name}</a></p>
