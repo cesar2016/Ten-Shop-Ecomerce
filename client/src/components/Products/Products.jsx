@@ -5,10 +5,8 @@ import Product from './Product.jsx';
 export default function Cards({products}) {
     if(products){
       return (
-        <div className='container'>
-           <section className="gallery-block gallery-front">
-                <div className="container">                    
-                    <div className="row">  
+        <div>
+            
           {products.map(c => <Product
               name={c.name}
               description={c.description}
@@ -17,11 +15,6 @@ export default function Cards({products}) {
               image={c.image}
 
             /> )}
-                  </div>
-                </div>
-            </section>
-              
-              
                
         </div>
       );
