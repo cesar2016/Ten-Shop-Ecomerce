@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+.createdBy {
+  border-radius: 10px;
+  background-color: lightsalmon;
+  font-size: 30px;
+}
+
+.contact {
+  color: white;
+  border-radius: 10px;
+  margin-top: 50px;
+  font-size: 24px;
+  height: 280px;
+  width: 300px;
+  background-color: #ff4157;
+}

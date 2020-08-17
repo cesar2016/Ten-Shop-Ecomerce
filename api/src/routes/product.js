@@ -15,6 +15,16 @@ server.get('/', (req, res, next) => {
 	 })
  });
 
+ server.post('/edit/:id', (req, res) => {
+	const {id} = req.params;
+	const {body} = req;
+	Product.update(body, {where: {id} })
+	 .then(result => {
+		res.send(result);
+	 });
+ });
+
+
  server.put('/:id', (req, res) => {
 	const {id} = req.params;
 	const {body} = req;

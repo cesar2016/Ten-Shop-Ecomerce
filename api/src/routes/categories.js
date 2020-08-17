@@ -10,19 +10,24 @@ server.get("/:category", (req, res) => {
     })
 });
 
+
+// MUESTRA TODAS LAS CATEGORIAS
 server.get("/",  (req, res, next) => {
     Category.findAll().then(function(categorias){
         res.send(categorias);
     });
   });
 
-  server.put('/:id', (req, res) => {
-    const {id} = req.params;
-	const {body} = req;
-	Category.update(body, {where: {id} })
-	 .then(result => {
-		res.send(result);
-        })
+
+
+// MODIFICA ALGUNA CATEGORIA SEGUN ID
+server.put('/:id', (req, res) => {
+  const {id} = req.params;
+  const {body} = req;
+  Category.update(body, {where: {id} })
+    .then(result => {
+      res.send(result);
+    })
 })
 
 
@@ -40,6 +45,15 @@ server.post("/:category", (req, res) => {
     })
 });
 
+server.delete("/:category", (req, res) => {
+	const { category } = req.params;
+	Category.destroy({ where: { name: category } })
+		.then(result => {
+			if (result) return res.status(200)
+			res.send(false)
+		})
+		.catch(() => res.status(404))
+});
 
 
 

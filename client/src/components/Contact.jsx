@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 export default function Contact (){
   return (
     <div className="container ">
-      <div className="contact">
+      {/* <div className="contact">
         <div className="createdBy">
           <p>Created By:</p>
         </div>
@@ -24,7 +24,7 @@ export default function Contact (){
         <NavLink to="https://github.com/facuuriona4/" className="Link">
         <p>Uriona, Facundo</p>
         </NavLink>
-      </div>
+      </div> */}
     </div>
   )
 }
