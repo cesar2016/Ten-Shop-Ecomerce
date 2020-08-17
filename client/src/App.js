@@ -12,6 +12,7 @@ import FormProduct from "./components/formularios/FormProduct"
 import Catalogue from "./components/Products/Catalogue"
 import About from "./components/About"
 import FormAddProduct from "./components/formularios/FormAddProduct"
+import Contact from './components/Contact.jsx';
 
 
 
@@ -22,19 +23,19 @@ function App() {
     const [objetos, setObjetos] = useState([]);
 
     function funcionTraeDatos(category) {
+ 
         fetch("http://localhost:3001/categories/" + category)
         .then(r => r.json())
-        .then((recurso) => {
-            if(recurso){
-              console.log("RECURSO", recurso)
+        .then((recurso) => {         
+            if(recurso){             
                 setProductos(recurso);
+                
             }
-            else{
-                alert("Producto no encontrado");
-              }
-        });
+           
+        })
+        .catch(() => alert("Categoria no encontrada >:("))
     }
-
+    
     useEffect(() => {
       fetch("http://localhost:3001/products")
         .then(r => r.json())
@@ -48,12 +49,7 @@ function App() {
         });
       },[]);
 
-      var productone = {
-        name: "asdasd",
-        price: 50,
-        description: 'asdasdasdasdasd',
-        stock: 20
-    }
+
 
     if(productos.length !== 0){  //Si la busqueda vine con algo carga solo el NavBar y CategoryProducts,
         // si no muesta todas las demas rutas
@@ -63,6 +59,7 @@ function App() {
                   <Route path="/" render={() => <NavBar logo={logo}  funcionTraeDatos={funcionTraeDatos}/> } />
                   <Route path="/product/:id" render={({match}) => <Product productos={objetos} id={match.params.id} productosBusqueda={productos}/> } />
                   <Route path="/" render={() => <CategoryProducts products={productos}/> } />
+                  
 
             </div>
 
@@ -73,10 +70,11 @@ function App() {
 
         <div className="App jumbotron  bg-white">
               <Route path="/" render={() => <NavBar funcionTraeDatos={funcionTraeDatos}/> } />
-              <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />
+              <Route exact path="/" render={() => <Catalogue objetos={objetos} /> } />
               <Route path="/product/:id" render={({match}) => <Product productos={objetos} id={match.params.id} productosBusqueda={productos}/> } />
               <Route exact path="/formProduct" render={() => <FormProduct products={objetos}/> } />
               <Route exact path="/about" render={() => <About/> } />
+              <Route exact path="/contact" render={() => <Contact/> } />
               <Route exact path="/formAddProduct" render={() => <FormAddProduct products={objetos}/> } />
 
         </div>

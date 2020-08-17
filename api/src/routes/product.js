@@ -53,12 +53,20 @@ server.delete("/:id", (req, res) => {
 	const { id } = req.params;
 	Product.destroy({ where: { id } })
 		.then(result => {
-			if (result) return res.status(200)
-			res.send(false)
+			res.sendStatus(200);
 		})
 		.catch(() => res.status(404))
 });
 
+
+server.post("/delete/:id", (req, res) => {
+	const { id } = req.params;
+	Product.destroy({ where: { id } })
+		.then(result => {
+			res.sendStatus(200);
+		})
+		.catch(() => res.status(404))
+});
 
 server.put("/:id", (req, res) => {
 	const { id } = req.params;

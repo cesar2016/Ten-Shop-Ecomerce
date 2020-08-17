@@ -22,8 +22,10 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
+
 
 server.post("/", async (req, res) => {
     const categoria1 = await Category.create({
@@ -91,6 +93,13 @@ server.post("/", async (req, res) => {
         stock: 15,
         image: "https://http2.mlstatic.com/D_NQ_NP_945569-MLA31652747525_082019-O.webp",
     });
+    const producto8 = Product.create({
+        name: "Tablet Samsung",
+        description: "xPro Max",
+        price: 25000,
+        stock: 8,
+        image: "https://makkax.com/wp-content/uploads/2020/04/samsung_tab_a_t295_-_plata_1_1_1.jpg",
+    })
 
 
     producto1.then((prod) => {
@@ -102,21 +111,25 @@ server.post("/", async (req, res) => {
     })
 
     producto3.then((prod) => {
-        prod.addCategory(categoria3)
+        prod.addCategory(categoria4)
     })
 
     producto4.then((prod) => {
-        prod.addCategory(categoria4)
+        prod.addCategory(categoria3)
     })
     producto5.then((prod) => {
-        prod.addCategory(categoria1)
+        prod.addCategory(categoria4)
     })
     producto6.then((prod) => {
         prod.addCategory(categoria1)
     })
 
     producto7.then((prod) => {
-        prod.addCategory(categoria3)
+        prod.addCategory(categoria1)
+    })
+
+    producto8.then((prod) => {
+        prod.addCategory(categoria4)
     })
 
 
