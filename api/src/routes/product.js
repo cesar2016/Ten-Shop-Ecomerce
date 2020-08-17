@@ -9,10 +9,6 @@ server.get('/', (req, res, next) => {
 	})
  });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 9fda6f1deede6b111a6b834d4fd3efffa04e7171
  server.get('/:id', (req, res) => {
 	 Product.findByPk(req.params.id).then(post => {
 		 res.send(post);
@@ -27,13 +23,6 @@ server.get('/', (req, res, next) => {
 		res.send(result);
 	 });
  });
-<<<<<<< HEAD
-=======
-
->>>>>>> 9fda6f1deede6b111a6b834d4fd3efffa04e7171
-   
-
-
 // este post devuelve un array con dos componentes,
 // el objeto con el producto recien publicado en la DB
 // y devuelve un booleano con true (si se agrego en la DB)

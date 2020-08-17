@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import CategoryProducts from './components/Products/CategoryProducts.jsx';
 //mport { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import logo from './logo.svg';
 
 import './App.css';
 import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
-import Catalogo from "./components/Products/Catalogo"
 import FormProduct from "./components/formularios/FormProduct"
 import Catalogue from "./components/Products/Catalogue"
 import About from "./components/About"
@@ -76,7 +75,7 @@ function App() {
               <Route path="/" render={() => <NavBar funcionTraeDatos={funcionTraeDatos}/> } />
               <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />
               <Route path="/product/:id" render={({match}) => <Product productos={objetos} id={match.params.id} productosBusqueda={productos}/> } />
-              <Route exact path="/formProduct" render={() => <FormProduct/> } />
+              <Route exact path="/formProduct" render={() => <FormProduct products={objetos}/> } />
               <Route exact path="/about" render={() => <About/> } />
 
         </div>
