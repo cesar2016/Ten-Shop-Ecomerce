@@ -9,12 +9,21 @@ server.get('/', (req, res, next) => {
 	})
  });
 
-
  server.get('/:id', (req, res) => {
 	 Product.findByPk(req.params.id).then(post => {
 		 res.send(post);
 	 })
  });
+
+ server.post('/edit/:id', (req, res) => {
+	const {id} = req.params;
+	const {body} = req;
+	Product.update(body, {where: {id} })
+	 .then(result => {
+		res.send(result);
+	 });
+ });
+
 
  server.put('/:id', (req, res) => {
 	const {id} = req.params;
@@ -24,10 +33,6 @@ server.get('/', (req, res, next) => {
 		res.send(result);
 	 });
  });
-
-   
-
-
 // este post devuelve un array con dos componentes,
 // el objeto con el producto recien publicado en la DB
 // y devuelve un booleano con true (si se agrego en la DB)

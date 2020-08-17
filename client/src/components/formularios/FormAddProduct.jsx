@@ -21,7 +21,7 @@ export default function FormProduct({products}) {
 
       const handleSubmit = function(e) {
         e.preventDefault();
-        axios.post("http://localhost:3000/products/add", input)
+        axios.post("http://localhost:3001/products/add", input)
       }
 
     return (
