@@ -1,15 +1,14 @@
-.container {
+/* .container {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
 }
 
 .mensajes {
+  font-size: 300px;
+  margin-top: 150px;
+  height: 350px;
+  width: 300px;
+  background-color: gray;
   color: white;
   border-radius: 10px;
-  margin-top: 50px;
-  font-size: 24px;
-  height: 280px;
-  width: 400px;
-  background-color: #ff4157;
-}
+} */

@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import "./NavBar.css"
 import SearchBar from "./SearchBar.jsx"
-import { Link } from "react-router-dom";
+//port indent from "../../public/style/images/logo."
+import { NavLink } from 'react-router-dom'
 
 
 export default function NavBar({ funcionTraeDatos, logo }) {
@@ -14,6 +15,7 @@ export default function NavBar({ funcionTraeDatos, logo }) {
                         <nav className="navbar navbar-expand-lg navbar-light  fixed-top">
                             <div className="col-md-2 col-sm-6 col-xs-6">
                                 <div id="logo">
+                                     {/* <a href="index.html"><img src="style/images/logo.png"/></a>  */}
                                     <a href="index.html"><span>Ten</span>/ Shop</a>
                                 </div>
                             </div>
@@ -33,29 +35,28 @@ export default function NavBar({ funcionTraeDatos, logo }) {
                                     </div>
                                     <div className="collapse navigation navbar-collapse navbar-ex1-collapse remove-space">
                                         <ul className="list-unstyled nav1 cl-effect-10">
-                                        <Link to="/">
+                                        <NavLink to="/">
                                             <li><a  data-hover="Home" className="active"><span>Home</span></a></li>
-                                        </Link>
-                                        <Link to="/about">
+                                        </NavLink>
+                                        <NavLink to="/about">
                                             <li><a data-hover="About"><span>About</span></a></li>
-                                        </Link>
-                                        <Link to="/#">
-                                            <li><a data-hover="Rooms" ><span>Category</span></a></li>
-                                        </Link>
-                                        <Link to="/#">
-                                            <li><a data-hover="Gallery" ><span>Gallery</span></a></li>
-                                        </Link>
-                                        <Link to="/#">
-                                            <li><a data-hover="Dinning" ><span>Dinning</span></a></li>
-                                        </Link>
-                                        <Link to="/#">
-                                            <li><a data-hover="News" ><span>News</span></a></li>
-                                        </Link>
-                                        <Link to="/contact">
+                                        </NavLink>
+                                        <NavLink to="/rooms">
+                                            <li><a data-hover="Rooms"><span>Rooms</span></a></li>
+                                        </NavLink>
+                                        <NavLink to="/gallery">
+                                            <li><a data-hover="Gallery"><span>Gallery</span></a></li>
+                                        </NavLink>
+                                        <NavLink to="/dinning">
+                                            <li><a data-hover="Dinning"><span>Dinning</span></a></li>
+                                        </NavLink>
+                                        <NavLink to="/news">
+                                            <li><a data-hover="News"><span>News</span></a></li>
+                                        </NavLink>
+                                        <NavLink to="/contact">
                                             <li><a data-hover="Contact Us"><span>contact Us</span></a></li>
-                                        </Link>
+                                        </NavLink>
                                         </ul>
-
 
                                     </div>
                                 </nav>
@@ -64,8 +65,8 @@ export default function NavBar({ funcionTraeDatos, logo }) {
 
                         </nav>
 
-
             </header>
+
 
         </div>
 
