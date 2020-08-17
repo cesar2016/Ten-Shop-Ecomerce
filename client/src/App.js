@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import CategoryProducts from './components/Products/CategoryProducts.jsx';
 //mport { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom';
-import Contact from "./components/Contact"
+import { Route } from 'react-router-dom';
+
 import logo from './logo.svg';
 
 import './App.css';
@@ -11,6 +11,7 @@ import Product from "./components/Products/Product"
 import FormProduct from "./components/formularios/FormProduct"
 import Catalogue from "./components/Products/Catalogue"
 import About from "./components/About"
+import FormAddProduct from "./components/formularios/FormAddProduct"
 
 
 
@@ -56,7 +57,6 @@ function App() {
 
     if(productos.length !== 0){  //Si la busqueda vine con algo carga solo el NavBar y CategoryProducts,
         // si no muesta todas las demas rutas
-      console.log(productos)
         return (
 
             <div className="App jumbotron  bg-white">
@@ -75,8 +75,9 @@ function App() {
               <Route path="/" render={() => <NavBar funcionTraeDatos={funcionTraeDatos}/> } />
               <Route exact path="/" render={() => <Catalogue objetos={objetos}/> } />
               <Route path="/product/:id" render={({match}) => <Product productos={objetos} id={match.params.id} productosBusqueda={productos}/> } />
-              <Route exact path="/formProduct" render={() => <FormProduct/> } />
+              <Route exact path="/formProduct" render={() => <FormProduct products={objetos}/> } />
               <Route exact path="/about" render={() => <About/> } />
+              <Route exact path="/formAddProduct" render={() => <FormAddProduct products={objetos}/> } />
 
         </div>
 
