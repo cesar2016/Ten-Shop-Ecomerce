@@ -21,16 +21,17 @@ export default function FormProduct({products}) {
 
       const handleSubmit = function(e) {
         e.preventDefault();
+        console.log(input);
       }
 
     function update(id, products) {
         var result = products.find((e) => {
             if (e.id == id) {
-                document.getElementById("name").value = e.name;
-                document.getElementById("description").value = e.description;
-                document.getElementById("price").value = e.price;
-                document.getElementById("stock").value = e.stock;
-                document.getElementById("image").value = e.image;
+                document.getElementById("name").placeholder = e.name;
+                document.getElementById("description").placeholder = e.description;
+                document.getElementById("price").placeholder = e.price;
+                document.getElementById("stock").placeholder = e.stock;
+                document.getElementById("image").placeholder = e.image;
                 return e;
             }
         }) 
@@ -99,13 +100,13 @@ export default function FormProduct({products}) {
                         <form action="#" method="post" onSubmit={handleSubmit}>
                              
                             <input type="text" class="form-control form-control-lg" name="name" placeholder="Nombre" id="name" onChange={handleInputChange} required=""/>
-                            <input type="email" class="form-control form-control-lg" name="description" placeholder="Descripcion" id="description" onChange={handleInputChange} required=""/>
+                            <input type="text" class="form-control form-control-lg" name="description" placeholder="Descripcion" id="description" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="price" placeholder="$ Precio" id="price" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="stock" placeholder="Cantidad" id="stock" onChange={handleInputChange} required=""/>
                             {/* <select class="form-control form-control-lg">
                             <option selected id="category" ></option>
                             </select> */}
-                            <input type="text" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
+                            <input type="file" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
                             <input type="submit" class="submit-btn" value="Submit" />
                         </form>
                     </div>
