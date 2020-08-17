@@ -53,6 +53,7 @@ function App() {
 
     if(productos.length !== 0){  //Si la busqueda vine con algo carga solo el NavBar y CategoryProducts,
         // si no muesta todas las demas rutas
+        
         return (
 
             <div className="App jumbotron  bg-white">

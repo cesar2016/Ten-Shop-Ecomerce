@@ -2,13 +2,11 @@ import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 
 
-export default function Cards({products}) {
-  console.log("CategoryProducts----", products)
+export default function Cards({products}) { 
     if(products){
       return (
         <div className='container'>
-          {products.map(c => {
-            {console.log("ACAAAAA", c)}
+          {products.map(c => {            
             return <TarjetCatalogue
                 id={c.id}
                 name={c.name}

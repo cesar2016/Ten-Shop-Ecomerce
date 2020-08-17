@@ -44,6 +44,10 @@ server.post("/", async (req, res) => {
         name: "Celulares",
         description: ""
     })
+    const categoria5 = await Category.create({
+        name: "Audio",
+        description: ""
+    })
     const producto1 = Product.create({
         name: "Notebooks HP i7",
         description: "Intel 9",
@@ -101,6 +105,35 @@ server.post("/", async (req, res) => {
         image: "https://makkax.com/wp-content/uploads/2020/04/samsung_tab_a_t295_-_plata_1_1_1.jpg",
     })
 
+    const producto9 = Product.create({
+        name: "Heladera Samsung",
+        description: "xPro Max",
+        price: 95000,
+        stock: 8,
+        image: "https://d26lpennugtm8s.cloudfront.net/stores/959/516/products/51mrs1wzk8l-_sl1000_1-d8bd50c9e4eaf9920815756371652730-1024-1024.jpg",
+    })
+    const producto10 = Product.create({
+        name: "Parlante Sony ",
+        description: "xPro Max",
+        price: 5000,
+        stock: 12,
+        image: "https://www.olmoshogar.com.ar/wp-content/uploads/2020/08/PARLANTE-SONY-GTKPG10-1.jpg",
+    })
+    const producto11 = Product.create({
+        name: "Parlante JBL ",
+        description: "xPro Max",
+        price: 6750,
+        stock: 5,
+        image: "https://d26lpennugtm8s.cloudfront.net/stores/453/714/products/flip55-e371f0ac5a367979dd15811094686878-1024-1024.jpg",
+    })
+    const producto12 = Product.create({
+        name: "Televisor Led ",
+        description: "xPro Max",
+        price: 6750,
+        stock: 5,
+        image: "https://dj4i04i24axgu.cloudfront.net/guides-ui/statics/0.1.13/images/tipo_tv.png",
+    })
+
 
     producto1.then((prod) => {
         prod.addCategory(categoria1)
@@ -131,8 +164,18 @@ server.post("/", async (req, res) => {
     producto8.then((prod) => {
         prod.addCategory(categoria4)
     })
-
-
+    producto9.then((prod) => {
+        prod.addCategory(categoria3)
+    })
+    producto10.then((prod) => {
+        prod.addCategory(categoria5)
+    })
+    producto11.then((prod) => {
+        prod.addCategory(categoria5)
+    })
+    producto12.then((prod) => {
+        prod.addCategory(categoria2)
+    })
 
     res.send("LISTO")
 
