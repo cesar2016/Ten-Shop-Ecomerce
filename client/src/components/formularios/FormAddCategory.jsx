@@ -71,7 +71,7 @@ export default function FormCategory({category}) {
         </section>
         <section class="contact-block col-md-2"> </section>
         <div class="col-md-6 contact-form alert alert-dark">
-                        <h3>Categorias en <span>Lista</span></h3>
+                        <h3>Category <span>List</span></h3>
                         <table class="table table-hover">
                              <thead>
                                 <tr className="table-primary">
