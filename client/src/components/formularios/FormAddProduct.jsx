@@ -47,8 +47,7 @@ export default function FormProduct({products, categories}) {
                                                 &nbsp;                                        
                                                 <input class="form-check-input" type="checkbox" name="categorie" value={cat.name}/>
                                                 <label class="form-check-label" for="inlineCheckbox1"> {cat.name} </label> &nbsp;
-                                            </span> 
-                                            
+                                            </span>                                            
                                                
                                         )
                                     })}                     
@@ -64,7 +63,7 @@ export default function FormProduct({products, categories}) {
             
             <section class="contact-block jumbotron">
 
-              
+
                 
             </section>
 
