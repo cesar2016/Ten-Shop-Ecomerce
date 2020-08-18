@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
+const { Product, categoriesxproducts, Category } = require('../db.js');
 
 
 
@@ -107,6 +107,15 @@ server.put("/:id", (req, res) => {
 		.then(result => {
 			res.send(result)
 		});
+});
+
+
+server.get("/searches/:search", (req, res) => {
+	const { search } = req.params;
+	Product.findAll({
+		where: { name: search },
+		include: { model: categoriesxproducts }
+	}).then(result => res.json(result))
 });
 
 
