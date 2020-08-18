@@ -50,6 +50,20 @@ function App() {
       },[]);
 
 
+      ////////////Trayendo CATEGORIES
+      const [categories, setCategories] = React.useState([]);
+    useEffect(() => {
+        fetch("http://localhost:3001/categories/")
+        .then(r => r.json())
+        .then((recursoCat) => {         
+            if(recursoCat) {
+                console.log("EL RECURSO", recursoCat)
+                setCategories(recursoCat)
+            }
+        })
+    }, [])
+
+
 
     if(productos.length !== 0){  //Si la busqueda vine con algo carga solo el NavBar y CategoryProducts,
         // si no muesta todas las demas rutas
@@ -73,10 +87,10 @@ function App() {
               <Route path="/" render={() => <NavBar funcionTraeDatos={funcionTraeDatos}/> } />
               <Route exact path="/" render={() => <Catalogue objetos={objetos} /> } />
               <Route path="/product/:id" render={({match}) => <Product productos={objetos} id={match.params.id} productosBusqueda={productos}/> } />
-              <Route exact path="/formProduct" render={() => <FormProduct products={objetos}/> } />
+              <Route exact path="/formProduct" render={() => <FormProduct products={objetos} categories={categories}/> } />
               <Route exact path="/about" render={() => <About/> } />
               <Route exact path="/contact" render={() => <Contact/> } />
-              <Route exact path="/formAddProduct" render={() => <FormAddProduct products={objetos}/> } />
+              <Route exact path="/formAddProduct" render={() => <FormAddProduct products={objetos} categories={categories}/>  } />
 
         </div>
 

@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 
-export default function FormProduct({products}) {
+export default function FormProduct({products, categories}) {
 
     const [input, setInput] = useState({});
    
@@ -33,6 +33,8 @@ export default function FormProduct({products}) {
     }
 
     const handleSubmit = function(e) {
+        var a = document.getElementById("categorie").value;
+        alert(a);
       e.preventDefault();
       axios.put(`http://localhost:3001/products/${elId.current}`, input)        
     }
@@ -78,12 +80,28 @@ export default function FormProduct({products}) {
 
                     <div class="col-md-6 contact-form alert alert-dark">
                         <h3>Administracion  <span>Productos</span></h3>
-                        <form action="#" method="post" onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit}>
 
                             <input type="text" class="form-control form-control-lg" name="name" placeholder="Nombre" id="name" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="description" placeholder="Descripcion" id="description" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="price" placeholder="$ Precio" id="price" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="stock" placeholder="Cantidad" id="stock" onChange={handleInputChange} required=""/>
+                            <div class="form-check form-check-inline">
+                                <strong style={{marginRight:"0px" }}>CATEGORIES <i class="fa fa-arrow-right" aria-hidden="true"></i> </strong> 
+                            {categories.map((cat, i) => {
+                                        return (                                          
+                                            
+                                            <span>
+                                                &nbsp;                                        
+                                                <input class="form-check-input" type="checkbox" name="categorie" value={cat.name}/>
+                                                <label class="form-check-label" for="inlineCheckbox1"> {cat.name} </label> &nbsp;
+                                            </span> 
+                                            
+                                               
+                                        )
+                                    })}                     
+                            
+                            </div>
                             <input type="text" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
                             <input type="submit" class="submit-btn" value="Submit" />
                         </form>
