@@ -9,7 +9,8 @@ export default function FormProduct({products, categories}) {
         description: '',
         price: '',
         stock: '',
-        image: ''
+        image: '',
+         
       });
 
       const handleInputChange = function(e) {
@@ -23,6 +24,32 @@ export default function FormProduct({products, categories}) {
         e.preventDefault();
         axios.post("http://localhost:3001/products/add", input)
       }
+
+      function mostraC(e){
+
+        e.preventDefault();         
+
+        var a =document.getElementById("a").value;
+        var b =  document.getElementById("b").value;
+        var c = document.getElementById("c").value;
+        var d = document.getElementById("d").value;
+
+
+         
+          // alert(a);
+          // alert(b);
+          // alert(c);
+          // alert(d);
+        
+
+        //var array=[];
+
+        
+        //array.push(a,b,c,d);
+
+
+
+       }
 
     return (
 
@@ -62,6 +89,18 @@ export default function FormProduct({products, categories}) {
 
             
             <section class="contact-block jumbotron">
+
+             
+            {/* <form  onSubmit={mostraC}>          
+            
+           <input type="radio" id="a" value="A"/>A
+              <input type="radio" id="b" value="B"   />B
+              <input type="radio" id="c" value="C"  />C 
+              <input type="radio" id="d" value="D"  />D
+              <input type="submit" value="Enviar"/>
+              </form> */}
+
+              
 
 
                 

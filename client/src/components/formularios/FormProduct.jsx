@@ -110,14 +110,6 @@ export default function FormProduct({products, categories}) {
                 </div>
             </section>
 
-
-
-
-
-
-
-
-
         </div>
     );
 };
