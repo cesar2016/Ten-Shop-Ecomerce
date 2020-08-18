@@ -35,25 +35,25 @@ export default function NavBar({ funcionTraeDatos, logo }) {
                                     </div>
                                     <div className="collapse navigation navbar-collapse navbar-ex1-collapse remove-space">
                                         <ul className="list-unstyled nav1 cl-effect-10">
-                                        <NavLink to="/">
-                                            <li><a  data-hover="Home" className="active"><span>Home</span></a></li>
+                                        <NavLink to="/"   data-hover="Home" className="active">
+                                            <li><a><span>Home</span></a></li>
                                         </NavLink>
-                                        <NavLink to="/about">
+                                        <NavLink to="/about" data-hover="About">
                                             <li><a data-hover="About"><span>About</span></a></li>
                                         </NavLink>
-                                        <NavLink to="/rooms">
+                                        <NavLink to="/rooms"  data-hover="Rooms">
                                             <li><a data-hover="Rooms"><span>Rooms</span></a></li>
                                         </NavLink>
-                                        <NavLink to="/gallery">
+                                        <NavLink to="/gallery"  data-hover="Gallery">
                                             <li><a data-hover="Gallery"><span>Gallery</span></a></li>
                                         </NavLink>
-                                        <NavLink to="/dinning">
+                                        <NavLink to="/dinning"  data-hover="Dinning">
                                             <li><a data-hover="Dinning"><span>Dinning</span></a></li>
                                         </NavLink>
-                                        <NavLink to="/news">
+                                        <NavLink to="/news"  data-hover="News">
                                             <li><a data-hover="News"><span>News</span></a></li>
                                         </NavLink>
-                                        <NavLink to="/contact">
+                                        <NavLink to="/contact"  data-hover="Contact Us">
                                             <li><a data-hover="Contact Us"><span>contact Us</span></a></li>
                                         </NavLink>
                                         </ul>
