@@ -3,6 +3,10 @@ const { Product } = require('../db.js');
 
 
 
+server.get('/search', function(req, res){
+	res.send(req.query.name);
+  });
+
 server.get('/', (req, res, next) => {
 	Product.findAll().then(function(data){
 			res.send(data)
