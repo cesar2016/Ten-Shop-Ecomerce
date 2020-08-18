@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import TableProducts from "../Products/TableProducts"
 import axios from "axios";
 
 
@@ -6,6 +7,8 @@ import axios from "axios";
 export default function FormProduct({products}) {
 
     const [input, setInput] = useState({});
+   
+    
 
       const handleInputChange = function(e) {
         setInput({
@@ -16,9 +19,8 @@ export default function FormProduct({products}) {
 
 
     var elId = useRef(null)
-
-    function update(id, products) {
-      products.find((e) => {
+      function update(id, prod) {
+      prod.find((e) => {
         if (e.id == id) {
             document.getElementById("name").placeholder = e.name;
             document.getElementById("description").placeholder = e.description;
@@ -32,8 +34,20 @@ export default function FormProduct({products}) {
 
     const handleSubmit = function(e) {
       e.preventDefault();
-      axios.post(`http://localhost:3001/products/edit/${elId.current}`, input)        
+      axios.put(`http://localhost:3001/products/${elId.current}`, input)        
     }
+
+    function deleteProduct(id) {   
+        var opcion = window.confirm("Desea eliminar este Articulo");
+        if (opcion == true) {
+            axios.delete(`http://localhost:3001/products/${id}`);            
+            window.location = 'http://localhost:3000/formProduct'
+            alert('eliminado con exito')
+        } 
+    }
+
+
+
 
     return (
 
@@ -46,33 +60,20 @@ export default function FormProduct({products}) {
                     <div class="col-md-6 contact-form alert alert-dark">
                         <h3>Productos en <span>Lista</span></h3>
                         <table class="table table-hover">
-                    <thead>
-                        <tr className="table-primary">
-                        <th scope="col">ID</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Editar</th>
+                             <thead>
+                                <tr className="table-primary">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Editar</th>
 
-                        </tr>
-                    </thead>
+                                </tr>
+                             </thead>
 
-                    <tbody >
-                        {products.map((p, i) => {
-                            return (<tr>
-                            <th scope="row"> {p.id} </th>
-                            <td> {p.name} </td>
-                            <td>
-                            <button type="button" class="btn btn-success" onClick={() => {
-                              update(p.id, products);
-                              elId.current = p.id
-                            }}>
-                            <i className="fa fa-pencil"></i>
-                            </button>
-                            </td>
-                            </tr>)
-                        })}
-                    </tbody>
+                            <tbody >
+                                <TableProducts products={products} update={update} elId={elId} deleteProduct={deleteProduct}/>
+                            </tbody>
 
-                </table>
+                        </table>
                     </div>
 
                     <div class="col-md-6 contact-form alert alert-dark">
@@ -83,7 +84,7 @@ export default function FormProduct({products}) {
                             <input type="text" class="form-control form-control-lg" name="description" placeholder="Descripcion" id="description" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="price" placeholder="$ Precio" id="price" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="stock" placeholder="Cantidad" id="stock" onChange={handleInputChange} required=""/>
-                            <input type="file" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
+                            <input type="text" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
                             <input type="submit" class="submit-btn" value="Submit" />
                         </form>
                     </div>

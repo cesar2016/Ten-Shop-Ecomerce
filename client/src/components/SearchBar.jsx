@@ -12,9 +12,7 @@ export default function SearchBar({ funcionTraeDatos }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-
-
-            funcionTraeDatos(inputSearch.inputSearch)
+        funcionTraeDatos(inputSearch.inputSearch)
 
     };
 

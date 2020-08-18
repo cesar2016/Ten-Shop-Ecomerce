@@ -3,10 +3,15 @@ const { categoriesxproducts, Product, Category } = require('../db.js');
 
 server.get("/:category", (req, res) => {
     Category.findByPk(req.params.category).then(category => {
+      if(category){
         category.getProducts({ attributes: [ "name", "description", "price", "stock", "image", "id"] })
         .then(products => {
             res.send(products)
         })
+      }else{
+        res.sendStatus(404)
+      }
+        
     })
 });
 
@@ -21,14 +26,14 @@ server.get("/",  (req, res, next) => {
 
 
 // MODIFICA ALGUNA CATEGORIA SEGUN ID
-server.put('/:id', (req, res) => {
+/* server.put('/:id', (req, res) => {
   const {id} = req.params;
   const {body} = req;
   Category.update(body, {where: {id} })
     .then(result => {
       res.send(result);
     })
-})
+}) */
 
 
 
