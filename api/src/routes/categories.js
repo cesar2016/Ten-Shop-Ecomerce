@@ -42,24 +42,35 @@ server.get("/",  (req, res, next) => {
 // el objeto con la categoria recien publicada en la DB
 // y devuelve un booleano con true (si se agrego en la DB)
 // o devuelve un booleano con false (si no se agregó en la tabla)
-server.post("/:category", (req, res) => {
-  const { category } = req.params
-  Category.findOrCreate({ where: { name: category, description: "" }})
+server.post("/add", (req, res) => {
+	const { name, description} = req.body
+  Category.findAll({ where: { name: name, description: description }})
     .then(result =>{
-      res.send(result)
+      if(result.length !== 0){
+        res.status(404).send("This category already exists")
+      }else{ 
+        Category.create({
+          name: name,
+          description: description
+        });
+        res.sendStatus(200)
+      }
     })
 });
 
-server.delete("/:category", (req, res) => {
-	const { category } = req.params;
-	Category.destroy({ where: { name: category } })
-		.then(result => {
-			if (result) return res.status(200)
-			res.send(false)
-		})
-		.catch(() => res.status(404))
-});
-
+server.delete("/delete", (req, res) => {
+  const { name} = req.body
+	Category.destroy({ where: { name: name } })
+		.then(result => {    
+      console.log(result)
+      if(result === 1){  
+        res.sendStatus(200);
+      }else{
+        res.status(404).send("No existe la categoria")
+      }
+      })
+      .catch(() => res.status(404))
+  });
 
 
 module.exports = server;
