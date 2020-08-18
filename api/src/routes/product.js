@@ -46,9 +46,9 @@ server.get('/', (req, res, next) => {
 // 		})
 // });
 
+
 server.post("/add", (req, res) => {
-	const { category } = req.body;
-	console.log(category)
+	const { category } = req.body;	
 	addProduct(req.body)
 		.then(productCreated => {
 			if (category.length === 0) {
@@ -69,7 +69,7 @@ server.post("/add", (req, res) => {
 
 
 function addProduct(product) {
-	return Product.findOrCreate({
+	return Product.create({
 		name: product.name,
 		description: product.description,
 		price: product.price,
@@ -110,20 +110,13 @@ server.put("/:id", (req, res) => {
 });
 
 
-server.get("/searches/:search", (req, res) => {
-	const { search } = req.params;
-	Product.findAll({
-		where: { name: search },
-		include: { model: categoriesxproducts }
-	}).then(result => res.json(result))
-});
-
 server.get("/searches/:search", function (req, res) {
 	searchProduct(req.params)
 		.then((result) => {
 			res.send(result);
 		});
 });
+
 function searchProduct(key) {
 	return Product.findAll({
 		where: {
