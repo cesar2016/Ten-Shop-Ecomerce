@@ -9,6 +9,7 @@ export default function FormCategory({category}) {
       });
       const [inputDelete, setInputDelete] = useState({
         name: '',
+        description: ''
       });
 
 
@@ -36,19 +37,15 @@ export default function FormCategory({category}) {
           [e.target.name]: e.target.value
         });
       }
+      var elId = useRef(null)
 
       const handleDeleteSubmit = function(e) {
-          console.log("Estyo submietenado")
         e.preventDefault();
-        axios.delete("http://localhost:3001/categories/delete", inputDelete)
-        .then((recurso) => {         
-            if(recurso){             
-                alert("The category has been deleted successfully.")                
-            }
-        })
-        .catch(() => alert("This category don't exists."))
-      }
-      var elId = useRef(null)
+        axios.put(`http://localhost:3001/categories/${elId.current}`, inputDelete)
+        .then(alert("The category has been modify succesfully."))
+        .then(window.location = "http://localhost:3000/formCategory")        
+     };
+
       function update(name, cat) {
       cat.find((e) => {
         if (e.name == name) {
@@ -59,11 +56,11 @@ export default function FormCategory({category}) {
         })
     }
       function deleteCategory(name) {   
-        var opcion = window.confirm("Desea eliminar este Articulo");
+        var opcion = window.confirm("You want to remove this category?");
         if (opcion == true) {
             axios.delete(`http://localhost:3001/categories/${name}`);            
-            window.location = 'http://localhost:3000/form'
-            alert('eliminado con exito')
+            window.location = 'http://localhost:3000/formCategory'
+            alert('Deleted Succesfully')
         } 
     }
 
@@ -104,8 +101,8 @@ export default function FormCategory({category}) {
                     <div className="col-md-5 contact-form alert alert-dark" style= {{marginLeft:"0px"}}>
                         <h3>Modify <span>Category</span></h3>
                         <form action="#" method="delete" onSubmit={handleDeleteSubmit} >
-                            <input type="text" className="form-control form-control-lg" name="Name" placeholder="Name" id="ModifyName" required onChange={handleInputDeleteChange} />
-                        <input type="text" className="form-control form-control-lg" name="Description" placeholder="Description" id ="DescriptionName"onChange={handleInputChange}/>
+                            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="ModifyName" required onChange={handleInputDeleteChange} />
+                        <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id ="DescriptionName"onChange={handleInputDeleteChange}/>
                             <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
                         </form>
                     </div>

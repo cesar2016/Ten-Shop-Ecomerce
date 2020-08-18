@@ -58,19 +58,34 @@ server.post("/add", (req, res) => {
     })
 });
 
-server.delete("/delete", (req, res) => {
-  const { name} = req.body
-	Category.destroy({ where: { name: name } })
-		.then(result => {    
-      console.log(result)
-      if(result === 1){  
+// server.delete("/delete", (req, res) => {
+//   const { name} = req.body
+// 	Category.destroy({ where: { name: name } })
+// 		.then(result => {    
+//       console.log(result)
+//       if(result === 1){  
+//         res.sendStatus(200);
+//       }else{
+//         res.status(404).send("No existe la categoria")
+//       }
+//       })
+//       .catch(() => res.status(404))
+//   });
+  server.delete("/:name", (req, res) => {
+    const { name } = req.params;
+    Category.destroy({ where: { name } })
+      .then(result => {
         res.sendStatus(200);
-      }else{
-        res.status(404).send("No existe la categoria")
-      }
       })
       .catch(() => res.status(404))
   });
-
+  server.put("/:name", (req, res) => {
+	const { name } = req.params;
+	const  { body }  = req;
+	Category.update(body, { where: { name } })
+		.then(result => {
+			res.send(result)
+		});
+ });
 
 module.exports = server;
