@@ -11,6 +11,7 @@ export default function FormProduct({products}) {
         stock: '',
         image: ''
       });
+      const [value, setValue] = useState([])
 
       const handleInputChange = function(e) {
         setInput({
@@ -21,7 +22,15 @@ export default function FormProduct({products}) {
 
       const handleSubmit = function(e) {
         e.preventDefault();
-        axios.post("http://localhost:3001/products/add", input)
+        axios.post("http://localhost:3001/products/add", input);
+        console.log("asdasd",value)
+        setValue([])
+
+      }
+
+      const handleChange=function(event) {
+        setValue(value.concat(event.target.value));
+        
       }
 
     return (
@@ -42,6 +51,14 @@ export default function FormProduct({products}) {
                             <input type="text" className="form-control form-control-lg" name="stock" placeholder="Cantidad" id="stock" onChange={handleInputChange} required=""/>
                             <input type="text" className="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
                             <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
+                            
+                           
+                            <select onChange={handleChange} >
+                              <option value="Heladeras">Heladeras</option>
+                              <option value="Notebooks">Notebooks</option>
+                              <option selected value="Televisores">Televisores</option>
+                              <option value="Celulares">Celulares</option>
+                            </select>
                         </form>
                     </div>
 
@@ -50,3 +67,4 @@ export default function FormProduct({products}) {
         </div>
     );
 };
+
