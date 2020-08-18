@@ -112,13 +112,6 @@ server.put("/:id", (req, res) => {
 });
 
 
-server.get("/searches/:search", (req, res) => {
-	const { search } = req.params;
-	Product.findAll({
-		where: { name: search },
-		include: { model: categoriesxproducts }
-	}).then(result => res.json(result))
-});
 
 server.get("/searches/:search", function (req, res) {
 	searchProduct(req.params)

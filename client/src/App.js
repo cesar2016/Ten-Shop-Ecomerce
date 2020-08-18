@@ -24,9 +24,9 @@ function App() {
     const [objetos, setObjetos] = useState([]);
     const [categories,setCategories] = useState([]);
 
-    function funcionTraeDatos(category) {
+    function funcionTraeDatos(products) {
  
-        fetch("http://localhost:3001/categories/" + category)
+        fetch("http://localhost:3001/products/searches/" + products)
         .then(r => r.json())
         .then((recurso) => {         
             if(recurso){             

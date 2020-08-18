@@ -10,6 +10,7 @@ export default function FormProduct({products, categories}) {
         price: '',
         stock: '',
         image: '',
+        
          
       });
 
@@ -25,31 +26,20 @@ export default function FormProduct({products, categories}) {
         axios.post("http://localhost:3001/products/add", input)
       }
 
-      function mostraC(e){
+      var categ = []
+      function addCat(select){
+      // var op =  document.getElementById("op").value; 
 
-        e.preventDefault();         
+      categ.push(select); 
 
-        var a =document.getElementById("a").value;
-        var b =  document.getElementById("b").value;
-        var c = document.getElementById("c").value;
-        var d = document.getElementById("d").value;
-
-
-         
-          // alert(a);
-          // alert(b);
-          // alert(c);
-          // alert(d);
-        
-
-        //var array=[];
-
-        
-        //array.push(a,b,c,d);
-
-
-
+       
+      const result = categ.filter(word => word != select);
+       
+          return document.getElementById("contCat").innerHTML = "<p>"+result+"</p>" ;
+          
        }
+
+
 
     return (
 
@@ -65,21 +55,22 @@ export default function FormProduct({products, categories}) {
                             <input type="text" className="form-control form-control-lg" name="price" placeholder="$ Precio" id="price" onChange={handleInputChange} required=""/>
                             <input type="text" className="form-control form-control-lg" name="stock" placeholder="Cantidad" id="stock" onChange={handleInputChange} required=""/>                            
                             <input type="text" className="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
-                            <div class="form-check form-check-inline form-control-lg">
-                                <strong style={{marginRight:"0px" }}>CATEGORIES <i class="fa fa-arrow-right" aria-hidden="true"></i> </strong> 
-                            {categories.map((cat, i) => {
-                                        return (                                          
-                                            
-                                            <span>
-                                                &nbsp;                                        
-                                                <input class="form-check-input" type="checkbox" name="categorie" value={cat.name}/>
-                                                <label class="form-check-label" for="inlineCheckbox1"> {cat.name} </label> &nbsp;
-                                            </span>                                            
-                                               
-                                        )
-                                    })}                     
                             
+                            <div className=" form-control-lg">
+                                    
+                                    {categories.map((cat, i) => {
+                                        return (                                           
+                                          <button type="button" class="btn btn-primary"  onClick={(e) => addCat(cat.name)} id="op" value={cat.name}>
+                                            {cat.name}
+                                          </button>                                          
+                                        )
+                                    })}
+
+                                     
                             </div>
+                            <div className=" form-control-lg"> 
+                              <span id='contCat'></span>
+                            </div>   
                             <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
                         </form>
                     </div>
@@ -88,23 +79,7 @@ export default function FormProduct({products, categories}) {
             </section>
 
             
-            <section class="contact-block jumbotron">
-
-             
-            {/* <form  onSubmit={mostraC}>          
-            
-           <input type="radio" id="a" value="A"/>A
-              <input type="radio" id="b" value="B"   />B
-              <input type="radio" id="c" value="C"  />C 
-              <input type="radio" id="d" value="D"  />D
-              <input type="submit" value="Enviar"/>
-              </form> */}
-
-              
-
-
-                
-            </section>
+           
 
 
 
