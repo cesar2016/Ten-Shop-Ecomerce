@@ -1,6 +1,6 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
-
+const { Product, categoriesxproducts, Category } = require('../db.js');
+const { Op } = require("sequelize");
 
 
 server.get('/', (req, res, next) => {
@@ -71,7 +71,7 @@ server.post("/add", (req, res) => {
 
 
 function addProduct(product) {
-	return Product.create({
+	return Product.findOrCreate({
 		name: product.name,
 		description: product.description,
 		price: product.price,
@@ -110,6 +110,33 @@ server.put("/:id", (req, res) => {
 			res.send(result)
 		});
 });
+
+
+server.get("/searches/:search", (req, res) => {
+	const { search } = req.params;
+	Product.findAll({
+		where: { name: search },
+		include: { model: categoriesxproducts }
+	}).then(result => res.json(result))
+});
+
+server.get("/searches/:search", function (req, res) {
+	searchProduct(req.params)
+		.then((result) => {
+			res.send(result);
+		});
+});
+function searchProduct(key) {
+	return Product.findAll({
+		where: {
+			[Op.or]:
+			[ { name: { [Op.iLike]: `%${key.search}%` } },
+			{ description: { [Op.iLike]: `%${key.search}%` } },
+			], 
+		},
+	});
+}
+
 
 
 
