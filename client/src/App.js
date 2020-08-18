@@ -12,6 +12,7 @@ import FormProduct from "./components/formularios/FormProduct"
 import Catalogue from "./components/Products/Catalogue"
 import About from "./components/About"
 import FormAddProduct from "./components/formularios/FormAddProduct"
+import FormAddCategory from "./components/formularios/FormAddCategory"
 import Contact from './components/Contact.jsx';
 
 
@@ -21,6 +22,7 @@ function App() {
 
     const [productos, setProductos] = useState([]);
     const [objetos, setObjetos] = useState([]);
+    const [categories,setCategories] = useState([]);
 
     function funcionTraeDatos(category) {
  
@@ -45,6 +47,16 @@ function App() {
             }
             else{
                 alert("Producto no encontrado");
+              }
+        });
+        fetch("http://localhost:3001/categories")
+        .then(r => r.json())
+        .then((recurso) => {
+            if(recurso){
+               setCategories(recurso);
+            }
+            else{
+                alert("Category not found.");
               }
         });
       },[]);
@@ -77,7 +89,7 @@ function App() {
               <Route exact path="/about" render={() => <About/> } />
               <Route exact path="/contact" render={() => <Contact/> } />
               <Route exact path="/formAddProduct" render={() => <FormAddProduct products={objetos}/> } />
-
+            <Route exact path= "/formCategory" render={() => <FormAddCategory category={categories}/>} />
         </div>
 
     );

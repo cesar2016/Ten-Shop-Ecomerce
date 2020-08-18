@@ -1,74 +1,106 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./NavBar.css"
 import SearchBar from "./SearchBar.jsx"
 //port indent from "../../public/style/images/logo."
 import { NavLink } from 'react-router-dom'
 
 
+
+
 export default function NavBar({ funcionTraeDatos, logo }) {
+    const [categories, setCategories] = React.useState([]);
+    useEffect(() => {
+        fetch("http://localhost:3001/categories/")
+        .then(r => r.json())
+        .then((recurso) => {         
+            if(recurso) {
+                console.log("EL RECURSO", recurso)
+                setCategories(recurso)
+            }
+        })
+    }, [])
+            
+        
     return (
-            <div className="jumbotron fixed-top">
 
+        
+             
+            <header className="header-content">
+                       
 
-            <header className="header-container">
-
-                        <nav className="navbar navbar-expand-lg navbar-light  fixed-top">
-                            <div className="col-md-2 col-sm-6 col-xs-6">
-                                <div id="logo">
+                    <nav style={{fontSize:"20px", color:"black"}} class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-danger fixed-top">
+                         <div id="logo"> 
                                      {/* <a href="index.html"><img src="style/images/logo.png"/></a>  */}
-                                    <a href="index.html"><span>Ten</span>/ Shop</a>
+                            <a href="index.html"><span>Ten</span><span style={{color:"yellow"}}>/ Shop</span></a>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                            <NavLink to="/">
+                            <li style={{marginTop:"10px"}} class="nav-item active">
+                                <a class="nav-link" href="#">
+                                <i class="fa fa-home fa-lg"></i>                                                              
+                                </a>
+                            </li>
+                            </NavLink> 
+                            <NavLink to="/about" >
+                            <li style={{marginTop:"10px"}} class="nav-item">
+                                <a class="nav-link" href="#">                                 
+                                <span style={{color:"white"}}>About</span>
+                                </a>
+                            </li>
+                            </NavLink>
+                            <NavLink to="/contact">
+                            <li style={{marginTop:"10px"}} class="nav-item">
+                                <a class="nav-link" href="#">                                 
+                                <span style={{color:"white"}}>Contact</span>
+                                </a>
+                            </li>
+                            </NavLink>
+                            
+                            <li style={{marginTop:"5px"}} class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                
+                                <span style={{color:"white"}}>Categories</span>
+                                </a>
+                                <div style={{fontSize:"15px", borderRadius:"10px"}} class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {
+                                    categories.map((cat, i) => {
+                                        return (                                           
+                                        <NavLink className="dropdown-item" to={`${cat.name.toLowerCase()}`}>
+                                            <span style={{color:"black", marginLeft:"5px", display:"block"}}>{cat.name}</span>                                            
+                                        </NavLink>
+                                               
+                                        )
+                                    })
+                                }                                
                                 </div>
-                            </div>
-                            <div className="col-sm-6 visible-sm">
-                                <div className="text-right"><button type="button" className="book-now-btn">Book Now</button></div>
-                            </div>
-                            <div className="col-md-8 col-sm-12 col-xs-12 remove-padd">
-                                <nav className="navbar navbar-default">
-                                    <div className="navbar-header page-scroll">
-                                        <button data-target=".navbar-ex1-collapse" data-toggle="collapse" className="navbar-toggle" type="button">
-                                            <span className="sr-only">Toggle navigation</span>
-                                            <span className="icon-bar"></span>
-                                            <span className="icon-bar"></span>
-                                            <span className="icon-bar"></span>
-                                        </button>
-
-                                    </div>
-                                    <div className="collapse navigation navbar-collapse navbar-ex1-collapse remove-space">
-                                        <ul className="list-unstyled nav1 cl-effect-10">
-                                        <NavLink to="/"   data-hover="Home" className="active">
-                                            <li><a><span>Home</span></a></li>
-                                        </NavLink>
-                                        <NavLink to="/about" data-hover="About">
-                                            <li><a data-hover="About"><span>About</span></a></li>
-                                        </NavLink>
-                                        <NavLink to="/rooms"  data-hover="Rooms">
-                                            <li><a data-hover="Rooms"><span>Rooms</span></a></li>
-                                        </NavLink>
-                                        <NavLink to="/gallery"  data-hover="Gallery">
-                                            <li><a data-hover="Gallery"><span>Gallery</span></a></li>
-                                        </NavLink>
-                                        <NavLink to="/dinning"  data-hover="Dinning">
-                                            <li><a data-hover="Dinning"><span>Dinning</span></a></li>
-                                        </NavLink>
-                                        <NavLink to="/news"  data-hover="News">
-                                            <li><a data-hover="News"><span>News</span></a></li>
-                                        </NavLink>
-                                        <NavLink to="/contact"  data-hover="Contact Us">
-                                            <li><a data-hover="Contact Us"><span>contact Us</span></a></li>
-                                        </NavLink>
-                                        </ul>
-
-                                    </div>
-                                </nav>
-                            </div>
+                            </li>
+                            </ul>
+                            <ul class="navbar-nav ">
+                            <li class="nav-item">
+                            <button title="LOGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            </button>
+                            </li>
+                            &nbsp;
+                            <li class="nav-item">
+                            <button title="SIGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                            </button>
+                            </li>
+                            </ul>
+                            &nbsp;                            
                             <SearchBar funcionTraeDatos={funcionTraeDatos}/>
-
-                        </nav>
+                        </div>
+                    </nav>
 
             </header>
 
 
-        </div>
+        
 
 
         )
