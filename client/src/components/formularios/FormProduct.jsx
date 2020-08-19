@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 
-export default function FormProduct({products, categories}) {
+export default function FormProduct({products, categories, categxproducts}) {
 
     const [input, setInput] = useState({});
    
@@ -15,8 +15,10 @@ export default function FormProduct({products, categories}) {
           ...input,
           [e.target.name]: e.target.value
         });
+ 
       }
 
+      var categ = [];
 
     var elId = useRef(null)
       function update(id, prod) {
@@ -44,12 +46,39 @@ export default function FormProduct({products, categories}) {
         if (opcion == true) {
             axios.delete(`http://localhost:3001/products/${id}`);            
             window.location = 'http://localhost:3000/formProduct'
-            alert('eliminado con exito')
+            alert('Delete success Product')
         } 
     }
+    
+
+    function deleteCatxprod(nameCxp, idProd){
+
+     //console.log('NAME y el ID PROD', nameCxp + idProd)
+
+      var opcion = window.confirm("Desea eliminar este Articulo");
+        if (opcion == true) {
+            axios.delete(`http://localhost:3001/products/cxp/${idProd}/${nameCxp}`);            
+            window.location = 'http://localhost:3000/formProduct'
+            alert('Delete success Category')
+        }       
+
+    }    
 
 
+    function addCat(select){//inser categorias al array y eliminar     
 
+       
+        if(categ.includes(select)){
+          categ = categ.filter(word => word !== select);        
+          return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+          }else{
+            categ.push(select); 
+            return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+          }   
+            
+         }
+
+          
 
     return (
 
@@ -65,14 +94,15 @@ export default function FormProduct({products, categories}) {
                              <thead>
                                 <tr className="table-primary">
                                     <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Editar</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Categories</th>
+                                    <th scope="col">Edit</th>
 
                                 </tr>
                              </thead>
 
                             <tbody >
-                                <TableProducts products={products} update={update} elId={elId} deleteProduct={deleteProduct}/>
+                                <TableProducts products={products} update={update} elId={elId} deleteProduct={deleteProduct} categxproducts={categxproducts} deleteCatxprod={deleteCatxprod}/>
                             </tbody>
 
                         </table>
@@ -86,22 +116,18 @@ export default function FormProduct({products, categories}) {
                             <input type="text" class="form-control form-control-lg" name="description" placeholder="Descripcion" id="description" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="price" placeholder="$ Precio" id="price" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="stock" placeholder="Cantidad" id="stock" onChange={handleInputChange} required=""/>
-                            <div class="form-check form-check-inline">
-                                <strong style={{marginRight:"0px" }}>CATEGORIES <i class="fa fa-arrow-right" aria-hidden="true"></i> </strong> 
-                            {categories.map((cat, i) => {
-                                        return (                                          
-                                            
-                                            <span>
-                                                &nbsp;                                        
-                                                <input class="form-check-input" type="checkbox" name="categorie" value={cat.name}/>
-                                                <label class="form-check-label" for="inlineCheckbox1"> {cat.name} </label> &nbsp;
-                                            </span> 
-                                            
-                                               
+                            <div className=" form-control-lg">
+                                    {categories.map((cat, i) => {
+                                        return (                                           
+                                          <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name, categxproducts)} id="op" value={cat.name}>
+                                            {cat.name}
+                                          </button>                                          
                                         )
-                                    })}                     
-                            
+                                    })}      
                             </div>
+                            <div className=" form-control-lg"> 
+                              <span id='contCat'></span>
+                            </div>   
                             <input type="text" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
                             <input type="submit" class="submit-btn" value="Submit" />
                         </form>

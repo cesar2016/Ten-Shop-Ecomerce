@@ -23,6 +23,7 @@ function App() {
     const [productos, setProductos] = useState([]);
     const [objetos, setObjetos] = useState([]);
     const [categories,setCategories] = useState([]);
+    const [categxproducts, setCxP] = useState([]);
 
     function funcionTraeDatos(products) {
  
@@ -49,7 +50,9 @@ function App() {
                 alert("Producto no encontrado");
               }
         });
-        fetch("http://localhost:3001/categories")
+
+
+        fetch("http://localhost:3001/categories/")
         .then(r => r.json())
         .then((recurso) => {
             if(recurso){
@@ -73,6 +76,24 @@ function App() {
             }
         })
     }, [])
+
+    ////////////Trayendo CATEGORIESxPRODUCTS POR ID
+    useEffect(() => {
+
+        fetch("http://localhost:3001/products/cxp/")
+        .then(r => r.json())
+        .then((data) => {         
+            if(data) {
+                console.log("catXprud", data)
+                setCxP(data)
+            }
+        })
+
+
+    }, []) 
+     
+        
+     
 
 
 
@@ -98,11 +119,11 @@ function App() {
               <Route path="/" render={() => <NavBar funcionTraeDatos={funcionTraeDatos}/> } />
               <Route exact path="/" render={() => <Catalogue objetos={objetos} /> } />
               <Route path="/product/:id" render={({match}) => <Product productos={objetos} id={match.params.id} productosBusqueda={productos}/> } />
-              <Route exact path="/formProduct" render={() => <FormProduct products={objetos} categories={categories}/> } />
+              <Route exact path="/formProduct" render={() => <FormProduct products={objetos} categories={categories} categxproducts={categxproducts} /> } />
               <Route exact path="/about" render={() => <About/> } />
               <Route exact path="/contact" render={() => <Contact/> } />
               <Route exact path="/formAddProduct" render={() => <FormAddProduct products={objetos} categories={categories}/> } />
-            <Route exact path= "/formCategory" render={() => <FormAddCategory category={categories}/>} />
+              <Route exact path= "/formCategory" render={() => <FormAddCategory categxproducts={categxproducts}/>} />
         </div>
 
     );

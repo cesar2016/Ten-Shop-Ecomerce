@@ -9,6 +9,41 @@ server.get('/', (req, res, next) => {
 	})
  });
 
+ server.get('/cxp', (req, res, next) => {
+	categoriesxproducts.findAll().then(function(data){
+			res.send(data)
+	})
+ });
+
+//Get por id a categoriesxproducts
+ server.get('/cxp/:id', (req, res, next) => {
+	categoriesxproducts.findByPk(req.params.id).then(post => {
+		res.send(post);
+	})
+ });
+
+ ///elimina cat del producto por id 
+server.delete('/cxp/:idName/:nameCat', (req, res) => {
+
+	console.log(req.params.idName)
+	console.log(req.params.nameCat)
+
+	 
+	categoriesxproducts.destroy({
+		where: {
+			product_id: req.params.idName, 
+			category: req.params.nameCat
+		}
+	})
+		.then(result => {
+			res.sendStatus(200);
+		})
+		.catch(() => res.status(404))
+});
+
+ //////////////////////////////////////////////////
+
+ 
  server.get('/:id', (req, res) => {
 	 Product.findByPk(req.params.id).then(post => {
 		 res.send(post);
@@ -33,20 +68,10 @@ server.get('/', (req, res, next) => {
 		res.send(result);
 	 });
  });
-// este post devuelve un array con dos componentes,
-// el objeto con el producto recien publicado en la DB
-// y devuelve un booleano con true (si se agrego en la DB)
-// o devuelve un booleano con false (si no se agregó en la tabla)
-// server.post("/add", (req, res) => {
-// 	const { name, description, price, stock, image } = req.body
-// 	console.log(name, description, price, stock, image)
-// 	Product.findOrCreate({ where: { name, description, price, stock, image } })
-// 		.then(product => {
-// 			res.send(product)
-// 		})
-// });
+
 
 server.post("/add", (req, res) => {
+	//console.log("RECIBEEEEEEEE",req.body)
 	const { category } = req.body;
 	console.log(category)
 	addProduct(req.body)
@@ -67,11 +92,8 @@ server.post("/add", (req, res) => {
 		})
 });
 
-
-
-
 function addProduct(product) {
-	return Product.findOrCreate({
+	return Product.create({
 		name: product.name,
 		description: product.description,
 		price: product.price,

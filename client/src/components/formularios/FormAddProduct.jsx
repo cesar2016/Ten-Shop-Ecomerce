@@ -10,32 +10,40 @@ export default function FormProduct({products, categories}) {
         price: '',
         stock: '',
         image: '',
+        category: []
         
          
       });
 
+      var categ = [];
       const handleInputChange = function(e) {
         setInput({
           ...input,
           [e.target.name]: e.target.value
         });
       }
-
+      console.log('CATEGGGGGGGG',categ);
       const handleSubmit = function(e) {
+        setInput({
+          ...input,
+          category: categ
+        });
+        
         e.preventDefault();
         axios.post("http://localhost:3001/products/add", input)
       }
 
-      var categ = []
-      function addCat(select){
-      // var op =  document.getElementById("op").value; 
-
-      categ.push(select); 
-
+      
+      function addCat(select){//inser categorias al array y eliminar        
        
-      const result = categ.filter(word => word != select);
-       
-          return document.getElementById("contCat").innerHTML = "<p>"+result+"</p>" ;
+      if(categ.includes(select)){
+        categ = categ.filter(word => word !== select);        
+        return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+        }else{
+          categ.push(select); 
+          return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+        }   
+
           
        }
 
@@ -57,16 +65,13 @@ export default function FormProduct({products, categories}) {
                             <input type="text" className="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
                             
                             <div className=" form-control-lg">
-                                    
                                     {categories.map((cat, i) => {
                                         return (                                           
                                           <button type="button" class="btn btn-primary"  onClick={(e) => addCat(cat.name)} id="op" value={cat.name}>
                                             {cat.name}
                                           </button>                                          
                                         )
-                                    })}
-
-                                     
+                                    })}      
                             </div>
                             <div className=" form-control-lg"> 
                               <span id='contCat'></span>
