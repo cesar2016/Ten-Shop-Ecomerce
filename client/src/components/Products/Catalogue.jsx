@@ -1,13 +1,15 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
-import { getAllProducts } from "../../actions"
+import { getAllProducts } from "../../actions/index";
+
 
 function Catalogue({ products, getAllProducts }) {      
   React.useEffect(() => {
     getAllProducts()
   }, [])
     console.log("LOS PRODUCTOS", products)
+
 
     if(products){
       return (
