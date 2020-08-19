@@ -24,13 +24,14 @@ export function getSearchProducts (search) {
     };
   }
 
-export function getAllProduct () {
+export function getAllProducts () {
   return function(dispatch) {
     return axios.get("http://localhost:3001/products")      
-      .then(result => {
+      .then(result => result.data)
+      .then(products => {
         dispatch({
             type: GET_ALL_PRODUCT,
-            payload: result });
+            payload: products });
       });
   };
 }

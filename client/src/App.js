@@ -9,7 +9,7 @@ import './App.css';
 import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
 import FormProduct from "./components/formularios/FormProduct"
-import {Catalogue} from "./components/Products/Catalogue"
+import Catalogue from "./components/Products/Catalogue"
 import About from "./components/About"
 import FormAddProduct from "./components/formularios/FormAddProduct"
 import FormAddCategory from "./components/formularios/FormAddCategory"
@@ -36,32 +36,7 @@ function App() {
            
         })
         .catch(() => alert("Categoria no encontrada >:("))
-    }
-    
-    useEffect(() => {
-      /*fetch("http://localhost:3001/products")
-        .then(r => r.json())
-        .then((recurso) => {
-            if(recurso){
-               setObjetos(recurso);
-            }
-            else{
-                alert("Producto no encontrado");
-              }
-        });*/
-        fetch("http://localhost:3001/categories")
-        .then(r => r.json())
-        .then((recurso) => {
-            if(recurso){
-               setCategories(recurso);
-            }
-            else{
-                alert("Category not found.");
-              }
-        });
-      },[]);
-
-
+    }    
 
     /*if(productos.length !== 0){  //Si la busqueda vine con algo carga solo el NavBar y CategoryProducts,
         // si no muesta todas las demas rutas

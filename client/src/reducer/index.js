@@ -3,7 +3,7 @@ import {
     GET_ALL_PRODUCT,
     GET_PRODUCT_DETAIL,
     GET_SEARCH_PRODUCTS
-   } from '../../actions/index';
+   } from '../actions/index';
 
 const initialState = {
   cataloge: [],
@@ -27,7 +27,7 @@ const reducer = (state = initialState , action) => {
     case GET_ALL_PRODUCT:
       return {
         ...state,
-        catalog: action.payload
+        cataloge: action.payload
       }
     case GET_PRODUCT_DETAIL:
       return {

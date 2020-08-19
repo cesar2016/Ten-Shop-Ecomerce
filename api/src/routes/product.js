@@ -69,7 +69,7 @@ server.post("/add", (req, res) => {
 
 
 function addProduct(product) {
-	return Product.create({
+	return Product.findOrCreate({
 		name: product.name,
 		description: product.description,
 		price: product.price,
