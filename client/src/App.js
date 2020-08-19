@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CategoryProducts from './components/Products/CategoryProducts.jsx';
+import SearchProduct from './components/Products/SearchProduct.jsx';
 //mport { Provider } from 'react-redux'
 import { Route } from 'react-router-dom';
 
@@ -37,6 +37,8 @@ function App() {
            
         })
         .catch(() => alert("Categoria no encontrada >:("))
+      }
+/*<<<<<<< HEAD
     }
     
     useEffect(() => {
@@ -98,6 +100,11 @@ function App() {
 
 
     if(productos.length !== 0){  //Si la busqueda vine con algo carga solo el NavBar y CategoryProducts,
+=======
+    }  */  
+
+    /*if(productos.length !== 0){  //Si la busqueda vine con algo carga solo el NavBar y CategoryProducts,
+>>>>>>> facu_miercoles_madrugada
         // si no muesta todas las demas rutas
         
         return (
@@ -127,7 +134,21 @@ function App() {
         </div>
 
     );
-    }
+    }*/
+    return (
+      <div className="App jumbotron  bg-white">
+          <Route path="/" render={() => <NavBar /*funcionTraeDatos={funcionTraeDatos}*//> } />
+          <Route exact path="/" render={() => <Catalogue/> } />
+          <Route path="/product/:id" render={({match}) => <Product id={match.params.id}/> } />
+          <Route exact path="/formProduct" render={() => <FormProduct products={objetos}/> } />
+          <Route exact path="/about" render={() => <About/> } />
+          <Route exact path="/contact" render={() => <Contact/> } />
+          <Route exact path="/formAddProduct" render={() => <FormAddProduct products={objetos}/> } />
+          <Route exact path= "/formCategory" render={() => <FormAddCategory category={categories}/>} />
+          <Route path="/search" render={() => <SearchProduct/> } />
+      </div>
+      )
+
 }
 // Route product es la ruta a un solo producto,
 export default App;

@@ -2,7 +2,7 @@ import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 
 
-export default function Cards({products}) { 
+export default function SearchProduct({products}) { 
     if(products){
       return (
         <div className='container'>

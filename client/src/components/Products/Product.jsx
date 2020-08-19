@@ -1,38 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from "react-redux";
 
 
+function Product({id, products, productosBusqueda}) {
 
-export default function Product({id, productos, productosBusqueda}) {
-
-//       console.log('AAAAAA', match.params.id);
-//
-//
-//
-//     const [productone, setProductone] = useState([]);
-//
-//     useEffect(() => {
-//         return fetch("http://localhost:3001/products/"+match.params.id)
-//          .then(r => r.json())
-//          .then((recurso) => {
-//              if(recurso){
-//                  let productdates = {
-//                      id: recurso[0].id,
-//                      name: recurso[0].name,
-//                      description: recurso[0].description,
-//                      price: recurso[0].price,
-//                      stock: recurso[0].stock
-//                  }
-// setProductone(productdates);
-//              }
-//              else{
-//                  alert("Producto no encontrado");
-//                }
-//          });
-//        },[]);
-
-
-    var todosLosProductos = productos.concat(productosBusqueda);
-    var resultado = productos.find((el) => {
+    var todosLosProductos = products.concat(productosBusqueda);
+    var resultado = todosLosProductos.find((el) => {
       if (el.id == id) {
         return el
       }
@@ -79,3 +52,12 @@ export default function Product({id, productos, productosBusqueda}) {
         </div>
     );
 };
+
+const mapStateToProps = state => {
+  return {
+    products: state.catalogue
+  }
+}
+
+
+export default connect(mapStateToProps)(Product)

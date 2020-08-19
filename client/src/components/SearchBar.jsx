@@ -1,18 +1,21 @@
 import React, { Component, useState, useEffect } from "react";
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom';
+import { connect } from "react-redux";
+import {getSearchProducts} from "../actions/index"
 
-export default function SearchBar({ funcionTraeDatos }) {
+function SearchBar({ getSearchProducts }) {
     const [inputSearch, setInputSearch] = useState("");
 
     function handleChange(e) {
         setInputSearch({
             inputSearch: e.target.value            
-        });
+        });        
     };
 
     function handleSubmit(e) {
+        console.log("EL SUBMIT", inputSearch.inputSearch)
         e.preventDefault();
-        funcionTraeDatos(inputSearch.inputSearch)
+        getSearchProducts(inputSearch.inputSearch)
 
     };
 
@@ -35,3 +38,12 @@ export default function SearchBar({ funcionTraeDatos }) {
         </div>
     );
 };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getSearchProducts: (search) => dispatch(getSearchProducts(search))
+  }
+}
+
+
+export default connect(null, mapDispatchToProps)(SearchBar)

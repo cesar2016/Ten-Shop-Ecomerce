@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react"
 import "./NavBar.css"
 import SearchBar from "./SearchBar.jsx"
-//port indent from "../../public/style/images/logo."
 import { NavLink } from 'react-router-dom'
 
 
 
 
-export default function NavBar({ funcionTraeDatos, logo }) {
+export default function NavBar() {
     const [categories, setCategories] = React.useState([]);
     useEffect(() => {
         fetch("http://localhost:3001/categories/")
         .then(r => r.json())
         .then((recurso) => {         
-            if(recurso) {
-                console.log("EL RECURSO", recurso)
+            if(recurso) {                
                 setCategories(recurso)
             }
         })
@@ -29,8 +27,7 @@ export default function NavBar({ funcionTraeDatos, logo }) {
                        
 
                     <nav style={{fontSize:"20px", color:"black"}} class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-danger fixed-top">
-                         <div id="logo"> 
-                                     {/* <a href="index.html"><img src="style/images/logo.png"/></a>  */}
+                         <div id="logo">                                    
                             <a href="index.html"><span>Ten</span><span style={{color:"yellow"}}>/ Shop</span></a>
                         </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +90,7 @@ export default function NavBar({ funcionTraeDatos, logo }) {
                             </li>
                             </ul>
                             &nbsp;                            
-                            <SearchBar funcionTraeDatos={funcionTraeDatos}/>
+                            <SearchBar/>
                         </div>
                     </nav>
 

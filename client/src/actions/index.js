@@ -1,3 +1,5 @@
+import axios from "axios"
+
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_ALL_PRODUCT = 'GET_ALL_PRODUCT';
 export const GET_PRODUCT_DETAIL = 'GET_PRODUCT_DETAIL';
@@ -6,41 +8,45 @@ export const GET_ALL_CATEGORY = 'GET_ALL_CATEGORY';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const GET_ALL_PRODUCT_WITHOUT_FILTER = 'GET_ALL_PRODUCT_WITHOUT_FILTER';
+export const GET_SEARCH_PRODUCTS = "GET_SEARCH_PRODUCTS";
 
-export function getProduct (keyword) {
+
+
+export function getSearchProducts (search) {
     return function(dispatch) {
-      return fetch("http://localhost:3001/search/" + keyword)
-        .then(response => response.json())
-        .then(json => {
+      return axios.get("http://localhost:3001/products/searches/" + search)
+        .then(result => result.data)
+        .then(data => {
           dispatch({
-              type: GET_PRODUCT,
-              payload: json });
-        });
+            type: GET_SEARCH_PRODUCTS,
+            payload: data
+          })
+        })
     };
   }
 
-  export function getAllProduct () {
-    return function(dispatch) {
-      return fetch("http://localhost:3001/catalogue")
-        .then(response => response.json())
-        .then(json => {
-          dispatch({
-              type: GET_ALL_PRODUCT,
-              payload: json });
-        });
-    };
-  }
+export function getAllProducts () {
+  return function(dispatch) {
+    return axios.get("http://localhost:3001/products")      
+      .then(result => result.data)
+      .then(products => {
+        dispatch({
+            type: GET_ALL_PRODUCT,
+            payload: products });
+      });
+  };
+}
 
-  export function getProductDetail(id) {
-    return function(dispatch) {
-        return fetch('http://localhost:3001/product/' + id)
-           .then(response => response.json())
-           .then(json => {
-                dispatch({
-                type: GET_PRODUCT_DETAIL,
-                  payload: json });
-       });
-   };
+export function getProductDetail(id) {
+  return function(dispatch) {
+      return fetch('http://localhost:3001/product/' + id)
+         .then(response => response.json())
+         .then(json => {
+              dispatch({
+              type: GET_PRODUCT_DETAIL,
+                payload: json });
+     });
+ };
  }
 
  export function addProduct (producto) {

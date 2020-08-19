@@ -70,10 +70,9 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
  });
 
 
+
 server.post("/add", (req, res) => {
-	//console.log("RECIBEEEEEEEE",req.body)
-	const { category } = req.body;
-	console.log(category)
+	const { category } = req.body;	
 	addProduct(req.body)
 		.then(productCreated => {
 			if (category.length === 0) {
@@ -134,13 +133,13 @@ server.put("/:id", (req, res) => {
 });
 
 
-
 server.get("/searches/:search", function (req, res) {
 	searchProduct(req.params)
 		.then((result) => {
 			res.send(result);
 		});
 });
+
 function searchProduct(key) {
 	return Product.findAll({
 		where: {
@@ -151,9 +150,6 @@ function searchProduct(key) {
 		},
 	});
 }
-
-
-
 
 
 module.exports = server;
