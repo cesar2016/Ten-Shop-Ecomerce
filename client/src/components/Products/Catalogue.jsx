@@ -8,7 +8,6 @@ function Catalogue({ products, getAllProducts, getAllCategories }) {
   React.useEffect(() => {
     getAllProducts()
   }, [])
-    console.log("LOS PRODUCTOS", products)
 
     if(products){
       return (
