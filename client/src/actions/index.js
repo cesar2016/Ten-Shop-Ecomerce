@@ -5,6 +5,7 @@ export const GET_ALL_PRODUCT = 'GET_ALL_PRODUCT';
 export const GET_PRODUCT_DETAIL = 'GET_PRODUCT_DETAIL';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const GET_ALL_CATEGORY = 'GET_ALL_CATEGORY';
+export const GET_ONE_CATEGORY= "GET_ONE_CATEGORY";
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const GET_ALL_PRODUCT_WITHOUT_FILTER = 'GET_ALL_PRODUCT_WITHOUT_FILTER';
@@ -74,6 +75,17 @@ export function getProductDetail(id) {
         .then(json => {
           dispatch({
               type: GET_ALL_CATEGORY,
+              payload: json });
+        });
+    };
+  }
+  export function getOneCategory (category) {
+    return function(dispatch) {
+      return fetch("http://localhost:3001/categories"+category)
+        .then(response => response.json())
+        .then(json => {
+          dispatch({
+              type: GET_ONE_CATEGORY,
               payload: json });
         });
     };
