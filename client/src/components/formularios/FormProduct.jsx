@@ -35,13 +35,25 @@ export default function FormProduct({products, categories, categxproducts}) {
     }
 
     const handleSubmit = function(e) {
-      console.log("EL ID", elId.current, input)
-      console.log("ARRAY", input)
-       
-        var a = document.getElementById("categorie").value;
-        alert(a);
       e.preventDefault();
-      axios.put(`http://localhost:3001/products/${elId.current}`, input)        
+
+      // console.log("EL ID", elId.current, input)
+      // console.log("ARRAY CATEG", categ) 
+      
+      let objetoo = {
+        name: input.name,
+        description: input.description,
+        price: input.price,
+        stock: input.stock,
+        image: input.image,
+        category: categ 
+      }
+
+      console.log(objetoo);
+       
+        
+      
+      axios.put(`http://localhost:3001/products/${elId.current}`, objetoo)        
     }
 
     function deleteProduct(id) {   
@@ -68,16 +80,13 @@ export default function FormProduct({products, categories, categxproducts}) {
     }    
 
    
-    function addCat(select){//inser categorias al array y eliminar 
-     
+    function addCat(select){//inser categorias al array y eliminar      
 
         if(categ.includes(select)){
-          categ = categ.filter(word => word !== select); 
-          console.log("CATEGORIIA",categ)        
+          categ = categ.filter(word => word !== select);                 
           return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
           }else{
-            categ.push(select); 
-            console.log("CATEGORIIA",categ) 
+            categ.push(select);              
             return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
           }   
             
