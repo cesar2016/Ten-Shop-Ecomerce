@@ -9,13 +9,13 @@ function SearchBar({ getSearchProducts }) {
     function handleChange(e) {
         setInputSearch({
             inputSearch: e.target.value            
-        });        
+        });  
+        getSearchProducts(inputSearch.inputSearch)      
     };
 
-    function handleSubmit(e) {
-        console.log("EL SUBMIT", inputSearch.inputSearch)
+    function handleSubmit(e) {        
         e.preventDefault();
-        getSearchProducts(inputSearch.inputSearch)
+        
 
     };
 
@@ -30,10 +30,10 @@ function SearchBar({ getSearchProducts }) {
                 </button>
                     </form> */}
                     <form class="form-inline my-2 my-lg-0" onSubmit={(e) => handleSubmit(e)}>
-                        <input style={{fontSize:"15px"}} class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" onChange={(e) => handleChange(e)}/>
-                    
+                        <input style={{fontSize:"15px"}} class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" onChange={(e) => handleChange(e)}/>                    
+                        <Link to="/search">
                         <button style={{fontSize:"15px"}} class="btn btn-info my-2 my-sm-0" type="submit"><i className="fa fa-search"></i></button>
-                    
+                        </Link>
                     </form>
                 </div>
 
