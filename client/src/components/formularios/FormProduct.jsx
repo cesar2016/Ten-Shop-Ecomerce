@@ -1,11 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableProducts from "../Products/TableProducts"
 import axios from "axios";
+import { connect } from "react-redux";
+import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, getAllCategories, getAllProducts } from "../../actions"
 
 
+function FormProduct({products, categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts}) {
+    useEffect(() => {
+      getAllCategories()
+      getCategoriesxProducts()
+      getAllProducts()      
+    }, [])
 
-export default function FormProduct({products, categories, categxproducts}) {
-
+    console.log("LAS CATEGORIAS", categories)
     const [input, setInput] = useState({});
    
     
@@ -36,9 +43,6 @@ export default function FormProduct({products, categories, categxproducts}) {
 
     const handleSubmit = function(e) {
       e.preventDefault();
-
-      // console.log("EL ID", elId.current, input)
-      // console.log("ARRAY CATEG", categ) 
       
       let objetoo = {
         name: input.name,
@@ -48,18 +52,13 @@ export default function FormProduct({products, categories, categxproducts}) {
         image: input.image,
         category: categ 
       }
-
-      console.log(objetoo);
-       
-        
-      
-      axios.put(`http://localhost:3001/products/${elId.current}`, objetoo)        
+      updateProduct(elId.current, objetoo)
     }
 
-    function deleteProduct(id) {   
+    function deleteProductxId(id) {   
         var opcion = window.confirm("Desea eliminar este Articulo");
         if (opcion == true) {
-            axios.delete(`http://localhost:3001/products/${id}`);            
+            deleteProduct(id)           
             window.location = 'http://localhost:3000/formProduct'
             alert('Delete success Product')
         } 
@@ -71,8 +70,8 @@ export default function FormProduct({products, categories, categxproducts}) {
      //console.log('NAME y el ID PROD', nameCxp + idProd)
 
       var opcion = window.confirm("Desea eliminar este Articulo");
-        if (opcion == true) {
-            axios.delete(`http://localhost:3001/products/cxp/${idProd},${nameCxp}`);            
+        if (opcion == true) {            
+            deleteCatxProd(nameCxp, idProd)
             window.location = 'http://localhost:3000/formProduct'
             alert('Delete success Category')
         }       
@@ -116,7 +115,7 @@ export default function FormProduct({products, categories, categxproducts}) {
                              </thead>
 
                             <tbody >
-                                <TableProducts products={products} update={update} elId={elId} deleteProduct={deleteProduct} categxproducts={categxproducts} deleteCatxprod={deleteCatxprod}/>
+                                <TableProducts update={update} elId={elId} deleteProductxId={deleteProductxId} categxproducts={categxproducts} deleteCatxprod={deleteCatxprod}/>
                             </tbody>
 
                         </table>
@@ -131,7 +130,7 @@ export default function FormProduct({products, categories, categxproducts}) {
                             <input type="text" class="form-control form-control-lg" name="price" placeholder="$ Precio" id="price" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="stock" placeholder="Cantidad" id="stock" onChange={handleInputChange} required=""/>
                             <div className=" form-control-lg">
-                                    {categories.map((cat, i) => {
+                                    {categories && categories.map((cat, i) => {
                                         return (                                           
                                           <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name)} id="op" value={cat.name}>
                                             {cat.name}
@@ -153,3 +152,26 @@ export default function FormProduct({products, categories, categxproducts}) {
         </div>
     );
 };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateProduct: (id, body) => dispatch(updateProduct(id, body)),
+    deleteCatxProd: (name, id) => dispatch(deleteCatxProd(name, id)),
+    deleteProduct: (id) => dispatch(deleteProduct(id)),
+    getCategoriesxProducts: () => dispatch(getCategoriesxProducts()),
+    getAllCategories: () => dispatch(getAllCategories()),
+    getAllProducts: () => dispatch(getAllProducts())
+
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    categxproducts: state.categores_x_products,
+    products: state.all_products,
+    categories: state.categories
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormProduct)

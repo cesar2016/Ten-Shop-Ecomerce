@@ -1,13 +1,18 @@
 import {
-    GET_PRODUCT,
     GET_ALL_PRODUCT,
-    GET_PRODUCT_DETAIL,
-    GET_SEARCH_PRODUCTS
+    GET_SEARCH_PRODUCTS,
+    UPDATE_PRODUCT,
+    DELETE_PRODUCT,
+    DELETECATXPROD,
+    GET_ALL_CATEGORIES,
+    GET_CATEGORIES_X_PRODUCTS
    } from '../actions/index';
 
 const initialState = {
-  catalogue: [],
-  search_result: []
+  all_products: [],
+  search_result: [],
+  categores_x_products: [],
+  categories: []
 };
    
 const reducer = (state = initialState , action) => {   
@@ -16,23 +21,27 @@ const reducer = (state = initialState , action) => {
         return {
           ...state,
           search_result: action.payload
-        };
-
-    case GET_PRODUCT:
-        return {
-          ...state,
-          catalog: action.payload
-        };
-
+        };    
     case GET_ALL_PRODUCT:
       return {
         ...state,
-        catalogue: action.payload
-      }
-    case GET_PRODUCT_DETAIL:
+        all_products: action.payload
+      };
+    case UPDATE_PRODUCT:
+      return state;
+    case DELETE_PRODUCT:
+      return state;
+    case DELETECATXPROD:
+      return state;
+    case GET_CATEGORIES_X_PRODUCTS:
       return {
         ...state,
-        catalog: action.payload
+        categores_x_products: action.payload
+      }
+    case GET_ALL_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload
       }
 
     default:

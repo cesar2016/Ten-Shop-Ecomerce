@@ -1,16 +1,12 @@
 import axios from "axios"
 
-export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_ALL_PRODUCT = 'GET_ALL_PRODUCT';
-export const GET_PRODUCT_DETAIL = 'GET_PRODUCT_DETAIL';
-export const ADD_PRODUCT = 'ADD_PRODUCT';
-export const GET_ALL_CATEGORY = 'GET_ALL_CATEGORY';
-export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
-export const DELETE_PRODUCT = 'DELETE_PRODUCT';
-export const GET_ALL_PRODUCT_WITHOUT_FILTER = 'GET_ALL_PRODUCT_WITHOUT_FILTER';
 export const GET_SEARCH_PRODUCTS = "GET_SEARCH_PRODUCTS";
-
-
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const DELETECATXPROD = "DELETECATXPROD";
+export const GET_CATEGORIES_X_PRODUCTS = "GET_CATEGORIES_X_PRODUCTS";
+export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 
 export function getSearchProducts (search) {
     return function(dispatch) {
@@ -37,94 +33,62 @@ export function getAllProducts () {
   };
 }
 
-export function getProductDetail(id) {
+export function updateProduct (id, body) {
   return function(dispatch) {
-      return fetch('http://localhost:3001/product/' + id)
-         .then(response => response.json())
-         .then(json => {
-              dispatch({
-              type: GET_PRODUCT_DETAIL,
-                payload: json });
-     });
- };
+    return axios.post(`http://localhost:3001/products/${id}`, body)
+      .then(() => {
+        dispatch({
+          type: UPDATE_PRODUCT
+        })
+      })
+  }
+}
+ 
+export function deleteProduct (id) {
+  return function(dispatch) {
+    return axios.delete(`http://localhost:3001/products/${id}`)
+      .then(() => {
+        dispatch({
+          type: DELETE_PRODUCT
+        })
+      })            
+  }
  }
 
- export function addProduct (producto) {
+export function deleteCatxProd (name, id) {
   return function(dispatch) {
-    return   fetch('http://localhost:3001/product/add', {
-  method: 'post',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(producto)
-})
-.then(response => response.json())
-.then(producto => {
-          dispatch({
-              type: ADD_PRODUCT,
-              payload: producto });
-        });
-    };
-  }
-
-  export function getAllCategory () {
-    return function(dispatch) {
-      return fetch("http://localhost:3001/categories")
-        .then(response => response.json())
-        .then(json => {
-          dispatch({
-              type: GET_ALL_CATEGORY,
-              payload: json });
-        });
-    };
-  }
-
-  export function updateProduct(id, product){
-    return function(dispatch) {
-      return   fetch('http://localhost:3001/product/' + id , {
-    method: 'put',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(product)})
-    .then(response => response.json())
-    .then(productosActualizados => {
-            dispatch({
-                type: UPDATE_PRODUCT,
-                payload: productosActualizados });
-          });
-      };
-    }
-
-    export function deleteProduct (id) {
-      return function(dispatch) {
-        return   fetch('http://localhost:3001/product/' , {
-      method: 'delete',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id,
+    return axios.delete(`http://localhost:3001/products/cxp/${id}/${name}`)
+      .then(() => {
+        dispatch({
+          type: DELETECATXPROD
+        })
       })
-    })
-    .then(response => response.json())
-    .then(producto => {
-              dispatch({
-                  type: DELETE_PRODUCT,
-                  payload: producto });
-            });
-        };
-      }
-
-      // getAllProductwithoutFilter, te trae todos los productos tengan o no tengan STOCK
-  export function getAllProductwithoutFilter () {
-    return function(dispatch) {
-      return fetch("http://localhost:3001/product")
-        .then(response => response.json())
-        .then(json => {
-          dispatch({
-              type: GET_ALL_PRODUCT_WITHOUT_FILTER,
-              payload: json });
-        });
-    };
   }
+}
+
+export function getCategoriesxProducts ()  {
+  return function(dispatch) {
+    return axios.get("http://localhost:3001/products/cxp") 
+      .then(result => result.data)
+      .then(data => {
+        dispatch({
+            type: GET_CATEGORIES_X_PRODUCTS,
+            payload: data });
+      })
+  }
+}
+
+
+export function getAllCategories () {
+  return function(dispatch) {
+    return axios.get("http://localhost:3001/categories/")
+      .then(result => result.data)
+      .then(data => {
+        dispatch({
+          type: GET_ALL_CATEGORIES,
+          payload: data
+        })
+      })
+  }
+}
+

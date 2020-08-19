@@ -1,8 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from "axios"
+import { connect } from "react-redux";
+import { getAllProducts, getAllCategories } from "../../actions"
 
 
-export default function FormProduct({products, categories}) {
+function FormAddProduct({products, categories, getAllCategories, getAllProducts}) {
+    useEffect(() => {
+      getAllCategories()      
+      getAllProducts()      
+    }, [])
 
     const [input, setInput] = useState({
         name: '',
@@ -103,3 +109,21 @@ export default function FormProduct({products, categories}) {
 
     );
 };
+
+const mapDispatchToProps = dispatch => {
+  return {    
+    getAllCategories: () => dispatch(getAllCategories()),
+    getAllProducts: () => dispatch(getAllProducts())
+
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    products: state.all_products,
+    categories: state.categories
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormAddProduct)

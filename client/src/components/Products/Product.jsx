@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 
 
-function Product({id, products, productosBusqueda}) {
+function Product({id, products, searchProducts}) {
 
-    var todosLosProductos = products.concat(productosBusqueda);
+    var todosLosProductos = products.concat(searchProducts);
     var resultado = todosLosProductos.find((el) => {
       if (el.id == id) {
         return el
       }
     })
 
-
-    console.log("EL PRODUCTO", resultado)
 
     return (
 
@@ -55,9 +53,11 @@ function Product({id, products, productosBusqueda}) {
 
 const mapStateToProps = state => {
   return {
-    products: state.catalogue
+    products: state.all_products,
+    searchProducts: state.search_result
   }
 }
+
 
 
 export default connect(mapStateToProps)(Product)

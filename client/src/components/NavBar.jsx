@@ -28,7 +28,9 @@ export default function NavBar() {
 
                     <nav style={{fontSize:"20px", color:"black"}} class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-danger fixed-top">
                          <div id="logo">                                    
-                            <a href="index.html"><span>Ten</span><span style={{color:"yellow"}}>/ Shop</span></a>
+                        <NavLink to="/">                         
+                            <a href="/"><span>Ten</span><span style={{color:"yellow"}}>/ Shop</span></a>
+                        </NavLink>                         
                         </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>

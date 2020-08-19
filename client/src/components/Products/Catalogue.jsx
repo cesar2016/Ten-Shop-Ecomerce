@@ -1,9 +1,10 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
-import { getAllProducts } from "../../actions"
+import { getAllProducts, getAllCategories } from "../../actions"
 
-function Catalogue({ products, getAllProducts }) {      
+function Catalogue({ products, getAllProducts, getAllCategories }) {      
+
   React.useEffect(() => {
     getAllProducts()
   }, [])
@@ -31,13 +32,14 @@ function Catalogue({ products, getAllProducts }) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAllProducts: () => dispatch(getAllProducts())
+    getAllProducts: () => dispatch(getAllProducts()),
+    getAllCategories: () => dispatch(getAllCategories())
   }
 }
 
 const mapStateToProps = state => {
   return {
-    products: state.catalogue
+    products: state.all_products
   }
 }
 

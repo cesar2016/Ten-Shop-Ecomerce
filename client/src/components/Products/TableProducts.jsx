@@ -1,10 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Product from './Product';
+import { connect } from "react-redux";
+import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, getAllCategories, getAllProducts } from "../../actions"
 
-
-
-export default function render({products, update, elId, deleteProduct, categxproducts, deleteCatxprod}) {
-        
+function TableProducts({products, update, elId, deleteProduct, categxproducts, deleteCatxprod, getAllProducts}) {
+    useEffect(() => {
+      getAllCategories()
+      getCategoriesxProducts()
+      getAllProducts()      
+    }, [])
         
   
     return (
@@ -38,3 +42,26 @@ export default function render({products, update, elId, deleteProduct, categxpro
         })
     )
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateProduct: (id, body) => dispatch(updateProduct(id, body)),
+    deleteCatxProd: (name, id) => dispatch(deleteCatxProd(name, id)),
+    deleteProduct: (id) => dispatch(deleteProduct(id)),
+    getCategoriesxProducts: () => dispatch(getCategoriesxProducts()),
+    getAllCategories: () => dispatch(getAllCategories())
+
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    categxproducts: state.categores_x_products,
+    products: state.all_products,
+    categories: state.categories
+  }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableProducts)

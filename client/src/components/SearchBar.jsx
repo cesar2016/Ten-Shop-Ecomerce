@@ -10,27 +10,22 @@ function SearchBar({ getSearchProducts }) {
         setInputSearch({
             inputSearch: e.target.value            
         });        
+        getSearchProducts(inputSearch.inputSearch)
     };
+    function handleSubmit(e) {
+        e.preventDefault()
+    }
 
 
     return (
         <div>
 
-                <div className="input-group">
-                {/* <form className="form-inline my-4 my-lg-6" onSubmit={(e) => handleSubmit(e)}>
-                    <input className="form-control subscribe-box" type="search" placeholder="Buscar" aria-label="Search" onChange={(e) => handleChange(e)}/>
-                    <button className="btn btn-danger my-2 my-sm-0" type="submit">
-                  <span className="fa fa-search"></span>
-                </button>
-                    </form> */}
-                    <form class="form-inline my-2 my-lg-0">
-                        <input style={{fontSize:"15px"}} class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" onChange={(e) => handleChange(e)}/>
-                                        
-                        <button style={{fontSize:"15px"}} class="btn btn-info my-2 my-sm-0" type="submit" onClick={(e) => {                            
-                            e.preventDefault();
-                            getSearchProducts(inputSearch.inputSearch)
-                            window.location = 'http://localhost:3000/search'
-                        }}><i className="fa fa-search"></i></button>                    
+                <div className="input-group">                
+                    <form class="form-inline my-2 my-lg-0" onSubmit={(e) => handleSubmit(e)}>
+                        <input style={{fontSize:"15px"}} class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" onChange={(e) => handleChange(e)}/>                        
+                    <Link to="/search">
+                        <button style={{fontSize:"15px"}} class="btn btn-info my-2 my-sm-0" type="submit"><i className="fa fa-search"></i></button>
+                    </Link>
                     </form>
                 </div>
 
