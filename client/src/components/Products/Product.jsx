@@ -12,7 +12,6 @@ function Product({id, products, productosBusqueda}) {
     })
 
 
-    console.log("EL PRODUCTO", resultado)
 
     return (
 

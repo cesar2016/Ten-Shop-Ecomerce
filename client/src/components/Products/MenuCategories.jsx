@@ -1,10 +1,15 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
-import { getAllProducts } from "../../actions"
+import { getOneCategory } from "../../actions/index"
 
-function MenuCategories({category}) { 
-/*     if(products){
+function MenuCategories({category, getOneCategory, products}) { 
+  React.useEffect(() => {
+    getOneCategory(category)
+  }, [category])
+
+    
+    if(products){  
       return (
         <div className='container'>
           {products.map(c => {            
@@ -25,15 +30,20 @@ function MenuCategories({category}) {
       return(
         <div className="alert alert-danger">Sin Productos</div>
       )
-    } */
+    }
   }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getOneCategory: nombre => dispatch(getOneCategory(nombre))
+  }
+}
 
 const mapStateToProps = state => {
   return {
-    products: state.search_result
+    products: state.onecategory
   }
-}  
+}
 
 
-
-export default connect(mapStateToProps)(MenuCategories)
+export default connect(mapStateToProps, mapDispatchToProps)(MenuCategories)

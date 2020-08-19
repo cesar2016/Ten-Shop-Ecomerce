@@ -66,7 +66,7 @@ export default function NavBar() {
                                 {
                                     categories.map((cat, i) => {
                                         return (                                           
-                                        <NavLink className="dropdown-item" to={`${cat.name.toLowerCase()}`}>
+                                        <NavLink className="dropdown-item" to={`${cat.name}`}>
                                             <span style={{color:"black", marginLeft:"5px", display:"block"}}>{cat.name}</span>                                            
                                         </NavLink>
                                                

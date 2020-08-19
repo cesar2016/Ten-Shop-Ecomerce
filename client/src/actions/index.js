@@ -81,7 +81,7 @@ export function getProductDetail(id) {
   }
   export function getOneCategory (category) {
     return function(dispatch) {
-      return fetch("http://localhost:3001/categories"+category)
+      return fetch("http://localhost:3001/categories/"+category)
         .then(response => response.json())
         .then(json => {
           dispatch({

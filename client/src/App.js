@@ -145,7 +145,7 @@ function App() {
           <Route exact path="/formAddProduct" render={() => <FormAddProduct products={objetos}/> } />
           <Route exact path= "/formCategory" render={() => <FormAddCategory category={categories}/>} />
           <Route path="/search" render={() => <SearchProduct/> } />
-          {/* <Route path="/:categories" render={({match}) => <MenuCategories category={match.params.id}/> } /> */}
+          <Route path="/:categories" render={({match}) => <MenuCategories category={match.params.categories}/> } />
       </div>
       )
 
