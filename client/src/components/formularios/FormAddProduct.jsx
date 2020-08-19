@@ -15,37 +15,43 @@ export default function FormProduct({products, categories}) {
          
       });
 
-      var categ = [];
+     
       const handleInputChange = function(e) {
         setInput({
           ...input,
           [e.target.name]: e.target.value
         });
       }
-      console.log('CATEGGGGGGGG',categ);
+      var categ = [];
+      
       const handleSubmit = function(e) {
-        setInput({
-          ...input,
-          category: categ
-        });
+        console.log('CATEGGGGGGGG',categ);
+        let objetoo = {
+          name: input.name,
+          description: input.description,
+          price: input.price,
+          stock: input.stock,
+          image: input.image,
+          category: categ 
+        }
         
         e.preventDefault();
-        axios.post("http://localhost:3001/products/add", input)
+        axios.post("http://localhost:3001/products/add", objetoo)
       }
 
       
-      function addCat(select){//inser categorias al array y eliminar        
-       
-      if(categ.includes(select)){
-        categ = categ.filter(word => word !== select);        
-        return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+      function addCat(select){
+        //console.log(categ.includes(select))
+        if(categ.includes(select)){
+          categ = categ.filter(word => word !== select);        
+           console.log(categ,"if true")
+          return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
         }else{
           categ.push(select); 
+          console.log(categ,"if false")
           return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
-        }   
-
-          
-       }
+        }          
+      }
 
 
 

@@ -72,7 +72,7 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 
 
 server.post("/add", (req, res) => {
-	const { category } = req.body;	
+	const { category } = req.body;			
 	addProduct(req.body)
 		.then(productCreated => {
 			if (category.length === 0) {

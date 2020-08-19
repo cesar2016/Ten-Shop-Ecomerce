@@ -128,7 +128,7 @@ function App() {
               <Route exact path="/about" render={() => <About/> } />
               <Route exact path="/contact" render={() => <Contact/> } />
               <Route exact path="/formAddProduct" render={() => <FormAddProduct products={objetos} categories={categories}/> } />
-              <Route exact path= "/formCategory" render={() => <FormAddCategory categxproducts={categxproducts}/>} />
+              <Route exact path= "/formCategory" render={() => <FormAddCategory category={categories}/>} />
         </div>
 
     );
