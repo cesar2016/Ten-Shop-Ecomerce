@@ -71,7 +71,7 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 
 
 server.post("/add", (req, res) => {
-	//console.log("RECIBEEEEEEEE",req.body)
+	console.log("RECIBEE CATEGORIESS", req.body.category)
 	const { category } = req.body;
 	console.log(category)
 	addProduct(req.body)
