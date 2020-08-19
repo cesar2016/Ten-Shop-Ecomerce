@@ -3,7 +3,7 @@ import {
     GET_ALL_PRODUCT,
     GET_PRODUCT_DETAIL,
     GET_SEARCH_PRODUCTS
-   } from '../../actions/index';
+   } from '../actions/index';
 
 const initialState = {
   cataloge: [],

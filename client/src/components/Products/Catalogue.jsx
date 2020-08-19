@@ -1,9 +1,10 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
-import { getAllProducts } from "../../actions"
+import { getAllProducts } from "../../actions/index";
 
 export function Catalogue({products}) {  
+  getAllProducts();
     if(products){
       return (
         <div className='container' style={{marginTop: "40px"}}>

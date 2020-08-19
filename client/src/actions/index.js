@@ -24,7 +24,7 @@ export function getSearchProducts (search) {
     };
   }
 
-export function getAllProduct () {
+export function getAllProducts () {
   return function(dispatch) {
     return axios.get("http://localhost:3001/products")      
       .then(result => {
