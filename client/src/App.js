@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import SearchProduct from './components/Products/SearchProduct.jsx';
-//mport { Provider } from 'react-redux'
 import { Route } from 'react-router-dom';
 
-import logo from './logo.svg';
 
 import './App.css';
 import NavBar from "./components/NavBar"
@@ -14,6 +11,7 @@ import About from "./components/About"
 import FormAddProduct from "./components/formularios/FormAddProduct"
 import FormAddCategory from "./components/formularios/FormAddCategory"
 import Contact from './components/Contact.jsx';
+import SearchProduct from './components/Products/SearchProduct.jsx';
 
 
 
@@ -137,7 +135,7 @@ function App() {
     }*/
     return (
       <div className="App jumbotron  bg-white">
-          <Route path="/" render={() => <NavBar /*funcionTraeDatos={funcionTraeDatos}*//> } />
+          <Route path="/" render={() => <NavBar/> } />
           <Route exact path="/" render={() => <Catalogue/> } />
           <Route path="/product/:id" render={({match}) => <Product id={match.params.id}/> } />
           <Route exact path="/formProduct" render={() => <FormProduct products={objetos}/> } />
