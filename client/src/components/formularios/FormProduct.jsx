@@ -35,6 +35,9 @@ export default function FormProduct({products, categories, categxproducts}) {
     }
 
     const handleSubmit = function(e) {
+      console.log("EL ID", elId.current, input)
+      console.log("ARRAY", input)
+       
         var a = document.getElementById("categorie").value;
         alert(a);
       e.preventDefault();
@@ -57,22 +60,24 @@ export default function FormProduct({products, categories, categxproducts}) {
 
       var opcion = window.confirm("Desea eliminar este Articulo");
         if (opcion == true) {
-            axios.delete(`http://localhost:3001/products/cxp/${idProd}/${nameCxp}`);            
+            axios.delete(`http://localhost:3001/products/cxp/${idProd},${nameCxp}`);            
             window.location = 'http://localhost:3000/formProduct'
             alert('Delete success Category')
         }       
 
     }    
 
+   
+    function addCat(select){//inser categorias al array y eliminar 
+     
 
-    function addCat(select){//inser categorias al array y eliminar     
-
-       
         if(categ.includes(select)){
-          categ = categ.filter(word => word !== select);        
+          categ = categ.filter(word => word !== select); 
+          console.log("CATEGORIIA",categ)        
           return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
           }else{
             categ.push(select); 
+            console.log("CATEGORIIA",categ) 
             return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
           }   
             
@@ -119,7 +124,7 @@ export default function FormProduct({products, categories, categxproducts}) {
                             <div className=" form-control-lg">
                                     {categories.map((cat, i) => {
                                         return (                                           
-                                          <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name, categxproducts)} id="op" value={cat.name}>
+                                          <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name)} id="op" value={cat.name}>
                                             {cat.name}
                                           </button>                                          
                                         )
