@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { getAllProducts } from "../../actions/index";
 
 export function Catalogue({products}) {  
+  console.log("asdads products", products)
+  console.log("asdads GETALLPRODUFUNC", getAllProducts()())
   getAllProducts();
     if(products){
       return (
