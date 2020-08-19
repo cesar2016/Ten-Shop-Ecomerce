@@ -24,8 +24,7 @@ export default function FormProduct({products, categories}) {
       }
       var categ = [];
       
-      const handleSubmit = function(e) {
-        console.log('CATEGGGGGGGG',categ);
+      const handleSubmit = function(e) {        
         let objetoo = {
           name: input.name,
           description: input.description,
