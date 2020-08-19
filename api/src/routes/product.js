@@ -152,4 +152,38 @@ function searchProduct(key) {
 }
 
 
+
+function deleteProduct(id) {
+	return Product.destroy({ where: { id } })	
+}
+
+
+server.post("/update", (req, res) => {
+	console.log("EL PRODUCTO", req.body)
+	const { id } = req.body
+	const { category } = req.body;
+	deleteProduct(id)
+		.then(() => {
+			addProduct(req.body)
+				.then(productCreated => {
+					if (category.length === 0) {
+						return res.json(productCreated)
+					};
+
+					if (category.length === 1) {
+						productCreated.addCategory(category)
+						return res.json(productCreated)
+					};
+					if (category.length > 1) {
+						category.forEach((categories) => {
+							productCreated.addCategory(categories);
+						});
+						return res.json(productCreated)
+					};
+				})
+		})
+});
+
+
+
 module.exports = server;
