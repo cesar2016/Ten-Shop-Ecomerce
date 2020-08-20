@@ -129,7 +129,7 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
                 // addCategory: ()=> dispatch(addCategory),
                 // deleteCategory: ()=> dispatch(deleteCategory),
                 // modifyCategory: ()=> dispatch(modifyCategory),
-                getAllCategories: ()=> dispatch(getAllCategories)
+                getAllCategories: ()=> dispatch(getAllCategories())
               }
             }
               

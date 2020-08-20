@@ -12,7 +12,8 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
     }, [])
 
     console.log("LAS CATEGORIAS", categories)
-    const [input, setInput] = useState({});   
+    const [input, setInput] = useState({});
+      
     
 
       const handleInputChange = function(e) {
@@ -23,18 +24,30 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
  
       }
 
-      var categ = [];
+      var categ = [];///ARARAY CATTTTEGORIASSSSS
 
     var elId = useRef(null)
+
       function update(id, prod) {
+
+        
+
       prod.find((e) => {
-        if (e.id == id) {
-            document.getElementById("name").placeholder = e.name;
-            document.getElementById("description").placeholder = e.description;
-            document.getElementById("price").placeholder = e.price;
-            document.getElementById("stock").placeholder = e.stock;
-            document.getElementById("image").placeholder = e.image;
-            return e;
+        if (e.id == id) {          
+          setInput(e)
+          
+            document.getElementById("name").value = e.name;            
+            document.getElementById("description").value = e.description;
+            document.getElementById("price").value = e.price;
+            document.getElementById("stock").value = e.stock;
+            document.getElementById("image").value = e.image;
+
+            
+
+            var form = document.getElementById('formulario');
+            form.style.display = '';
+
+            return;
         }
         })
     }
@@ -48,9 +61,11 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
         price: input.price,
         stock: input.stock,
         image: input.image,
-        category: categ 
+        category: categ,
+        id: elId.current
       }
-      updateProduct(elId.current, objetoo)
+       
+      updateProduct(objetoo)
     }
 
     function deleteProductxId(id) {   
@@ -121,7 +136,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
 
                     <div class="col-md-6 contact-form alert alert-dark">
                         <h3>Management <span>Products</span></h3>
-                        <form onSubmit={handleSubmit}>
+                       <form id={'formulario'} style={{display:'none'}} onSubmit={handleSubmit}>
 
                             <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
@@ -134,7 +149,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
                                             {cat.name}
                                           </button>                                          
                                         )
-                                    })}      
+                                    })}   
                             </div>
                             <div className=" form-control-lg"> 
                               <span id='contCat'></span>

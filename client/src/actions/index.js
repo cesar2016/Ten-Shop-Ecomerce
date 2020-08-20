@@ -84,9 +84,9 @@ export function modifyCategory(){
 
 
 
-export function updateProduct (id, body) {
+export function updateProduct (body) {
   return function(dispatch) {
-    return axios.post(`http://localhost:3001/products/${id}`, body)
+    return axios.post(`http://localhost:3001/products/update/`, body)
       .then(() => {
         dispatch({
           type: UPDATE_PRODUCT
