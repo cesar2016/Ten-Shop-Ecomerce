@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from "axios"
 import TableCategories from '../Products/TableCategories';
 import { connect } from 'react-redux'
-import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
+import {getAllCategories, addCategory, modifyCategory, deleteCategory, updateCategory} from '../../actions'
 
- function FormCategory({category, getAllCategories}) {
+ function FormCategory({category, getAllCategories, updateCategory, addCategory}) {
 
   useEffect(()=>{
 
@@ -31,7 +31,7 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
 
       const handleSubmit = function(e) {
         e.preventDefault();
-        axios.post("http://localhost:3001/categories/add/", input)
+        addCategory(input)
         .then((recurso) => {         
             if(recurso){             
                 alert("This category has been created successfully.")                
@@ -48,11 +48,10 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
       }
       var elId = useRef(null)
 
-      const handleDeleteSubmit = function(e) {
+      const handleModifySubmit = function(e) {
         e.preventDefault();
-        axios.put(`http://localhost:3001/categories/${elId.current}`, inputDelete)
-        .then(alert("The category has been modify succesfully."))
-        .then(window.location = "http://localhost:3000/formCategory")        
+        updateCategory(elId.current, inputDelete)        
+        alert("The category has been modify succesfully.")
      };
 
       function update(name, cat) {
@@ -67,8 +66,7 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
       function deleteCategory(name) {   
         var opcion = window.confirm("You want to remove this category?");
         if (opcion == true) {
-            axios.delete(`http://localhost:3001/categories/${name}`);            
-            window.location = 'http://localhost:3000/formCategory'
+            deleteCategory(name)                     
             alert('Deleted Succesfully')
         } 
     }
@@ -109,7 +107,7 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
                     </div>
                     <div className="col-md-5 contact-form alert alert-dark" style= {{marginLeft:"0px"}}>
                         <h3>Modify <span>Category</span></h3>
-                        <form action="#" method="delete" onSubmit={handleDeleteSubmit} >
+                        <form action="#" method="delete" onSubmit={handleModifySubmit} >
                             <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="ModifyName" required onChange={handleInputDeleteChange} />
                         <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id ="DescriptionName"onChange={handleInputDeleteChange}/>
                             <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
@@ -126,17 +124,20 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
 const mapDispatchToProps = dispatch =>{
 
   return {    
-    getAllCategories: ()=> dispatch(getAllCategories())
+    getAllCategories: () => dispatch(getAllCategories()),
+    deleteCategory: (name) => dispatch(deleteCategory(name)),
+    updateCategory: (id, body) => dispatch(updateCategory(id, body)),
+    addCategory: (body) => dispatch(addCategory(body))
   }
 }
   
   
 
-  const mapStateToProps = state =>{
-    return {
-      category: state.categories
-    }
+const mapStateToProps = state =>{
+  return {
+    category: state.categories
   }
+}
   
 
 

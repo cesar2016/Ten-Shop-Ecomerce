@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {connect} from 'react-redux';
-import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
 
 
- function TableCategories({getAllCategories, category, update, categories, elId, deleteCategories }) {
+
+ function TableCategories({category, update, categories, elId, deleteCategories }) {
                             
 
     
@@ -31,16 +31,6 @@ import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '..
     )
 }
 
-const mapDispatchToProps = dispatch =>{
-
-    return {
-        getAllCategories: () => dispatch(getAllCategories)
-        // addCategory: () => dispatch(addCategory),
-        // modifyCategory: () => dispatch(modifyCategory),
-        // deleteCategory: () => dispatch(deleteCategory)  
-
-    }
-}
 
 const mapStateToProps = state =>{
 
@@ -52,4 +42,4 @@ const mapStateToProps = state =>{
 
  
 
-export default connect (mapStateToProps, mapDispatchToProps)(TableCategories) 
+export default connect (mapStateToProps)(TableCategories) 
