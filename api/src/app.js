@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const product = require('./routes/product');
 const categories = require("./routes/categories")
-const { Product, Category } = require("./db.js")
+const { Product, Category, Order, User } = require("./db.js")
 const ind = require('./routes/index')
 
 
@@ -177,21 +177,75 @@ server.post("/", async (req, res) => {
         prod.addCategory(categoria2)
     })
 
+    // creating users
+
+    user1 = await User.create({
+        firstname: "facu",
+        surname: "uriona",
+        password: "1234",
+        type: 1,        
+    });
+
+    user2 = await User.create({
+        firstname: "cesar",
+        surname: "sanchez",
+        password: "1234",
+        type: 1,        
+    });
+
+    user3 = await User.create({
+        firstname: "rodrigo",
+        surname: "pinea",
+        password: "1234",
+        type: 1,        
+    });
+
+    user4 = await User.create({
+        firstname: "matias",
+        surname: "cordoba",
+        password: "1234",
+        type: 1,        
+    });
+
+    user5 = await User.create({
+        firstname: "guillermo",
+        surname: "ambroggio",
+        password: "1234",
+        type: 1,        
+    })
+
+    user6 = await User.create({
+        firstname: "lionel",
+        surname: "messi",
+        password: "1234",
+        type: 2,        
+    })    
+
+
+    order1 = Order.create({
+        status: "processing",
+        address: "av colon 123 cordoba",        
+    })  
+
+    order1.then(order => {
+        order.setUser(user6)
+    })
+
     res.send("LISTO")
 
 });
 
 
-// server.get("/product", (req, res) => {
-//     Category.findAll()
-//         .then(prod => {
-//             res.json(prod)
-//         })
-// })
 
 
-/* server.use('/categories', categories);
-server.use('/product', product); */
+
+
+
+
+
+
+
+
 server.use('/',ind)
 
 
