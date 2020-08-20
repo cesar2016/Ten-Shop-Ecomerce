@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
         allowNull:false
     },
     type: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.ENUM("1", "2", "3"),
       allowNull: false,
     }
   });

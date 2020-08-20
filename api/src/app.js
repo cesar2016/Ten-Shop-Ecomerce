@@ -214,7 +214,7 @@ server.post("/", async (req, res) => {
         type: 1,        
     })
 
-    user6 =  User.create({
+    user6 = await User.create({
         firstname: "lionel",
         surname: "messi",
         password: "1234",
@@ -222,13 +222,13 @@ server.post("/", async (req, res) => {
     })    
 
 
-    order1 = await Order.create({
+    order1 = Order.create({
         status: "processing",
         address: "av colon 123 cordoba",        
     })  
 
-    user6.then(user => {
-        user.addOrder(order1)
+    order1.then(order => {
+        order.setUser(user6)
     })
 
     res.send("LISTO")
