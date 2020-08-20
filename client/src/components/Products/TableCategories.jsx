@@ -6,17 +6,10 @@ import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '..
  function TableCategories({getAllCategories, category, update, categories, elId, deleteCategories }) {
                             
 
-    useEffect(()=>{
-        getAllCategories()
-        // addCategory()
-        // modifyCategory()
-        // deleteCategory()
-    },[])
-     
     
     return (
 
-        category.map((p, i) => {
+        categories.map((p, i) => {
             console.log("asdasdasdasd",p)
             return (<tr>
             <th scope="row"> {p.name} </th>
