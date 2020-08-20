@@ -24,7 +24,7 @@ function SearchProduct({products}) {
       );
     } else {
       return(
-        <div className="alert alert-danger">Sin Productos</div>
+        <div className="alert alert-danger">No found products</div>
       )
     }
   }

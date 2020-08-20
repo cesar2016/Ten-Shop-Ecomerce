@@ -67,12 +67,12 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
             <section class="contact-block jumbotron">
                 <div class="container">
                     <div className="col-md-6 contact-form alert alert-dark">
-                        <h3>Cargar  <span>Productos</span></h3>
+                        <h3>Add  <span>Products</span></h3>
                         <form action="#" method="post" onSubmit={handleSubmit}>
-                            <input type="text" className="form-control form-control-lg" name="name" placeholder="Nombre" id="name" onChange={handleInputChange} required=""/>
-                            <input type="text" className="form-control form-control-lg" name="description" placeholder="Descripcion" id="description" onChange={handleInputChange} required=""/>
-                            <input type="text" className="form-control form-control-lg" name="price" placeholder="$ Precio" id="price" onChange={handleInputChange} required=""/>
-                            <input type="text" className="form-control form-control-lg" name="stock" placeholder="Cantidad" id="stock" onChange={handleInputChange} required=""/>                            
+                            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
+                            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
+                            <input type="text" className="form-control form-control-lg" name="price" placeholder="Price $ " id="price" onChange={handleInputChange} required=""/>
+                            <input type="text" className="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>                            
                             <input type="text" className="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
                             
                             <div className=" form-control-lg">
