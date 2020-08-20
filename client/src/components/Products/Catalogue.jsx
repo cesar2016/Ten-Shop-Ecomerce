@@ -24,7 +24,7 @@ function Catalogue({ products, getAllProducts, getAllCategories }) {
       );
     } else {
       return(
-        <div>Sin Productos</div>
+        <div>No products found.</div>
       )
     }
   }
