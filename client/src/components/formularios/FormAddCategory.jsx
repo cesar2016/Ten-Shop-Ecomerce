@@ -1,8 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from "axios"
-import TableCategories from '../Products/TableCategories'
+import TableCategories from '../Products/TableCategories';
+import { connect } from 'react-redux'
+import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
 
-export default function FormCategory({category}) {
+ function FormCategory({category, getAllCategories}) {
+
+  useEffect(()=>{
+
+    getAllCategories()
+
+  },[])
+
     const [input, setInput] = useState({
         name: '',
         description: '',
@@ -113,3 +122,26 @@ export default function FormCategory({category}) {
             </div>
             );
             }
+
+            const mapDispatchToProps = dispatch =>{
+
+              return {
+                // addCategory: ()=> dispatch(addCategory),
+                // deleteCategory: ()=> dispatch(deleteCategory),
+                // modifyCategory: ()=> dispatch(modifyCategory),
+                getAllCategories: ()=> dispatch(getAllCategories)
+              }
+            }
+              
+              
+
+              const mapStateToProps = state =>{
+                return {
+                  category: state.categories
+                }
+              }
+              
+           
+
+
+            export default connect (mapStateToProps, mapDispatchToProps)(FormCategory)

@@ -1,12 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
+import {connect} from 'react-redux';
+import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
 
 
-export default function render({categories, update, elId, deleteCategories}) {
+ function TableCategories({getAllCategories, category, update, categories, elId, deleteCategories }) {
+                            
+
+    useEffect(()=>{
+        getAllCategories()
+        // addCategory()
+        // modifyCategory()
+        // deleteCategory()
+    },[])
      
     
     return (
 
-        categories.map((p, i) => {
+        category.map((p, i) => {
             console.log("asdasdasdasd",p)
             return (<tr>
             <th scope="row"> {p.name} </th>
@@ -27,3 +37,26 @@ export default function render({categories, update, elId, deleteCategories}) {
         })
     )
 }
+
+const mapDispatchToProps = dispatch =>{
+
+    return {
+        getAllCategories: () => dispatch(getAllCategories)
+        // addCategory: () => dispatch(addCategory),
+        // modifyCategory: () => dispatch(modifyCategory),
+        // deleteCategory: () => dispatch(deleteCategory)  
+
+    }
+}
+
+const mapStateToProps = state =>{
+
+    return {
+
+        category: state.categories
+    }
+}
+
+ 
+
+export default connect (mapStateToProps, mapDispatchToProps)(TableCategories) 

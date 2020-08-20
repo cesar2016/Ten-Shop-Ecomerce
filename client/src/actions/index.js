@@ -8,6 +8,9 @@ export const DELETECATXPROD = "DELETECATXPROD";
 export const GET_CATEGORIES_X_PRODUCTS = "GET_CATEGORIES_X_PRODUCTS";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const GET_ONE_CATEGORY = "GET_ONE_CATEGORY";
+export const ADD_CATEGORY = "ADD_CATEGORY";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const MODIFY_CATEGORY = "MODIFY_CATEGORY";
 
 export function getSearchProducts (search) {
     return function(dispatch) {
@@ -33,6 +36,53 @@ export function getAllProducts () {
       });
   };
 }
+
+export function addCategory(){
+  return function(dispatch){
+    return axios.post("http://localhost:3001/categories/add/")
+    .then(result => result.data)
+    .then(data => {
+      dispatch({
+        type: ADD_CATEGORY,
+        payload: data
+
+      });
+    })
+
+  }
+}
+
+export function deleteCategory(){
+  return function(dispatch){
+    return axios.post("http://localhost:3001/categories/add/")
+    .then(result => result.data)
+    .then(data => {
+      dispatch({
+        type: DELETE_CATEGORY,
+        payload: data
+
+      });
+    })
+
+  }
+}
+
+export function modifyCategory(){
+  return function(dispatch){
+    return axios.post("http://localhost:3001/categories/add/")
+    .then(result => result.data)
+    .then(data => {
+      dispatch({
+        type: MODIFY_CATEGORY,
+        payload: data
+
+      });
+    })
+
+  }
+}
+
+
 
 export function updateProduct (id, body) {
   return function(dispatch) {

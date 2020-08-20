@@ -49,7 +49,9 @@ const mapDispatchToProps = dispatch => {
     deleteCatxProd: (name, id) => dispatch(deleteCatxProd(name, id)),
     deleteProduct: (id) => dispatch(deleteProduct(id)),
     getCategoriesxProducts: () => dispatch(getCategoriesxProducts()),
-    getAllCategories: () => dispatch(getAllCategories())
+    getAllCategories: () => dispatch(getAllCategories()),
+    getAllProducts: () => dispatch(getAllProducts())
+    
 
   }
 }

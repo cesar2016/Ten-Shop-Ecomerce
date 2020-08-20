@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import TableProducts from "../Products/TableProducts"
-import axios from "axios";
+import TableProducts from "../Products/TableProducts";
 import { connect } from "react-redux";
 import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, getAllCategories, getAllProducts } from "../../actions"
 
 
-function FormProduct({products, categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts}) {
+function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts}) {
     useEffect(() => {
       getAllCategories()
       getCategoriesxProducts()
@@ -13,8 +12,7 @@ function FormProduct({products, categories, categxproducts, deleteProduct, delet
     }, [])
 
     console.log("LAS CATEGORIAS", categories)
-    const [input, setInput] = useState({});
-   
+    const [input, setInput] = useState({});   
     
 
       const handleInputChange = function(e) {
@@ -167,8 +165,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    categxproducts: state.categores_x_products,
-    products: state.all_products,
+    categxproducts: state.categores_x_products,    
     categories: state.categories
   }
 }

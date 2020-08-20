@@ -45,6 +45,7 @@ export default function NavBar() {
                                 </a>
                             </li>
                             </NavLink> 
+                            
                             <NavLink to="/about" >
                             <li style={{marginTop:"10px"}} class="nav-item">
                                 <a class="nav-link" href="#">                                 
@@ -58,8 +59,7 @@ export default function NavBar() {
                                 <span style={{color:"white"}}>Contact</span>
                                 </a>
                             </li>
-                            </NavLink>
-                            
+                            </NavLink>                            
                             <li style={{marginTop:"5px"}} class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                
                                 <span style={{color:"white"}}>Categories</span>
@@ -76,15 +76,23 @@ export default function NavBar() {
                                     })
                                 }                                
                                 </div>
-                            </li>
+                            </li>                            
                             </ul>
+
                             <ul class="navbar-nav ">
+                            <li class="nav-item">                            
+                                <span class="badge badge-warning sm">11</span>                           
+                            <button title="LOGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            </button>
+                            </li>
+                            &nbsp;
                             <li class="nav-item">
                             <button title="LOGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
                             <i class="fa fa-sign-in" aria-hidden="true"></i>
                             </button>
                             </li>
-                            &nbsp;
+                            &nbsp;                            
                             <li class="nav-item">
                             <button title="SIGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
                             <i class="fa fa-user-plus" aria-hidden="true"></i>
