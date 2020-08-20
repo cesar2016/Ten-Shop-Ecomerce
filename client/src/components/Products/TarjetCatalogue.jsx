@@ -2,8 +2,8 @@ import React from 'react';
 import "./TarjetCatalogue.css"
 import { NavLink } from 'react-router-dom'
 
-export default function Catalogo({price, name, stock, id, image}) {
-    //console.log("TarjetCatalogue", name)
+export default function Catalogo({price, name, stock, id, image, description}) {
+    
     return (
 
         <div className="content">
@@ -22,7 +22,7 @@ export default function Catalogo({price, name, stock, id, image}) {
                             <div className="gallery-image" >
                                 <img className="img-responsive asd"  src={image}/>
                                 <div className="overlay" >                                   
-                                    <p><a className="text-warning">{name}</a></p>
+                                    <p><a className="text-warning">{description}</a></p>
                                 </div>
                             </div>
                         </div>      

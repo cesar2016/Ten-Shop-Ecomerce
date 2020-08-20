@@ -1,6 +1,6 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
-
+const { Product, categoriesxproducts, Category } = require('../db.js');
+const { Op } = require("sequelize");
 
 
 server.get('/', (req, res, next) => {
@@ -9,6 +9,41 @@ server.get('/', (req, res, next) => {
 	})
  });
 
+ server.get('/cxp', (req, res, next) => {
+	categoriesxproducts.findAll().then(function(data){
+			res.send(data)
+	})
+ });
+
+//Get por id a categoriesxproducts
+ server.get('/cxp/:id', (req, res, next) => {
+	categoriesxproducts.findByPk(req.params.id).then(post => {
+		res.send(post);
+	})
+ });
+
+ ///elimina cat del producto por id 
+server.delete('/cxp/:idName/:nameCat', (req, res) => {
+
+	console.log(req.params.idName)
+	console.log(req.params.nameCat)
+
+	 
+	categoriesxproducts.destroy({
+		where: {
+			product_id: req.params.idName, 
+			category: req.params.nameCat
+		}
+	})
+		.then(result => {
+			res.sendStatus(200);
+		})
+		.catch(() => res.status(404))
+});
+
+ //////////////////////////////////////////////////
+
+ 
  server.get('/:id', (req, res) => {
 	 Product.findByPk(req.params.id).then(post => {
 		 res.send(post);
@@ -33,18 +68,38 @@ server.get('/', (req, res, next) => {
 		res.send(result);
 	 });
  });
-// este post devuelve un array con dos componentes,
-// el objeto con el producto recien publicado en la DB
-// y devuelve un booleano con true (si se agrego en la DB)
-// o devuelve un booleano con false (si no se agregó en la tabla)
+
+
+
 server.post("/add", (req, res) => {
-	const { name, description, price, stock, image } = req.body
-	console.log(name, description, price, stock, image)
-	Product.findOrCreate({ where: { name, description, price, stock, image } })
-		.then(product => {
-			res.send(product)
+	const { category } = req.body;			
+	addProduct(req.body)
+		.then(productCreated => {
+			if (category.length === 0) {
+				return res.json(result)
+			};
+
+			if (category.length === 1) {
+				return productCreated.addCategory(category)
+			};
+			if (category.length > 1) {
+				category.forEach((categories) => {
+					productCreated.addCategory(categories);
+				});
+				return res.json(productCreated)
+			};
 		})
 });
+
+function addProduct(product) {
+	return Product.create({
+		name: product.name,
+		description: product.description,
+		price: product.price,
+		stock: product.price,
+		image: product.image
+	})
+};
 
 
 // elimina el producto por id
@@ -77,6 +132,57 @@ server.put("/:id", (req, res) => {
 		});
 });
 
+
+server.get("/searches/:search", function (req, res) {
+	searchProduct(req.params)
+		.then((result) => {
+			res.send(result);
+		});
+});
+
+function searchProduct(key) {
+	return Product.findAll({
+		where: {
+			[Op.or]:
+			[ { name: { [Op.iLike]: `%${key.search}%` } },
+			{ description: { [Op.iLike]: `%${key.search}%` } },
+			], 
+		},
+	});
+}
+
+
+
+function deleteProduct(id) {
+	return Product.destroy({ where: { id } })	
+}
+
+
+server.post("/update", (req, res) => {
+	console.log("EL PRODUCTO", req.body)
+	const { id } = req.body
+	const { category } = req.body;
+	deleteProduct(id)
+		.then(() => {
+			addProduct(req.body)
+				.then(productCreated => {
+					if (category.length === 0) {
+						return res.json(productCreated)
+					};
+
+					if (category.length === 1) {
+						productCreated.addCategory(category)
+						return res.json(productCreated)
+					};
+					if (category.length > 1) {
+						category.forEach((categories) => {
+							productCreated.addCategory(categories);
+						});
+						return res.json(productCreated)
+					};
+				})
+		})
+});
 
 
 

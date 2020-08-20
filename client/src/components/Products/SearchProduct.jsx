@@ -1,8 +1,10 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
+import { connect } from "react-redux";
+import { getAllProducts } from "../../actions"
 
-
-export default function Cards({products}) { 
+function SearchProduct({products}) { 
+  console.log("LOS Productos", products)
     if(products){
       return (
         <div className='container'>
@@ -26,3 +28,13 @@ export default function Cards({products}) {
       )
     }
   }
+
+const mapStateToProps = state => {
+  return {
+    products: state.search_result
+  }
+}  
+
+
+
+export default connect(mapStateToProps)(SearchProduct)

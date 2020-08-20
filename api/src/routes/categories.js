@@ -18,11 +18,10 @@ server.get("/:category", (req, res) => {
 
 // MUESTRA TODAS LAS CATEGORIAS
 server.get("/",  (req, res, next) => {
-    Category.findAll().then(function(categorias){
+  Category.findAll().then(function(categorias){
         res.send(categorias);
     });
   });
-
 
 
 // MODIFICA ALGUNA CATEGORIA SEGUN ID

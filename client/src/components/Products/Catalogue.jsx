@@ -1,15 +1,18 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
+import { connect } from "react-redux";
+import { getAllProducts, getAllCategories } from "../../actions"
 
+function Catalogue({ products, getAllProducts, getAllCategories }) {      
 
-export default function Cards({objetos}) {
-    //console.log(objetos)
-    //console.log('/products.jsx -------',products,'eeeeeentrando array 0 ->');
-    //console.log('aaaaaaaaa', products[0].name);
-    if(objetos){
+  React.useEffect(() => {
+    getAllProducts()
+  }, [])
+
+    if(products){
       return (
         <div className='container' style={{marginTop: "40px"}}>
-          {objetos.map(c => <TarjetCatalogue
+          {products.map(c => <TarjetCatalogue
               id={c.id}
               name={c.name}
               description={c.description}
@@ -25,3 +28,19 @@ export default function Cards({objetos}) {
       )
     }
   }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getAllProducts: () => dispatch(getAllProducts()),
+    getAllCategories: () => dispatch(getAllCategories())
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    products: state.all_products
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Catalogue)
