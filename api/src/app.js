@@ -29,106 +29,106 @@ server.use((req, res, next) => {
 
 server.post("/", async (req, res) => {
     const categoria1 = await Category.create({
-        name: "Notebooks",
-        description: ""
+        name: "Laptops",
+        description: "Laptop for work, university or watching Netflix!"
     });
     const categoria2 = await Category.create({
-        name: "Televisores",
-        description: ""
+        name: "TV",
+        description: "To watch netflix, soccer or your favorite sport."
     });
     const categoria3 = await Category.create({
-        name: "Heladeras",
-        description: ""
+        name: "Refrigerators",
+        description: "The best refrigerators to keep your food in good condition."
     });
     const categoria4 = await Category.create({
-        name: "Celulares",
-        description: ""
+        name: "Cell phones",
+        description: "The best cell phones on the market, at the best price"
     })
     const categoria5 = await Category.create({
         name: "Audio",
-        description: ""
+        description: "In this category you will find the best audio products to enjoy your music, movie and more"
     })
     const producto1 = Product.create({
-        name: "Notebooks HP i7",
-        description: "Intel 9",
+        name: "Laptop HP i7",
+        description: "Intel i7 3.0 Ghz, 500gb SSD, 20gb RAM. The best in the market.",
         price: 90000,
         stock: 9,
         image: "https://http2.mlstatic.com/D_NQ_NP_945569-MLA31652747525_082019-O.webp",
     })
     const producto2 = Product.create({
-        name: "Televisor Samsung",
-        description: "Smart tv 45",
+        name: "TV Samsung 4K HDR",
+        description: "Smart tv 45 inches, guaranteed quality.",
         price: 10000,
         stock: 7,
         image: "https://images.samsung.com/is/image/samsung/es-uhd-ku6000-ue55ku6000kxxc-008-side-black?$L2-Thumbnail$",
     });
     const producto3 = Product.create({
-        name: "Celular Huawei",
-        description: "p20 mate",
+        name: "CellPhone Huawei",
+        description: "P20 mate, 8gb RAM, 120gb",
         price: 21000,
         stock: 25,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTALbNv80PTObO79eSC8OpHi1EaUmZo6BLlkdXkIs66U7iiUv6zdwr_ahjPWapwCf3vO-ywJyM&usqp=CAc"
     });
     const producto4 = Product.create({
-        name: "Heladera Gama",
-        description: "4 tiempos",
+        name: "Refrigerator Gama",
+        description: "The best refrigerator in the market.",
         price: 65000,
         stock: 5,
         image: "https://whirlpoolarg.vteximg.com.br/arquivos/ids/160013-1000-1000/WRM54AK-01.jpg?v=636843652899770000",
     });
     const producto5 = Product.create({
-        name: "Celular Xiaomi",
-        description: "redmi note",
+        name: "CellPhone Xiaomi",
+        description: "Redmi Note 10, 6.0 inches, 250gb, 12gb RAM,4 cameras!",
         price: 12000,
         stock: 43,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTALbNv80PTObO79eSC8OpHi1EaUmZo6BLlkdXkIs66U7iiUv6zdwr_ahjPWapwCf3vO-ywJyM&usqp=CAc",
     });
     const producto6 = Product.create({
-        name: "Notebook HP i5",
-        description: "Descripcion del producto 4",
+        name: "Laptop HP i5",
+        description: "HP i5 8025u, 15.6 inches, 256gb SSD, 8gb RAM.",
         price: 50000,
         stock: 15,
         image: "https://http2.mlstatic.com/D_NQ_NP_945569-MLA31652747525_082019-O.webp",
     });
     const producto7 = Product.create({
-        name: "Notebook HP i3",
-        description: "Descripcion del producto 5",
+        name: "Laptop HP i3",
+        description: "HP i3 8000u, 14 inches, 500 gb HHD, 4gb RAM.",
         price: 30000,
         stock: 15,
         image: "https://http2.mlstatic.com/D_NQ_NP_945569-MLA31652747525_082019-O.webp",
     });
     const producto8 = Product.create({
         name: "Tablet Samsung",
-        description: "xPro Max",
+        description: "xPro Max, 10 inches, 4gb RAM, 64gb.",
         price: 25000,
         stock: 8,
         image: "https://makkax.com/wp-content/uploads/2020/04/samsung_tab_a_t295_-_plata_1_1_1.jpg",
     })
 
     const producto9 = Product.create({
-        name: "Heladera Samsung",
-        description: "xPro Max",
+        name: "Refrigerator Samsung",
+        description: "The refrigerator Smart!",
         price: 95000,
         stock: 8,
         image: "https://d26lpennugtm8s.cloudfront.net/stores/959/516/products/51mrs1wzk8l-_sl1000_1-d8bd50c9e4eaf9920815756371652730-1024-1024.jpg",
     })
     const producto10 = Product.create({
-        name: "Parlante Sony ",
-        description: "xPro Max",
+        name: "Speaker Sony",
+        description: "20watts, waterproof speaker.",
         price: 5000,
         stock: 12,
         image: "https://www.olmoshogar.com.ar/wp-content/uploads/2020/08/PARLANTE-SONY-GTKPG10-1.jpg",
     })
     const producto11 = Product.create({
-        name: "Parlante JBL ",
-        description: "xPro Max",
-        price: 6750,
+        name: "Speaker JBL",
+        description: "10watts, no waterproof.",
+        price: 3000,
         stock: 5,
         image: "https://d26lpennugtm8s.cloudfront.net/stores/453/714/products/flip55-e371f0ac5a367979dd15811094686878-1024-1024.jpg",
     })
     const producto12 = Product.create({
-        name: "Televisor Led ",
-        description: "xPro Max",
+        name: "LG TV ",
+        description: "TV 32 inches, FULL HD, HDR",
         price: 6750,
         stock: 5,
         image: "https://dj4i04i24axgu.cloudfront.net/guides-ui/statics/0.1.13/images/tipo_tv.png",

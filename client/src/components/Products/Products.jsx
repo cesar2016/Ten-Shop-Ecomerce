@@ -20,7 +20,7 @@ export default function Cards({products}) {
       );
     } else {
       return(
-        <div>Sin Productos</div>
+        <div>No found products</div>
       )
     }
   }

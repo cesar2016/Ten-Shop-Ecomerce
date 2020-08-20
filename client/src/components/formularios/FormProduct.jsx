@@ -122,13 +122,13 @@ function FormProduct({products, categories, categxproducts, deleteProduct, delet
                     </div>
 
                     <div class="col-md-6 contact-form alert alert-dark">
-                        <h3>Administracion  <span>Productos</span></h3>
+                        <h3>Management <span>Products</span></h3>
                         <form onSubmit={handleSubmit}>
 
-                            <input type="text" class="form-control form-control-lg" name="name" placeholder="Nombre" id="name" onChange={handleInputChange} required=""/>
-                            <input type="text" class="form-control form-control-lg" name="description" placeholder="Descripcion" id="description" onChange={handleInputChange} required=""/>
-                            <input type="text" class="form-control form-control-lg" name="price" placeholder="$ Precio" id="price" onChange={handleInputChange} required=""/>
-                            <input type="text" class="form-control form-control-lg" name="stock" placeholder="Cantidad" id="stock" onChange={handleInputChange} required=""/>
+                            <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
+                            <input type="text" class="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
+                            <input type="text" class="form-control form-control-lg" name="price" placeholder="Price $" id="price" onChange={handleInputChange} required=""/>
+                            <input type="text" class="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>
                             <div className=" form-control-lg">
                                     {categories && categories.map((cat, i) => {
                                         return (                                           
