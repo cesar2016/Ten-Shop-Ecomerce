@@ -7,6 +7,7 @@ export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const DELETECATXPROD = "DELETECATXPROD";
 export const GET_CATEGORIES_X_PRODUCTS = "GET_CATEGORIES_X_PRODUCTS";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
+export const GET_ONE_CATEGORY = "GET_ONE_CATEGORY";
 
 export function getSearchProducts (search) {
     return function(dispatch) {
@@ -92,3 +93,16 @@ export function getAllCategories () {
   }
 }
 
+
+
+export function getOneCategory (category) {
+    return function(dispatch) {
+      return fetch("http://localhost:3001/categories/"+category)
+        .then(response => response.json())
+        .then(json => {
+          dispatch({
+              type: GET_ONE_CATEGORY,
+              payload: json });
+        });
+    };
+  }

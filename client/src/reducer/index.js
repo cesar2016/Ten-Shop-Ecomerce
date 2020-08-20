@@ -5,14 +5,16 @@ import {
     DELETE_PRODUCT,
     DELETECATXPROD,
     GET_ALL_CATEGORIES,
-    GET_CATEGORIES_X_PRODUCTS
+    GET_CATEGORIES_X_PRODUCTS,
+    GET_ONE_CATEGORY
    } from '../actions/index';
 
 const initialState = {
   all_products: [],
   search_result: [],
   categores_x_products: [],
-  categories: []
+  categories: [],
+  onecategory:[]
 };
    
 const reducer = (state = initialState , action) => {   
@@ -42,6 +44,11 @@ const reducer = (state = initialState , action) => {
       return {
         ...state,
         categories: action.payload
+      }
+    case GET_ONE_CATEGORY:
+      return {
+        ...state,
+        onecategory: action.payload
       }
 
     default:

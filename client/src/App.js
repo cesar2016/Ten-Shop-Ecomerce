@@ -12,6 +12,7 @@ import FormAddProduct from "./components/formularios/FormAddProduct"
 import FormAddCategory from "./components/formularios/FormAddCategory"
 import Contact from './components/Contact.jsx';
 import SearchProduct from './components/Products/SearchProduct.jsx';
+import MenuCategories from './components/Products/MenuCategories';
 
 
 
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/formAddProduct" render={() => <FormAddProduct/> } />
           <Route exact path= "/formCategory" render={() => <FormAddCategory />} />
           <Route path="/search" render={() => <SearchProduct/> } />
+          <Route path="/:categories" render={({match}) => <MenuCategories category={match.params.categories}/> } />
       </div>
       )
 
