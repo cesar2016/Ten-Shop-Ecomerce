@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { User, Order } = require('../db.js');
+const { User, Order , ProductxOrder } = require('../db.js');
 
 
 server.get('/', (req, res, next) => {
@@ -7,6 +7,18 @@ server.get('/', (req, res, next) => {
 			res.send(data)
 	})
  });
+
+ server.get('/:idUser/cart', (req, res, next) => {
+    const {idUser} = req.params;
+	ProductxOrder.findAll(
+      //  include: [{model: User, as: "User" },{model:ProductxOrder}],
+
+      ).then(function(data){
+			res.send(data)
+	})
+ });
+
+
 
 server.post('/:idUser/cart', (req, res) => {
    // console.log("este es el consolelogg",req);
