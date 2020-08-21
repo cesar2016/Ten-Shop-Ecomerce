@@ -92,7 +92,7 @@ const reducer = (state = initialState , action) => {
       case MODIFY_CATEGORY:
         let name = action.payload.name;
         let newCategories = state.categories.filter(elem => name !== elem.name)
-        let filterCat = action.payload.body;
+        let filterCat = action.payload.body; 
         newCategories.push(filterCat)
         return {
            ...state,
