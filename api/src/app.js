@@ -222,22 +222,39 @@ server.post("/", async (req, res) => {
         type: 2,        
     })    
 
-
+//CREAR ORDENES:
     const order1 = await Order.create({
         status: "processing",
         address: "av colon 123 cordoba",        
+    }) 
+    
+    const order2 = await Order.create({
+        status: "created",
+        address: "aguante chaco",        
     })  
 
-    /* order1.then(order => {
-        order.setUser(user6)
-    }) */
 
+//RELACION(1-1) USUARIO-ORDEN:    
+//La orden 1 Pertenece al usuario 6
     user6.then(user => {
         user.setOrder(order1)
     })
+
+    user5.then(user => {
+        user.setOrder(order2)
+    })
+
+//RELACION(N-N) PRODUCTOS-ORDENES
+//La orden 1 tiene el producto 12
     producto12.then((prod) => {
         prod.addOrder(order1)
     })
+
+    producto10.then((prod) => {
+        prod.addOrder(order1)
+    })
+
+   
    
 
     res.send("LISTO")
