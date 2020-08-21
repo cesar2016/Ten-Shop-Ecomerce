@@ -78,14 +78,22 @@ export default function NavBar() {
                                 </div>
                             </li>                            
                             </ul>
-
+                            
                             <ul class="navbar-nav ">
-                            <li class="nav-item">                            
-                                <span class="badge badge-warning sm">11</span>                           
-                            <button title="LOGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            <div calssName={'content'}>  
+                            <span style={{                               
+                                fontSize:"10px",
+                                position: "absolute",
+                                top:  "20px",
+                                
+                                }} class="badge badge-success badge-pill">5</span>                        
+                            <li class="nav-item">                                                               
+                            <button title="market" style={{ fontSize:"15px"}} type="button" class="btn btn-danger my-2 my-sm-0">
+                            <i  class="fa fa-shopping-cart" aria-hidden="true"></i>
                             </button>
+                            
                             </li>
+                            </div>  
                             &nbsp;
                             <li class="nav-item">
                             <button title="LOGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
