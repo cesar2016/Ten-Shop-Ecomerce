@@ -4,7 +4,7 @@ import TableCategories from '../Products/TableCategories';
 import { connect } from 'react-redux'
 import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
 
- function FormCategory({categories, getAllCategories, addCategory, modifyCategory}) {
+ function FormCategory({categories, getAllCategories, addCategory, modifyCategory, elId}) {
 
   useEffect(()=>{
     addCategory()
@@ -50,31 +50,39 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
       var elId = useRef(null)
 
       const handleModifySubmit = function(e) {
+        let form = document.getElementById('formulario');
+        form.style.display = 'none';
         e.preventDefault();
-        modifyCategory(inputModify)
+        console.log(inputModify)
+        modifyCategory(inputModify,elId.current)
+        form.style.display = " "
     //     axios.put(`http://localhost:3001/categories/${elId.current}`, inputModify)
     //     .then(alert("The category has been modify succesfully."))
     //     .then(window.location = "http://localhost:3000/formCategory")        
       };
 
-       function update(name, cat) {
-       cat.find((e) => {
-         if (e.name == name) {
-             document.getElementById("ModifyName").placeholder = e.name;
-             document.getElementById("DescriptionName").placeholder = e.description;
-             return e;
-         }
-         })
-     }
-      function deleteCategory(name) {   
-        var opcion = window.confirm("You want to remove this category?");
-        if (opcion == true) {
-            deleteCategory(name)            
-            window.location = 'http://localhost:3000/formCategory'
-            alert('Deleted Succesfully')
-        } 
-    }
-
+      function update(elId, body) {        
+        body.find((e) => {
+          if (e.name == elId) {
+            setinputModify(e)
+            document.getElementById("ModifyName").value = e.name;            
+            document.getElementById("DescriptionName").value = e.description;
+            var form = document.getElementById('formulario');
+            form.style.display = '';
+            return;
+          }
+        })
+      }
+    
+    //   function deleteCategory(name) {   
+    //     var opcion = window.confirm("You want to remove this category?");
+    //     if (opcion == true) {
+    //         deleteCategory(name)            
+    //         window.location = 'http://localhost:3000/formCategory'
+    //         alert('Deleted Succesfully')
+    //     } 
+    // }
+     
     return (
         <div>
         <section class="contact-block">
@@ -94,7 +102,6 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
                              </thead>
 
                             <tbody >
-                            {/* update={update} */}
                                 <TableCategories categories={categories} update={update} elId={elId} deleteCategories={deleteCategory} />
                             </tbody>
 
@@ -110,9 +117,9 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
                             <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
                         </form>
                     </div>
-                    <div className="col-md-5 contact-form alert alert-dark" style= {{marginLeft:"0px"}}>
+                    <div className="col-md-5 contact-form alert alert-dark" >
                         <h3>Modify <span>Category</span></h3>
-                        <form action="#" method="delete" onSubmit={handleModifySubmit} >
+                        <form onSubmit={handleModifySubmit} id = {"formulario"} style={{display:'none'}}>
                             <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="ModifyName" required onChange={handleInputModifyChange} />
                         <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id ="DescriptionName"onChange={handleInputModifyChange}/>
                             <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
@@ -132,7 +139,7 @@ const mapDispatchToProps = dispatch =>{
 return {
     addCategory: (category)=> dispatch(addCategory(category)),
     // deleteCategory: ()=> dispatch(deleteCategory),
-    modifyCategory: (category)=> dispatch(modifyCategory(category)),
+    modifyCategory: (category,inputModify)=> dispatch(modifyCategory(category,inputModify)),
     getAllCategories: ()=> dispatch(getAllCategories())
   }
 }

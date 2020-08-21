@@ -49,14 +49,14 @@ export function addCategory(category){
   }
 }
 
-export function modifyCategory(category){
+export function modifyCategory(body,name){
   return function(dispatch){
-    return axios.put("http://localhost:3001/categories/modify/")
+    return axios.put(`http://localhost:3001/categories/modify/${name}`, body)
     .then(result => result.data)
-    .then(data => {
+    .then((data) => {
       dispatch({
         type: MODIFY_CATEGORY,
-        payload: category
+        payload: data 
       });
     })
 
@@ -66,8 +66,7 @@ export function modifyCategory(category){
 export function deleteCategory(category){
   return function(dispatch){
     return axios.delete(`http://localhost:3001/categories/${category}`)
-    .then(result => result.data)
-    .then(data => {
+    .then(() => {
       dispatch({
         type: DELETE_CATEGORY,
         payload: category
