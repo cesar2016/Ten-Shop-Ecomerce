@@ -53,7 +53,6 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
         let form = document.getElementById('formulario');
         form.style.display = 'none';
         e.preventDefault();
-        console.log(inputModify)
         modifyCategory(inputModify,elId.current)
         form.style.display = " "
     //     axios.put(`http://localhost:3001/categories/${elId.current}`, inputModify)
@@ -74,15 +73,7 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
         })
       }
     
-    //   function deleteCategory(name) {   
-    //     var opcion = window.confirm("You want to remove this category?");
-    //     if (opcion == true) {
-    //         deleteCategory(name)            
-    //         window.location = 'http://localhost:3000/formCategory'
-    //         alert('Deleted Succesfully')
-    //     } 
-    // }
-     
+   
     return (
         <div>
         <section class="contact-block">
@@ -138,8 +129,8 @@ const mapDispatchToProps = dispatch =>{
 
 return {
     addCategory: (category)=> dispatch(addCategory(category)),
-    // deleteCategory: ()=> dispatch(deleteCategory),
-    modifyCategory: (category,inputModify)=> dispatch(modifyCategory(category,inputModify)),
+    deleteCategory: (category)=> dispatch(deleteCategory(category)),
+    modifyCategory: (body,id)=> dispatch(modifyCategory(body,id)),
     getAllCategories: ()=> dispatch(getAllCategories())
   }
 }

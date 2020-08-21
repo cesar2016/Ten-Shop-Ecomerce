@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
 
 
- function TableCategories({getAllCategories, category, update, categories, elId, deleteCategory }) {
+ function TableCategories({getAllCategories, category, update,  elId, deleteCategory,modifyCategory}) {
                             
 
     useEffect(()=>{
         getAllCategories()
-        // modifyCategory()
+         //modifyCategory()
          deleteCategory()
     },[])
    
@@ -39,8 +39,8 @@ const mapDispatchToProps = dispatch =>{
 
     return {
         getAllCategories: () => dispatch(getAllCategories),
-        // modifyCategory: () => dispatch(modifyCategory),
-         deleteCategory: (category) => dispatch(deleteCategory(category))  
+        modifyCategory: (body,id) => dispatch(modifyCategory(body,id)),
+        deleteCategory: (category) => dispatch(deleteCategory(category))  
 
     }
 }

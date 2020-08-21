@@ -88,8 +88,9 @@ server.post("/add", (req, res) => {
 	const  { body }  = req;
 	Category.update(body, { where: { name } })
 		.then(result => {
-			res.send(body,name)
-		});
+			res.status(200).send(body,name)
+    })
+    .catch(()=> res.status(404));
  });
 
 module.exports = server;
