@@ -18,8 +18,31 @@ server.get('/', (req, res, next) => {
 	})
  });
 
+//CREAR USUARIOS
+ server.post('/', (req, res) => {
+   const { body } = req;
+   console.log("Este es el body",body, body.password)
+  User.create({
+    firstname: body.firstname,
+    surname: body.surname,
+    password: body.password,
+    type: body.type
+  }).then(user => {
+      Order.create({
+        status: "created",
+        address: body.address,
+      }).then(order => {
+        user.setOrder(order)
+      })
+       res.status(200).send("user created")
+  })
+  .catch(err => {
+    res.status(404).send("Error. The user was not created")
+  })
+});
 
 
+//AGREGA ITEMS AL CARRITO
 server.post('/:idUser/cart', (req, res) => {
    // console.log("este es el consolelogg",req);
 	const {idUser} = req.params;//Id del usuario
@@ -41,25 +64,24 @@ server.post('/:idUser/cart', (req, res) => {
                 res.status(200).send("Order created")
             }).catch(res.status(404).send("Sold out"))
           }else{//El usuario no tiene orden, creo la orden primero y luego anado el producto.
-            var ordercreada = Order.create({
-                status: body.status,
+                Order.create({
+                status: "created",
                 address: body.address,                    
-            }).then(order => { 
-                //console.log("Entreee acaaaa",use[0].dataValues)
-                User.findByPk(idUser).then(usuario => {  //usuario.setOrder(order)
-                console.log("Entreee acaaaa",usuario)
-                usuario.dataValues.setOrder(order)                                                
-                }).then(result => {
-                    console.log("RESiltuuuuuu",result)
-                    //use.setOrder(ordercreada);                               
+            }).then(order => {
+              User.findByPk(idUser).then(user => { 
+                  console.log("Entreee acaaaa",user,"esta es la orden creada",order)              
+                  user.setOrder(order);
                     Product.findByPk(body.id).then(producto => {  
-                        producto.addOrder(ordercreada);
-                        res.status(200).send("Order created")
-                    }).catch(res.status(404).send("Sold out"))
-                })
-                
-            }).catch(err => {
+                        producto.addOrder(order);
+                        console.log("aslknaskdskad")
+
+                      res.status(200).send("Order created")
+                    })                                    
+              }).catch(err => {
+
                 res.status(404).send("Error. Order no created!")
+                
+              })
             }) 
           }
           
