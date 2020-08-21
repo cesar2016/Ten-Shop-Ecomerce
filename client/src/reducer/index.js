@@ -30,11 +30,31 @@ const reducer = (state = initialState , action) => {
         all_products: action.payload
       };
     case UPDATE_PRODUCT:
-      return state;
+      let id = action.payload.id;
+      let categories = action.payload.category
+      let newCategories_x_products = state.categores_x_products.filter(el => id !== el.product_id)
+      categories.forEach(cat => newCategories_x_products.push({product_id: id, category:cat}))
+      return {
+        ...state,
+        categores_x_products: newCategories_x_products
+      }
     case DELETE_PRODUCT:
-      return state;
-    case DELETECATXPROD:
-      return state;
+      let idDelete = action.payload
+      return {
+        ...state,
+        all_products: state.all_products.filter(el => el.id !== idDelete)
+      }
+    case DELETECATXPROD:        
+      let legacycatxprod = state.categores_x_products;
+      legacycatxprod.forEach((el, i) => {
+        if (el.product_id === action.payload.id && el.category === action.payload.name) {
+          return legacycatxprod.splice(i, 1)
+        }
+      })
+      return {
+        ...state,
+        categores_x_products: legacycatxprod        
+      }
     case GET_CATEGORIES_X_PRODUCTS:
       return {
         ...state,

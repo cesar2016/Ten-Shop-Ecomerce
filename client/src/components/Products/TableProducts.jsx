@@ -3,7 +3,7 @@ import Product from './Product';
 import { connect } from "react-redux";
 import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, getAllCategories, getAllProducts } from "../../actions"
 
-function TableProducts({products, update, elId, deleteProduct, categxproducts, deleteCatxprod, getAllProducts}) {
+function TableProducts({products, update, elId, deleteProduct, categxproducts, deleteCatxprod, getAllProducts, categoriesfromTableProducts}) {
     useEffect(() => {
       getAllCategories()
       getCategoriesxProducts()
@@ -20,7 +20,7 @@ function TableProducts({products, update, elId, deleteProduct, categxproducts, d
             <td>
             {categxproducts.map((cxp, i) => {//Mapea las cat que tenga cada products               
                 if(cxp.product_id === p.id){
-                return (<button title="Clic for delete"  onClick={ (e) => deleteCatxprod(cxp.category, p.id)} type="button" class="btn btn-info">
+                return (<button title="Clic for delete" id={p.id} onClick={ (e) => deleteCatxprod(cxp.category, p.id)} type="button" class="btn btn-info">
                      { cxp.category}
                      </button>) 
                 }
@@ -57,8 +57,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  return {
-    categxproducts: state.categores_x_products,
+  return {    
     products: state.all_products,
     categories: state.categories
   }

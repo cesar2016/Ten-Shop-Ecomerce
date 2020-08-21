@@ -89,7 +89,8 @@ export function updateProduct (body) {
     return axios.post(`http://localhost:3001/products/update/`, body)
       .then(() => {
         dispatch({
-          type: UPDATE_PRODUCT
+          type: UPDATE_PRODUCT,
+          payload: body
         })
       })
   }
@@ -100,7 +101,8 @@ export function deleteProduct (id) {
     return axios.delete(`http://localhost:3001/products/${id}`)
       .then(() => {
         dispatch({
-          type: DELETE_PRODUCT
+          type: DELETE_PRODUCT,
+          payload: id
         })
       })            
   }
@@ -111,7 +113,8 @@ export function deleteCatxProd (name, id) {
     return axios.delete(`http://localhost:3001/products/cxp/${id}/${name}`)
       .then(() => {
         dispatch({
-          type: DELETECATXPROD
+          type: DELETECATXPROD,
+          payload: {name, id}
         })
       })
   }

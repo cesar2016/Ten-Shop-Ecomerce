@@ -123,25 +123,20 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
             );
             }
 
-            const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch =>{
 
-              return {
-                // addCategory: ()=> dispatch(addCategory),
-                // deleteCategory: ()=> dispatch(deleteCategory),
-                // modifyCategory: ()=> dispatch(modifyCategory),
-                getAllCategories: ()=> dispatch(getAllCategories())
-              }
-            }
-              
-              
+  return {    
+    getAllCategories: ()=> dispatch(getAllCategories())
+  }
+}
+  
+  
 
-              const mapStateToProps = state =>{
-                return {
-                  category: state.categories
-                }
-              }
-              
-           
+const mapStateToProps = state =>{
+  return {
+    category: state.categories
+  }
+}
+                         
 
-
-            export default connect (mapStateToProps, mapDispatchToProps)(FormCategory)
+export default connect (mapStateToProps, mapDispatchToProps)(FormCategory)
