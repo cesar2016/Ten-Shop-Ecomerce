@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, getAllCategories, getAllProducts } from "../../actions"
 
 
-function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts, categoriesxproducts}) {
+function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts, categoriesxproducts, products}) {
   useEffect(() => {
     getAllCategories()
     getCategoriesxProducts()
@@ -83,7 +83,9 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
     function deleteCatxprod(nameCxp, idProd){
       // nameCxp es la cateogoria que se esta por borrar
       // idProd el id del producto al cual se le borra la categoria
-     //console.log('NAME y el ID PROD', nameCxp + idProd)            
+     //console.log('NAME y el ID PROD', nameCxp + idProd)
+     var boton = document.getElementById(`${nameCxp}${idProd}`);
+        boton.style.display = 'none';            
       deleteCatxProd(nameCxp, idProd)      
       // alert('Delete success Category')
 
@@ -179,7 +181,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     categxproducts: state.categores_x_products,    
-    categories: state.categories,    
+    categories: state.categories,
+    products: state.all_products,    
   }
 }
 
