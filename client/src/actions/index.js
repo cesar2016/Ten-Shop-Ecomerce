@@ -43,38 +43,36 @@ export function addCategory(category){
     .then(result => {
         dispatch({
             type: ADD_CATEGORY,
-            payload: result.config.data
+            payload: category
           });
     })
   }
 }
 
-export function modifyCategory(){
+export function modifyCategory(category){
   return function(dispatch){
-    return axios.post("http://localhost:3001/categories/add/")
+    return axios.put("http://localhost:3001/categories/modify/")
     .then(result => result.data)
     .then(data => {
       dispatch({
         type: MODIFY_CATEGORY,
-        payload: data
+        payload: category
       });
     })
 
   }
 }
 
-export function deleteCategory(){
+export function deleteCategory(category){
   return function(dispatch){
-    return axios.post("http://localhost:3001/categories/add/")
+    return axios.delete(`http://localhost:3001/categories/${category}`)
     .then(result => result.data)
     .then(data => {
       dispatch({
         type: DELETE_CATEGORY,
-        payload: data
-
+        payload: category
       });
     })
-
   }
 }
 

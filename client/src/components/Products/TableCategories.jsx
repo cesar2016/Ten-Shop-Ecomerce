@@ -3,17 +3,19 @@ import {connect} from 'react-redux';
 import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
 
 
- function TableCategories({getAllCategories, category, update, categories, elId, deleteCategories }) {
+ function TableCategories({getAllCategories, category, update, categories, elId, deleteCategory }) {
                             
 
     useEffect(()=>{
         getAllCategories()
         // addCategory()
         // modifyCategory()
-        // deleteCategory()
+         deleteCategory()
     },[])
-     
-    
+    function deleted (cat){
+        console.log("se essta ejecutando")
+        deleteCategory(cat)
+    }
     return (
 
         category.map((p, i) => {
@@ -28,7 +30,7 @@ import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '..
             <i className="fa fa-pencil"></i>
             </button>
             &nbsp;
-            <button type="button" class="btn btn-danger" onClick={(e) => deleteCategories(p.name)}>
+            <button type="button" class="btn btn-danger" onClick={(e) => deleted(p.name)}>
             <i className="fa fa-trash"></i>
             </button>
             </td>
@@ -40,18 +42,16 @@ import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '..
 const mapDispatchToProps = dispatch =>{
 
     return {
-        getAllCategories: () => dispatch(getAllCategories)
+        getAllCategories: () => dispatch(getAllCategories),
         // addCategory: () => dispatch(addCategory),
         // modifyCategory: () => dispatch(modifyCategory),
-        // deleteCategory: () => dispatch(deleteCategory)  
+         deleteCategory: (category) => dispatch(deleteCategory(category))  
 
     }
 }
 
 const mapStateToProps = state =>{
-
     return {
-
         category: state.categories
     }
 }
