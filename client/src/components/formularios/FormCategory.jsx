@@ -4,42 +4,43 @@ import TableCategories from '../Products/TableCategories';
 import { connect } from 'react-redux'
 import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
 
- function FormCategory({category, getAllCategories}) {
+ function FormCategory({categories, getAllCategories, addCategory}) {
 
   useEffect(()=>{
-
+    addCategory()
     getAllCategories()
 
   },[])
 
-    const [input, setInput] = useState({
-        name: '',
-        description: '',
-      });
-      const [inputDelete, setInputDelete] = useState({
-        name: '',
-        description: ''
-      });
+  const [inputAdd, setInputAdd] = useState({
+    name: '',
+    description: '',
+  });
+  const [inputDelete, setInputDelete] = useState({
+    name: '',
+    description: ''
+  });
 
-
-      const handleInputChange = function(e) {
-        setInput({
-          ...input,
-          [e.target.name]: e.target.value
-        });
-      }
-
-      const handleSubmit = function(e) {
+  const handleinputAddChange = function(e) {
+    setInputAdd({
+    ...inputAdd,
+    [e.target.name]: e.target.value
+  });
+  }
+   const handleAddSubmit = function(e) {
+     console.log(inputAdd)
         e.preventDefault();
-        axios.post("http://localhost:3001/categories/add/", input)
-        .then((recurso) => {         
-            if(recurso){             
-                alert("This category has been created successfully.")                
-            }
-        })
-        .catch(() => alert("This category already exists."))
-      }
-     
+        // axios.post("http://localhost:3001/categories/add/", input)
+        addCategory(inputAdd)
+      //ejecuto addcategory pasandole el input
+    
+      //   .then((recurso) => {         
+      //       if(recurso){             
+      //           alert("This category has been created successfully.")                
+      //       }
+      //   })
+      //   .catch(() => alert("This category already exists."))
+       }
       const handleInputDeleteChange = function(e) {
         setInputDelete({
           ...inputDelete,
@@ -92,7 +93,7 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
                              </thead>
 
                             <tbody >
-                                <TableCategories categories={category} update={update} elId={elId} deleteCategories={deleteCategory} />
+                                <TableCategories categories={categories} update={update} elId={elId} deleteCategories={deleteCategory} />
                             </tbody>
 
                         </table>
@@ -101,9 +102,9 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
                 <div className="container">
                     <div className="col-md-5 contact-form alert alert-dark">
                         <h3>Add <span>Category</span></h3>
-                        <form action="#" method="post" onSubmit={handleSubmit} >
-                            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" required onChange={handleInputChange} />
-                            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange}/>
+                        <form action="#" method="post" onSubmit={handleAddSubmit} >
+                            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" required onChange={handleinputAddChange} />
+                            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleinputAddChange}/>
                             <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
                         </form>
                     </div>
@@ -123,25 +124,21 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
             );
             }
 
-            const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch =>{
 
-              return {
-                // addCategory: ()=> dispatch(addCategory),
-                // deleteCategory: ()=> dispatch(deleteCategory),
-                // modifyCategory: ()=> dispatch(modifyCategory),
-                getAllCategories: ()=> dispatch(getAllCategories())
-              }
-            }
-              
-              
-
-              const mapStateToProps = state =>{
-                return {
-                  category: state.categories
-                }
-              }
-              
-           
-
-
-            export default connect (mapStateToProps, mapDispatchToProps)(FormCategory)
+return {
+    addCategory: (category)=> dispatch(addCategory(category)),
+    // deleteCategory: ()=> dispatch(deleteCategory),
+    // modifyCategory: ()=> dispatch(modifyCategory),
+    getAllCategories: ()=> dispatch(getAllCategories())
+  }
+}
+  
+  
+const mapStateToProps = state =>{
+   return {
+      categories: state.categories
+    }
+}
+  
+export default connect (mapStateToProps, mapDispatchToProps)(FormCategory)

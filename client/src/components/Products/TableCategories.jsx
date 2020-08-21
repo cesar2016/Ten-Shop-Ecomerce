@@ -17,7 +17,6 @@ import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '..
     return (
 
         category.map((p, i) => {
-            console.log("asdasdasdasd",p)
             return (<tr>
             <th scope="row"> {p.name} </th>
             <td> {p.description} </td>

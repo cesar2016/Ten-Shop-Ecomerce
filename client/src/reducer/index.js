@@ -6,7 +6,8 @@ import {
     DELETECATXPROD,
     GET_ALL_CATEGORIES,
     GET_CATEGORIES_X_PRODUCTS,
-    GET_ONE_CATEGORY
+    GET_ONE_CATEGORY,
+    ADD_CATEGORY
    } from '../actions/index';
 
 const initialState = {
@@ -50,7 +51,11 @@ const reducer = (state = initialState , action) => {
         ...state,
         onecategory: action.payload
       }
-
+    // case ADD_CATEGORY:
+    //   return {
+    //     ...state,
+    //     categories: action.payload
+    //   }
     default:
       return state;
     }

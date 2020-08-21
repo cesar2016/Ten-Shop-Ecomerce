@@ -37,15 +37,26 @@ export function getAllProducts () {
   };
 }
 
-export function addCategory(){
+export function addCategory(category){
+  return function(dispatch){
+    return axios.post("http://localhost:3001/categories/add/", category)
+    .then(result => {
+        dispatch({
+            type: ADD_CATEGORY,
+            payload: result.config.data
+          });
+    })
+  }
+}
+
+export function modifyCategory(){
   return function(dispatch){
     return axios.post("http://localhost:3001/categories/add/")
     .then(result => result.data)
     .then(data => {
       dispatch({
-        type: ADD_CATEGORY,
+        type: MODIFY_CATEGORY,
         payload: data
-
       });
     })
 
@@ -67,20 +78,6 @@ export function deleteCategory(){
   }
 }
 
-export function modifyCategory(){
-  return function(dispatch){
-    return axios.post("http://localhost:3001/categories/add/")
-    .then(result => result.data)
-    .then(data => {
-      dispatch({
-        type: MODIFY_CATEGORY,
-        payload: data
-
-      });
-    })
-
-  }
-}
 
 
 
