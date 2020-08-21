@@ -34,9 +34,21 @@ const reducer = (state = initialState , action) => {
       let categories = action.payload.category
       let newCategories_x_products = state.categores_x_products.filter(el => id !== el.product_id)
       categories.forEach(cat => newCategories_x_products.push({product_id: id, category:cat}))
+      /////
+      let filterBody = action.payload;
+      delete filterBody.category
+      let newAllProducts = [];
+      state.all_products.forEach(el => {
+        if (el.id !== filterBody.id) {
+          newAllProducts.push(el)
+        } else {
+          newAllProducts.push(filterBody)
+        }
+      })
       return {
         ...state,
-        categores_x_products: newCategories_x_products
+        categores_x_products: newCategories_x_products,
+        all_products: newAllProducts
       }
     case DELETE_PRODUCT:
       let idDelete = action.payload

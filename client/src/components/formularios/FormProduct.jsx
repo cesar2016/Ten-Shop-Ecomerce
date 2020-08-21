@@ -45,6 +45,8 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
   }
 
   const handleSubmit = function(e) {
+    let form = document.getElementById('formulario');
+        form.style.display = 'none';
     e.preventDefault();
       var array = [];
       // este forEach se hace para que las categorias que se manden no vayan repetidas
@@ -115,7 +117,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
             <section class="contact-block jumbotron">
                 <div class="container">
                     <div class="col-md-6 contact-form alert alert-dark">
-                        <h3>Productos en <span>Lista</span></h3>
+                        <h3>Products in <span>List</span></h3>
                         <table class="table table-hover">
                              <thead>
                                 <tr className="table-primary">
