@@ -37,50 +37,45 @@ export function getAllProducts () {
   };
 }
 
-export function addCategory(){
+export function addCategory(category){
   return function(dispatch){
-    return axios.post("http://localhost:3001/categories/add/")
-    .then(result => result.data)
-    .then(data => {
-      dispatch({
-        type: ADD_CATEGORY,
-        payload: data
-
-      });
+    return axios.post("http://localhost:3001/categories/add/", category)
+    .then(result => {
+        dispatch({
+            type: ADD_CATEGORY,
+            payload: category
+          });
     })
-
   }
 }
 
-export function deleteCategory(){
+export function modifyCategory(category){
   return function(dispatch){
-    return axios.post("http://localhost:3001/categories/add/")
-    .then(result => result.data)
-    .then(data => {
-      dispatch({
-        type: DELETE_CATEGORY,
-        payload: data
-
-      });
-    })
-
-  }
-}
-
-export function modifyCategory(){
-  return function(dispatch){
-    return axios.post("http://localhost:3001/categories/add/")
+    return axios.put("http://localhost:3001/categories/modify/")
     .then(result => result.data)
     .then(data => {
       dispatch({
         type: MODIFY_CATEGORY,
-        payload: data
-
+        payload: category
       });
     })
 
   }
 }
+
+export function deleteCategory(category){
+  return function(dispatch){
+    return axios.delete(`http://localhost:3001/categories/${category}`)
+    .then(result => result.data)
+    .then(data => {
+      dispatch({
+        type: DELETE_CATEGORY,
+        payload: category
+      });
+    })
+  }
+}
+
 
 
 

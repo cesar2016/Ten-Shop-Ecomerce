@@ -46,13 +46,16 @@ server.post("/add", (req, res) => {
   Category.findAll({ where: { name: name, description: description }})
     .then(result =>{
       if(result.length !== 0){
-        res.status(404).send("This category already exists")
+        res.status(404).send(false)
       }else{ 
         Category.create({
           name: name,
           description: description
-        });
-        res.sendStatus(200)
+        })
+        //sino esta, la crea y la envia como resultado para agregar al store
+        .then(
+          res.status(200).send(true)
+        );
       }
     })
 });
@@ -74,11 +77,13 @@ server.post("/add", (req, res) => {
     const { name } = req.params;
     Category.destroy({ where: { name } })
       .then(result => {
-        res.sendStatus(200);
+        res.status(200).send(true);
       })
       .catch(() => res.status(404))
   });
-  server.put("/:name", (req, res) => {
+
+  //para modificar una categoria(update )
+  server.put("/modify/", (req, res) => {
 	const { name } = req.params;
 	const  { body }  = req;
 	Category.update(body, { where: { name } })
