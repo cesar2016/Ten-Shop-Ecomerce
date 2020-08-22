@@ -8,6 +8,11 @@ export const DELETECATXPROD = "DELETECATXPROD";
 export const GET_CATEGORIES_X_PRODUCTS = "GET_CATEGORIES_X_PRODUCTS";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const GET_ONE_CATEGORY = "GET_ONE_CATEGORY";
+export const ADD_CATEGORY = "ADD_CATEGORY";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const MODIFY_CATEGORY = "MODIFY_CATEGORY";
+export const ADD_CART = "ADD_CART";
+export const GET_ALL_CART = "GET_ALL_CART";
 
 export function getSearchProducts (search) {
     return function(dispatch) {
@@ -34,12 +39,55 @@ export function getAllProducts () {
   };
 }
 
-export function updateProduct (id, body) {
+export function addCategory(category){
+  return function(dispatch){
+    return axios.post("http://localhost:3001/categories/add/", category)
+    .then(result => {
+        dispatch({
+            type: ADD_CATEGORY,
+            payload: category
+          });
+    })
+  }
+}
+
+export function modifyCategory(category){
+  return function(dispatch){
+    return axios.put("http://localhost:3001/categories/modify/")
+    .then(result => result.data)
+    .then(data => {
+      dispatch({
+        type: MODIFY_CATEGORY,
+        payload: category
+      });
+    })
+
+  }
+}
+
+export function deleteCategory(category){
+  return function(dispatch){
+    return axios.delete(`http://localhost:3001/categories/${category}`)
+    .then(result => result.data)
+    .then(data => {
+      dispatch({
+        type: DELETE_CATEGORY,
+        payload: category
+      });
+    })
+  }
+}
+
+
+
+
+export function updateProduct (body) {
   return function(dispatch) {
-    return axios.post(`http://localhost:3001/products/${id}`, body)
+    return axios.post(`http://localhost:3001/products/update/`, body)
       .then(() => {
         dispatch({
-          type: UPDATE_PRODUCT
+          type: UPDATE_PRODUCT,
+          payload: body
         })
       })
   }
@@ -50,7 +98,8 @@ export function deleteProduct (id) {
     return axios.delete(`http://localhost:3001/products/${id}`)
       .then(() => {
         dispatch({
-          type: DELETE_PRODUCT
+          type: DELETE_PRODUCT,
+          payload: id
         })
       })            
   }
@@ -61,7 +110,8 @@ export function deleteCatxProd (name, id) {
     return axios.delete(`http://localhost:3001/products/cxp/${id}/${name}`)
       .then(() => {
         dispatch({
-          type: DELETECATXPROD
+          type: DELETECATXPROD,
+          payload: {name, id}
         })
       })
   }
@@ -106,3 +156,33 @@ export function getOneCategory (category) {
         });
     };
   }
+
+
+  ///AGREGANDO PRODUCT AL CARRITO 
+  export function addCart (idProduct, idUser) {
+      var body = {
+      id: idProduct
+    }
+    return function(dispatch) {
+      return axios.post(`http://localhost:3001/users/${idUser}/cart/`, body)
+        .then(() => {
+          dispatch({
+            type: ADD_CART,
+            payload: body
+          })         
+        })       
+    }
+  }
+
+    //TRAYENDO PRODUCTOS DEL CARRITO DE UN USUARIO
+    export function getAllCart (idUser) {
+      return function(dispatch) {
+        return axios.get(`http://localhost:3001/users/${idUser}/cart`)      
+          .then(result => result.data)
+          .then(productsCart => {
+            dispatch({
+                type: GET_ALL_CART,
+                payload: productsCart });
+          });
+      };
+    }

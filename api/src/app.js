@@ -41,7 +41,7 @@ server.post("/", async (req, res) => {
         description: "The best refrigerators to keep your food in good condition."
     });
     const categoria4 = await Category.create({
-        name: "Cell phones",
+        name: "Cellphones",
         description: "The best cell phones on the market, at the best price"
     })
     const categoria5 = await Category.create({

@@ -50,6 +50,7 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 	 })
  });
 
+ 
  server.post('/edit/:id', (req, res) => {
 	const {id} = req.params;
 	const {body} = req;
