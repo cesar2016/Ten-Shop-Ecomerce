@@ -11,6 +11,7 @@ export const GET_ONE_CATEGORY = "GET_ONE_CATEGORY";
 export const ADD_CATEGORY = "ADD_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export const MODIFY_CATEGORY = "MODIFY_CATEGORY";
+export const ADD_CART = "ADD_CART";
 
 export function getSearchProducts (search) {
     return function(dispatch) {
@@ -153,4 +154,23 @@ export function getOneCategory (category) {
               payload: json });
         });
     };
+  }
+
+
+  ///AGREGANDO PRODUCT AL CARRITO 
+  export function addCart (idProduct, bodyUser) {
+    var body = {
+      id: bodyUser
+    }
+    // console.log('IDDDDD', idProduct)
+    // console.log('BBOOODDDYY', bodyUser)
+    return function(dispatch) {
+      return axios.post(`localhost:3001/users/:idUser/cart/${idProduct}`, body)
+        .then(() => {
+          dispatch({
+            type: ADD_CART,
+            payload: body
+          })         
+        })       
+    }
   }

@@ -9,7 +9,8 @@ import {
     GET_ONE_CATEGORY,
     ADD_CATEGORY,
     MODIFY_CATEGORY,
-    DELETE_CATEGORY
+    DELETE_CATEGORY,
+    ADD_CART
    } from '../actions/index';
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
   search_result: [],
   categores_x_products: [],
   categories: [],
-  onecategory:[]
+  onecategory:[],
+  cart:[]
 };
 const reducer = (state = initialState , action) => {   
   switch (action.type) {
@@ -98,6 +100,11 @@ const reducer = (state = initialState , action) => {
         return {
           ...state,
           categories: [...state.categories.filter(cat => cat.name !== action.payload)]
+        }
+      case ADD_CART:
+        return {///StateAdd_Prods
+          ...state,
+          cart: [...state.cart, action.payload]
         }
     default:
       return state;
