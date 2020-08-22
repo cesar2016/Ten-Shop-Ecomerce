@@ -9,7 +9,8 @@ import {
     GET_ONE_CATEGORY,
     ADD_CATEGORY,
     MODIFY_CATEGORY,
-    DELETE_CATEGORY
+    DELETE_CATEGORY,
+    ADD_USER
    } from '../actions/index';
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
   search_result: [],
   categores_x_products: [],
   categories: [],
-  onecategory:[]
+  onecategory:[],
+  onlineUser: false
 };
 const reducer = (state = initialState , action) => {   
   switch (action.type) {
@@ -103,6 +105,12 @@ const reducer = (state = initialState , action) => {
           ...state,
           categories: [...state.categories.filter(cat => cat.name !== action.payload)]
         }
+      case ADD_USER:        
+        return {
+          ...state,
+          onlineUser: reducerAddUser(action.payload.data, action.payload.body)
+        }
+
     default:
       return state;
     }
@@ -110,3 +118,14 @@ const reducer = (state = initialState , action) => {
 
    
 export default reducer;
+
+
+
+function reducerAddUser(data, body) {
+  const { username, firstname, surname, type } = body;
+  if (data) {
+    return {username, firstname, surname, type};
+  } else {
+    return true
+  }
+}

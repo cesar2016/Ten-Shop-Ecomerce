@@ -176,60 +176,86 @@ server.post("/", async (req, res) => {
     producto12.then((prod) => {
         prod.addCategory(categoria2)
     })
+  
 
     // creating users
 
-    user1 = await User.create({
+    const user1 = User.create({
         firstname: "facu",
         surname: "uriona",
         password: "1234",
         type: 1,        
     });
 
-    user2 = await User.create({
+    const user2 = User.create({
         firstname: "cesar",
         surname: "sanchez",
         password: "1234",
         type: 1,        
     });
 
-    user3 = await User.create({
+    const user3 = User.create({
         firstname: "rodrigo",
         surname: "pinea",
         password: "1234",
         type: 1,        
     });
 
-    user4 = await User.create({
+    const user4 = User.create({
         firstname: "matias",
         surname: "cordoba",
         password: "1234",
         type: 1,        
     });
 
-    user5 = await User.create({
+    const user5 = User.create({
         firstname: "guillermo",
         surname: "ambroggio",
         password: "1234",
         type: 1,        
     })
 
-    user6 = await User.create({
+    const user6 = User.create({
         firstname: "lionel",
         surname: "messi",
         password: "1234",
         type: 2,        
     })    
 
-
-    order1 = Order.create({
+//CREAR ORDENES:
+    const order1 = await Order.create({
         status: "processing",
         address: "av colon 123 cordoba",        
+    }) 
+    
+    const order2 = await Order.create({
+        status: "created",
+        address: "aguante chaco",        
     })  
 
-    order1.then(order => {
-        order.setUser(user6)
+
+//RELACION(1-1) USUARIO-ORDEN:    
+//La orden 1 Pertenece al usuario 6
+    user6.then(user => {
+        user.setOrder(order1)
     })
+
+    user5.then(user => {
+        user.setOrder(order2)
+    })
+
+//RELACION(N-N) PRODUCTOS-ORDENES
+//La orden 1 tiene el producto 12
+    producto12.then((prod) => {
+        prod.addOrder(order1)
+    })
+
+    producto10.then((prod) => {
+        prod.addOrder(order1)
+    })
+
+   
+   
 
     res.send("LISTO")
 
