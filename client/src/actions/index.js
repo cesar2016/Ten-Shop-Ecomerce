@@ -12,6 +12,7 @@ export const ADD_CATEGORY = "ADD_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export const MODIFY_CATEGORY = "MODIFY_CATEGORY";
 export const ADD_USER = "ADD_USER";
+export const LOGIN_USER = "LOGIN_USER";
 
 export function getSearchProducts (search) {
     return function(dispatch) {
@@ -168,4 +169,17 @@ export function addUser (body) {
   }
 }
 
+export function loginUser(body){
+  return function(dispatch){
+    console.log(body)
+    return axios.post("http://localhost:3001/users/login",body)
+    .then(result => result.data)
+    .then(data => {
+      dispatch({
+        type: LOGIN_USER,
+        payload: data
+      })
+    })
+  }
+}
 

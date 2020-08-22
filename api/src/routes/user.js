@@ -85,5 +85,16 @@ server.post("/adduser", (req, res) => {
     })    
 });
 
+server.post("/login",(req,res) => {
+  User.findOne({where: {
+    username: req.body.username
+  }})
+  .then(result => {
+    res.status(200).send(result)
+  })
+  .catch(() => {
+    res.status(404).send(console.log(req.body))}
+    )
+})
 
 module.exports = server;

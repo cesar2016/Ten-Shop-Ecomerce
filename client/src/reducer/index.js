@@ -10,7 +10,8 @@ import {
     ADD_CATEGORY,
     MODIFY_CATEGORY,
     DELETE_CATEGORY,
-    ADD_USER
+    ADD_USER,
+    LOGIN_USER
    } from '../actions/index';
 
 const initialState = {
@@ -110,7 +111,11 @@ const reducer = (state = initialState , action) => {
           ...state,
           onlineUser: reducerAddUser(action.payload.data, action.payload.body)
         }
-
+      case LOGIN_USER:
+        return {
+          ...state,
+          onlineUser: reducerlogin(action.payload)
+        }
     default:
       return state;
     }
@@ -126,6 +131,14 @@ function reducerAddUser(data, body) {
   if (data) {
     return {username, firstname, surname, type};
   } else {
+    return true
+    }
+}
+
+function reducerlogin(data){
+  if(data){
+    return data
+  }else {
     return true
   }
 }

@@ -14,7 +14,7 @@ import Contact from './components/Contact.jsx';
 import SearchProduct from './components/Products/SearchProduct.jsx';
 import MenuCategories from './components/Products/MenuCategories';
 import SignUp from "./components/SignUp"
-
+import SignIn from "./components/SignIn"
 
 
 
@@ -33,6 +33,7 @@ function App() {
           <Route exact path="/search" render={() => <SearchProduct/> } />
           <Route exact path="/categories/:categories" render={({match}) => <MenuCategories category={match.params.categories}/> } />        
           <Route exact path="/signup" render={() => <SignUp/> } />
+          <Route exact path="/signin" render = {() => <SignIn/>}/>
       </div>
       )
 

@@ -2,16 +2,27 @@ import React, { useState, useEffect } from "react"
 import "./NavBar.css"
 import SearchBar from "./SearchBar.jsx"
 import { NavLink } from 'react-router-dom'
+import { connect } from "react-redux";
 
 
 
-
-export default function NavBar() {
-    const [categories, setCategories] = React.useState([]);
+function NavBar({onlineuser}) {
+    const [categories, setCategories] = useState([]);
+    
     useEffect(() => {
+        var but1 = document.getElementById('mati');
+        var but2 = document.getElementById('facu');
+        if ( typeof onlineuser === "object"){
+            but1.style.display = 'none';
+            but2.style.display = 'none';
+        } else {
+            but1.style.display = '';
+            but2.style.display = '';
+        }
         fetch("http://localhost:3001/categories/")
         .then(r => r.json())
         .then((recurso) => {         
+            console.log(onlineuser)
             if(recurso) {                
                 setCategories(recurso)
             }
@@ -20,8 +31,6 @@ export default function NavBar() {
             
         
     return (
-
-        
              
             <header className="header-content">
                        
@@ -81,21 +90,23 @@ export default function NavBar() {
 
                             <ul class="navbar-nav ">
                             <li class="nav-item">                            
-                                <span class="badge badge-warning sm">11</span>                           
-                            <button title="LOGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
+                                <span class="badge badge-warning sm">11</span>                          
+                            <button title="Cart" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             </button>
                             </li>
                             &nbsp;
+                            <NavLink to="/signin">
                             <li class="nav-item">
-                            <button title="LOGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
+                            <button id = "mati" title="LOGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
                             <i class="fa fa-sign-in" aria-hidden="true"></i>
                             </button>
                             </li>
+                            </NavLink>
                             &nbsp;                            
                             <li class="nav-item">
                             <NavLink to="/signup">
-                            <button title="SIGN UP" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
+                            <button id = "facu"title="SIGN UP" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
                             <i class="fa fa-user-plus" aria-hidden="true"></i>
                             </button>
                             </NavLink>
@@ -108,9 +119,12 @@ export default function NavBar() {
 
             </header>
 
-
-        
-
-
         )
 }
+const mapStateToProps = state => {
+    return {
+        onlineuser: state.onlineuser
+    }
+}
+
+export default connect(mapStateToProps)(NavBar)
