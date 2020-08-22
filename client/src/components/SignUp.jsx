@@ -18,11 +18,7 @@ function SignUp ({addUser, onlineUser}) {
 
   var flag = false;
 
-  if (errors.firstname || errors.surname || errors.username || errors.password || errors.password2) {
-    flag = true;
-  } else {
-    flag = false;
-  }
+  
   
 
 
@@ -40,9 +36,24 @@ function SignUp ({addUser, onlineUser}) {
   }
 
   function handleSubmit(e) {
+    var keys = Object.keys(input)
     e.preventDefault()
-    addUser(input);
+    if (errors.firstname || errors.surname || errors.username || errors.password || errors.password2) {
+      var err = Object.keys(errors).filter(el => el !== "password2")
+      var sum = "";
+      err.forEach(el => {
+        sum += el+" invalid!!!\n"
+      })    
+      alert(sum)
+    } else if (input.password !== input.password2) {
+        alert("Passwords do not match.")
+    } else if (keys.length === 0) {
+        alert("Error!!! Incomplete entries")
+    } else {
+        addUser(input) 
+    }
   }
+  
 
   function validate(input) {
     let errors = {};
