@@ -94,9 +94,11 @@ export default function NavBar() {
                             </li>
                             &nbsp;                            
                             <li class="nav-item">
-                            <button title="SIGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
+                            <NavLink to="/signup">
+                            <button title="SIGN UP" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
                             <i class="fa fa-user-plus" aria-hidden="true"></i>
                             </button>
+                            </NavLink>
                             </li>
                             </ul>
                             &nbsp;                            

@@ -67,5 +67,23 @@ server.post('/:idUser/cart', (req, res) => {
     });
 
 
+server.post("/adduser", (req, res) => {
+  const { firstname, surname, password, username } = req.body;  
+  User.findAll({
+    where: {username}
+  })
+    .then(result => {      
+      if (!result.length) {
+        User.create({firstname, surname, password, type: "2", username})
+        return res.send(true)
+      } else {
+        return res.send(false)
+      }
+    })
+    .catch((err) => {      
+      return res.send(err)
+    })    
+});
+
 
 module.exports = server;

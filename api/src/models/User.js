@@ -13,12 +13,16 @@ module.exports = (sequelize) => {
         allowNull: false,        
     },
     password: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull:false
     },
     type: {
       type: DataTypes.ENUM("1", "2", "3"),
       allowNull: false,
-    }
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }    
   });
 };
