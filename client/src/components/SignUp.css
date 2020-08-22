@@ -16,3 +16,19 @@
     margin-top: 20px;
     border-radius: 7px;    
 }
+
+
+.labelUsername {
+  margin-right: 10px;
+}
+
+.labelPassword {
+  margin-right: 14px;
+}
+
+.submit {
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
+  border-color: black;
+}
