@@ -19,7 +19,7 @@ const initialState = {
   categores_x_products: [],
   categories: [],
   onecategory:[],
-  onlineUser: {}
+  onlineUser: false
 };
 const reducer = (state = initialState , action) => {   
   switch (action.type) {
@@ -101,12 +101,10 @@ const reducer = (state = initialState , action) => {
           ...state,
           categories: [...state.categories.filter(cat => cat.name !== action.payload)]
         }
-      case ADD_USER:
-        delete action.payload.password;
-        delete action.payload.password2;
+      case ADD_USER:        
         return {
           ...state,
-          onlineUser: action.payload
+          onlineUser: reducerAddUser(action.payload.data, action.payload.body)
         }
 
     default:
@@ -116,3 +114,14 @@ const reducer = (state = initialState , action) => {
 
    
 export default reducer;
+
+
+
+function reducerAddUser(data, body) {
+  const { username, firstname, surname, type } = body;
+  if (data) {
+    return {username, firstname, surname, type};
+  } else {
+    return true
+  }
+}

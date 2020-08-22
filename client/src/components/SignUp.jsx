@@ -4,8 +4,17 @@ import { addUser } from '../actions'
 import "./SignUp.css"
 
 
-function SignUp ({addUser}) {
+function SignUp ({addUser, onlineUser}) {
   const [input, setInput] = React.useState({})
+
+  React.useEffect(() => {    
+    if (onlineUser === true) {
+      alert("Existing user. Try again")
+    }  else if (onlineUser !== false){
+      alert("User created successfully")
+    }
+  },[onlineUser])
+
 
   function handleInputChange(e) {
     setInput({
@@ -18,6 +27,8 @@ function SignUp ({addUser}) {
     e.preventDefault()
     addUser(input);
   }
+
+
 
 
   return (    
@@ -67,6 +78,12 @@ const mapDispatchToProps = dispatch => {
 }
 
 
+const mapStateToProps = state => {
+  return {
+    onlineUser: state.onlineUser
+  }
+}
 
-export default connect(null, mapDispatchToProps)(SignUp)
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
 

@@ -159,10 +159,11 @@ export function getOneCategory (category) {
 export function addUser (body) {
   return function(dispatch) {
     return axios.post("http://localhost:3001/users/adduser", body)
-      .then(() => {
+      .then(result => result.data)
+      .then(data => {
         dispatch({
           type: ADD_USER,
-          payload: body
+          payload: {data, body}
         })
       })
   }
