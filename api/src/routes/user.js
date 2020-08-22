@@ -17,11 +17,12 @@ server.get('/', (req, res, next) => {
         id: idUser
       }
     }).then(data => {
+      console.log("asdasdsadd",data)
       let idOrder = data[0].dataValues.orderId;
       productsxorders.findAll({
         where: {order_id: idOrder}
       }).then(result => {
-       console.log(result)
+       console.log("resultttttttttttt",result)
         res.send(result)
       })
 	})
@@ -50,7 +51,7 @@ server.get('/', (req, res, next) => {
 server.post('/:idUser/cart', (req, res) => {
    // console.log("este es el consolelogg",req);
 	const {idUser} = req.params;//Id del usuario
-    const {body} = req;//Estado de la orden y direccion y el id del producto.
+    const {body} = req;//el id del producto.
     User.findAll({
         where: {
           id: idUser
@@ -61,7 +62,8 @@ server.post('/:idUser/cart', (req, res) => {
       }).then(use => {
           let estado = use[0].dataValues.order;
           if(estado){
-            let idOrder = use[0].dataValues.order.dataValues.id;            
+            let idOrder = use[0].dataValues.order.dataValues.id;
+            console.log("aaaaaaaaaaaaaaaaaaaaa",use[0].dataValues.order.dataValues);            
             Order.findByPk(idOrder).then(order =>  {
               User.findByPk(idUser).then(user => {
                 user.setOrder(order);

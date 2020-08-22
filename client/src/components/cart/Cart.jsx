@@ -5,10 +5,13 @@ import { getAllCart } from "../../actions";
       //console.log("aaaaaaaaaaaaaaaaaa",products);
       //var datos = useRef(null)
    
-      useEffect(()=>{
+
+     React.useEffect(() => {
         var idUser = 6;
-         getAllCart(idUser);
-     },[])
+        getAllCart(idUser);
+      }, [])
+      
+     console.log("asda", getcart)
      var arr = [];
      
      if(getcart[0]){
@@ -16,7 +19,7 @@ import { getAllCart } from "../../actions";
             arr.push(element.product_id)
             
         });
-        console.log(arr)
+        console.log(getcart)
      }
      
      /* var resultado = products.find((el) => {

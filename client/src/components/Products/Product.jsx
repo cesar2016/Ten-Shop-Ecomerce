@@ -4,7 +4,7 @@ import { addCart } from "../../actions";
 
 
 function Product({ addCart, id, products, searchProducts}) {
-var idUser = 2;
+var idUser = 6;
    
     var todosLosProductos = products.concat(searchProducts);
     var resultado = todosLosProductos.find((el) => {
