@@ -13,6 +13,9 @@ export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export const MODIFY_CATEGORY = "MODIFY_CATEGORY";
 export const ADD_USER = "ADD_USER";
 export const LOGIN_USER = "LOGIN_USER";
+export const ADD_CART = "ADD_CART";
+export const GET_ALL_CART = "GET_ALL_CART";
+
 
 export function getSearchProducts (search) {
     return function(dispatch) {
@@ -155,7 +158,6 @@ export function getOneCategory (category) {
         });
     };
   }
-
 export function addUser (body) {
   return function(dispatch) {
     return axios.post("http://localhost:3001/users/adduser", body)
@@ -183,3 +185,31 @@ export function loginUser(body){
   }
 }
 
+  ///AGREGANDO PRODUCT AL CARRITO 
+  export function addCart (idProduct, idUser) {
+      var body = {
+      id: idProduct
+    }
+    return function(dispatch) {
+      return axios.post(`http://localhost:3001/users/${idUser}/cart/`, body)
+        .then(() => {
+          dispatch({
+            type: ADD_CART,
+            payload: body
+          })         
+        })       
+    }
+  }
+
+    //TRAYENDO PRODUCTOS DEL CARRITO DE UN USUARIO
+    export function getAllCart (idUser) {
+      return function(dispatch) {
+        return axios.get(`http://localhost:3001/users/${idUser}/cart`)      
+          .then(result => result.data)
+          .then(productsCart => {
+            dispatch({
+                type: GET_ALL_CART,
+                payload: productsCart });
+          });
+      };
+    }

@@ -21,9 +21,12 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
 // Syncing all the models at once.
+<<<<<<< HEAD
 
 //false: guarda
 //True: borra
+=======
+>>>>>>> rama_cart
 
 
 conn.sync({ force: false }).then(() => {

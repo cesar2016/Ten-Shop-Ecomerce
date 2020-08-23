@@ -11,7 +11,9 @@ import {
     MODIFY_CATEGORY,
     DELETE_CATEGORY,
     ADD_USER,
-    LOGIN_USER
+    LOGIN_USER,
+    ADD_CART,
+    GET_ALL_CART,
    } from '../actions/index';
 
 const initialState = {
@@ -20,7 +22,9 @@ const initialState = {
   categores_x_products: [],
   categories: [],
   onecategory:[],
-  onlineUser: false
+  onlineUser: false,
+  cart:[],
+  getcart:[]
 };
 const reducer = (state = initialState , action) => {   
   switch (action.type) {
@@ -116,6 +120,16 @@ const reducer = (state = initialState , action) => {
           ...state,
           onlineUser: reducerlogin(action.payload)
         }
+      case ADD_CART:
+        return {///StateAdd_Prods
+          ...state,
+          cart: [...state.cart, action.payload]
+        }
+        case GET_ALL_CART:
+          return {///StateAdd_Prods
+            ...state,
+            getcart: action.payload
+          }
     default:
       return state;
     }

@@ -87,14 +87,32 @@ function NavBar({onlineuser}) {
                                 </div>
                             </li>                            
                             </ul>
-
+                            
                             <ul class="navbar-nav ">
+<<<<<<< HEAD
                             <li class="nav-item">                            
                                 <span class="badge badge-warning sm">11</span>                          
                             <button title="Cart" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+=======
+                            <div calssName={'content'}>  
+                            <span style={{                               
+                                fontSize:"10px",
+                                position: "absolute",
+                                top:  "20px",
+                                
+                                }} class="badge badge-success badge-pill">5</span>                        
+                            <li class="nav-item">  
+
+                            <NavLink to="/cart">
+                            <button title="market" style={{ fontSize:"15px"}} type="button" class="btn btn-danger my-2 my-sm-0">
+                            <i  class="fa fa-shopping-cart" aria-hidden="true"></i>
+>>>>>>> rama_cart
                             </button>
+                            </NavLink>
+
                             </li>
+                            </div>  
                             &nbsp;
                             <NavLink to="/signin">
                             <li class="nav-item">

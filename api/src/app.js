@@ -183,6 +183,7 @@ server.post("/", async (req, res) => {
     const user1 = User.create({
         firstname: "facu",
         surname: "uriona",
+        address: "cordoba",
         password: "1234",
         type: 1,        
     });
@@ -190,6 +191,7 @@ server.post("/", async (req, res) => {
     const user2 = User.create({
         firstname: "cesar",
         surname: "sanchez",
+        address: "rosario",
         password: "1234",
         type: 1,        
     });
@@ -197,6 +199,7 @@ server.post("/", async (req, res) => {
     const user3 = User.create({
         firstname: "rodrigo",
         surname: "pinea",
+        address: "mendoza",
         password: "1234",
         type: 1,        
     });
@@ -204,6 +207,7 @@ server.post("/", async (req, res) => {
     const user4 = User.create({
         firstname: "matias",
         surname: "cordoba",
+        address: "las sierras",
         password: "1234",
         type: 1,        
     });
@@ -211,6 +215,7 @@ server.post("/", async (req, res) => {
     const user5 = User.create({
         firstname: "guillermo",
         surname: "ambroggio",
+        address: "chaco",
         password: "1234",
         type: 1,        
     })
@@ -218,6 +223,7 @@ server.post("/", async (req, res) => {
     const user6 = User.create({
         firstname: "lionel",
         surname: "messi",
+        address: "barcelona",
         password: "1234",
         type: 2,        
     })    
@@ -225,12 +231,12 @@ server.post("/", async (req, res) => {
 //CREAR ORDENES:
     const order1 = await Order.create({
         status: "processing",
-        address: "av colon 123 cordoba",        
+        address: "",        
     }) 
     
     const order2 = await Order.create({
         status: "created",
-        address: "aguante chaco",        
+        address: "",        
     })  
 
 
@@ -251,7 +257,7 @@ server.post("/", async (req, res) => {
     })
 
     producto10.then((prod) => {
-        prod.addOrder(order1)
+        prod.addOrder(order2)
     })
 
    
