@@ -177,7 +177,7 @@ export function getOneCategory (category) {
     //TRAYENDO PRODUCTOS DEL CARRITO DE UN USUARIO
     export function getAllCart (idUser) {
       return function(dispatch) {
-        return axios.get(`http://localhost:3001/users/${idUser}/cart`)      
+        return axios.get(`http://localhost:3001/users/${idUser}/cart/`)      
           .then(result => result.data)
           .then(productsCart => {
             dispatch({

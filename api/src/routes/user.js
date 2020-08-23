@@ -27,16 +27,20 @@ server.get('/', (req, res, next) => {
  //MUESTRA LOS ITEMS DEL CARRITO DEL USUARIO
  server.get('/:idUser/cart', (req, res, next) => {
     const {idUser} = req.params;
-    Order.findAll({where: {userId: idUser}})
+    Order.findAll({where: {userId: idUser, status: "processing"}})
       .then(data => {
-      //console.log("asdasdsadd",data)
-      let idOrder = data[0].dataValues.id;
-      productsxorders.findAll({
-        where: {order_id: idOrder}
-      }).then(result => {
-       //console.log("resultttttttttttt",result)
-        res.send(result)
-      })
+      console.log("asdasdsadd",data)
+      if(data[0]){
+        let idOrder = data[0].dataValues.id;
+        productsxorders.findAll({
+          where: {order_id: idOrder}
+        }).then(result => {
+        //console.log("resultttttttttttt",result)
+          res.send(result)
+        })
+      }else{
+        res.status(404).send("The user has no products in the cart")
+      }
 	})
  });
 
@@ -138,51 +142,29 @@ server.delete("/:id", (req, res) => {
   .catch(() => res.status(404).send("User has not be deleted"))
   });
 
-//ELIMINA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes):
-server.delete("/:idUser/cart/cancelled", (req, res) => {
+//ELIMINA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes o Completar ordenes):
+server.delete("/:idUser/cart", (req, res) => {
   const { idUser } = req.params;
-  body = {status: "cancelled"};
-  Order.update(body, { where: { userId: idUser } }).then(data => {
-    res.status(200).send("Order has been deleted");
-  })
-  .catch((err) => {
-    res.status(404).send("Order has not be deleted")
-  })
-});
-
-  
-//COMPLETA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes):
-server.delete("/:idUser/cart/complete/", (req, res) => {
-  const { idUser } = req.params;
-  User.findAll({ where: { id: idUser } })
-  .then(result => {
-    let idOrder = result[0].dataValues.orderId;
-    if(idOrder){
-      body = {status: "complete"};
-      Order.update(body, { where: { id: idOrder } })
-      .then(result => {
-      res.status(200).send("Order has been complete");
-      })
+  const {body} = req;  //recibe por body: satatus: complete o cancelled;
+  Order.update(body, { where: { userId: idUser, status: "processing" } }).then(data => {
+   // console.log(data[0]);
+    if(data[0]){
+    res.status(200).send("Order has been deleted/complete");
     }else{
-      res.status(404).send("ERROR. You do not have an order created")
+      res.status(404).send("You do not have an order created");
     }
-  })
-  .catch(() => res.status(404).send("ERROR. Order has not be complete"))
   });
+});
 
 
 //RUTAS PARA EDITAR CANTIDADES
 server.put("/:idUser/cart", (req, res) => {
   const { idUser } = req.params;
-  const { body } = req;                             //Recibe aount y total_price por body.
-  User.findAll({ where: { id: idUser } })
+  const { body } = req;                             //Recibe amount y total_price por body.
+  Order.update(body, { where: {userId: idUser, status: "processing" }})
   .then(result => {
-    let idOrder = result[0].dataValues.orderId;
-      Order.update(body, { where: { id: idOrder } })
-      .then(result => {
-      res.status(200).send("the order has been updated");
-      })    
-  })
+  res.status(200).send("the order has been updated");
+  }) 
   .catch(() => res.status(404).send("ERROR. Order has not be complete"))
   });
 module.exports = server;

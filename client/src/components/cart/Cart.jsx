@@ -9,7 +9,7 @@ import { getAllCart } from "../../actions";
      React.useEffect(() => {
         var idUser = 6;
         getAllCart(idUser);
-      }, [])
+      }, [products])
       
      console.log("asda", getcart)
      var arr = [];
