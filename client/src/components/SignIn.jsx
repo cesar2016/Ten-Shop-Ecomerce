@@ -6,28 +6,25 @@ import { loginUser } from "../actions";
 
 
 function SignIn ({loginUser,onlineUser}){
-
+    const [flag, setFlag] = useState(false)
     const [input, setInput] = useState({})
-    // useEffect(() => {    
-    //     if (onlineUser === true) {
-    //       alert("Existing user. Try again")
-    //     }  else if (onlineUser !== false){
-    //       alert("User created successfully")
-    //     }
-    //   },[onlineUser])
+    /*useEffect(() => {    
+        if (onlineUser === 2) {
+          alert("Existing user. Try again")
+        }  else if (typeof onlineUser === "object"){            
+          alert("User created successfully")
+        }
+      },[onlineUser])*/
  function handleInputChange(e) {
      setInput({
          ...input,
          [e.target.name]: e.target.value
      })
  }
-function handleSubmit (e){
-    e.preventDefault();
-    console.log(input)
+function handleSubmit (e){    
     loginUser(input)
 }
-return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+return (    
     <div className= "signin">
     <div> 
         <h3>Sign In</h3>
@@ -37,18 +34,19 @@ return (
     </div>
     <div>
         <label className= "label">Password: </label>
-        <input className="inputs" onChange= {(e) => handleInputChange(e)} type="text" placeholder="Password" name= "password"/>
+        <input className="inputs" onChange= {(e) => handleInputChange(e)} type="password" placeholder="Password" name= "password"/>
     </div>
     <div>
-        <label>Submit: </label><button className = "botoncito"></button>
+        
+            <label>Submit: </label><NavLink to="/"><button className = "botoncito" onClick={(e) => handleSubmit(e)}></button></NavLink>
+        
     </div>
     <NavLink className="link" to = "/signup">
     <h4>You do not have an account?</h4>
     </NavLink>
     </div>
 
-    </div>
-    </form>
+    </div>    
 
 )}
 const mapDispatchToProps = dispatch => {

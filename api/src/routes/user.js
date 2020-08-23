@@ -137,10 +137,10 @@ server.post("/adduser", (req, res) => {
   })
     .then(result => {      
       if (!result.length) {
-        User.create({firstname, surname, password, type: "2", username})
-        return res.send(true)
+        User.create({firstname, surname, password, type: "2", username})        
+        .then(user => res.send([true, user.dataValues]))        
       } else {
-        return res.send(false)
+        return res.send([false])
       }
     })
     .catch((err) => {      
@@ -153,6 +153,7 @@ server.post("/login",(req,res) => {
     username: req.body.username
   }})
   .then(result => {
+    console.log("EL LOGIN", result)
     res.status(200).send(result)
   })
   .catch(() => {

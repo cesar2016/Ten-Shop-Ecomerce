@@ -185,7 +185,8 @@ server.post("/", async (req, res) => {
         surname: "uriona",
         address: "cordoba",
         password: "1234",
-        type: 1,        
+        type: 1,
+        username:"facuuriona"        
     });
 
     const user2 = User.create({
@@ -193,7 +194,8 @@ server.post("/", async (req, res) => {
         surname: "sanchez",
         address: "rosario",
         password: "1234",
-        type: 1,        
+        type: 1,
+        username: "cesarsanchez"        
     });
 
     const user3 = User.create({
@@ -201,7 +203,8 @@ server.post("/", async (req, res) => {
         surname: "pinea",
         address: "mendoza",
         password: "1234",
-        type: 1,        
+        type: 1,
+        username: "rodrigopinea"        
     });
 
     const user4 = User.create({
@@ -209,7 +212,8 @@ server.post("/", async (req, res) => {
         surname: "cordoba",
         address: "las sierras",
         password: "1234",
-        type: 1,        
+        type: 1,
+        username: "matiascordoba"        
     });
 
     const user5 = User.create({
@@ -217,7 +221,8 @@ server.post("/", async (req, res) => {
         surname: "ambroggio",
         address: "chaco",
         password: "1234",
-        type: 1,        
+        type: 1,
+        username: "guillermoambroggio"        
     })
 
     const user6 = User.create({
@@ -225,7 +230,8 @@ server.post("/", async (req, res) => {
         surname: "messi",
         address: "barcelona",
         password: "1234",
-        type: 2,        
+        type: 2,
+        username: "lionelmessi"        
     })    
 
 //CREAR ORDENES:

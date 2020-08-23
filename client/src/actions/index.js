@@ -15,6 +15,8 @@ export const ADD_USER = "ADD_USER";
 export const LOGIN_USER = "LOGIN_USER";
 export const ADD_CART = "ADD_CART";
 export const GET_ALL_CART = "GET_ALL_CART";
+export const USER_LOGOUT = "USER_LOGOUT";
+export const ONLINE_USER_ERROR = "ONLINE_USER_ERROR";
 
 
 export function getSearchProducts (search) {
@@ -165,7 +167,7 @@ export function addUser (body) {
       .then(data => {
         dispatch({
           type: ADD_USER,
-          payload: {data, body}
+          payload: data
         })
       })
   }
@@ -213,3 +215,16 @@ export function loginUser(body){
           });
       };
     }
+
+export function userLogout () {
+      return {
+        type: USER_LOGOUT
+      }
+};
+
+
+export function onlineUserError () {
+  return {
+    type: ONLINE_USER_ERROR
+  }
+}

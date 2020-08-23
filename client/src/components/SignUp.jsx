@@ -2,24 +2,20 @@ import React from "react";
 import { connect } from "react-redux";
 import { addUser } from '../actions'
 import "./SignUp.css"
+import { NavLink } from "react-router-dom";
 
 
 function SignUp ({addUser, onlineUser}) {
   const [input, setInput] = React.useState({})
   const [errors, setErrors] = React.useState({});
 
-  React.useEffect(() => {    
-    if (onlineUser === true) {
+  /*React.useEffect(() => {    
+    if (onlineUser === 1) {
       alert("Existing user. Try again")
-    }  else if (onlineUser !== false){
+    }  else if (typeof onlineUser === "object"){
       alert("User created successfully")
     }
-  },[onlineUser])
-
-  var flag = false;
-
-  
-  
+  },[onlineUser])*/    
 
 
   function handleInputChange(e) {
@@ -35,9 +31,8 @@ function SignUp ({addUser, onlineUser}) {
 
   }
 
-  function handleSubmit(e) {
-    var keys = Object.keys(input)
-    e.preventDefault()
+  function handleSubmit() {
+    var keys = Object.keys(input)    
     if (errors.firstname || errors.surname || errors.username || errors.password || errors.password2) {
       var err = Object.keys(errors).filter(el => el !== "password2")
       var sum = "";
@@ -92,48 +87,43 @@ function SignUp ({addUser, onlineUser}) {
   };
 
 
-  return (    
-    <form onSubmit={(e) => handleSubmit(e)}>
+  return (        
     <div className="LOGIN">    
       <div className="signup">
         <h2>Sign Up</h2>              
       </div>      
           <div><h3>Firstname</h3></div>
       <div>
-        {/*<input placeholder="Enter your name" type="text" id="user" name="firstname" onChange={(e) => handleInputChange(e)}/>*/}
+     
         <input placeholder="Enter your firstname" type="text" name="firstname" value={input.firstname} onChange={handleInputChange} className={errors.firstname && "danger"}/>
               {errors.firstname && (<p className="danger">{errors.firstname}</p>)}
       </div>      
           <div><h3>Surname</h3></div>
       <div>
-        {/*<input placeholder="Enter your surname" type="text" id="user" name="surname" onChange={(e) => handleInputChange(e)}/>*/}
         <input placeholder="Enter your surname" type="text" name="surname" value={input.surname} onChange={handleInputChange} className={errors.surname && "danger"}/>
               {errors.surname && (<p className="danger">{errors.surname}</p>)}
       </div>      
       <div><h3>Username</h3></div>
-      <div>
-        {/*<input placeholder="Enter your username" type="text" id="user" name="username" onChange={(e) => handleInputChange(e)}/>*/}
+      <div>        
       <input placeholder="Enter your username" type="text" name="username" value={input.username} onChange={handleInputChange} className={errors.username && "danger"}/>
               {errors.username && (<p className="danger">{errors.username}</p>)}    
       </div>      
       <div><h3>Password</h3></div>
-      <div>
-        {/*<input placeholder="Enter your password" type="password" id="password" onChange={(e) => handleInputChange(e)} name="password"/>*/}
+      <div>        
         <input placeholder="Enter your password" type="password" name="password" value={input.password} onChange={handleInputChange} className={errors.password && "danger"}/>
               {errors.password && (<p className="danger">{errors.password}</p>)}
       </div>      
       <div><h3>Repeat password please</h3></div>
-      <div>
-        {/*<input placeholder="Enter your password" type="password" id="password2" onChange={(e) => handleInputChange(e)} name="password2"/>*/}
+      <div>        
         <input placeholder="Enter your password again" type="password" name="password2" value={input.password2} onChange={handleInputChange} className={errors.password2 && "danger"}/>
               {errors.password2 && (<p className="danger">{errors.password2}</p>)}
       </div>      
       <div>
-      <button id="15" className="SUBMIT" type="submit" value="Register"/>
-      {flag && (<button disabled className="SUBMIT" type="submit" value="Register"/>)}
+      <NavLink to="/">
+        <button id="15" className="SUBMIT" type="submit" value="Register" onClick={() => handleSubmit()}/>      
+      </NavLink>
       </div>    
-    </div>
-    </form>    
+    </div>    
     )
 }
 

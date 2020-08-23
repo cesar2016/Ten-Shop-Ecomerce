@@ -14,6 +14,8 @@ import {
     LOGIN_USER,
     ADD_CART,
     GET_ALL_CART,
+    USER_LOGOUT,
+    ONLINE_USER_ERROR
    } from '../actions/index';
 
 const initialState = {
@@ -22,7 +24,7 @@ const initialState = {
   categores_x_products: [],
   categories: [],
   onecategory:[],
-  onlineUser: false,
+  onlineUser: 0,
   cart:[],
   getcart:[]
 };
@@ -113,7 +115,7 @@ const reducer = (state = initialState , action) => {
       case ADD_USER:        
         return {
           ...state,
-          onlineUser: reducerAddUser(action.payload.data, action.payload.body)
+          onlineUser: reducerAddUser(action.payload)
         }
       case LOGIN_USER:
         return {
@@ -130,6 +132,16 @@ const reducer = (state = initialState , action) => {
             ...state,
             getcart: action.payload
           }
+        case USER_LOGOUT:
+          return {
+            ...state,
+            onlineUser: 3
+          }
+        case ONLINE_USER_ERROR:
+          return {
+            ...state,
+            onlineUser: 4
+          }
     default:
       return state;
     }
@@ -140,12 +152,12 @@ export default reducer;
 
 
 
-function reducerAddUser(data, body) {
-  const { username, firstname, surname, type } = body;
-  if (data) {
-    return {username, firstname, surname, type};
+function reducerAddUser(data) {
+  if (data[0]) {
+    const { id, username, firstname, surname, type, address } = data[1];
+    return { id, username, firstname, surname, type, address };
   } else {
-    return true
+    return 1
     }
 }
 
@@ -153,6 +165,6 @@ function reducerlogin(data){
   if(data){
     return data
   }else {
-    return true
+    return 2
   }
 }
