@@ -15,7 +15,8 @@ import {
     ADD_CART,
     GET_ALL_CART,
     USER_LOGOUT,
-    ONLINE_USER_ERROR
+    ONLINE_USER_ERROR,
+    GET_USERS,
    } from '../actions/index';
 
 const initialState = {
@@ -26,7 +27,8 @@ const initialState = {
   onecategory:[],
   onlineUser: 0,
   cart:[],
-  getcart:[]
+  getcart:[],
+  all_users: []
 };
 const reducer = (state = initialState , action) => {   
   switch (action.type) {
@@ -141,6 +143,16 @@ const reducer = (state = initialState , action) => {
           return {
             ...state,
             onlineUser: 4
+          }
+        case GET_USERS:
+          return {
+            ...state,
+            all_users: action.payload
+          }
+        case UPDATE_USER:
+          return {
+            ...state,
+
           }
     default:
       return state;

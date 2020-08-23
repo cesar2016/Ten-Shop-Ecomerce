@@ -6,3 +6,7 @@ FROM products JOIN categoriesxproducts ON (products.id = categoriesxproducts.pro
 					WHERE products.name LIKE '%heladeras%' OR categories.name LIKE '%heladeras%';
 					-- heladeras es a modo ejemplo, en vez de heladeras seria la busqueda
 					-- que como usuario quiero hacer
+
+--CREAR COLUMNA EN LA TABLA productsxorders QUE TENGA CANTIDADES: 
+ALTER TABLE productsxorders ADD COLUMN amount integer;		
+-- y esta columna total_price

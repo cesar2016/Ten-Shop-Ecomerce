@@ -16,7 +16,7 @@ import MenuCategories from './components/Products/MenuCategories';
 import SignUp from "./components/SignUp"
 import SignIn from "./components/SignIn"
 import Cart from './components/cart/Cart';
-
+import FormAdmin from './components/formularios/FormAdmin';
 
 function App() {
 
@@ -36,6 +36,7 @@ function App() {
           <Route exact path="/signin" render = {() => <SignIn/>}/>
           <Route exact path="/categories/:categories" render={({match}) => <MenuCategories category={match.params.categories}/> } />
           <Route exact path="/cart" render={() => <Cart />} />
+          <Route exact path="/admin" render={()=> <FormAdmin/>} />
       </div>
       )
 

@@ -17,6 +17,8 @@ export const ADD_CART = "ADD_CART";
 export const GET_ALL_CART = "GET_ALL_CART";
 export const USER_LOGOUT = "USER_LOGOUT";
 export const ONLINE_USER_ERROR = "ONLINE_USER_ERROR";
+export const GET_USERS = "GET_USERS";
+export const UPDATE_USER = "UPDATE_USER";
 
 
 export function getSearchProducts (search) {
@@ -175,7 +177,6 @@ export function addUser (body) {
 
 export function loginUser(body){
   return function(dispatch){
-    console.log(body)
     return axios.post("http://localhost:3001/users/login",body)
     .then(result => result.data)
     .then(data => {
@@ -227,4 +228,29 @@ export function onlineUserError () {
   return {
     type: ONLINE_USER_ERROR
   }
+}
+
+export function getUsers () {
+  return function (dispatch) {
+    return axios.get('http://localhost:3001/users')
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: GET_USERS,
+        payload: result
+      })
+    })
+  }
+}
+export function updateUser(id, body) {
+  return function (dispatch) {
+    return axios.put(`https://localhost:3001/users/${id}`,body)
+    .then(result => {
+      dispatch({
+        type: UPDATE_USER,
+        payload: body
+      })
+    })
+  }
+
 }

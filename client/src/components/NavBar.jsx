@@ -8,7 +8,9 @@ import { userLogout } from "../actions/index.js"
 
 
 function NavBar({onlineUser, userLogout}) {
-    const [categories, setCategories] = useState([]);
+  
+  const [categories, setCategories] = useState([]);
+  const [admin, setAdmin] = useState(false);
     
     useEffect(() => {
         var but = document.getElementById('SIGNIN');        
@@ -24,7 +26,15 @@ function NavBar({onlineUser, userLogout}) {
                 setCategories(recurso)
             }
         })
-    }, [onlineUser])
+        if (typeof onlineUser  === "object"){
+          if (onlineUser.type == 1){
+            setAdmin(true)
+          }
+        } 
+        console.log(onlineUser)
+      }, [onlineUser])
+      
+    
             
         
     return (
@@ -78,8 +88,29 @@ function NavBar({onlineUser, userLogout}) {
                             }                                
                             </div>
                          </li>
-
+                        {admin && 
+                        <li style={{marginTop:"5px"}} className="nav-item dropdown">
+                          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span style={{color:"white"}}>Admin</span>
+                          </a>
+                          <div style={{fontSize:"15px", borderRadius:"10px"}} className="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <NavLink className="dropdown-item" to={`/formCategory`}>
+                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>CRUD Category</span>                                            
+                          </NavLink>
+                          <NavLink className="dropdown-item" to={`/formProduct`}>
+                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>RUD Products</span>                                            
+                          </NavLink>
+                          <NavLink className="dropdown-item" to={`/formAddProduct`}>
+                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>Add Products</span>                                            
+                          </NavLink>
+                          <NavLink className="dropdown-item" to={`/admin`}>
+                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>Admin</span>                                            
+                          </NavLink>
+                          </div>
+                        </li>
+                        }
                       </ul>
+                      
                       <ul className="navbar-nav ">
                           <li className="nav-item">                            
                             <span className="badge badge-warning sm">11</span>                          
