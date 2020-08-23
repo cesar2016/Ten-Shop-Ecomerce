@@ -8,8 +8,8 @@ import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '..
 
     useEffect(()=>{
         getAllCategories()
-         //modifyCategory()
-         deleteCategory()
+         modifyCategory()
+         deleteCategory(category)
     },[])
    
     return (
