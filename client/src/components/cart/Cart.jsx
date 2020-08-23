@@ -4,15 +4,14 @@ import { getAllCart } from "../../actions";
   function Cart({products, getAllCart, getcart}) {
       
     const [count, setCount] = useState(1);
-     
-     
+    const [subtotal, setSubtotal] = useState(0)     
 
      React.useEffect(() => {
         var idUser = 6;
         getAllCart(idUser);
+        
       }, [])
-      
-     console.log("asda", getcart)
+           
      var arr = [];
      
      if(getcart[0]){
@@ -21,34 +20,42 @@ import { getAllCart } from "../../actions";
             
         });
         console.log(getcart)
-     }
+     }    
 
-    var subTotal = 1;
-      
+    const productosConSubtotales = useRef([])
+
+    if (arr.length && !productosConSubtotales.current.length) {        
+        products.forEach(e => {
+            if (arr.includes(e.id)) {
+            productosConSubtotales.current.push(e)
+            }
+        })
+    }
+          
+    
     function sum(id, price){
-        //var valor = document.getElementsByName("int").value;
-        var valor =  document.getElementById(ida).value;  
-        console.log('MULTIPLICA ',valor * pr);
 
-        var res = valor * price;
+        var cantidad =  document.getElementById(id).value;          
 
-        var intput = document.getElementById(id).innerHTML = res
-        // var add = subTotal.push(res)
-        strong = document.getElementById
+        var resultado = cantidad * price;
 
-        console.log('EL PUSHHHHHHH', subTotal)
+        for (let i = 0; i < productosConSubtotales.current.length; i++) {                    
+            if (productosConSubtotales.current[i].id == id) {
+                productosConSubtotales.current[i].subtotal = resultado
+            }
+        }        
+        var subtotal_carrito = 0;
+        productosConSubtotales.current.forEach(el => {
+            if (el.subtotal) {
+                subtotal_carrito += el.subtotal;                
+            }
+        })
 
-    }  
+        document.getElementById("subtotal").innerHTML = subtotal_carrito;
 
+    }          
 
- 
-        var id = 0 // Define los ID de los intput number
-        var idR = 0 // Define los ID de los intput de resultado
-        var btn0 = 0 // boton -
-        var btn1 = 1 // boton +
-
-      
-      
+        
      return (
          <div className="container">
  <section class="blog-block">
@@ -90,7 +97,7 @@ import { getAllCart } from "../../actions";
                                                     </div>
                                                 </p>
                                                 
-                                           <h3><strong  id={i} >${e.price}</strong></h3>
+                                           <h3><strong  id={i+"strong"} >${e.price}</strong></h3>
                                             </td>
                                             <td width={'20%'}>                                            
                                                 <div class="col-auto">
@@ -99,7 +106,7 @@ import { getAllCart } from "../../actions";
                                                     <label>count</label>
                                                     
                                                      
-                                                    <input min="1" type="number" id={i} onClick={()=>sum(i, e.price)} class="form-control mb-2 mt-5" placeholder="Amount" />
+                                                    <input min="1" type="number" id={e.id} onClick={()=>sum(e.id, e.price)} class="form-control mb-2 mt-5" placeholder="Amount" />
                                                 </div>
                                             </td>
                                         </tr>
@@ -142,9 +149,10 @@ import { getAllCart } from "../../actions";
                                          <p>
                                              <div class="event-blog-details">
 
-                                                 <p>
-                                                    { 'arrSub'}
+                                                 <p id="subtotal">
+                                                       
                                                  </p>
+
                                                  <p>Free</p>
                                                  <p>25</p>
                                              </div>
