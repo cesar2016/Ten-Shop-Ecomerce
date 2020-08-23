@@ -37,7 +37,7 @@ const { Product, Category, categoryxproduct , User, Order, productsxorders} = se
 Product.belongsToMany(Category, {through: 'categoriesxproducts', foreignKey: "product_id", otherKey: "category"});
 Category.belongsToMany(Product, {through: 'categoriesxproducts', foreignKey: "category", otherKey: "product_id"});
 
-User.belongsTo(Order);
+Order.belongsTo(User);
 Order.belongsToMany(Product, {through: "productsxorders", foreignKey: "order_id", otherKey: "product_id"});
 Product.belongsToMany(Order, {through: "productsxorders", foreignKey: "product_id", otherKey: "order_id"});
 

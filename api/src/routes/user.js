@@ -9,14 +9,26 @@ server.get('/', (req, res, next) => {
 	})
  });
 
+ //MUESTRA TODOS LAS ORDENES DEL USUARIO
+/* server.get('/:idUser/orders', (req, res, next) => {
+  const {idUser} = req.params;
+  User.findAll({ where: { id: idUser } })
+  .then(result => {
+    let idOrder = result[0].dataValues.orderId;
+    Order.(body, { where: { id: idOrder } })
+    .then(result => {
+    res.status(200).send("Order has been deleted");
+    })
+  })
+  .catch(() => res.status(404).send("Order has not be deleted"))
+  }); */
+
+
  //MUESTRA LOS ITEMS DEL CARRITO DEL USUARIO
  server.get('/:idUser/cart', (req, res, next) => {
     const {idUser} = req.params;
-    User.findAll({
-      where: {
-        id: idUser
-      }
-    }).then(data => {
+    User.findAll({where: {id: idUser}})
+      .then(data => {
       console.log("asdasdsadd",data)
       let idOrder = data[0].dataValues.orderId;
       productsxorders.findAll({
@@ -62,17 +74,37 @@ server.post('/:idUser/cart', (req, res) => {
       }).then(use => {
           let estado = use[0].dataValues.order;
           if(estado){
-            let idOrder = use[0].dataValues.order.dataValues.id;
-            console.log("aaaaaaaaaaaaaaaaaaaaa",use[0].dataValues.order.dataValues);            
-            Order.findByPk(idOrder).then(order =>  {
-              User.findByPk(idUser).then(user => {
-                user.setOrder(order);
-                Product.findByPk(body.id).then(producto => {  
-                  producto.addOrder(order);
-                  res.status(200).send("Order created")
-                })   
-              })   
-            })
+              let idOrder = use[0].dataValues.order.dataValues.id;
+              //console.log("aaaaaaaaaaaaaaaaaaaaa",use[0].dataValues.order.dataValues.status);   
+              if(use[0].dataValues.order.dataValues.status === "created" || use[0].dataValues.order.dataValues.status === "processing"){ 
+                //console.log("ENTRADA 111111")        
+                Order.findByPk(idOrder).then(order =>  {
+                  User.findByPk(idUser).then(user => {
+                    user.setOrder(order);
+                    Product.findByPk(body.id).then(producto => {  
+                      producto.addOrder(order);
+                      res.status(200).send("Order created")
+                    })   
+                  })   
+                })
+              }else{
+                //console.log("Entre acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                  Order.create({
+                    status: "created",
+                    address: body.address,                    
+                }).then(order => {
+                  User.findByPk(idUser).then(user => { 
+                      //console.log("Entreee acaaaa",user,"esta es la orden creada",order)              
+                      user.setOrder(order);
+                        Product.findByPk(body.id).then(producto => {  
+                            producto.addOrder(order);
+                            res.status(200).send("Order created")
+                        })                                    
+                  }).catch(err => {
+                    res.status(404).send("Error. Order no created!")                
+                  })
+                })
+              }
       
             //.catch(res.status(404).send("Sold out"))
           }else{//El usuario no tiene orden, creo la orden primero y luego anado el producto.
@@ -119,16 +151,54 @@ server.delete("/:id", (req, res) => {
   .catch(() => res.status(404).send("User has not be deleted"))
   });
 
-//ELIMINA ORDENES DE UN USUARIO:
-server.delete("/:idUser/cart", (req, res) => {
+//ELIMINA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes):
+server.delete("/:idUser/cart/cancelled", (req, res) => {
   const { idUser } = req.params;
-  User.destroy({ where: { id } })
+  User.findAll({ where: { id: idUser } })
   .then(result => {
-  res.status(200).send("User has been deleted");
+    let idOrder = result[0].dataValues.orderId;
+    body = {status: "cancelled"};
+    Order.update(body, { where: { id: idOrder } })
+    .then(result => {
+    res.status(200).send("Order has been deleted");
+    })
   })
-  .catch(() => res.status(404).send("User has not be deleted"))
+  .catch(() => res.status(404).send("Order has not be deleted"))
+  });
+
+  
+//COMPLETA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes):
+server.delete("/:idUser/cart/complete/", (req, res) => {
+  const { idUser } = req.params;
+  User.findAll({ where: { id: idUser } })
+  .then(result => {
+    let idOrder = result[0].dataValues.orderId;
+    if(idOrder){
+      body = {status: "complete"};
+      Order.update(body, { where: { id: idOrder } })
+      .then(result => {
+      res.status(200).send("Order has been complete");
+      })
+    }else{
+      res.status(404).send("ERROR. You do not have an order created")
+    }
+  })
+  .catch(() => res.status(404).send("ERROR. Order has not be complete"))
   });
 
 
-
+//RUTAS PARA EDITAR CANTIDADES
+server.put("/:idUser/cart", (req, res) => {
+  const { idUser } = req.params;
+  const { body } = req;                             //Recibe aount y total_price por body.
+  User.findAll({ where: { id: idUser } })
+  .then(result => {
+    let idOrder = result[0].dataValues.orderId;
+      Order.update(body, { where: { id: idOrder } })
+      .then(result => {
+      res.status(200).send("the order has been updated");
+      })    
+  })
+  .catch(() => res.status(404).send("ERROR. Order has not be complete"))
+  });
 module.exports = server;
