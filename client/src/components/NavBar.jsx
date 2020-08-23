@@ -31,115 +31,99 @@ function NavBar({onlineuser}) {
             
         
     return (
-             
-            <header className="header-content">
-                       
-
-                    <nav style={{fontSize:"20px", color:"black"}} class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-danger fixed-top">
-                         <div id="logo">                                    
-                        <NavLink to="/">                         
-                            <a href="/"><span>Ten</span><span style={{color:"yellow"}}>/ Shop</span></a>
-                        </NavLink>                         
-                        </div>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
-                            <NavLink to="/">
-                            <li style={{marginTop:"10px"}} class="nav-item active">
-                                <a class="nav-link" href="#">
-                                <i class="fa fa-home fa-lg"></i>                                                              
-                                </a>
-                            </li>
-                            </NavLink> 
-                            
-                            <NavLink to="/about" >
-                            <li style={{marginTop:"10px"}} class="nav-item">
-                                <a class="nav-link" href="#">                                 
-                                <span style={{color:"white"}}>About</span>
-                                </a>
-                            </li>
-                            </NavLink>
-                            <NavLink to="/contact">
-                            <li style={{marginTop:"10px"}} class="nav-item">
-                                <a class="nav-link" href="#">                                 
-                                <span style={{color:"white"}}>Contact</span>
-                                </a>
-                            </li>
-                            </NavLink>                            
-                            <li style={{marginTop:"5px"}} class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                
-                                <span style={{color:"white"}}>Categories</span>
-                                </a>
-                                <div style={{fontSize:"15px", borderRadius:"10px"}} class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                {
-                                    categories.map((cat, i) => {
-                                        return (                                           
-                                        <NavLink className="dropdown-item" to={`/categories/${cat.name}`}>
-                                            <span style={{color:"black", marginLeft:"5px", display:"block"}}>{cat.name}</span>                                            
-                                        </NavLink>
-                                               
-                                        )
-                                    })
-                                }                                
-                                </div>
-                            </li>                            
-                            </ul>
-                            
-                            <ul class="navbar-nav ">
-<<<<<<< HEAD
-                            <li class="nav-item">                            
-                                <span class="badge badge-warning sm">11</span>                          
-                            <button title="Cart" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
+        <header className="header-content">
+                <nav style={{fontSize:"20px", color:"black"}} className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-danger fixed-top">
+                     <div id="logo">                                    
+                    <NavLink to="/">                         
+                        <a href="/"><span>Ten</span><span style={{color:"yellow"}}>/ Shop</span></a>
+                    </NavLink>                         
+                    </div>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul className="navbar-nav mr-auto">
+                        <NavLink to="/">
+                        <li style={{marginTop:"10px"}} className="nav-item active">
+                          <a className="nav-link" href="#">
+                          <i className="fa fa-home fa-lg"></i>                                                              
+                          </a>
+                        </li>
+                        </NavLink> 
+                        <NavLink to="/about" >
+                        <li style={{marginTop:"10px"}} className="nav-item">
+                          <a className="nav-link" href="#">                                 
+                          <span style={{color:"white"}}>About</span>
+                          </a>
+                        </li>
+                        </NavLink>
+                        
+                        <NavLink to="/contact">
+                        <li style={{marginTop:"10px"}} className="nav-item">
+                          <a className="nav-link" href="#">                                 
+                          <span style={{color:"white"}}>Contact</span>
+                          </a>
+                        </li>
+                        </NavLink>                            
+                        <li style={{marginTop:"5px"}} className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                
+                            <span style={{color:"white"}}>Categories</span>
+                            </a>
+                            <div style={{fontSize:"15px", borderRadius:"10px"}} className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {
+                                categories.map((cat, i) => {
+                                    return (                                           
+                                    <NavLink className="dropdown-item" to={`/categories/${cat.name}`}>
+                                        <span style={{color:"black", marginLeft:"5px", display:"block"}}>{cat.name}</span>                                            
+                                    </NavLink>
+                                    )
+                                })
+                            }                                
+                            </div>
+                         </li>                            
+                      </ul>
+                      <ul className="navbar-nav ">
+                          <li className="nav-item">                            
+                            <span className="badge badge-warning sm">11</span>                          
+                          <button title="Cart" style={{fontSize:"15px"}} type="button" className="btn btn-info my-2 my-sm-0">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-=======
-                            <div calssName={'content'}>  
-                            <span style={{                               
-                                fontSize:"10px",
-                                position: "absolute",
-                                top:  "20px",
-                                
-                                }} class="badge badge-success badge-pill">5</span>                        
-                            <li class="nav-item">  
-
-                            <NavLink to="/cart">
-                            <button title="market" style={{ fontSize:"15px"}} type="button" class="btn btn-danger my-2 my-sm-0">
-                            <i  class="fa fa-shopping-cart" aria-hidden="true"></i>
->>>>>>> rama_cart
-                            </button>
-                            </NavLink>
-
+                            <span style={{fontSize:"10px",position: "absolute",top:"20px"}} className="badge badge-success badge-pill">5</span>                        
+                          </button>
+                            <li className="nav-item">  
+                            <div className={'content'}>  
+                              <NavLink to="/cart">
+                              <button title="market" style={{ fontSize:"15px"}} type="button" className="btn btn-danger my-2 my-sm-0">
+                                <i  className="fa fa-shopping-cart" aria-hidden="true"></i>
+                              </button>
+                              </NavLink>
+                           </div>   
                             </li>
-                            </div>  
-                            &nbsp;
-                            <NavLink to="/signin">
-                            <li class="nav-item">
-                            <button id = "mati" title="LOGIN" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i>
-                            </button>
+                          &nbsp;
+                        <NavLink to="/signin">
+                            <li className="nav-item">
+                                <button id = "mati" title="LOGIN" style={{fontSize:"15px"}} type="button" className="btn btn-info my-2 my-sm-0">
+                                <i className="fa fa-sign-in" aria-hidden="true"></i>
+                                </button>
                             </li>
-                            </NavLink>
-                            &nbsp;                            
-                            <li class="nav-item">
-                            <NavLink to="/signup">
-                            <button id = "facu"title="SIGN UP" style={{fontSize:"15px"}} type="button" class="btn btn-info my-2 my-sm-0">
-                            <i class="fa fa-user-plus" aria-hidden="true"></i>
-                            </button>
-                            </NavLink>
-                            </li>
-                            </ul>
-                            &nbsp;                            
-                            <SearchBar/>
-                        </div>
-                    </nav>
-
-            </header>
-
-        )
+                        </NavLink>
+                        &nbsp;                            
+                          <NavLink to="/signup">
+                        <li className="nav-item">
+                          <button id = "facu"title="SIGN UP" style={{fontSize:"15px"}} type="button" className="btn btn-info my-2 my-sm-0">
+                            <i className="fa fa-user-plus" aria-hidden="true"></i>
+                          </button>
+                        </li>
+                        </NavLink>
+                       </ul> 
+                        &nbsp;                            
+                        <SearchBar/>
+                  </nav>
+              </div>
+        </header>
+        </div>
+ )
 }
-const mapStateToProps = state => {
+MapStateToProps = state => {
     return {
         onlineuser: state.onlineuser
     }
