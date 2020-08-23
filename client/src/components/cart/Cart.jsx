@@ -23,29 +23,29 @@ import { getAllCart } from "../../actions";
         console.log(getcart)
      }
 
-     var subTotal = 1;
+    var subTotal = 1;
       
-function sum(ida, pr, idP){
+    function sum(id, price){
+        //var valor = document.getElementsByName("int").value;
+        var valor =  document.getElementById(ida).value;  
+        console.log('MULTIPLICA ',valor * pr);
+
+        var res = valor * price;
+
+        var intput = document.getElementById(id).innerHTML = res
+        // var add = subTotal.push(res)
+        strong = document.getElementById
+
+        console.log('EL PUSHHHHHHH', subTotal)
+
+    }  
+
+
  
-
-    //var valor = document.getElementsByName("int").value;
-    var valor =  document.getElementById(ida).value;  
-   console.log('MULTIPLICA ',valor * pr);
-
-   var res = valor * pr;
-
-var intput = document.getElementById(idP).innerHTML = res
-// var add = subTotal.push(res)
-console.log('EL PUSHHHHHHH', subTotal)
-
-  } 
-
-
- 
-var id = 0 // Define los ID de los intput number
-var idR = 0 // Define los ID de los intput de resultado
-var btn0 = 0 // boton -
-var btn1 = 1 // boton +
+        var id = 0 // Define los ID de los intput number
+        var idR = 0 // Define los ID de los intput de resultado
+        var btn0 = 0 // boton -
+        var btn1 = 1 // boton +
 
       
       
@@ -67,13 +67,8 @@ var btn1 = 1 // boton +
                              <tbody>
                              
                                  { 
-                                   getcart && products.map(e => {
-
-                                    
-                                    {  //Incremento de los ID de los inputs
-                                        var ida =  id++
-                                        var idP =  id++
-                                    }
+                                   getcart && products.map((e, i) => {
+                                                                
                                        
                                     
                                        if(arr.includes(e.id)){
@@ -95,22 +90,16 @@ var btn1 = 1 // boton +
                                                     </div>
                                                 </p>
                                                 
-                                           <h3><strong  id={idP} >${e.price}</strong></h3>
+                                           <h3><strong  id={i} >${e.price}</strong></h3>
                                             </td>
                                             <td width={'20%'}>                                            
                                                 <div class="col-auto">
                                                     <label class="sr-only" for="inlineFormInput">{e.name}</label>
                                                     
                                                     <label>count</label>
-                                                    {/* <div class="input-group"> */}
-                                                    {/* <input  min="1" type="text"  id={ida}  class="form-control" placeholder="1" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
-                                                    <div class="input-group-append">
-                                                        <button onClick={()=>sum(ida, e.price, idP, btn1, setCount(count +1))} class="btn btn-outline-success" type="button"><i className={'fa fa-plus'}></i></button>
-                                                        <button onClick={()=>sum(ida, e.price, idP, btn0,  setCount(count -1))} class="btn btn-outline-success" type="button"><i className={'fa fa-minus'}></i></button>
-                                                    </div> */}
-                                                    {/* </div> */}
+                                                    
                                                      
-                                                    <input min="1" type="number" id={ida} onClick={()=>sum(ida, e.price, idP)} class="form-control mb-2 mt-5" placeholder="Amount" />
+                                                    <input min="1" type="number" id={i} onClick={()=>sum(i, e.price)} class="form-control mb-2 mt-5" placeholder="Amount" />
                                                 </div>
                                             </td>
                                         </tr>
