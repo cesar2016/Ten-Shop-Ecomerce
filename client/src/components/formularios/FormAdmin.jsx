@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableUsers from "./TableUsers";
 import { connect } from "react-redux";
-import { getUsers } from "../../actions";
+import { getUsers , updateUser} from "../../actions";
 
-function FormAdmin({getUsers, users}) {
+function FormAdmin({getUsers, users, upda}) {
 const [input, setInput] = useState([])
   
   useEffect(() => {
@@ -23,22 +23,21 @@ const [input, setInput] = useState([])
    function update(id, users) {        
      users.find((e) => {
        if (e.id == id) {
+         var form = document.getElementById('formulario');
          setInput(e)
          document.getElementById("firstname").value = e.firstname;            
          document.getElementById("surname").value = e.surname;
          document.getElementById("type").value = e.type;
-         var form = document.getElementById('formulario');
          form.style.display = ''
          return;
        }
      })
    }
-
+   elId = useRef(null)
   const handleSubmit = function(e) {
-    let form = document.getElementById('formulario');
-        form.style.display = 'none';
+    console.log("entra al submit ")
     e.preventDefault();
-    updateUser(id, body)
+    updateUser(elId.current, input)
   }
 
     return (
@@ -66,10 +65,10 @@ const [input, setInput] = useState([])
 
                     <div class="col-md-6 contact-form alert alert-dark">
                         <h3>Management <span>Users</span></h3>
-                       <form id={'formulario'} style={{display:'none'}} onSubmit = {handleSubmit()}>
-                            <input type="text" class="form-control form-control-lg" name="name" placeholder="Firstname" id="firstname" onChange={handleInputChange} required="true"/>
-                            <input type="text" class="form-control form-control-lg" name="description" placeholder="Surname" id="surname" onChange={handleInputChange} required="true"/>
-                            <input type="text" class="form-control form-control-lg" name="price" placeholder="Type" id="type" onChange={handleInputChange} required=""/>
+                       <form id={'formulario'} style={{display:'none'}} onSubmit = {() => {handleSubmit()}}>
+                            <input type="text" class="form-control form-control-lg" name="firstname" placeholder="Firstname" id="firstname" onChange={handleInputChange} required="true"/>
+                            <input type="text" class="form-control form-control-lg" name="surname" placeholder="Surname" id="surname" onChange={handleInputChange} required="true"/>
+                            <input type="text" class="form-control form-control-lg" name="type" placeholder="Type" id="type" onChange={handleInputChange} required="true"/>
                             <input type="submit" class="submit-btn" value="Submit" />
                         </form>
                     </div>
@@ -81,6 +80,7 @@ const [input, setInput] = useState([])
 
 const mapDispatchToProps = dispatch => {
   return {
+    updateUser: () => dispatch(updateUser()),
     getUsers: () => dispatch(getUsers()),
   }
 }

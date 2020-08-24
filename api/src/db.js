@@ -40,8 +40,9 @@ Category.belongsToMany(Product, {through: 'categoriesxproducts', foreignKey: "ca
 User.belongsTo(Order);
 Order.belongsToMany(Product, {through: "productsxorders", foreignKey: "order_id", otherKey: "product_id"});
 Product.belongsToMany(Order, {through: "productsxorders", foreignKey: "product_id", otherKey: "order_id"});
-
-
+const { DataTypes } = require('sequelize');
+const queryInterface = sequelize.getQueryInterface();
+queryInterface.addColumn('productsxorders','amount',{type: DataTypes.INTEGER}) 
 
 
 

@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from "react-redux";
+import { getUsers } from "../../actions/index";
 
-export default function TableUsers ({users,update,elId}) {
+  function TableUsers ({users,update,elId, getUsers}) {
   var users = [
     {
         "id": 1,
@@ -86,7 +87,7 @@ export default function TableUsers ({users,update,elId}) {
                   <td > {p.firstname} </td>
                   <td > {p.surname} </td>
                     <td>
-                      <button type="button" class="btn btn-success" onClick={()   => { update(p.id, users); elId.current = p.id            
+                      <button type="button" class="btn btn-success" onClick={()   => { update(elId.current, users); elId.current = p.id            
                       }}>
                     <i className="fa fa-pencil"></i>
                       </button>
@@ -101,18 +102,12 @@ export default function TableUsers ({users,update,elId}) {
                 }
           )        )
           }
-// const mapDispatchToProps = dispatch => {
-//   return {
-
-//   }
-// }
-
-// const mapStateToProps = state => {
-//   return {    
-//   }
-// }
+ const mapDispatchToProps = dispatch => {
+   return {
+    getUsers: () => dispatch((getUsers()))
+   }
+ }
 
 
-
-// export default connect(mapStateToProps, mapDispatchToProps)(TableProducts)
+ export default connect(null, mapDispatchToProps)(TableUsers)
   

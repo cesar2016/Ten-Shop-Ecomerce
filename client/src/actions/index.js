@@ -244,7 +244,9 @@ export function getUsers () {
 }
 export function updateUser(id, body) {
   return function (dispatch) {
-    return axios.put(`https://localhost:3001/users/${id}`,body)
+    console.log(id, body, "update culia")
+    return axios.put(`https://localhost:3001/users/${id}`, body)
+    .then(result => result.data)
     .then(result => {
       dispatch({
         type: UPDATE_USER,
@@ -252,5 +254,4 @@ export function updateUser(id, body) {
       })
     })
   }
-
 }

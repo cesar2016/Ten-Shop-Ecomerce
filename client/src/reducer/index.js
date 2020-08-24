@@ -17,6 +17,7 @@ import {
     USER_LOGOUT,
     ONLINE_USER_ERROR,
     GET_USERS,
+    UPDATE_USER
    } from '../actions/index';
 
 const initialState = {
@@ -152,7 +153,7 @@ const reducer = (state = initialState , action) => {
         case UPDATE_USER:
           return {
             ...state,
-
+            
           }
     default:
       return state;
