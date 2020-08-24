@@ -2,6 +2,7 @@ import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
 import { getAllProducts, getAllCategories, onlineUserError } from "../../actions"
+import Swal from 'sweetalert2'
 
 function Catalogue({ products, getAllProducts, onlineUser, onlineUserError }) {      
 
@@ -12,11 +13,21 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError }) {
 
   if (onlineUser === 1) {
     onlineUserError()
-    alert("Existing user. Try again")
+    Swal.fire({
+            icon: 'error',
+            title: 'Existing user. Try again',
+            showConfirmButton: false,
+            timer: 2500
+          })    
   }
   if (onlineUser === 2) {
     onlineUserError()
-    alert("User or password invalid!")
+    Swal.fire({
+            icon: 'error',
+            title: 'Oops... user or password invalid!',
+            showConfirmButton: false,
+            timer: 3000
+          })        
   }  
     
 

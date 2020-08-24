@@ -3,19 +3,14 @@ import { connect } from "react-redux";
 import { addUser } from '../actions'
 import "./SignUp.css"
 import { NavLink } from "react-router-dom";
+import Swal from 'sweetalert2';
+
 
 
 function SignUp ({addUser, onlineUser}) {
   const [input, setInput] = React.useState({})
   const [errors, setErrors] = React.useState({});
 
-  /*React.useEffect(() => {    
-    if (onlineUser === 1) {
-      alert("Existing user. Try again")
-    }  else if (typeof onlineUser === "object"){
-      alert("User created successfully")
-    }
-  },[onlineUser])*/    
 
 
   function handleInputChange(e) {
@@ -38,12 +33,27 @@ function SignUp ({addUser, onlineUser}) {
       var sum = "";
       err.forEach(el => {
         sum += el+" invalid!!!\n"
-      })    
-      alert(sum)
+      })
+      Swal.fire({
+            icon: 'error',
+            title: sum,
+            showConfirmButton: false,
+            timer: 1500
+          })                  
     } else if (input.password !== input.password2) {
-        alert("Passwords do not match.")
+        Swal.fire({
+            icon: 'error',
+            title: 'Passwords do not match.',
+            showConfirmButton: false,
+            timer: 1500
+          })        
     } else if (keys.length === 0) {
-        alert("Error!!! Incomplete entries")
+      Swal.fire({
+            icon: 'error',
+            title: 'Error!!! Incomplete entries',
+            showConfirmButton: false,
+            timer: 1500
+          })        
     } else {
         addUser(input) 
     }

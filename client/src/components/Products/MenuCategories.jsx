@@ -6,11 +6,10 @@ import { getOneCategory } from "../../actions/index"
 function MenuCategories({category, getOneCategory, products}) { 
   React.useEffect(() => {
     getOneCategory(category)
-  }, [category])
+  }, [])
 
     
-    if(products){  
-      console.log("PRODUCTOS DE SU CATEGORIA", products)
+    if(products){        
       return (
         <div className='container'>
           {products.map(c => {            

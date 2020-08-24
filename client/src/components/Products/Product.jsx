@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 import Cart from '../cart/Cart';
 
 function Product({ addCart, id, products, searchProducts}) {
-var idUser = 6;
+    var idUser = 6;
    
     var todosLosProductos = products.concat(searchProducts);
     var resultado = todosLosProductos.find((el) => {
@@ -14,9 +14,13 @@ var idUser = 6;
         return el
       }
     })
-    
+
+
+
      function exitoAdd(){
-        
+
+        addCart(resultado.id, idUser);
+
         Swal.fire({
             icon: 'success',
             title: 'Your cart has been update!',
@@ -45,11 +49,9 @@ var idUser = 6;
                                     <p>{resultado.description}CESR SANCHEZ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lorem nulla, ornare eu felis quis, efficitur posuere nulla. Aliquam ac luctus turpis, non faucibus sem. Fusce ornare turpis neque, eu commodo sapien porta sed. Nam ut ante turpis. Nam arcu odio, scelerisque a vehicula vitae, auctor sit amet lectus. </p>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lorem nulla, ornare eu felis quis, efficitur posuere nulla. Aliquam ac luctus turpis, non faucibus sem. Fusce ornard hendrerit tortor vulputate id. Vestibulum mauris nibh, luctus non maximus vitae, porttitor eget neque. Donec tristique nunc facilisis, dapibus libero ac</p>
 
-                                    <div>
-                                        <NavLink to="/cart">
+                                    <div>                                        
                                         <button type="button" onClick={() => exitoAdd()} className="book-now-btn">
-                                            Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button>
-                                            </NavLink>
+                                            Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button>                                            
                                     </div>
                                 </div>
                             </div>
