@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { addCart } from "../../actions";
+import Swal from 'sweetalert2'
+
 
 
 function Product({ addCart, id, products, searchProducts}) {
 var idUser = 6;
+
+
    
     var todosLosProductos = products.concat(searchProducts);
     var resultado = todosLosProductos.find((el) => {
@@ -12,6 +16,7 @@ var idUser = 6;
         return el
       }
     })
+
     
      function exitoAdd(){
         
@@ -39,7 +44,13 @@ var idUser = 6;
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lorem nulla, ornare eu felis quis, efficitur posuere nulla. Aliquam ac luctus turpis, non faucibus sem. Fusce ornard hendrerit tortor vulputate id. Vestibulum mauris nibh, luctus non maximus vitae, porttitor eget neque. Donec tristique nunc facilisis, dapibus libero ac</p>
 
                                     <div>
-                                        <button type="button" onClick={() => addCart(resultado.id, idUser)} className="book-now-btn">
+                                        <button 
+                                        type="button" onClick={() => 
+                                            addCart(resultado.id, idUser, Swal.fire({
+                                            title: 'Product add to cart now!',
+                                            timer: 2000,
+                                            icon: 'success'
+                                        }))} className="book-now-btn">
                                             Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button>
                                     </div>
                                 </div>

@@ -61,7 +61,7 @@ var idR = 0 // Define los ID de los intput de resultado
       
       
      return (
-         <div className="container">
+         <div className="container d-flex justify-content-center">
  <section class="blog-block">
      <div class="container">
          <div class="row offspace">
@@ -106,7 +106,9 @@ var idR = 0 // Define los ID de los intput de resultado
                                                     </div>
                                                 </p>
                                                 
-                                           <h3><strong  id={idP} onChange={handleInputChange} >${e.price}</strong></h3>
+                                           <h3><strong  id={idP} onChange={handleInputChange} >${e.price}</strong>
+                                           
+                                           </h3>
                                             </td>
                                             <td width={'20%'}>                                            
                                                 <div class="col-auto">
@@ -114,7 +116,8 @@ var idR = 0 // Define los ID de los intput de resultado
                                                     
                                                     
                                                      
-                                                    <input type="number" id={ida} onClick={()=>sum(ida, e.price, idP)} class="form-control mb-2 mt-5" placeholder="Amount" />
+                                                    <input type="number" id={ida} onClick={()=>sum(ida, e.price, idP)} class="form-control form-group mb-2 mt-5" placeholder="Amount" />
+                                                    
                                                 </div>
                                             </td>
                                         </tr>
@@ -158,7 +161,7 @@ var idR = 0 // Define los ID de los intput de resultado
                                              <div class="event-blog-details">
 
                                                  <p>
-                                                    { 'arrSub'}
+                                                    { }
                                                  </p>
                                                  <p>Free</p>
                                                  <p>25</p>
@@ -181,6 +184,11 @@ var idR = 0 // Define los ID de los intput de resultado
                                              </div>
                                          </p>
                                      </th>
+                                 </tr>
+                                 <tr>
+                                     <th><button className="btn btn-danger">Cancel</button></th>
+                                 
+                                     <th><button className="btn btn-success">Checkout</button></th>
                                  </tr>
                              </tbody>
                          </table>
