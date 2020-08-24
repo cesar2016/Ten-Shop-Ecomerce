@@ -1,4 +1,8 @@
-.signin {
+html, body{
+  height:100%
+  margin 0;
+}
+/* .signin {
     display: flex;    
     margin-top: 230px;
     flex-direction: column;
@@ -45,4 +49,4 @@
   background-color: blue;
   border-radius: 5px;
   border-color: black;
-}
+} */
