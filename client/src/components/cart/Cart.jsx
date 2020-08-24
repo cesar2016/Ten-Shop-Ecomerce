@@ -2,58 +2,70 @@ import React, { useState, useEffect, useRef } from 'react';
 import { connect } from "react-redux";
 import { getAllCart } from "../../actions";
   function Cart({products, getAllCart, getcart}) {
-      
-    const [count, setCount] = useState(1);
-    const [subtotal, setSubtotal] = useState(0)     
-
-     React.useEffect(() => {
-        var idUser = 6;
-        getAllCart(idUser);
         
-      }, [])
+
+  React.useEffect(() => {
+    var idUser = 6;
+    getAllCart(idUser);
+
+  }, [])
            
-     var arr = [];
+  var arr = [];
      
-     if(getcart[0]){
-        getcart.forEach(element => {
-            arr.push(element.product_id)
-            
-        });
-        console.log(getcart)
-     }    
+  if (getcart[0]) {
+    getcart.forEach(element => {
+      arr.push(element.product_id)
 
-    const productosConSubtotales = useRef([])
+    });
+    console.log(getcart)
+  }
 
-    if (arr.length && !productosConSubtotales.current.length) {        
-        products.forEach(e => {
-            if (arr.includes(e.id)) {
-            productosConSubtotales.current.push(e)
-            }
-        })
-    }
+  const productosConSubtotales = useRef([])
+
+  if (arr.length && productosConSubtotales.current.length !== getcart.length) {
+    products.forEach(e => {
+      if (arr.includes(e.id)) {
+        productosConSubtotales.current.push(e)
+      }
+    })
+  }
           
-    
-    function sum(id, price){
+  const shipping = 400;
 
-        var cantidad =  document.getElementById(id).value;          
+  const taxes = useRef(0)
 
-        var resultado = cantidad * price;
+  const total = useRef(0)
 
-        for (let i = 0; i < productosConSubtotales.current.length; i++) {                    
-            if (productosConSubtotales.current[i].id == id) {
-                productosConSubtotales.current[i].subtotal = resultado
-            }
-        }        
-        var subtotal_carrito = 0;
-        productosConSubtotales.current.forEach(el => {
-            if (el.subtotal) {
-                subtotal_carrito += el.subtotal;                
-            }
-        })
+  function sum(id, price) {
 
-        document.getElementById("subtotal").innerHTML = subtotal_carrito;
+    var cantidad = document.getElementById(id).value;
 
-    }          
+    var resultado = cantidad * price;
+
+    productosConSubtotales.current.forEach(el => {
+      if (el.id == id) {
+        el.subtotal = resultado;
+      };
+    });
+
+
+    var subtotal_carrito = 0;
+    productosConSubtotales.current.forEach(el => {
+      if (el.subtotal) {
+        subtotal_carrito += el.subtotal;
+      }
+    })
+
+    taxes.current = subtotal_carrito * 0.21;
+
+    total.current = taxes.current + subtotal_carrito + shipping;
+
+    document.getElementById("subtotal").innerHTML = "$"+subtotal_carrito;
+
+    document.getElementById("taxes").innerHTML = "$"+taxes.current;
+
+    document.getElementById("total").innerHTML = "$"+total.current;
+  };
 
         
      return (
@@ -149,12 +161,9 @@ import { getAllCart } from "../../actions";
                                          <p>
                                              <div class="event-blog-details">
 
-                                                 <p id="subtotal">
-                                                       
-                                                 </p>
-
-                                                 <p>Free</p>
-                                                 <p>25</p>
+                                                <p id="subtotal">0</p>  
+                                                <p>$400</p>
+                                                <p id="taxes">0</p>
                                              </div>
                                          </p>
                                      </th>
@@ -170,7 +179,7 @@ import { getAllCart } from "../../actions";
                                      <th>
                                          <p>
                                              <div class="event-blog-details">
-                                                 <h3><strong>$ 325</strong></h3>
+                                                 <h3><strong id="total">$ 400</strong></h3>
                                              </div>
                                          </p>
                                      </th>
