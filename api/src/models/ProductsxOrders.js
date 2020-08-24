@@ -7,12 +7,6 @@ module.exports = (sequelize) => {
     },
     total_price: {
       type: DataTypes.INTEGER
-    },
-
+    },  
   })
-
-/* const queryInterface = sequelize.getQueryInterface();
-queryInterface.addColumn('productsxorders','amountt',{type: DataTypes.INTEGER}) 
-
- */
 }

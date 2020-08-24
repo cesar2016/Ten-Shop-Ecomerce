@@ -10,6 +10,7 @@ function MenuCategories({category, getOneCategory, products}) {
 
     
     if(products){  
+      console.log("PRODUCTOS DE SU CATEGORIA", products)
       return (
         <div className='container'>
           {products.map(c => {            

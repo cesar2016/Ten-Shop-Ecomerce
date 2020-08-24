@@ -15,17 +15,5 @@ server.get('/status/:status', (req, res, next) => {
 	.catch(err => {res.status(404).send("ERROR")})
  });
 
-/*  server.put('/:idOrder', (req, res, next) => {
-	const {idOrder} = req.params;
-	const {body} = req;  //recibe por body: satatus: complete o cancelled;
-	Order.findAll({where: {id: idOrder}}).then(function(data){
-		console.log(data);
-		res.send(data)
-	})
-	.catch(err => {
-		console.log(err);
-		res.status(404).send("ERROR")
-	})
- }); */
 
 module.exports = server;
