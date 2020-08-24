@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { User, Order , productsxorders , Product} = require('../db.js');
+const { User, Order , Productsxorders , Product} = require('../db.js');
 
 
 //MUESTRA TODOS LOS USUARIOS:
@@ -28,7 +28,7 @@ server.get('/:idUser/orders', (req, res, next) => {
       //console.log("asdasdsadd",data)
       if(data[0]){
         let idOrder = data[0].dataValues.id;
-        productsxorders.findAll({
+      Productsxorders.findAll({
           where: {order_id: idOrder}
         }).then(result => {
         //console.log("resultttttttttttt",result)
@@ -158,13 +158,14 @@ server.put("/:idUser/cart", (req, res) => {
   const { idUser } = req.params;
   const { body } = req;                             //Recibe amount y total_price por body. y el ID del producto
   Order.findAll({where: {userId: idUser, status: "processing"}}).then(orden => {
-    console.log(body);
+    
     console.log(orden);
     let idOrder = orden[0].id;
-
-    productsxorders.findAll({ where: {product_id: body.idProduct, order_id: idOrder}})
+    const {amount} = req.body
+    console.log("Amount", {amount});
+    Productsxorders.update({amount}, { where: {product_id: body.idProduct, order_id: idOrder}})
     .then(result => {
-      console.log("resultttt",result);
+    console.log("resultttt",result);
     res.status(200).send("the order has been updated");
     })     
   })
