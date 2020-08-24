@@ -2,53 +2,72 @@ import React, { useState, useEffect, useRef } from 'react';
 import { connect } from "react-redux";
 import { getAllCart } from "../../actions";
   function Cart({products, getAllCart, getcart}) {
-      
-    const [count, setCount] = useState(1);
+        
+
+  React.useEffect(() => {
+    var idUser = 6;
+    getAllCart(idUser);
+
+  }, [])
+           
+  var arr = [];
      
-     
+  if (getcart[0]) {
+    getcart.forEach(element => {
+      arr.push(element.product_id)
 
-     React.useEffect(() => {
-        var idUser = 6;
-        getAllCart(idUser);
-      }, [products])
-      
-     console.log("asda", getcart)
-     var arr = [];
-     
-     if(getcart[0]){
-        getcart.forEach(element => {
-            arr.push(element.product_id)
-            
-        });
-        console.log(getcart)
-     }
+    });
+    console.log(getcart)
+  }
 
-     var subTotal = 1;
-      
-function sum(ida, pr, idP){
- 
+  const productosConSubtotales = useRef([])
 
-    //var valor = document.getElementsByName("int").value;
-    var valor =  document.getElementById(ida).value;  
-   console.log('MULTIPLICA ',valor * pr);
+  if (arr.length && productosConSubtotales.current.length !== getcart.length) {
+    products.forEach(e => {
+      if (arr.includes(e.id)) {
+        productosConSubtotales.current.push(e)
+      }
+    })
+  }
+          
+  const shipping = 400;
 
-   var res = valor * pr;
+  const taxes = useRef(0)
 
-var intput = document.getElementById(idP).innerHTML = res
-// var add = subTotal.push(res)
-console.log('EL PUSHHHHHHH', subTotal)
+  const total = useRef(0)
 
-  } 
+  function sum(id, price) {
+
+    var cantidad = document.getElementById(id).value;
+
+    var resultado = cantidad * price;
+
+    productosConSubtotales.current.forEach(el => {
+      if (el.id == id) {
+        el.subtotal = resultado;
+      };
+    });
 
 
- 
-var id = 0 // Define los ID de los intput number
-var idR = 0 // Define los ID de los intput de resultado
-var btn0 = 0 // boton -
-var btn1 = 1 // boton +
+    var subtotal_carrito = 0;
+    productosConSubtotales.current.forEach(el => {
+      if (el.subtotal) {
+        subtotal_carrito += el.subtotal;
+      }
+    })
 
-      
-      
+    taxes.current = subtotal_carrito * 0.21;
+
+    total.current = taxes.current + subtotal_carrito + shipping;
+
+    document.getElementById("subtotal").innerHTML = "$"+subtotal_carrito;
+
+    document.getElementById("taxes").innerHTML = "$"+taxes.current;
+
+    document.getElementById("total").innerHTML = "$"+total.current;
+  };
+
+        
      return (
          <div className="container">
  <section class="blog-block">
@@ -67,13 +86,8 @@ var btn1 = 1 // boton +
                              <tbody>
                              
                                  { 
-                                   getcart && products.map(e => {
-
-                                    
-                                    {  //Incremento de los ID de los inputs
-                                        var ida =  id++
-                                        var idP =  id++
-                                    }
+                                   getcart && products.map((e, i) => {
+                                                                
                                        
                                     
                                        if(arr.includes(e.id)){
@@ -95,22 +109,16 @@ var btn1 = 1 // boton +
                                                     </div>
                                                 </p>
                                                 
-                                           <h3><strong  id={idP} >${e.price}</strong></h3>
+                                           <h3><strong  id={i+"strong"} >${e.price}</strong></h3>
                                             </td>
                                             <td width={'20%'}>                                            
                                                 <div class="col-auto">
                                                     <label class="sr-only" for="inlineFormInput">{e.name}</label>
                                                     
                                                     <label>count</label>
-                                                    {/* <div class="input-group"> */}
-                                                    {/* <input  min="1" type="text"  id={ida}  class="form-control" placeholder="1" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
-                                                    <div class="input-group-append">
-                                                        <button onClick={()=>sum(ida, e.price, idP, btn1, setCount(count +1))} class="btn btn-outline-success" type="button"><i className={'fa fa-plus'}></i></button>
-                                                        <button onClick={()=>sum(ida, e.price, idP, btn0,  setCount(count -1))} class="btn btn-outline-success" type="button"><i className={'fa fa-minus'}></i></button>
-                                                    </div> */}
-                                                    {/* </div> */}
+                                                    
                                                      
-                                                    <input min="1" type="number" id={ida} onClick={()=>sum(ida, e.price, idP)} class="form-control mb-2 mt-5" placeholder="Amount" />
+                                                    <input min="1" type="number" id={e.id} onClick={()=>sum(e.id, e.price)} class="form-control mb-2 mt-5" placeholder="Amount" />
                                                 </div>
                                             </td>
                                         </tr>
@@ -153,11 +161,9 @@ var btn1 = 1 // boton +
                                          <p>
                                              <div class="event-blog-details">
 
-                                                 <p>
-                                                    { 'arrSub'}
-                                                 </p>
-                                                 <p>Free</p>
-                                                 <p>25</p>
+                                                <p id="subtotal">0</p>  
+                                                <p>$400</p>
+                                                <p id="taxes">0</p>
                                              </div>
                                          </p>
                                      </th>
@@ -173,7 +179,7 @@ var btn1 = 1 // boton +
                                      <th>
                                          <p>
                                              <div class="event-blog-details">
-                                                 <h3><strong>$ 325</strong></h3>
+                                                 <h3><strong id="total">$ 400</strong></h3>
                                              </div>
                                          </p>
                                      </th>
