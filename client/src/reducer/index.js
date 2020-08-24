@@ -160,6 +160,8 @@ const reducer = (state = initialState , action) => {
           case UPDATE_CAR:
             return {
               ...state,
+              getcart: [],
+              cart: []
             }
           case COMPLETE_CAR:
             return {
