@@ -3,13 +3,9 @@ import TableUsers from "./TableUsers";
 import { connect } from "react-redux";
 import { getUsers , updateUser} from "../../actions";
 
-function FormAdmin({getUsers, users, updateUser}) {
+function FormAdmin({ updateUser}) {
 const [input, setInput] = useState([])
   
-  useEffect(() => {
-    getUsers()
-    updateUser()
-  },[])
 
   const handleInputChange = function(e) {
     setInput({

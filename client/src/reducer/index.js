@@ -153,7 +153,7 @@ const reducer = (state = initialState , action) => {
         case UPDATE_USER:
           return {
             ...state,
-            
+            all_users: reducerUpdateUser(state.all_users,action.payload.id,action.payload.body)
           }
     default:
       return state;
@@ -180,4 +180,13 @@ function reducerlogin(data){
   }else {
     return 2
   }
+}
+
+function reducerUpdateUser (ar,id,body){
+  for (let i = 0; i< ar.length;i++ ){
+    if (ar[i].id === id){
+      ar[i] = Object.assign({},ar[i],body) 
+    }
+    return ar
+   }
 }
