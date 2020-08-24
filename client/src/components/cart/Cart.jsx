@@ -95,13 +95,7 @@ var btn1 = 1 // boton +
                                                     </div>
                                                 </p>
                                                 
-<<<<<<< HEAD
-                                           <h3><strong  id={idP} onChange={handleInputChange} >${e.price}</strong>
-                                           
-                                           </h3>
-=======
                                            <h3><strong  id={idP} >${e.price}</strong></h3>
->>>>>>> 90932984d9a1fb567d610c861799cba1544aeed5
                                             </td>
                                             <td width={'20%'}>                                            
                                                 <div class="col-auto">
@@ -116,12 +110,7 @@ var btn1 = 1 // boton +
                                                     </div> */}
                                                     {/* </div> */}
                                                      
-<<<<<<< HEAD
-                                                    <input type="number" id={ida} onClick={()=>sum(ida, e.price, idP)} class="form-control form-group mb-2 mt-5" placeholder="Amount" />
-                                                    
-=======
                                                     <input min="1" type="number" id={ida} onClick={()=>sum(ida, e.price, idP)} class="form-control mb-2 mt-5" placeholder="Amount" />
->>>>>>> 90932984d9a1fb567d610c861799cba1544aeed5
                                                 </div>
                                             </td>
                                         </tr>

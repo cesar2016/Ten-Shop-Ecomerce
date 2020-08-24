@@ -49,7 +49,7 @@ var idUser = 6;
                                             addCart(resultado.id, idUser, Swal.fire({
                                             title: 'Product add to cart now!',
                                             timer: 2000,
-                                            icon: 'success'
+                                            icon: 'success' 
                                         }))} className="book-now-btn">
                                             Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button>
                                     </div>
