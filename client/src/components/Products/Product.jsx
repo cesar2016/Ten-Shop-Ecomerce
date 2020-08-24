@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { addCart } from "../../actions";
 import { Route, NavLink } from 'react-router-dom';
+import Swal from 'sweetalert2'
 import Cart from '../cart/Cart';
 
 function Product({ addCart, id, products, searchProducts}) {
@@ -16,8 +17,12 @@ var idUser = 6;
     
      function exitoAdd(){
         
-        alert('Add Cart Success');
-        addCart(resultado.id, idUser);
+        Swal.fire({
+            icon: 'success',
+            title: 'Your cart has been update!',
+            showConfirmButton: false,
+            timer: 1500
+          })
      }
 
     return (

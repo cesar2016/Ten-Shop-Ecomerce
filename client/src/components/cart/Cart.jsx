@@ -69,7 +69,7 @@ import { getAllCart } from "../../actions";
 
         
      return (
-         <div className="container">
+         <div className="container d-flex justify-content-center">
  <section class="blog-block">
      <div class="container">
          <div class="row offspace">
@@ -183,6 +183,11 @@ import { getAllCart } from "../../actions";
                                              </div>
                                          </p>
                                      </th>
+                                 </tr>
+                                 <tr>
+                                     <th><button className="btn btn-danger">Cancel</button></th>
+                                 
+                                     <th><button className="btn btn-success">Checkout</button></th>
                                  </tr>
                              </tbody>
                          </table>
