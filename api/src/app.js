@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const product = require('./routes/product');
 const categories = require("./routes/categories")
-const { Product, Category, Order, User } = require("./db.js")
+const { Product, Category, Order, User , ProductxOrder} = require("./db.js")
 const ind = require('./routes/index')
 
 

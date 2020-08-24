@@ -15,4 +15,9 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT
     },    
   })
+
+/* const queryInterface = sequelize.getQueryInterface();
+queryInterface.addColumn('productsxorders','amountt',{type: DataTypes.INTEGER}) 
+
+ */
 }

@@ -10,18 +10,14 @@ server.get('/', (req, res, next) => {
  });
 
  //MUESTRA TODOS LAS ORDENES DEL USUARIO
-/* server.get('/:idUser/orders', (req, res, next) => {
+server.get('/:idUser/orders', (req, res, next) => {
   const {idUser} = req.params;
-  User.findAll({ where: { id: idUser } })
+  Order.findAll({ where: { userId: idUser } })
   .then(result => {
-    let idOrder = result[0].dataValues.orderId;
-    Order.(body, { where: { id: idOrder } })
-    .then(result => {
-    res.status(200).send("Order has been deleted");
+    res.status(200).send(result);
     })
-  })
-  .catch(() => res.status(404).send("Order has not be deleted"))
-  }); */
+  .catch(() => res.status(404).send("ERROR"))
+  });
 
 
  //MUESTRA LOS ITEMS DEL CARRITO DEL USUARIO
@@ -29,7 +25,7 @@ server.get('/', (req, res, next) => {
     const {idUser} = req.params;
     Order.findAll({where: {userId: idUser, status: "processing"}})
       .then(data => {
-      console.log("asdasdsadd",data)
+      //console.log("asdasdsadd",data)
       if(data[0]){
         let idOrder = data[0].dataValues.id;
         productsxorders.findAll({
@@ -160,11 +156,18 @@ server.delete("/:idUser/cart", (req, res) => {
 //RUTAS PARA EDITAR CANTIDADES
 server.put("/:idUser/cart", (req, res) => {
   const { idUser } = req.params;
-  const { body } = req;                             //Recibe amount y total_price por body.
-  Order.update(body, { where: {userId: idUser, status: "processing" }})
-  .then(result => {
-  res.status(200).send("the order has been updated");
-  }) 
+  const { body } = req;                             //Recibe amount y total_price por body. y el ID del producto
+  Order.findAll({where: {userId: idUser, status: "processing"}}).then(orden => {
+    console.log(body);
+    console.log(orden);
+    let idOrder = orden[0].id;
+
+    productsxorders.findAll({ where: {product_id: body.idProduct, order_id: idOrder}})
+    .then(result => {
+      console.log("resultttt",result);
+    res.status(200).send("the order has been updated");
+    })     
+  })
   .catch(() => res.status(404).send("ERROR. Order has not be complete"))
   });
 module.exports = server;
