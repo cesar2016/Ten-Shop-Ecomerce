@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const product = require('./routes/product');
 const categories = require("./routes/categories")
-const { Product, Category, Order, User } = require("./db.js")
+const { Product, Category, Order, User , ProductxOrder} = require("./db.js")
 const ind = require('./routes/index')
 
 
@@ -59,7 +59,7 @@ server.post("/", async (req, res) => {
         name: "TV Samsung 4K HDR",
         description: "Smart tv 45 inches, guaranteed quality.",
         price: 10000,
-        stock: 7,
+        stock: 0,
         image: "https://images.samsung.com/is/image/samsung/es-uhd-ku6000-ue55ku6000kxxc-008-side-black?$L2-Thumbnail$",
     });
     const producto3 = Product.create({
@@ -133,6 +133,14 @@ server.post("/", async (req, res) => {
         stock: 5,
         image: "https://dj4i04i24axgu.cloudfront.net/guides-ui/statics/0.1.13/images/tipo_tv.png",
     })
+    const producto13 = await Product.create({
+        name: "LG TV ",
+        description: "TV 32 inches, FULL HD, HDR",
+        price: 6750,
+        stock: 5,
+        image: "https://dj4i04i24axgu.cloudfront.net/guides-ui/statics/0.1.13/images/tipo_tv.png",
+    })
+
 
 
     producto1.then((prod) => {
@@ -185,7 +193,8 @@ server.post("/", async (req, res) => {
         surname: "uriona",
         address: "cordoba",
         password: "1234",
-        type: 1,        
+        type: 1,
+        username:"facuuriona"        
     });
 
     const user2 = User.create({
@@ -193,7 +202,8 @@ server.post("/", async (req, res) => {
         surname: "sanchez",
         address: "rosario",
         password: "1234",
-        type: 1,        
+        type: 1,
+        username: "cesarsanchez"        
     });
 
     const user3 = User.create({
@@ -201,7 +211,8 @@ server.post("/", async (req, res) => {
         surname: "pinea",
         address: "mendoza",
         password: "1234",
-        type: 1,        
+        type: 1,
+        username: "rodrigopinea"        
     });
 
     const user4 = User.create({
@@ -209,7 +220,8 @@ server.post("/", async (req, res) => {
         surname: "cordoba",
         address: "las sierras",
         password: "1234",
-        type: 1,        
+        type: 1,
+        username: "matiascordoba"        
     });
 
     const user5 = User.create({
@@ -217,48 +229,50 @@ server.post("/", async (req, res) => {
         surname: "ambroggio",
         address: "chaco",
         password: "1234",
-        type: 1,        
+        type: 1,
+        username: "guillermoambroggio"        
     })
 
-    const user6 = User.create({
+    const user6 = await User.create({
         firstname: "lionel",
         surname: "messi",
         address: "barcelona",
         password: "1234",
-        type: 2,        
+        type: 2,
+        username: "lionelmessi"        
     })    
 
 //CREAR ORDENES:
-    const order1 = await Order.create({
+    const order1 = Order.create({
         status: "processing",
         address: "",        
     }) 
     
-    const order2 = await Order.create({
+   /*  const order2 = await Order.create({
         status: "created",
         address: "",        
-    })  
+    })   */
 
 
 //RELACION(1-1) USUARIO-ORDEN:    
 //La orden 1 Pertenece al usuario 6
-    user6.then(user => {
-        user.setOrder(order1)
+    order1.then(orden => {
+        orden.setUser(user6)
     })
 
-    user5.then(user => {
+/*     user5.then(user => {
         user.setOrder(order2)
-    })
+    }) */
 
 //RELACION(N-N) PRODUCTOS-ORDENES
 //La orden 1 tiene el producto 12
-    producto12.then((prod) => {
-        prod.addOrder(order1)
+    order1.then((orden) => {
+        orden.addProduct(producto13)
     })
 
-    producto10.then((prod) => {
+/*     producto10.then((prod) => {
         prod.addOrder(order2)
-    })
+    }) */
 
    
    

@@ -94,13 +94,13 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
     }    
 
    
-    function addCat(select){//inser categorias al array y eliminar      
-
-        if(categ.includes(select)){
-          categ = categ.filter(word => word !== select);                 
+    function addCat(select){//inser categorias al array y eliminar
+      
+        if(categ.includes(select)){                         
+          categ = categ.filter(word => word !== select);                          
           return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
           }else{
-            categ.push(select);              
+            categ.push(select);                         
             return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
           }   
             
@@ -147,7 +147,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
                             <div className=" form-control-lg">
                                     {categories && categories.map((cat, i) => {
                                         return (                                           
-                                          <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name)} id="op" value={cat.name}>
+                                          <button type="button" className="btn btn-primary" onClick={(e) => addCat(cat.name)} id="op" value={cat.name}>
                                             {cat.name}
                                           </button>                                          
                                         )

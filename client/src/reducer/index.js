@@ -10,8 +10,16 @@ import {
     ADD_CATEGORY,
     MODIFY_CATEGORY,
     DELETE_CATEGORY,
+    ADD_USER,
+    LOGIN_USER,
     ADD_CART,
-    GET_ALL_CART
+    GET_ALL_CART,
+    USER_LOGOUT,
+    ONLINE_USER_ERROR,
+    GET_USERS,
+    UPDATE_USER,
+    UPDATE_CAR,
+    COMPLETE_CAR
    } from '../actions/index';
 
 const initialState = {
@@ -20,8 +28,10 @@ const initialState = {
   categores_x_products: [],
   categories: [],
   onecategory:[],
+  onlineUser: 0,
   cart:[],
-  getcart:[]
+  getcart:[],
+  all_users: []
 };
 const reducer = (state = initialState , action) => {   
   switch (action.type) {
@@ -94,14 +104,28 @@ const reducer = (state = initialState , action) => {
         categories: [...state.categories, action.payload]
             }
       case MODIFY_CATEGORY:
+        let name = action.payload.name;
+        let newCategories = state.categories.filter(elem => name !== elem.name)
+        let filterCat = action.payload.body; 
+        newCategories.push(filterCat)
         return {
-          ...state,
-          categories: []
+           ...state,
+           categories: newCategories
         }
       case DELETE_CATEGORY:
         return {
           ...state,
           categories: [...state.categories.filter(cat => cat.name !== action.payload)]
+        }
+      case ADD_USER:        
+        return {
+          ...state,
+          onlineUser: reducerAddUser(action.payload)
+        }
+      case LOGIN_USER:
+        return {
+          ...state,
+          onlineUser: reducerlogin(action.payload)
         }
       case ADD_CART:
         return {///StateAdd_Prods
@@ -113,6 +137,34 @@ const reducer = (state = initialState , action) => {
             ...state,
             getcart: action.payload
           }
+        case USER_LOGOUT:
+          return {
+            ...state,
+            onlineUser: 3
+          }
+        case ONLINE_USER_ERROR:
+          return {
+            ...state,
+            onlineUser: 4
+          }
+        case GET_USERS:
+          return {
+            ...state,
+            all_users: action.payload
+          }
+        case UPDATE_USER:
+          return {
+            ...state,
+            all_users: reducerUpdateUser(state.all_users,action.payload.id,action.payload.body)
+          }
+          case UPDATE_CAR:
+            return {
+              ...state,
+            }
+          case COMPLETE_CAR:
+            return {
+              ...state,
+            }
     default:
       return state;
     }
@@ -120,3 +172,31 @@ const reducer = (state = initialState , action) => {
 
    
 export default reducer;
+
+
+
+function reducerAddUser(data) {
+  if (data[0]) {
+    const { id, username, firstname, surname, type, address } = data[1];
+    return { id, username, firstname, surname, type, address };
+  } else {
+    return 1
+    }
+}
+
+function reducerlogin(data){
+  if(data){
+    return data
+  }else {
+    return 2
+  }
+}
+
+function reducerUpdateUser (ar,id,body){
+  for (let i = 0; i< ar.length;i++ ){
+    if (ar[i].id === id){
+      ar[i] = Object.assign({},ar[i],body) 
+    }
+    return ar
+   }
+}

@@ -4,10 +4,10 @@ import SearchBar from "./SearchBar.jsx"
 import { NavLink } from 'react-router-dom'
 import { connect } from "react-redux";
 import { userLogout } from "../actions/index.js"
-import Swal from 'sweetalert2'
 
 
-function NavBar({onlineUser, userLogout, getcart}) {
+
+function NavBar({onlineUser, userLogout}) {
   
   const [categories, setCategories] = useState([]);
   const [admin, setAdmin] = useState(false);
@@ -34,13 +34,7 @@ function NavBar({onlineUser, userLogout, getcart}) {
         console.log(onlineUser)
       }, [onlineUser])
       
-      function alertt(){
-        Swal.fire({
-          icon: 'error',
-          title: 'Hello! To add to cart, log into your account',
-        })
-     }
-      
+    
             
         
     return (
@@ -104,7 +98,7 @@ function NavBar({onlineUser, userLogout, getcart}) {
                               <span style={{color:"black", marginLeft:"5px", display:"block"}}>CRUD Category</span>                                            
                           </NavLink>
                           <NavLink className="dropdown-item" to={`/formProduct`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>CRUD Products</span>                                            
+                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>RUD Products</span>                                            
                           </NavLink>
                           <NavLink className="dropdown-item" to={`/formAddProduct`}>
                               <span style={{color:"black", marginLeft:"5px", display:"block"}}>Add Products</span>                                            
@@ -118,51 +112,28 @@ function NavBar({onlineUser, userLogout, getcart}) {
                       </ul>
                       
                       <ul className="navbar-nav ">
-                          <li className="nav-item">   
+                          <li className="nav-item">                            
+                            <span className="badge badge-warning sm">11</span>                          
+                          <button title="Cart" style={{fontSize:"15px"}} type="button" className="btn btn-info my-2 my-sm-0">
+                            <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+                            <span style={{fontSize:"10px",position: "absolute",top:"20px"}} className="badge badge-success badge-pill">5</span>                        
+                          </button>
+                            {/*<li className="nav-item">  */}
                             <div className={'content'}>  
-                              {typeof onlineUser !== "object" && 
-                              <button title="market" type="button" onClick={() => alertt()} className="btn btn-danger my-2 my-sm-0">  
-                                <i style={{fontSize:"17px"}} className="fa fa-shopping-cart badge badge-warning ">
-                                  <span className="badge badge-info"></span>
-                                </i>
+                              <NavLink to="/cart">
+                              <button title="market" style={{ fontSize:"15px"}} type="button" className="btn btn-danger my-2 my-sm-0">
+                                <i  className="fa fa-shopping-cart" aria-hidden="true"></i>
                               </button>
-                              }
-                              {typeof onlineUser === "object" &&  <NavLink to="/cart">
-                              <button title="market" type="button" className="btn btn-danger my-2 my-sm-0">
-                                 
-                                <i style={{fontSize:"17px"}} className="fa fa-shopping-cart badge badge-warning ">
-                            <span className="badge badge-info">{getcart && getcart.length}</span>
-                                </i>
-                              </button>
-                              </NavLink>}
-                              
+                              </NavLink>
                            </div>   
                             </li>
                           &nbsp;                          
-                            {/* {onlineUser.firstname && (<li className="nav-item"> */}
-                              {/* <h4>Welcome {onlineUser.firstname} {onlineUser.surname}</h4>}                             */}
-                              {/* <button id = "SIGNOUT" title="sign out" style={{fontSize:"15px"}} type="button" className=" nav-link dropdown-toggle btn btn-info my-2 my-sm-0" onClick={() => userLogout()}>
-                               <i className="fa fa-sign-out" aria-hidden="true"></i>
-                              </button>
-                              </li>
-                              
-                            )} */}
-                                                     
                             {onlineUser.firstname && (<li className="nav-item">
-                              {/* <h4>Welcome {onlineUser.firstname} {onlineUser.surname}</h4>} */}
-                              <div class="dropdown">
-                            <button id = "SIGNOUT" title="sign out" style={{fontSize:"14px"}} type="button" className="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <small text-danger><i className='fa fa-user'></i> Welcome {onlineUser.firstname} {onlineUser.surname}</small> 
-                            </button>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a style={{color:"red"}} class="dropdown-item"  onClick={() => userLogout()}>LOGOUT</a>                                
-                              </div>
-                            </div> 
-                              </li>
-                              
-                            )}
-                                                      
-                                                                             
+                              <h4>Welcome {onlineUser.firstname} {onlineUser.surname}</h4>                            
+                              <button id = "SIGNOUT" title="sign out" style={{fontSize:"15px"}} type="button" className="btn btn-info my-2 my-sm-0" onClick={() => userLogout()}>
+                              <i className="fa fa-sign-out" aria-hidden="true"></i>
+                              </button>
+                              </li>)}                                                  
                             
                         <NavLink to="/signin">
                             <li className="nav-item">
@@ -183,8 +154,7 @@ function NavBar({onlineUser, userLogout, getcart}) {
 }
 const mapStateToProps = state => {
     return {
-        onlineUser: state.onlineUser,
-        getcart: state.cart
+        onlineUser: state.onlineUser
     }
 }
 

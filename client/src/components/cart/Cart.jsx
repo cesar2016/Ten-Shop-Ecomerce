@@ -1,67 +1,107 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from "react-redux";
-import { getAllCart } from "../../actions";
-  function Cart({products, getAllCart, getcart}) {
-      
-    const [input, setInput] = useState({});      
-    
+import { getAllCart,completeCart, updateCart} from "../../actions";
 
-  const handleInputChange = function(e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value
+import Swal from 'sweetalert2'
+  function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart}) {
+        
+
+  React.useEffect(() => {
+    if(typeof onlineUser === "object"){  
+    var idUser = onlineUser.id;
+    getAllCart(idUser);
+   }
+
+  }, [])
+           
+  var arr = [];
+     
+  if (getcart[0]) {
+    getcart.forEach(element => {
+      arr.push(element.product_id)
+
     });
-
-    console.log('INTPUTTTT', e.target.value)
-
+    console.log(getcart)
   }
 
-     React.useEffect(() => {
-        var idUser = 6;
-        getAllCart(idUser);
-      }, [])
-      
-     console.log("asda", getcart)
-     var arr = [];
-     
-     if(getcart[0]){
-        getcart.forEach(element => {
-            arr.push(element.product_id)
-            
-        });
-        console.log(getcart)
-     }
+  const productosConSubtotales = useRef([])
 
-     var subTotal = [];
-function sum(ida, pr, idP){
+  if (arr.length && productosConSubtotales.current.length !== getcart.length) {
+    products.forEach(e => {
+      if (arr.includes(e.id)) {
+        productosConSubtotales.current.push(e)
+      }
+    })
+  }
+          
+  const shipping = 400;
 
-    //var valor = document.getElementsByName("int").value;
-    var valor =  document.getElementById(ida).value;  
-   console.log('MULTIPLICA ',valor * pr);
+  const taxes = useRef(0)
 
-   var res = valor * pr;
+  const total = useRef(0)
 
-var intput = document.getElementById(idP).innerHTML = res
-var add = subTotal.push(res)
-console.log('EL PUSHHHHHHH', subTotal)
+  function sum(id, price) {
 
-const suma = subTotal.reduce(function(a, b){return a + b})
+    var cantidad = document.getElementById(id).value;
 
-console.log('LA SUMAAAA',suma)
+    var resultado = cantidad * price;
+
+    productosConSubtotales.current.forEach(el => {
+      if (el.id == id) {
+        el.subtotal = resultado;
+        el.cantidad = el.subtotal/el.price
+      };
+    });
 
 
+    var subtotal_carrito = 0;
+    productosConSubtotales.current.forEach(el => {
+      if (el.subtotal) {
+        subtotal_carrito += el.subtotal;
+      }
+    })
 
+    console.log("asdasdasds",productosConSubtotales.current)
 
+    taxes.current = subtotal_carrito * 0.21;
 
-} 
- 
-var id = 0 // Define los ID de los intput number
-var idR = 0 // Define los ID de los intput de resultado
+    total.current = taxes.current + subtotal_carrito + shipping;
 
-      
-      
+    document.getElementById("subtotal").innerHTML = "$"+subtotal_carrito;
+
+    document.getElementById("taxes").innerHTML = "$"+taxes.current;
+
+    document.getElementById("total").innerHTML = "$"+total.current;
+  };
+  
+  function alertt(){  
+    updateCart(onlineUser.id, productosConSubtotales.current)
+    Swal.fire({
+        title: 'Submit your Address Please',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Look up',
+        showLoaderOnConfirm: true,
+        preConfirm: (address) => {
+          completeCart(address);
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire({
+            title: `Order completed`,
+            icon: 'success'
+          })
+        }
+      })
+ }
+
+        
      return (
-         <div className="container">
+         <div className="container d-flex justify-content-center">
  <section class="blog-block">
      <div class="container">
          <div class="row offspace">
@@ -78,13 +118,8 @@ var idR = 0 // Define los ID de los intput de resultado
                              <tbody>
                              
                                  { 
-                                   getcart && products.map(e => {
-
-                                    
-                                    {  //Incremento de los ID de los inputs
-                                        var ida =  id++
-                                        var idP =  id++
-                                    }
+                                   getcart && products.map((e, i) => {
+                                                                
                                        
                                     
                                        if(arr.includes(e.id)){
@@ -106,15 +141,16 @@ var idR = 0 // Define los ID de los intput de resultado
                                                     </div>
                                                 </p>
                                                 
-                                           <h3><strong  id={idP} onChange={handleInputChange} >${e.price}</strong></h3>
+                                           <h3><strong  id={i+"strong"} >${e.price}</strong></h3>
                                             </td>
                                             <td width={'20%'}>                                            
                                                 <div class="col-auto">
                                                     <label class="sr-only" for="inlineFormInput">{e.name}</label>
                                                     
+                                                    <label>count</label>
                                                     
                                                      
-                                                    <input type="number" id={ida} onClick={()=>sum(ida, e.price, idP)} class="form-control mb-2 mt-5" placeholder="Amount" />
+                                                    <input min="1" type="number" id={e.id} onClick={()=>sum(e.id, e.price)} class="form-control mb-2 mt-5" placeholder="Amount" />
                                                 </div>
                                             </td>
                                         </tr>
@@ -157,11 +193,9 @@ var idR = 0 // Define los ID de los intput de resultado
                                          <p>
                                              <div class="event-blog-details">
 
-                                                 <p>
-                                                    { 'arrSub'}
-                                                 </p>
-                                                 <p>Free</p>
-                                                 <p>25</p>
+                                                <p id="subtotal">0</p>  
+                                                <p>$400</p>
+                                                <p id="taxes">0</p>
                                              </div>
                                          </p>
                                      </th>
@@ -177,10 +211,15 @@ var idR = 0 // Define los ID de los intput de resultado
                                      <th>
                                          <p>
                                              <div class="event-blog-details">
-                                                 <h3><strong>$ 325</strong></h3>
+                                                 <h3><strong id="total">$ 400</strong></h3>
                                              </div>
                                          </p>
                                      </th>
+                                 </tr>
+                                 <tr>
+                                     <th><button className="btn btn-danger btn-lg">Cancel</button></th>
+                                 
+                                     <th><button className="btn btn-default active btn-lg" onClick={() => alertt()}>Next </button></th>
                                  </tr>
                              </tbody>
                          </table>
@@ -197,7 +236,8 @@ var idR = 0 // Define los ID de los intput de resultado
  const mapDispatchToProps = dispatch => {
     return {
         getAllCart: (idUser) => dispatch(getAllCart(idUser)),
-      
+        completeCart: (idUser) => dispatch(completeCart(idUser)),
+        updateCart: (idUser, body) => dispatch(updateCart(idUser, body)),
   
     }
   }
@@ -206,6 +246,7 @@ var idR = 0 // Define los ID de los intput de resultado
     return {
       products: state.all_products,
       getcart: state.getcart,
+      onlineUser : state.onlineUser
      
     }
   }

@@ -79,17 +79,18 @@ server.post("/add", (req, res) => {
       .then(result => {
         res.status(200).send(true);
       })
-      .catch(() => res.status(404))
+      .catch(() => res.status(404).send(false))
   });
 
   //para modificar una categoria(update )
-  server.put("/modify/", (req, res) => {
+  server.put("/modify/:name", (req, res) => {
 	const { name } = req.params;
 	const  { body }  = req;
 	Category.update(body, { where: { name } })
 		.then(result => {
-			res.send(result)
-		});
+			res.status(200).send(body,name)
+    })
+    .catch(()=> res.status(404));
  });
 
 module.exports = server;

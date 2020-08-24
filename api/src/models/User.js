@@ -14,15 +14,19 @@ module.exports = (sequelize) => {
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false,        
+      allowNull: true,        
     },
     password: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull:false
     },
     type: {
-      type: DataTypes.ENUM("1", "2", "3"),
+      type: DataTypes.ENUM("1", "2"),
       allowNull: false,
-    }
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }    
   });
 };
