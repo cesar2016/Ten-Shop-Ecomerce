@@ -64,36 +64,13 @@ server.post('/:idUser/cart', (req, res) => {
    // console.log("este es el consolelogg",req);
 	const {idUser} = req.params;//Id del usuario
     const {body} = req;//el id del producto.
-    Order.findAll({where: {userId: idUser}}).then(ord => {
-          console.log(ord);
-          if(ord.length){
-                let idOrder = ord[0].dataValues.id;
-                let status = ord[0].dataValues.status; 
-                //console.log("aaaaaaaaaaaaaaaaaaaaa",use[0].dataValues.order.dataValues.status);   
-                if(status === "created" || status === "processing"){ 
-                  //console.log("ENTRADA 111111")      
-                      Product.findByPk(body.id).then(producto => {  
-                        producto.addOrder(ord);
-                        res.status(200).send("Order created")      
-                  })
-                }else{
-                  //console.log("Entre acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                    Order.create({
-                      status: "processing",
-                      address: body.address,                    
-                    }).then(order => {
-                      User.findByPk(idUser).then(user => { 
-                          //console.log("Entreee acaaaa",user,"esta es la orden creada",order)              
-                          order.setUser(user);
-                          Product.findByPk(body.id).then(producto => {  
-                              producto.addOrder(order);
-                              res.status(200).send("Order created")
-                          })                                    
-                    }).catch(err => {
-                      res.status(404).send("Error. Order no created!")                
-                    })
-                  })
-                }
+    Order.findAll({where: { userId: idUser, status: "processing" }}).then(ord => {
+          console.log("EStaaaaaa la ordennnn",ord);
+          if(ord.length){       
+            Product.findByPk(body.id).then(producto => {  
+              producto.addOrder(ord);
+              return res.status(200).send("Order created")      
+            })         
           }else{//El usuario no tiene orden, creo la orden primero y luego anado el producto.
                 Order.create({
                 status: "processing",
@@ -139,7 +116,8 @@ server.delete("/:id", (req, res) => {
   });
 
 //ELIMINA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes o Completar ordenes):
-server.delete("/:idUser/cart", (req, res) => {
+server.post("/:idUser/update/cart", (req, res) => {
+  console.log("ENTROOACAAAAA", req.body);
   const { idUser } = req.params;
   const {body} = req;  //recibe por body: satatus: complete o cancelled y direccion;
   Order.update(body, { where: { userId: idUser, status: "processing" } }).then(data => {
@@ -154,7 +132,7 @@ server.delete("/:idUser/cart", (req, res) => {
 
 
 //RUTAS PARA EDITAR CANTIDADES
-server.put("/:idUser/cart", (req, res) => {
+server.post("/:idUser/c/cart", (req, res) => {
   const { idUser } = req.params;
   const { body } = req;                             //Recibe amount y total_price por body. y el ID del producto
   Order.findAll({where: {userId: idUser, status: "processing"}}).then(orden => {
@@ -168,7 +146,6 @@ server.put("/:idUser/cart", (req, res) => {
       
         Productsxorders.update(obj, { where: {product_id: body[i].id, order_id: idOrder}})
         .then(result => {
-        console.log("resultttt",result);
         res.status(200).send("the order has been updated");
         })     
       } 

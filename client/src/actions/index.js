@@ -260,22 +260,26 @@ export function updateUser(id, body) {
 
 export function updateCart(idUser, body) {
   return function (dispatch) {
-    return axios.put(`http://localhost:3001/${idUser}/cart`, body)
+    return axios.post(`http://localhost:3001/users/${idUser}/c/cart`, body)
     .then(result => result.data)
     .then(result => {
       dispatch({
         type: UPDATE_CAR,
       })
     })
+    .catch(err => {console.log("EL ERRRORRRRRRR",err)})
   }
 }
+
 export function completeCart(idUser, addres){ 
+  console.log("Acionssssss",addres)
   let body = {
     status: "complete",
     address: addres
   };
+  console.log("asdasd",body);
   return function (dispatch) {
-    return axios.put(`http://localhost:3001/${idUser}/cart`, body)
+    return axios.post(`http://localhost:3001/users/${idUser}/update/cart`, body)
     .then(result => result.data)
     .then(result => {
       dispatch({
