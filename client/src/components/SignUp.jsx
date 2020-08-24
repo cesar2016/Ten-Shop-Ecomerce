@@ -87,43 +87,116 @@ function SignUp ({addUser, onlineUser}) {
   };
 
 
-  return (        
-    <div className="LOGIN">    
-      <div className="signup">
-        <h2>Sign Up</h2>              
-      </div>      
-          <div><h3>Firstname</h3></div>
-      <div>
+  return ( 
+
+
+
+    <section class="contact-block jumbotron bg-info">
+      <div class="container h-100 jumbotron bg-info">
+    <div class="row justify-content-center h-100 ">
+        <div class="col-md-6">
+            <div class="well well-sm">
+                <div style={{fontSize: '18px',  heigth: '25px'}} class="form-horizontal" method="post">
+                   <fieldset className='align-items-center h-100'> 
+                        <legend class="text-center header"><h2>Contact Us ... <i className='fa fa-address-book'></i></h2></legend>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-8">
+                                <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your firstname" type="text" name="firstname" value={input.firstname} onChange={handleInputChange} class="form-control"/>
+                                  {errors.firstname && ( <small style={{fontSize: '14px',color:'red'}} className={'fa fa-exclamation '}>
+                                  {errors.firstname}</small>)}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span style={{fontSize: '18px',  heigth: '25px'}} class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-8">
+                                <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your surname" type="text" name="surname" value={input.surname} onChange={handleInputChange} class="form-control"/>
+                                {errors.surname && ( <small style={{fontSize: '14px',color:'red'}} className={'fa fa-exclamation '}>
+                                  {errors.surname}</small>)}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user-plus"></i></span>
+                            <div class="col-md-8">
+                              <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your username" type="text" name="username" value={input.username} onChange={handleInputChange} class={"form-control"}/>
+                              {errors.username && ( <small style={{fontSize: '14px',color:'red'}} className={'fa fa-exclamation '}>
+                                  {errors.username}</small>)}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-lock"></i></span>
+                            <div class="col-md-8">
+                              <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your password" type="password" name="password" value={input.password} onChange={handleInputChange} class="form-control"/>
+                              {errors.password && ( <small style={{fontSize: '14px',color:'red'}} className={'fa fa-exclamation '}>
+                                  {errors.password}</small>)}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-check"></i></span>
+                            <div class="col-md-8">
+                              <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your password again" type="password" name="password2" value={input.password2} onChange={handleInputChange} class="form-control"/>
+                              {errors.password2 && ( <small style={{fontSize: '14px',color:'red'}} className={'fa fa-exclamation '}>
+                                  {errors.password2}</small>)}
+                            </div>
+                             
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 text-center">
+                                <button type="submit" id='15' onClick={() => handleSubmit()} class="btn btn-success btn-lg">Submit</button>
+                            </div>
+                        </div>
+                      </fieldset> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+    
+    
+
+
+    // <div className="LOGIN">    
+    //   <div className="signup">
+    //     <h2>Sign Up</h2>              
+    //   </div>      
+    //       <div><h3>Firstname</h3></div>
+    //   <div>
      
-        <input placeholder="Enter your firstname" type="text" name="firstname" value={input.firstname} onChange={handleInputChange} className={errors.firstname && "danger"}/>
-              {errors.firstname && (<p className="danger">{errors.firstname}</p>)}
-      </div>      
-          <div><h3>Surname</h3></div>
-      <div>
-        <input placeholder="Enter your surname" type="text" name="surname" value={input.surname} onChange={handleInputChange} className={errors.surname && "danger"}/>
-              {errors.surname && (<p className="danger">{errors.surname}</p>)}
-      </div>      
-      <div><h3>Username</h3></div>
-      <div>        
-      <input placeholder="Enter your username" type="text" name="username" value={input.username} onChange={handleInputChange} className={errors.username && "danger"}/>
-              {errors.username && (<p className="danger">{errors.username}</p>)}    
-      </div>      
-      <div><h3>Password</h3></div>
-      <div>        
-        <input placeholder="Enter your password" type="password" name="password" value={input.password} onChange={handleInputChange} className={errors.password && "danger"}/>
-              {errors.password && (<p className="danger">{errors.password}</p>)}
-      </div>      
-      <div><h3>Repeat password please</h3></div>
-      <div>        
-        <input placeholder="Enter your password again" type="password" name="password2" value={input.password2} onChange={handleInputChange} className={errors.password2 && "danger"}/>
-              {errors.password2 && (<p className="danger">{errors.password2}</p>)}
-      </div>      
-      <div>
-      <NavLink to="/">
-        <button id="15" className="SUBMIT" type="submit" value="Register" onClick={() => handleSubmit()}/>      
-      </NavLink>
-      </div>    
-    </div>    
+    //     <input placeholder="Enter your firstname" type="text" name="firstname" value={input.firstname} onChange={handleInputChange} className={errors.firstname && "danger"}/>
+    //           {errors.firstname && (<p className="danger">{errors.firstname}</p>)}
+    //   </div>      
+    //       <div><h3>Surname</h3></div>
+    //   <div>
+    //     <input placeholder="Enter your surname" type="text" name="surname" value={input.surname} onChange={handleInputChange} className={errors.surname && "danger"}/>
+    //           {errors.surname && (<p className="danger">{errors.surname}</p>)}
+    //   </div>      
+    //   <div><h3>Username</h3></div>
+    //   <div>        
+    //   <input placeholder="Enter your username" type="text" name="username" value={input.username} onChange={handleInputChange} className={errors.username && "danger"}/>
+    //           {errors.username && (<p className="danger">{errors.username}</p>)}    
+    //   </div>      
+    //   <div><h3>Password</h3></div>
+    //   <div>        
+    //     <input placeholder="Enter your password" type="password" name="password" value={input.password} onChange={handleInputChange} className={errors.password && "danger"}/>
+    //           {errors.password && (<p className="danger">{errors.password}</p>)}
+    //   </div>      
+    //   <div><h3>Repeat password please</h3></div>
+    //   <div>        
+    //     <input placeholder="Enter your password again" type="password" name="password2" value={input.password2} onChange={handleInputChange} className={errors.password2 && "danger"}/>
+    //           {errors.password2 && (<p className="danger">{errors.password2}</p>)}
+    //   </div>      
+    //   <div>
+    //   <NavLink to="/">
+    //     <button id="15" className="SUBMIT" type="submit" value="Register" onClick={() => handleSubmit()}/>      
+    //   </NavLink>
+    //   </div>    
+    // </div>    
     )
 }
 
