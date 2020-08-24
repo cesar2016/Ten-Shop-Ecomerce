@@ -3,11 +3,12 @@ import TableUsers from "./TableUsers";
 import { connect } from "react-redux";
 import { getUsers , updateUser} from "../../actions";
 
-function FormAdmin({getUsers, users, upda}) {
+function FormAdmin({getUsers, users, updateUser}) {
 const [input, setInput] = useState([])
   
   useEffect(() => {
     getUsers()
+    updateUser()
   },[])
 
   const handleInputChange = function(e) {
@@ -16,8 +17,6 @@ const [input, setInput] = useState([])
       [e.target.name]: e.target.value
     });
   }
-
-  // var categ = [];///ARARAY CATTTTEGORIASSSSS
 
   var elId = useRef(null)
    function update(id, users) {        
@@ -35,8 +34,9 @@ const [input, setInput] = useState([])
    }
    elId = useRef(null)
   const handleSubmit = function(e) {
-    console.log("entra al submit ")
     e.preventDefault();
+    console.log(elId.current)
+    console.log(input)
     updateUser(elId.current, input)
   }
 
@@ -58,14 +58,14 @@ const [input, setInput] = useState([])
                                 </tr>
                              </thead>
                             <tbody >
-                                <TableUsers users={users} update= {update} elId = {elId}/>
+                                <TableUsers  update= {update} elId = {elId}/>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="col-md-6 contact-form alert alert-dark">
                         <h3>Management <span>Users</span></h3>
-                       <form id={'formulario'} style={{display:'none'}} onSubmit = {() => {handleSubmit()}}>
+                       <form id={'formulario'} style={{display:'none'}} onSubmit = {handleSubmit}>
                             <input type="text" class="form-control form-control-lg" name="firstname" placeholder="Firstname" id="firstname" onChange={handleInputChange} required="true"/>
                             <input type="text" class="form-control form-control-lg" name="surname" placeholder="Surname" id="surname" onChange={handleInputChange} required="true"/>
                             <input type="text" class="form-control form-control-lg" name="type" placeholder="Type" id="type" onChange={handleInputChange} required="true"/>
@@ -80,7 +80,7 @@ const [input, setInput] = useState([])
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateUser: () => dispatch(updateUser()),
+    updateUser: (id, body) => dispatch(updateUser(id, body)),
     getUsers: () => dispatch(getUsers()),
   }
 }
