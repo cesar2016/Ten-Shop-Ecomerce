@@ -8,7 +8,9 @@ import { getUsers } from "../../actions/index";
       getUsers()
     },[])
   return (
-            users.map((p) => {            
+    <div>
+            {
+              users && users.map((p) => {            
               return (
                  <tr>
                   <th scope="row"> {p.type} </th> 
@@ -29,8 +31,11 @@ import { getUsers } from "../../actions/index";
                   </tr>
                   )
                 }
-          )        )
+          )
           }
+          </div> 
+         )
+      }
  const mapDispatchToProps = dispatch => {
    return {
     getUsers: () => dispatch((getUsers()))
@@ -41,7 +46,6 @@ import { getUsers } from "../../actions/index";
      users: state.all_users
    }
  }
-
 
  export default connect(mapStateToProps, mapDispatchToProps)(TableUsers)
   
