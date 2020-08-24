@@ -40,7 +40,9 @@ import Swal from 'sweetalert2'
 
   const total = useRef(0)
 
+
   function sum(id, price) {
+    var subtotal_carrito = 0;
 
     var cantidad = document.getElementById(id).value;
 
@@ -54,7 +56,6 @@ import Swal from 'sweetalert2'
     });
 
 
-    var subtotal_carrito = 0;
     productosConSubtotales.current.forEach(el => {
       if (el.subtotal) {
         subtotal_carrito += el.subtotal;
@@ -91,7 +92,6 @@ import Swal from 'sweetalert2'
                
                 updateCart(onlineUser.id, productosConSubtotales.current)
                 completeCart(onlineUser.id, result.value);
-                
                 Swal.fire({
                   title: `Order completed`,
                   icon: 'success'
