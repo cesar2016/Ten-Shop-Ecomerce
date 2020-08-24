@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from "react-redux";
-import { getAllCart } from "../../actions";
-  function Cart({products, getAllCart, getcart}) {
+import { getAllCart,completeCart, updateCart} from "../../actions";
+
+import Swal from 'sweetalert2'
+  function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart}) {
         
 
   React.useEffect(() => {
-    var idUser = 6;
+    if(typeof onlineUser === "object"){  
+    var idUser = onlineUser.id;
     getAllCart(idUser);
+   }
 
   }, [])
            
@@ -45,6 +49,7 @@ import { getAllCart } from "../../actions";
     productosConSubtotales.current.forEach(el => {
       if (el.id == id) {
         el.subtotal = resultado;
+        el.cantidad = el.subtotal/el.price
       };
     });
 
@@ -56,6 +61,8 @@ import { getAllCart } from "../../actions";
       }
     })
 
+    console.log("asdasdasds",productosConSubtotales.current)
+
     taxes.current = subtotal_carrito * 0.21;
 
     total.current = taxes.current + subtotal_carrito + shipping;
@@ -66,6 +73,31 @@ import { getAllCart } from "../../actions";
 
     document.getElementById("total").innerHTML = "$"+total.current;
   };
+  
+  function alertt(){  
+    updateCart(onlineUser.id, productosConSubtotales.current)
+    Swal.fire({
+        title: 'Submit your Address Please',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Look up',
+        showLoaderOnConfirm: true,
+        preConfirm: (address) => {
+          completeCart(address);
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire({
+            title: `Order completed`,
+            icon: 'success'
+          })
+        }
+      })
+ }
 
         
      return (
@@ -185,9 +217,9 @@ import { getAllCart } from "../../actions";
                                      </th>
                                  </tr>
                                  <tr>
-                                     <th><button className="btn btn-danger">Cancel</button></th>
+                                     <th><button className="btn btn-danger btn-lg">Cancel</button></th>
                                  
-                                     <th><button className="btn btn-success">Checkout</button></th>
+                                     <th><button className="btn btn-default active btn-lg" onClick={() => alertt()}>Next </button></th>
                                  </tr>
                              </tbody>
                          </table>
@@ -204,7 +236,8 @@ import { getAllCart } from "../../actions";
  const mapDispatchToProps = dispatch => {
     return {
         getAllCart: (idUser) => dispatch(getAllCart(idUser)),
-      
+        completeCart: (idUser) => dispatch(completeCart(idUser)),
+        updateCart: (idUser, body) => dispatch(updateCart(idUser, body)),
   
     }
   }
@@ -213,6 +246,7 @@ import { getAllCart } from "../../actions";
     return {
       products: state.all_products,
       getcart: state.getcart,
+      onlineUser : state.onlineUser
      
     }
   }

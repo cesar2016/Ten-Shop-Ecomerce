@@ -59,7 +59,7 @@ server.post("/", async (req, res) => {
         name: "TV Samsung 4K HDR",
         description: "Smart tv 45 inches, guaranteed quality.",
         price: 10000,
-        stock: 7,
+        stock: 0,
         image: "https://images.samsung.com/is/image/samsung/es-uhd-ku6000-ue55ku6000kxxc-008-side-black?$L2-Thumbnail$",
     });
     const producto3 = Product.create({

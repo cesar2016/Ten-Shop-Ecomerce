@@ -34,7 +34,6 @@ function App() {
           <Route exact path="/categories/:categories" render={({match}) => <MenuCategories category={match.params.categories}/> } />        
           <Route exact path="/signup" render={() => <SignUp/> } />
           <Route exact path="/signin" render = {() => <SignIn/>}/>
-          <Route exact path="/categories/:categories" render={({match}) => <MenuCategories category={match.params.categories}/> } />
           <Route exact path="/cart" render={() => <Cart />} />
           <Route exact path="/admin" render={()=> <FormAdmin/>} />
       </div>

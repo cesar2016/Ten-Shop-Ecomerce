@@ -141,7 +141,7 @@ server.delete("/:id", (req, res) => {
 //ELIMINA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes o Completar ordenes):
 server.delete("/:idUser/cart", (req, res) => {
   const { idUser } = req.params;
-  const {body} = req;  //recibe por body: satatus: complete o cancelled;
+  const {body} = req;  //recibe por body: satatus: complete o cancelled y direccion;
   Order.update(body, { where: { userId: idUser, status: "processing" } }).then(data => {
    // console.log(data[0]);
     if(data[0]){
@@ -158,19 +158,25 @@ server.put("/:idUser/cart", (req, res) => {
   const { idUser } = req.params;
   const { body } = req;                             //Recibe amount y total_price por body. y el ID del producto
   Order.findAll({where: {userId: idUser, status: "processing"}}).then(orden => {
-    
-    console.log(orden);
     let idOrder = orden[0].id;
-    const {amount} = req.body
-    console.log("Amount", {amount});
-    Productsxorders.update({amount}, { where: {product_id: body.idProduct, order_id: idOrder}})
-    .then(result => {
-    console.log("resultttt",result);
-    res.status(200).send("the order has been updated");
-    })     
+    for (let i = 0; i < body.length; i++) {
+      if(body[i].cantidad){
+        const obj = {
+          amount: body[i].cantidad,
+          total_price: body[i].subtotal
+        }
+      
+        Productsxorders.update(obj, { where: {product_id: body[i].id, order_id: idOrder}})
+        .then(result => {
+        console.log("resultttt",result);
+        res.status(200).send("the order has been updated");
+        })     
+      } 
+    } 
   })
-  .catch(() => res.status(404).send("ERROR. Order has not be complete"))
-  });
+  .catch(() => res.status(404).send("ERROR. Order has not be complete"));
+});
+
 server.post("/adduser", (req, res) => {
   const { firstname, surname, password, username } = req.body;  
   User.findAll({

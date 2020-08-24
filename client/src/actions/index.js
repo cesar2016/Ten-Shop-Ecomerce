@@ -19,6 +19,8 @@ export const USER_LOGOUT = "USER_LOGOUT";
 export const ONLINE_USER_ERROR = "ONLINE_USER_ERROR";
 export const GET_USERS = "GET_USERS";
 export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_CAR = "UPDATE_CAR";
+export const COMPLETE_CAR = "COMPLETE_CAR";
 
 
 export function getSearchProducts (search) {
@@ -251,6 +253,33 @@ export function updateUser(id, body) {
       dispatch({
         type: UPDATE_USER,
         payload: {id,body}
+      })
+    })
+  }
+}
+
+export function updateCart(idUser, body) {
+  return function (dispatch) {
+    return axios.put(`http://localhost:3001/${idUser}/cart`, body)
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: UPDATE_CAR,
+      })
+    })
+  }
+}
+export function completeCart(idUser, addres){ 
+  let body = {
+    status: "complete",
+    address: addres
+  };
+  return function (dispatch) {
+    return axios.put(`http://localhost:3001/${idUser}/cart`, body)
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: COMPLETE_CAR,
       })
     })
   }

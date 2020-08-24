@@ -17,7 +17,9 @@ import {
     USER_LOGOUT,
     ONLINE_USER_ERROR,
     GET_USERS,
-    UPDATE_USER
+    UPDATE_USER,
+    UPDATE_CAR,
+    COMPLETE_CAR
    } from '../actions/index';
 
 const initialState = {
@@ -155,6 +157,14 @@ const reducer = (state = initialState , action) => {
             ...state,
             all_users: reducerUpdateUser(state.all_users,action.payload.id,action.payload.body)
           }
+          case UPDATE_CAR:
+            return {
+              ...state,
+            }
+          case COMPLETE_CAR:
+            return {
+              ...state,
+            }
     default:
       return state;
     }

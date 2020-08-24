@@ -4,10 +4,10 @@ import SearchBar from "./SearchBar.jsx"
 import { NavLink } from 'react-router-dom'
 import { connect } from "react-redux";
 import { userLogout } from "../actions/index.js"
+import Swal from 'sweetalert2'
 
 
-
-function NavBar({onlineUser, userLogout}) {
+function NavBar({onlineUser, userLogout, getcart}) {
   
   const [categories, setCategories] = useState([]);
   const [admin, setAdmin] = useState(false);
@@ -34,7 +34,13 @@ function NavBar({onlineUser, userLogout}) {
         console.log(onlineUser)
       }, [onlineUser])
       
-    
+      function alertt(){
+        Swal.fire({
+          icon: 'error',
+          title: 'Hello! To add to cart, log into your account',
+        })
+     }
+      
             
         
     return (
@@ -114,14 +120,22 @@ function NavBar({onlineUser, userLogout}) {
                       <ul className="navbar-nav ">
                           <li className="nav-item">   
                             <div className={'content'}>  
-                              <NavLink to="/cart">
+                              {typeof onlineUser !== "object" && 
+                              <button title="market" type="button" onClick={() => alertt()} className="btn btn-danger my-2 my-sm-0">  
+                                <i style={{fontSize:"17px"}} className="fa fa-shopping-cart badge badge-warning ">
+                                  <span className="badge badge-info"></span>
+                                </i>
+                              </button>
+                              }
+                              {typeof onlineUser === "object" &&  <NavLink to="/cart">
                               <button title="market" type="button" className="btn btn-danger my-2 my-sm-0">
                                  
                                 <i style={{fontSize:"17px"}} className="fa fa-shopping-cart badge badge-warning ">
-                                  <span className="badge badge-info">1</span>
+                            <span className="badge badge-info">{getcart && getcart.length}</span>
                                 </i>
                               </button>
-                              </NavLink>
+                              </NavLink>}
+                              
                            </div>   
                             </li>
                           &nbsp;                          
@@ -169,7 +183,8 @@ function NavBar({onlineUser, userLogout}) {
 }
 const mapStateToProps = state => {
     return {
-        onlineUser: state.onlineUser
+        onlineUser: state.onlineUser,
+        getcart: state.cart
     }
 }
 
