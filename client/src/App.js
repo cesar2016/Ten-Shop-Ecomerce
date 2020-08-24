@@ -13,11 +13,10 @@ import FormCategory from "./components/formularios/FormCategory"
 import Contact from './components/Contact.jsx';
 import SearchProduct from './components/Products/SearchProduct.jsx';
 import MenuCategories from './components/Products/MenuCategories';
+import SignUp from "./components/SignUp"
+import SignIn from "./components/SignIn"
 import Cart from './components/cart/Cart';
-
-
-
-
+import FormAdmin from './components/formularios/FormAdmin';
 
 function App() {
 
@@ -32,8 +31,12 @@ function App() {
           <Route exact path="/formAddProduct" render={() => <FormAddProduct/> } />
           <Route exact path= "/formCategory" render={() => <FormCategory />} />
           <Route exact path="/search" render={() => <SearchProduct/> } />
+          <Route exact path="/categories/:categories" render={({match}) => <MenuCategories category={match.params.categories}/> } />        
+          <Route exact path="/signup" render={() => <SignUp/> } />
+          <Route exact path="/signin" render = {() => <SignIn/>}/>
           <Route exact path="/categories/:categories" render={({match}) => <MenuCategories category={match.params.categories}/> } />
           <Route exact path="/cart" render={() => <Cart />} />
+          <Route exact path="/admin" render={()=> <FormAdmin/>} />
       </div>
       )
 

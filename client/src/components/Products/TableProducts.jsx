@@ -27,7 +27,7 @@ function TableProducts({products, update, elId, deleteProduct, categxproducts, d
             })}       
             </td>
             <td>
-            <button type="button" class="btn btn-success" onClick={() => {
+            <button type="button" class="btn btn-success" onClick={()   => {
             update(p.id, products);
             elId.current = p.id            
             }}>

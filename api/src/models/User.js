@@ -23,6 +23,10 @@ module.exports = (sequelize) => {
     type: {
       type: DataTypes.ENUM("1", "2"),
       allowNull: false,
-    }
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }    
   });
 };

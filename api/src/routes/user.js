@@ -171,4 +171,35 @@ server.put("/:idUser/cart", (req, res) => {
   })
   .catch(() => res.status(404).send("ERROR. Order has not be complete"))
   });
+server.post("/adduser", (req, res) => {
+  const { firstname, surname, password, username } = req.body;  
+  User.findAll({
+    where: {username}
+  })
+    .then(result => {      
+      if (!result.length) {
+        User.create({firstname, surname, password, type: "2", username})        
+        .then(user => res.send([true, user.dataValues]))        
+      } else {
+        return res.send([false])
+      }
+    })
+    .catch((err) => {      
+      return res.send(err)
+    })    
+});
+
+server.post("/login",(req,res) => {
+  User.findOne({where: {
+    username: req.body.username
+  }})
+  .then(result => {
+    console.log("EL LOGIN", result)
+    res.status(200).send(result)
+  })
+  .catch(() => {
+    res.status(404).send(console.log(req.body))}
+    )
+})
+
 module.exports = server;

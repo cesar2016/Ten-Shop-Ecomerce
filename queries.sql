@@ -10,3 +10,4 @@ FROM products JOIN categoriesxproducts ON (products.id = categoriesxproducts.pro
 --CREAR COLUMNA EN LA TABLA productsxorders QUE TENGA CANTIDADES: 
 ALTER TABLE productsxorders ADD COLUMN amount integer;		
 -- y esta columna total_price			
+-- y esta columna total_price

@@ -1,13 +1,24 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
-import { getAllProducts, getAllCategories } from "../../actions"
+import { getAllProducts, getAllCategories, onlineUserError } from "../../actions"
 
-function Catalogue({ products, getAllProducts }) {      
+function Catalogue({ products, getAllProducts, onlineUser, onlineUserError }) {      
 
   React.useEffect(() => {
     getAllProducts()
   }, [])
+  var flag = false;  
+
+  if (onlineUser === 1) {
+    onlineUserError()
+    alert("Existing user. Try again")
+  }
+  if (onlineUser === 2) {
+    onlineUserError()
+    alert("User or password invalid!")
+  }  
+    
 
     if(products){
       return (
@@ -31,13 +42,15 @@ function Catalogue({ products, getAllProducts }) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAllProducts: () => dispatch(getAllProducts())  
+    getAllProducts: () => dispatch(getAllProducts()),
+    onlineUserError: () => dispatch(onlineUserError())
   }
 }
 
 const mapStateToProps = state => {
   return {
-    products: state.all_products
+    products: state.all_products,
+    onlineUser: state.onlineUser
   }
 }
 
