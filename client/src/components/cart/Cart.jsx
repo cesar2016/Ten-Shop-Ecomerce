@@ -89,7 +89,9 @@ import Swal from 'sweetalert2'
       }).then((result) => {
         if (result.value) {
             if(result.isConfirmed){
-               
+                document.getElementById("subtotal").innerHTML = "$0";
+                document.getElementById("taxes").innerHTML = "$0";
+                document.getElementById("total").innerHTML = "$0";
                 updateCart(onlineUser.id, productosConSubtotales.current)
                 completeCart(onlineUser.id, result.value);
                 Swal.fire({
