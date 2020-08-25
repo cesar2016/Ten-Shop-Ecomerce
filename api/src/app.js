@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const product = require('./routes/product');
 const categories = require("./routes/categories")
-const { Product, Category } = require("./db.js")
+const { Product, Category, Order, User , ProductxOrder} = require("./db.js")
 const ind = require('./routes/index')
 
 
@@ -41,7 +41,7 @@ server.post("/", async (req, res) => {
         description: "The best refrigerators to keep your food in good condition."
     });
     const categoria4 = await Category.create({
-        name: "Cell phones",
+        name: "Cellphones",
         description: "The best cell phones on the market, at the best price"
     })
     const categoria5 = await Category.create({
@@ -59,7 +59,7 @@ server.post("/", async (req, res) => {
         name: "TV Samsung 4K HDR",
         description: "Smart tv 45 inches, guaranteed quality.",
         price: 10000,
-        stock: 7,
+        stock: 0,
         image: "https://images.samsung.com/is/image/samsung/es-uhd-ku6000-ue55ku6000kxxc-008-side-black?$L2-Thumbnail$",
     });
     const producto3 = Product.create({
@@ -133,6 +133,14 @@ server.post("/", async (req, res) => {
         stock: 5,
         image: "https://dj4i04i24axgu.cloudfront.net/guides-ui/statics/0.1.13/images/tipo_tv.png",
     })
+    const producto13 = await Product.create({
+        name: "LG TV ",
+        description: "TV 32 inches, FULL HD, HDR",
+        price: 6750,
+        stock: 5,
+        image: "https://dj4i04i24axgu.cloudfront.net/guides-ui/statics/0.1.13/images/tipo_tv.png",
+    })
+
 
 
     producto1.then((prod) => {
@@ -176,22 +184,114 @@ server.post("/", async (req, res) => {
     producto12.then((prod) => {
         prod.addCategory(categoria2)
     })
+  
+
+    // creating users
+
+    const user1 = User.create({
+        firstname: "facu",
+        surname: "uriona",
+        address: "cordoba",
+        password: "1234",
+        type: 1,
+        username:"facuuriona"        
+    });
+
+    const user2 = User.create({
+        firstname: "cesar",
+        surname: "sanchez",
+        address: "rosario",
+        password: "1234",
+        type: 1,
+        username: "cesarsanchez"        
+    });
+
+    const user3 = User.create({
+        firstname: "rodrigo",
+        surname: "pinea",
+        address: "mendoza",
+        password: "1234",
+        type: 1,
+        username: "rodrigopinea"        
+    });
+
+    const user4 = User.create({
+        firstname: "matias",
+        surname: "cordoba",
+        address: "las sierras",
+        password: "1234",
+        type: 1,
+        username: "matiascordoba"        
+    });
+
+    const user5 = User.create({
+        firstname: "guillermo",
+        surname: "ambroggio",
+        address: "chaco",
+        password: "1234",
+        type: 1,
+        username: "guillermoambroggio"        
+    })
+
+    const user6 = await User.create({
+        firstname: "lionel",
+        surname: "messi",
+        address: "barcelona",
+        password: "1234",
+        type: 2,
+        username: "lionelmessi"        
+    })    
+
+//CREAR ORDENES:
+    const order1 = Order.create({
+        status: "processing",
+        address: "",        
+    }) 
+    
+   /*  const order2 = await Order.create({
+        status: "created",
+        address: "",        
+    })   */
+
+
+//RELACION(1-1) USUARIO-ORDEN:    
+//La orden 1 Pertenece al usuario 6
+    order1.then(orden => {
+        orden.setUser(user6)
+    })
+
+/*     user5.then(user => {
+        user.setOrder(order2)
+    }) */
+
+//RELACION(N-N) PRODUCTOS-ORDENES
+//La orden 1 tiene el producto 12
+    order1.then((orden) => {
+        orden.addProduct(producto13)
+    })
+
+/*     producto10.then((prod) => {
+        prod.addOrder(order2)
+    }) */
+
+   
+   
 
     res.send("LISTO")
 
 });
 
 
-// server.get("/product", (req, res) => {
-//     Category.findAll()
-//         .then(prod => {
-//             res.json(prod)
-//         })
-// })
 
 
-/* server.use('/categories', categories);
-server.use('/product', product); */
+
+
+
+
+
+
+
+
 server.use('/',ind)
 
 
