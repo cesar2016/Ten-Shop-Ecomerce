@@ -29,6 +29,7 @@ const reducer = (state = initialState , action) => {
         ...state,
         all_products: action.payload
       };
+      /* adsadasdadasdasd */
     case UPDATE_PRODUCT:
       return state;
     case DELETE_PRODUCT:
