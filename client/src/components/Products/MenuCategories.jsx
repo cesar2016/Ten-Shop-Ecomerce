@@ -4,12 +4,14 @@ import { connect } from "react-redux";
 import { getOneCategory } from "../../actions/index"
 
 function MenuCategories({category, getOneCategory, products}) { 
+  
+  
   React.useEffect(() => {
-    getOneCategory(category)
+   getOneCategory(category)
   }, [category])
 
     
-    if(products){  
+    if(products){        
       return (
         <div className='container'>
           {products.map(c => {            

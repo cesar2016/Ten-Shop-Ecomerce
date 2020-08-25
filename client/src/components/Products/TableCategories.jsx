@@ -1,25 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
+import {connect} from 'react-redux';
+import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
 
 
-export default function render({categories, update, elId, deleteCategories}) {
-     
-    
+ function TableCategories({getAllCategories, category, update,  elId, deleteCategory,modifyCategory}) {
+                            
+
+    useEffect(()=>{
+        getAllCategories()
+         modifyCategory()
+         deleteCategory(category)
+    },[])
+   
     return (
 
-        categories.map((p, i) => {
-            console.log("asdasdasdasd",p)
+        category.map((p, i) => {
             return (<tr>
             <th scope="row"> {p.name} </th>
             <td> {p.description} </td>
             <td>
             <button type="button" class="btn btn-success" onClick={() => {
-             update(p.name, categories);
-             elId.current = p.name
+                elId.current = p.name
+             update(elId.current, category);
             }}>
             <i className="fa fa-pencil"></i>
             </button>
             &nbsp;
-            <button type="button" class="btn btn-danger" onClick={(e) => deleteCategories(p.name)}>
+            <button type="button" class="btn btn-danger" onClick={(e) => deleteCategory(p.name)}>
             <i className="fa fa-trash"></i>
             </button>
             </td>
@@ -27,3 +34,23 @@ export default function render({categories, update, elId, deleteCategories}) {
         })
     )
 }
+
+const mapDispatchToProps = dispatch =>{
+
+    return {
+        getAllCategories: () => dispatch(getAllCategories),
+        modifyCategory: (body,id) => dispatch(modifyCategory(body,id)),
+        deleteCategory: (category) => dispatch(deleteCategory(category))  
+
+    }
+}
+
+const mapStateToProps = state =>{
+    return {
+        category: state.categories
+    }
+}
+
+ 
+
+export default connect (mapStateToProps, mapDispatchToProps)(TableCategories) 

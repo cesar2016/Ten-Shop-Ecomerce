@@ -1,80 +1,95 @@
 import React, { useState, useRef, useEffect } from 'react';
-import TableProducts from "../Products/TableProducts"
-import axios from "axios";
+import TableProducts from "../Products/TableProducts";
 import { connect } from "react-redux";
 import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, getAllCategories, getAllProducts } from "../../actions"
 
 
-function FormProduct({products, categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts}) {
-    useEffect(() => {
-      getAllCategories()
-      getCategoriesxProducts()
-      getAllProducts()      
-    }, [])
-
-    console.log("LAS CATEGORIAS", categories)
-    const [input, setInput] = useState({});
-   
+function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts, categoriesxproducts, products}) {
+  useEffect(() => {
+    getAllCategories()
+    getCategoriesxProducts()
+    getAllProducts()      
+  }, [])
+  
+  const [input, setInput] = useState({});
+      
     
 
-      const handleInputChange = function(e) {
-        setInput({
-          ...input,
-          [e.target.name]: e.target.value
-        });
- 
+  const handleInputChange = function(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    });
+
+  }
+
+  var categ = [];///ARARAY CATTTTEGORIASSSSS
+
+  var elId = useRef(null)
+  var categoriesfromTableProducts = []
+  function update(id, prod) {        
+    prod.find((e) => {
+      if (e.id == id) {
+        setInput(e)
+        document.getElementById("name").value = e.name;            
+        document.getElementById("description").value = e.description;
+        document.getElementById("price").value = e.price;
+        document.getElementById("stock").value = e.stock;
+        document.getElementById("image").value = e.image;            
+        var form = document.getElementById('formulario');
+        form.style.display = '';
+
+        return;
       }
+    })
+  }
 
-      var categ = [];
-
-    var elId = useRef(null)
-      function update(id, prod) {
-      prod.find((e) => {
-        if (e.id == id) {
-            document.getElementById("name").placeholder = e.name;
-            document.getElementById("description").placeholder = e.description;
-            document.getElementById("price").placeholder = e.price;
-            document.getElementById("stock").placeholder = e.stock;
-            document.getElementById("image").placeholder = e.image;
-            return e;
+  const handleSubmit = function(e) {
+    let form = document.getElementById('formulario');
+        form.style.display = 'none';
+    e.preventDefault();
+      var array = [];
+      // este forEach se hace para que las categorias que se manden no vayan repetidas
+      // y tambien para que array contenga a las categorias anteriores
+      categxproducts.forEach(el => {
+        if (el.product_id === elId.current) {
+          array.push(el.category)
         }
-        })
-    }
+      })
 
-    const handleSubmit = function(e) {
-      e.preventDefault();
-      
-      let objetoo = {
+    categ.forEach(el => {
+      if (!array.includes(el)) array.push(el)
+    })
+    let objetoo = {
         name: input.name,
         description: input.description,
         price: input.price,
         stock: input.stock,
         image: input.image,
-        category: categ 
+        category: array,
+        id: elId.current
       }
-      updateProduct(elId.current, objetoo)
+       
+      updateProduct(objetoo)
     }
 
     function deleteProductxId(id) {   
         var opcion = window.confirm("Desea eliminar este Articulo");
         if (opcion == true) {
-            deleteProduct(id)           
-            window.location = 'http://localhost:3000/formProduct'
-            alert('Delete success Product')
+            deleteProduct(id)                       
+            // alert('Delete success Product')
         } 
     }
     
 
     function deleteCatxprod(nameCxp, idProd){
-
+      // nameCxp es la cateogoria que se esta por borrar
+      // idProd el id del producto al cual se le borra la categoria
      //console.log('NAME y el ID PROD', nameCxp + idProd)
-
-      var opcion = window.confirm("Desea eliminar este Articulo");
-        if (opcion == true) {            
-            deleteCatxProd(nameCxp, idProd)
-            window.location = 'http://localhost:3000/formProduct'
-            alert('Delete success Category')
-        }       
+     var boton = document.getElementById(`${nameCxp}${idProd}`);
+        boton.style.display = 'none';            
+      deleteCatxProd(nameCxp, idProd)      
+      // alert('Delete success Category')
 
     }    
 
@@ -102,7 +117,7 @@ function FormProduct({products, categories, categxproducts, deleteProduct, delet
             <section class="contact-block jumbotron">
                 <div class="container">
                     <div class="col-md-6 contact-form alert alert-dark">
-                        <h3>Productos en <span>Lista</span></h3>
+                        <h3>Products in <span>List</span></h3>
                         <table class="table table-hover">
                              <thead>
                                 <tr className="table-primary">
@@ -115,7 +130,7 @@ function FormProduct({products, categories, categxproducts, deleteProduct, delet
                              </thead>
 
                             <tbody >
-                                <TableProducts update={update} elId={elId} deleteProductxId={deleteProductxId} categxproducts={categxproducts} deleteCatxprod={deleteCatxprod}/>
+                                <TableProducts update={update} elId={elId} deleteProductxId={deleteProductxId} categxproducts={categxproducts} deleteCatxprod={deleteCatxprod} categoriesfromTableProducts={categoriesfromTableProducts}/>
                             </tbody>
 
                         </table>
@@ -123,7 +138,7 @@ function FormProduct({products, categories, categxproducts, deleteProduct, delet
 
                     <div class="col-md-6 contact-form alert alert-dark">
                         <h3>Management <span>Products</span></h3>
-                        <form onSubmit={handleSubmit}>
+                       <form id={'formulario'} style={{display:'none'}} onSubmit={handleSubmit}>
 
                             <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
@@ -136,7 +151,7 @@ function FormProduct({products, categories, categxproducts, deleteProduct, delet
                                             {cat.name}
                                           </button>                                          
                                         )
-                                    })}      
+                                    })}   
                             </div>
                             <div className=" form-control-lg"> 
                               <span id='contCat'></span>
@@ -167,9 +182,9 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    categxproducts: state.categores_x_products,
-    products: state.all_products,
-    categories: state.categories
+    categxproducts: state.categores_x_products,    
+    categories: state.categories,
+    products: state.all_products,    
   }
 }
 
