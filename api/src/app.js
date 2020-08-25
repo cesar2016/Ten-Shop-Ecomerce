@@ -221,7 +221,7 @@ server.post("/", async (req, res) => {
         address: "las sierras",
         password: "1234",
         type: 1,
-        username: "matiascordoba"        
+        username: "matiascordoba",      
     });
 
     const user5 = User.create({
