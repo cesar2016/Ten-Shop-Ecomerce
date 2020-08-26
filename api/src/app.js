@@ -194,7 +194,8 @@ server.post("/", async (req, res) => {
         address: "cordoba",
         password: "1234",
         type: 1,
-        username:"facuuriona"        
+        username:"facuuriona",
+        email:"faqq.uri@gmail.com"      
     });
 
     const user2 = User.create({
@@ -203,7 +204,8 @@ server.post("/", async (req, res) => {
         address: "rosario",
         password: "1234",
         type: 1,
-        username: "cesarsanchez"        
+        username: "cesarsanchez",
+        email:"cesars.pro@gmail.com"        
     });
 
     const user3 = User.create({
@@ -212,7 +214,8 @@ server.post("/", async (req, res) => {
         address: "mendoza",
         password: "1234",
         type: 1,
-        username: "rodrigopinea"        
+        username: "rodrigopinea",
+        email:"rodrigomp88@gmail.com"        
     });
 
     const user4 = User.create({
@@ -221,7 +224,8 @@ server.post("/", async (req, res) => {
         address: "las sierras",
         password: "1234",
         type: 1,
-        username: "matiascordoba",      
+        username: "matiascordoba",
+        email: "matiascba99@gmail.com"      
     });
 
     const user5 = User.create({
@@ -230,7 +234,8 @@ server.post("/", async (req, res) => {
         address: "chaco",
         password: "1234",
         type: 1,
-        username: "guillermoambroggio"        
+        username: "guillermoambroggio",
+        email: "guillermoambroggio@gmail.com"        
     })
 
     const user6 = await User.create({
@@ -239,7 +244,8 @@ server.post("/", async (req, res) => {
         address: "barcelona",
         password: "1234",
         type: 2,
-        username: "lionelmessi"        
+        username: "lionelmessi",
+        email: "leomessi@gmail.com"  
     })    
 
 //CREAR ORDENES:

@@ -3,18 +3,17 @@ import {connect} from 'react-redux';
 import  {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
 
 
- function TableCategories({getAllCategories, category, update,  elId, deleteCategory,modifyCategory}) {
+ function TableCategories({getAllCategories, category, update,  elId, deleteCategory, modifyCategory}) {
                             
 
     useEffect(()=>{
         getAllCategories()
-         modifyCategory()
-         deleteCategory(category)
     },[])
    
     return (
 
         category.map((p, i) => {
+            console.log(category)
             return (<tr>
             <th scope="row"> {p.name} </th>
             <td> {p.description} </td>

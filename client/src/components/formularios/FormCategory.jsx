@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableCategories from '../Products/TableCategories';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions'
 
  function FormCategory({categories, getAllCategories, addCategory, modifyCategory, elId}) {
