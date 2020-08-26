@@ -153,7 +153,9 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                             <div class= "col-md-3"></div>{errors.email && ( <small style={{fontSize: '14px',color:'red'}} >
                                   {errors.email}</small>)}
                         </div>
-                        <h5 style= {{marginRight: '400px'}}> example@domine.com </h5>
+                        <div className="exampleEmail">
+                        <h5 style={{marginRight:"25%"}}> example@domine.com </h5>
+                        </div>
 
                         <div class="form-group">
                             <span class="col-md-1 text-center"><i class="fa fa-user-plus"></i></span>
@@ -189,23 +191,14 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                             <div class= "col-md-3"></div>{errors.password2 && ( <small style={{fontSize: '14px',color:'red'}} >
                                   {errors.password2}</small>)}
                              
-                        </div>
-
-                        <div class="clearfix alert alert">
-                                <NavLink className="link" to = "/signin">
-                                    <h3><strong title="Clic you account!" className={'fa fa-edit'}  style={{color:'black'}}>
-                                              -Do you already have an account? Log in
-                                        </strong>
-                                    </h3>
-                                </NavLink>
-                                </div>
+                        </div>                
 
                         <div class="form-group">
                             <div class="col-md-12 text-center">
                                 <button type="submit" class="btn btn-outline-primary signbutton" id='15' onClick={() => handleSubmit()}>Create my account</button>
                             </div>
                         </div>
-                        <div><h4>Do you have an account? <NavLink style ={{color: "blue"}}to = "/signin">Sign In!</NavLink></h4></div>
+                        <div><h4>Do you have an account? <NavLink style ={{color: "blue"}}to = "/login">Sign In!</NavLink></h4></div>
                       </fieldset> 
                 </div>
             </div>

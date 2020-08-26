@@ -22,6 +22,10 @@ export const UPDATE_USER = "UPDATE_USER";
 export const UPDATE_CAR = "UPDATE_CAR";
 export const COMPLETE_CAR = "COMPLETE_CAR";
 export const CANCELL_CART = "CANCELL_CART";
+export const GET_ORDERS = "GET_ORDERS";
+export const UPDATE_PRICE_ORDER = "UPDATE_PRICE_ORDER";
+
+
 
 
 
@@ -273,6 +277,21 @@ export function updateCart(idUser, body) {
   }
 }
 
+export function priceOrder(idUser, total) {
+let body = {
+  total_price: total
+}
+  return function (dispatch) {
+    return axios.post(`http://localhost:3001/users/${idUser}/c/order`, body)
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: UPDATE_PRICE_ORDER,
+      })
+    })
+  }
+}
+
 export function completeCart(idUser, addres){ 
   console.log("Acionssssss",addres)
   let body = {
@@ -304,3 +323,18 @@ export function cancellCart(idUser){
     })
   }
 }
+
+export function getOrders(status){ 
+  return function (dispatch) {
+    return axios.get(`http://localhost:3001/orders/status/${status}`)
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: GET_ORDERS,
+        payload: result
+
+      })
+    })
+  }
+}
+

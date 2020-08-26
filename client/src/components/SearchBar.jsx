@@ -24,7 +24,7 @@ function SearchBar({ getSearchProducts }) {
                     <form class="form-inline my-2 my-lg-0" onSubmit={(e) => handleSubmit(e)}>
                         <input style={{fontSize:"15px"}} class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" onChange={(e) => handleChange(e)}/>                        
                     <Link to="/search">
-                        <button style={{fontSize:"15px"}} class="btn btn-light my-2 my-sm-0" type="submit"><i className="fa fa-search"></i></button>
+                        <button title="SEARCH" style={{fontSize:"15px"}} class="btn btn-light my-2 my-sm-0" type="submit"><i className="fa fa-search"></i></button>
                     </Link>
                     </form>
                 </div>

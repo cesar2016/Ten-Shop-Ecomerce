@@ -77,7 +77,7 @@ server.post("/add", (req, res) => {
 	addProduct(req.body)
 		.then(productCreated => {
 			if (category.length === 0) {
-				return res.json(result)
+				return res.json(productCreated)
 			};
 
 			if (category.length === 1) {
@@ -97,7 +97,7 @@ function addProduct(product) {
 		name: product.name,
 		description: product.description,
 		price: product.price,
-		stock: product.price,
+		stock: product.stock,
 		image: product.image
 	})
 };
@@ -153,37 +153,29 @@ function searchProduct(key) {
 }
 
 
-
-function deleteProduct(id) {
-	return Product.destroy({ where: { id } })	
-}
-
 server.post("/update", (req, res) => {
-	console.log("EL PRODUCTO", req.body)
-	const { id } = req.body	
-	const { category } = req.body;
-	deleteProduct(id)
-		.then(() => {
-			addProduct(req.body)
-				.then(productCreated => {
-					if (category.length === 0) {
-						return res.json(productCreated)
-					};
+	const { id } = req.body;
+	const { category } = req.body;	
+	Product.findOne({ where: { id } })
+	.then((productResult) => {
+		if (category.length === 0) {
+			productResult.update(req.body)
+			return res.json(productResult)
+		}
 
-					if (category.length === 1) {
-						productCreated.addCategory(category)
-						return res.json(productCreated)
-					};
-					if (category.length > 1) {
-						category.forEach((categories) => {
-							productCreated.addCategory(categories);
-						});
-						return res.json(productCreated)
-					};
-				})
-		})
+		if (category.length === 1) {
+			productResult.update(req.body)
+			productResult.addCategory(category[0])			
+		}
+
+		if (category.length > 1) {
+			productResult.update(req.body)
+			category.forEach((categories) => {
+				productResult.addCategory(categories);
+			});
+			return res.json(productResult)
+		}
+	})
 });
-
-
 
 module.exports = server;
