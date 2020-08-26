@@ -131,7 +131,7 @@ server.post("/:idUser/update/cart", (req, res) => {
 });
 
 
-//RUTAS PARA EDITAR CANTIDADES
+//RUTAS PARA EDITAR CANTIDADES TABLA PRODUCTSXORDERS
 server.post("/:idUser/c/cart", (req, res) => {
   const { idUser } = req.params;
   const { body } = req;                             //Recibe amount y total_price por body. y el ID del producto
@@ -147,9 +147,21 @@ server.post("/:idUser/c/cart", (req, res) => {
         Productsxorders.update(obj, { where: {product_id: body[i].id, order_id: idOrder}})
         .then(result => {
         res.status(200).send("the order has been updated");
-        })     
+        })
+             
       } 
     } 
+  })
+  .catch(() => res.status(404).send("ERROR. Order has not be complete"));
+});
+
+//RUTAS PARA AGREGAR PRECIOS TABLA ORDERS
+server.post("/:idUser/c/order", (req, res) => {
+  const { idUser } = req.params;
+  const { body } = req;                             
+  Order.update(body, { where: {userId: idUser, status: "processing"}})
+  .then(result => {
+  res.status(200).send("the order has been updated");
   })
   .catch(() => res.status(404).send("ERROR. Order has not be complete"));
 });

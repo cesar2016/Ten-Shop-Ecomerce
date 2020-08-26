@@ -17,7 +17,7 @@ import SignUp from "./components/SignUp"
 import SignIn from "./components/SignIn"
 import Cart from './components/cart/Cart';
 import FormAdmin from './components/formularios/FormAdmin';
-import Orders from './components/formularios/FormAdmin';
+import FormOrders from './components/formularios/FormOrders';
 
 function App() {
 
@@ -36,7 +36,7 @@ function App() {
           <Route exact path="/signup" render={() => <SignUp/> } />
           <Route exact path="/login" render = {() => <SignIn/>}/>
           <Route exact path="/cart" render={() => <Cart />} />
-          <Route exact path="/orders" render={() => <Orders />} />
+          <Route exact path="/orders" render={() => <FormOrders />} />
           <Route exact path="/admin" render={()=> <FormAdmin/>} />
       </div>
       )

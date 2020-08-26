@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
-import { getAllCart,completeCart, updateCart, cancellCart} from "../../actions";
+import { getAllCart,completeCart, updateCart, cancellCart, priceOrder} from "../../actions";
 
 import Swal from 'sweetalert2'
-  function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart}) {
+  function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder}) {
     const history = useHistory();    
 
   React.useEffect(() => {
@@ -90,7 +90,8 @@ import Swal from 'sweetalert2'
       }).then((result) => {
         if (result.value) {
             if(result.isConfirmed){
-                updateCart(onlineUser.id, productosConSubtotales.current)
+                priceOrder(onlineUser.id,total.current);
+                updateCart(onlineUser.id, productosConSubtotales.current);
                 completeCart(onlineUser.id, result.value);
                 Swal.fire({
                   title: `Order completed. Thanks You!`,
@@ -103,6 +104,7 @@ import Swal from 'sweetalert2'
     };
 
     function cancell(){  
+      console.log("LINEA 106 asdasdasd",total.current)
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -271,7 +273,7 @@ import Swal from 'sweetalert2'
         completeCart: (idUser, body) => dispatch(completeCart(idUser, body)),
         updateCart: (idUser, body) => dispatch(updateCart(idUser, body)),
         cancellCart: (idUser) => dispatch(cancellCart(idUser)),
-
+        priceOrder: (id, total) => dispatch(priceOrder(id, total)),
     }
   }
 
