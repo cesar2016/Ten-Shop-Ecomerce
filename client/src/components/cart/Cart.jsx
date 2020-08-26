@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getAllCart,completeCart, updateCart} from "../../actions";
 
 import Swal from 'sweetalert2'
-  function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart}) {
+  function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart}) {
         
 
   React.useEffect(() => {
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2'
     getAllCart(idUser);
    }
 
-  }, [cart])
+  }, [])
            
   var arr = [];
      
@@ -33,7 +33,7 @@ import Swal from 'sweetalert2'
       }
     })
   }
-  
+          
   const shipping = 400;
 
   const taxes = useRef(0)
@@ -72,9 +72,10 @@ import Swal from 'sweetalert2'
     document.getElementById("taxes").innerHTML = "$"+taxes.current;
 
     document.getElementById("total").innerHTML = "$"+total.current;
-      
   };
+  
   function alertt(){  
+    updateCart(onlineUser.id, productosConSubtotales.current)
     Swal.fire({
         title: 'Submit your Address Please',
         input: 'text',
@@ -82,21 +83,18 @@ import Swal from 'sweetalert2'
           autocapitalize: 'off'
         },
         showCancelButton: true,
-        confirmButtonText: 'Confirm',
+        confirmButtonText: 'Look up',
         showLoaderOnConfirm: true,
+        preConfirm: (address) => {
+          completeCart(address);
+        },
         allowOutsideClick: () => !Swal.isLoading()
       }).then((result) => {
         if (result.value) {
-            if(result.isConfirmed){
-               
-                updateCart(onlineUser.id, productosConSubtotales.current)
-                completeCart(onlineUser.id, result.value);
-                
-                Swal.fire({
-                  title: `Order completed`,
-                  icon: 'success'
-                })
-            }
+          Swal.fire({
+            title: `Order completed`,
+            icon: 'success'
+          })
         }
       })
  }
@@ -238,7 +236,7 @@ import Swal from 'sweetalert2'
  const mapDispatchToProps = dispatch => {
     return {
         getAllCart: (idUser) => dispatch(getAllCart(idUser)),
-        completeCart: (idUser, body) => dispatch(completeCart(idUser, body)),
+        completeCart: (idUser) => dispatch(completeCart(idUser)),
         updateCart: (idUser, body) => dispatch(updateCart(idUser, body)),
   
     }
@@ -248,8 +246,7 @@ import Swal from 'sweetalert2'
     return {
       products: state.all_products,
       getcart: state.getcart,
-      onlineUser : state.onlineUser,
-      cart: state.cart
+      onlineUser : state.onlineUser
      
     }
   }

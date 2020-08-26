@@ -5,10 +5,13 @@ import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, g
 
 
 function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts, categoriesxproducts, products}) {
+  
+  
   useEffect(() => {
     getAllCategories()
     getCategoriesxProducts()
-    getAllProducts()      
+    getAllProducts()  
+        
   }, [])
   
   const [input, setInput] = useState({});
@@ -64,11 +67,11 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
         name: input.name,
         description: input.description,
         price: input.price,
-        stock: input.stock,
+        stock: parseFloat(input.stock),
         image: input.image,
         category: array,
         id: elId.current
-      }
+      }  
        
       updateProduct(objetoo)
     }
@@ -95,7 +98,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
 
    
     function addCat(select){//inser categorias al array y eliminar
-      
+
         if(categ.includes(select)){                         
           categ = categ.filter(word => word !== select);                          
           return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
@@ -104,17 +107,17 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
             return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
           }   
             
-         }
-
-          
+         }  
+         
+         
 
     return (
-
-        <div className="container">
-
+      
+        <div className="container">       
 
         <section class="contact-block"></section>
             <section class="contact-block jumbotron">
+
                 <div class="container">
                     <div class="col-md-6 contact-form alert alert-dark">
                         <h3>Products in <span>List</span></h3>
@@ -146,6 +149,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
                             <input type="text" class="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>
                             <div className=" form-control-lg">
                                     {categories && categories.map((cat, i) => {
+                                       
                                         return (                                           
                                           <button type="button" className="btn btn-primary" onClick={(e) => addCat(cat.name)} id="op" value={cat.name}>
                                             {cat.name}
