@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { addUser, getUsers } from '../actions';
 import "./SignUp.css";
 import Swal from 'sweetalert2';
+import {NavLink} from "react-router-dom";
 
 
 function SignUp ({addUser, onlineUser,getUsers,all_users}) {
@@ -85,7 +86,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
     } 
     all_users.map((us) =>{
       if (us.username === input.username){
-        return errors.username = "This username is already in use"
+        return errors.username = "Username is already in use"
       }
     })
 
@@ -96,7 +97,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
     }
     all_users.map((us) =>{
       if (us.email === input.email){
-        return errors.email = "This email is already in use"
+        return errors.email = "Email is already in use"
     }
   })
     // /(?=.*[0-9])/
@@ -120,72 +121,73 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
       <div class="container h-100 jumbotron bg-info">
     <div class="row justify-content-center h-100 ">
         <div class="col-md-6">
-            <div class="well well-sm">
+            <div class="well well-sm" style= {{borderRadius: '10px'}}>
                 <div style={{fontSize: '18px',  heigth: '25px'}} class="form-horizontal" method="post">
                    <fieldset className='align-items-center h-100'> 
-                        <legend class="text-center header"><h2>Sign Up<i className='fa fa-address-book'></i></h2></legend>
+                        <legend class="text-center header"><h2>Sign Up </h2></legend>
                         
                         <div class="form-group">
-                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <span class="col-md-1  text-center"><i class="fa fa-user bigicon"></i></span>
                             <div class="col-md-8">
                                 <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your firstname" type="text" name="firstname" value={input.firstname} onChange={handleInputChange} class="form-control input"/>
-                                  {errors.firstname && ( <small style={{fontSize: '14px',color:'red'}} >
-                                  {errors.firstname}</small>)}
                             </div>
+                                <div class= "col-md-3">{errors.firstname && ( <small style={{fontSize: '14px',color:'red'}} >
+                                  {errors.firstname}</small>)}
+                                </div>
                         </div>
-                        <div ></div>
                         
                         <div class="form-group">
-                            <span style={{fontSize: '18px',  heigth: '25px'}} class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <span style={{fontSize: '18px',  heigth: '25px'}} class="col-md-1  text-center"><i class="fa fa-user bigicon"></i></span>
                             <div class="col-md-8">
                                 <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your surname" type="text" name="surname" value={input.surname} onChange={handleInputChange} class="form-control input"/>
-                                {errors.surname && ( <small style={{fontSize: '14px',color:'red'}} >
-                                  {errors.surname}</small>)}
                             </div>
+                            <div class= "col-md-3">{errors.surname && ( <small style={{fontSize: '14px',color:'red'}} >
+                                  {errors.surname}</small>)}
+                                  </div>
                         </div>
                         <div class="form-group">
-                            <span style={{fontSize: '18px',  heigth: '25px'}} class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <span style={{fontSize: '18px',  heigth: '25px'}} class="col-md-1  text-center"><i class="fa fa-envelope bigicon"></i></span>
                             <div class="col-md-8">
                                 <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your email" type="text" name="email" value={input.email} onChange={handleInputChange} class="form-control input "/>
-                                {errors.email && ( <small style={{fontSize: '14px',color:'red'}} >
-                                  {errors.email}</small>)}
                             </div>
-                            <h5 class="col-md-9 "> example@gmail.com </h5>
+                            <div class= "col-md-3"></div>{errors.email && ( <small style={{fontSize: '14px',color:'red'}} >
+                                  {errors.email}</small>)}
                         </div>
+                        <h5 style= {{marginRight: '400px'}}> example@domine.com </h5>
 
                         <div class="form-group">
-                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user-plus"></i></span>
+                            <span class="col-md-1 text-center"><i class="fa fa-user-plus"></i></span>
                             <div class="col-md-8">
                               <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your username" type="text" name="username" value={input.username} onChange={handleInputChange} class={"form-control input"}/>
-                              {errors.username && ( <small style={{fontSize: '14px',color:'red'}} >
-                                  {errors.username}</small>)}
                             </div>
+                            <div class= "col-md-3"></div>{errors.username && ( <small style={{fontSize: '14px',color:'red'}} >
+                                  {errors.username}</small>)}
                         </div>
 
                         <div class="form-group">
-                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-lock"></i></span>
+                            <span class="col-md-1  text-center"><i class="fa fa-lock"></i></span>
                             <div class="col-md-8">
                               <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your password" type="password" name="password" value={input.password} onChange={handleInputChange} class="form-control input"/>
-                              {errors.password && ( <small style={{fontSize: '14px',color:'red'}} >
-                                  {errors.password}</small>)}
+                              
                             </div>
-                            <div class = "col-md-9 col-md-offset-3">
-                              <h5 class= "">
+                            <div class= "col-md-3"></div>{errors.password && ( <small style={{fontSize: '14px',color:'red'}} >
+                                  {errors.password}</small>)}
+                              <h5 style={{marginRight:'250px', marginLeft: '70px' }}>
                               -One lowercase character -One uppercase character
                               -One Number
                               -One special character
                               -8 character minimum
                               </h5>
-                            </div>
                         </div>
 
                         <div class="form-group">
-                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-check"></i></span>
+                            <span class="col-md-1  text-center"><i class="fa fa-check"></i></span>
                             <div class="col-md-8">
                               <input style={{fontSize: '18px',  heigth: '25px'}} placeholder="Enter your password again" type="password" name="password2" value={input.password2} onChange={handleInputChange} class="form-control input "/>
-                              {errors.password2 && ( <small style={{fontSize: '14px',color:'red'}} >
-                                  {errors.password2}</small>)}
+                              
                             </div>
+                            <div class= "col-md-3"></div>{errors.password2 && ( <small style={{fontSize: '14px',color:'red'}} >
+                                  {errors.password2}</small>)}
                              
                         </div>
 
@@ -194,6 +196,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                                 <button type="submit" class="btn btn-outline-primary signbutton" id='15' onClick={() => handleSubmit()}>Create my account</button>
                             </div>
                         </div>
+                        <div><h4>Do you have an account? <NavLink style ={{color: "blue"}}to = "/signin">Sign In!</NavLink></h4></div>
                       </fieldset> 
                 </div>
             </div>
@@ -201,46 +204,6 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
     </div>
 </div>
 </section>
-    
-    
-
-
-    // <div className="LOGIN">    
-    //   <div className="signup">
-    //     <h2>Sign Up</h2>              
-    //   </div>      
-    //       <div><h3>Firstname</h3></div>
-    //   <div>
-     
-    //     <input placeholder="Enter your firstname" type="text" name="firstname" value={input.firstname} onChange={handleInputChange} className={errors.firstname && "danger"}/>
-    //           {errors.firstname && (<p className="danger">{errors.firstname}</p>)}
-    //   </div>      
-    //       <div><h3>Surname</h3></div>
-    //   <div>
-    //     <input placeholder="Enter your surname" type="text" name="surname" value={input.surname} onChange={handleInputChange} className={errors.surname && "danger"}/>
-    //           {errors.surname && (<p className="danger">{errors.surname}</p>)}
-    //   </div>      
-    //   <div><h3>Username</h3></div>
-    //   <div>        
-    //   <input placeholder="Enter your username" type="text" name="username" value={input.username} onChange={handleInputChange} className={errors.username && "danger"}/>
-    //           {errors.username && (<p className="danger">{errors.username}</p>)}    
-    //   </div>      
-    //   <div><h3>Password</h3></div>
-    //   <div>        
-    //     <input placeholder="Enter your password" type="password" name="password" value={input.password} onChange={handleInputChange} className={errors.password && "danger"}/>
-    //           {errors.password && (<p className="danger">{errors.password}</p>)}
-    //   </div>      
-    //   <div><h3>Repeat password please</h3></div>
-    //   <div>        
-    //     <input placeholder="Enter your password again" type="password" name="password2" value={input.password2} onChange={handleInputChange} className={errors.password2 && "danger"}/>
-    //           {errors.password2 && (<p className="danger">{errors.password2}</p>)}
-    //   </div>      
-    //   <div>
-    //   <NavLink to="/">
-    //     <button id="15" className="SUBMIT" type="submit" value="Register" onClick={() => handleSubmit()}/>      
-    //   </NavLink>
-    //   </div>    
-    // </div>    
     )
 }
 
