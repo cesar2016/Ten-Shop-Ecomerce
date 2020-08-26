@@ -2,13 +2,17 @@ import React, { useState, useRef, useEffect } from 'react';
 import TableProducts from "../Products/TableProducts";
 import { connect } from "react-redux";
 import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, getAllCategories, getAllProducts } from "../../actions"
+import Swal from 'sweetalert2';
 
 
 function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts, categoriesxproducts, products}) {
+  
+  
   useEffect(() => {
     getAllCategories()
     getCategoriesxProducts()
-    getAllProducts()      
+    getAllProducts()  
+        
   }, [])
   
   const [input, setInput] = useState({});
@@ -64,21 +68,40 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
         name: input.name,
         description: input.description,
         price: input.price,
-        stock: input.stock,
+        stock: parseFloat(input.stock),
         image: input.image,
         category: array,
         id: elId.current
-      }
+      }  
        
       updateProduct(objetoo)
+      categories.forEach((x, i) => {
+        var boton = document.getElementById(`${i}cat`);
+        boton.className = 'btn btn-primary';      
+      })
+      document.getElementById("contCat").innerHTML = "" 
     }
 
     function deleteProductxId(id) {   
-        var opcion = window.confirm("Desea eliminar este Articulo");
-        if (opcion == true) {
-            deleteProduct(id)                       
-            // alert('Delete success Product')
-        } 
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          deleteProduct(id)                                   
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      })
+        
     }
     
 
@@ -86,35 +109,59 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
       // nameCxp es la cateogoria que se esta por borrar
       // idProd el id del producto al cual se le borra la categoria
      //console.log('NAME y el ID PROD', nameCxp + idProd)
-     var boton = document.getElementById(`${nameCxp}${idProd}`);
-        boton.style.display = 'none';            
-      deleteCatxProd(nameCxp, idProd)      
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          var boton = document.getElementById(`${nameCxp}${idProd}`);
+          boton.className = 'btn btn-danger';          
+          deleteCatxProd(nameCxp, idProd)
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      })
+       
       // alert('Delete success Category')
 
     }    
 
    
-    function addCat(select){//inser categorias al array y eliminar      
-
+    function addCat(select, i){//inser categorias al array y eliminar      
+        const boton = document.getElementById(`${i}cat`);        
+        var style = document.getElementById(`${i}cat`).className;
+        if (style === 'btn btn-success') {
+          boton.className = 'btn btn-primary';
+        } else {
+          boton.className = 'btn btn-success';
+        }
         if(categ.includes(select)){
           categ = categ.filter(word => word !== select);                 
           return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
           }else{
-            categ.push(select);              
+            categ.push(select);                         
             return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
           }   
             
-         }
-
-          
+         }  
+         
+         
 
     return (
-
-        <div className="container">
-
+      
+        <div className="container">       
 
         <section class="contact-block"></section>
             <section class="contact-block jumbotron">
+
                 <div class="container">
                     <div class="col-md-6 contact-form alert alert-dark">
                         <h3>Products in <span>List</span></h3>
@@ -146,8 +193,9 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
                             <input type="text" class="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>
                             <div className=" form-control-lg">
                                     {categories && categories.map((cat, i) => {
+                                       
                                         return (                                           
-                                          <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name)} id="op" value={cat.name}>
+                                          <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name, i)} id={i+"cat"} value={cat.name}>
                                             {cat.name}
                                           </button>                                          
                                         )
@@ -157,7 +205,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
                               <span id='contCat'></span>
                             </div>   
                             <input type="text" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
-                            <input type="submit" class="submit-btn" value="Submit" />
+                            <input type="submit" class="submit-btn" value="Submit" style={{borderRadius: "15px"}}/>
                         </form>
                     </div>
 

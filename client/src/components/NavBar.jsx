@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react"
-import "./NavBar.css"
-import SearchBar from "./SearchBar.jsx"
-import { NavLink } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import "./NavBar.css";
+import SearchBar from "./SearchBar.jsx";
+import { NavLink } from 'react-router-dom';
 import { connect } from "react-redux";
-import { userLogout } from "../actions/index.js"
-import Swal from 'sweetalert2'
+import { userLogout } from "../actions/index.js";
+import Swal from 'sweetalert2';
+import { useHistory } from 'react-router-dom';
 
 
 function NavBar({onlineUser, userLogout, getcart}) {
-  
+  const history = useHistory(); 
   const [categories, setCategories] = useState([]);
   const [admin, setAdmin] = useState(false);
     
@@ -40,7 +41,17 @@ function NavBar({onlineUser, userLogout, getcart}) {
           title: 'Hello! To add to cart, log into your account',
         })
      }
-      
+
+     
+     function salirr(){
+      Swal.fire({
+        icon: 'info',
+        title: 'Bye! You have successfully disconnected',
+      })
+      userLogout()
+      history.push('/login');
+
+   }
             
         
     return (
@@ -134,7 +145,7 @@ function NavBar({onlineUser, userLogout, getcart}) {
                               <button title="CART" type="button" className="btn btn-light my-2 my-sm-0">
                                  
                                 <i style={{fontSize:"15px"}} className="fa fa-shopping-cart badge badge-light ">
-                            <span className="badge badge-danger">{getcart && getcart.length}</span>
+                            <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {getcart && getcart.length}</span>
                                 </i>
                               </button>
                               </NavLink>}
@@ -158,7 +169,7 @@ function NavBar({onlineUser, userLogout, getcart}) {
                            <small text-danger><i className='fa fa-user'></i> WELCOME {onlineUser.firstname.toUpperCase()} {onlineUser.surname.toUpperCase()}</small> 
                             </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a style={{color:"balck"}} class="fa fa-sign-out dropdown-item"  onClick={() => userLogout()}>LOGOUT</a>                                
+                                <a style={{color:"balck"}} class="fa fa-sign-out dropdown-item"  onClick={() => salirr()}>LOGOUT</a>                                
                               </div>
                             </div> 
                               </li>

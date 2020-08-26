@@ -158,10 +158,9 @@ function deleteProduct(id) {
 	return Product.destroy({ where: { id } })	
 }
 
-
 server.post("/update", (req, res) => {
 	console.log("EL PRODUCTO", req.body)
-	const { id } = req.body
+	const { id } = req.body	
 	const { category } = req.body;
 	deleteProduct(id)
 		.then(() => {

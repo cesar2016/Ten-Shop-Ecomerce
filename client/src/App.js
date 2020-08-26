@@ -18,12 +18,16 @@ import SignIn from "./components/SignIn"
 import Cart from './components/cart/Cart';
 import FormAdmin from './components/formularios/FormAdmin';
 import FormOrders from './components/formularios/FormOrders';
+import Orders from './components/formularios/FormAdmin';
+//import Orders from './components/SliderImage';
+import SliderImage from './components/SliderImage';
 
 function App() {
 
     return (
-      <div className="App jumbotron  bg-white">
+      <div className="App jumbotron bg-white">
           <Route path="/" render={() => <NavBar/> } />
+          <Route exact path="/" render={()=> <SliderImage/>} />
           <Route exact path="/" render={() => <Catalogue/> } />
           <Route exact path="/product/:id" render={({match}) => <Product id={match.params.id}/> } />
           <Route exact path="/formProduct" render={() => <FormProduct /> } />
@@ -38,6 +42,7 @@ function App() {
           <Route exact path="/cart" render={() => <Cart />} />
           <Route exact path="/orders" render={() => <FormOrders />} />
           <Route exact path="/admin" render={()=> <FormAdmin/>} />
+         
       </div>
       )
 
