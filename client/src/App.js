@@ -20,12 +20,13 @@ import FormAdmin from './components/formularios/FormAdmin';
 import Orders from './components/formularios/FormAdmin';
 //import Orders from './components/SliderImage';
 import SliderImage from './components/SliderImage';
+import Footer from './components/Footer'
 
 function App() {
 
     return (
       <div className="App jumbotron bg-white">
-          <Route path="/" render={() => <NavBar/> } />
+          <Route path="/" render={() => <NavBar/> } />         
           <Route exact path="/" render={()=> <SliderImage/>} />
           <Route exact path="/" render={() => <Catalogue/> } />
           <Route exact path="/product/:id" render={({match}) => <Product id={match.params.id}/> } />
@@ -41,6 +42,7 @@ function App() {
           <Route exact path="/cart" render={() => <Cart />} />
           <Route exact path="/orders" render={() => <Orders />} />
           <Route exact path="/admin" render={()=> <FormAdmin/>} />
+          <Route path="/" render={() => <Footer/>} />
          
       </div>
       )
