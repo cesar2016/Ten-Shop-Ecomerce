@@ -1,7 +1,7 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
-import { getOneCategory } from "../../actions/index"
+import { getOneCategory } from "../../actions/index";
 
 function MenuCategories({category, getOneCategory, products}) { 
   

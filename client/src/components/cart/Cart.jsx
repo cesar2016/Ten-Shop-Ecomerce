@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
-import { getAllCart,completeCart, updateCart} from "../../actions";
+import { getAllCart,completeCart, updateCart, cancellCart} from "../../actions";
 
 import Swal from 'sweetalert2'
-  function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart}) {
-        
+  function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart}) {
+    const history = useHistory();    
 
   React.useEffect(() => {
     if(typeof onlineUser === "object"){  
@@ -40,7 +41,9 @@ import Swal from 'sweetalert2'
 
   const total = useRef(0)
 
+
   function sum(id, price) {
+    var subtotal_carrito = 0;
 
     var cantidad = document.getElementById(id).value;
 
@@ -54,7 +57,6 @@ import Swal from 'sweetalert2'
     });
 
 
-    var subtotal_carrito = 0;
     productosConSubtotales.current.forEach(el => {
       if (el.subtotal) {
         subtotal_carrito += el.subtotal;
@@ -91,37 +93,70 @@ import Swal from 'sweetalert2'
         allowOutsideClick: () => !Swal.isLoading()
       }).then((result) => {
         if (result.value) {
-          Swal.fire({
-            title: `Order completed`,
-            icon: 'success'
-          })
+            if(result.isConfirmed){
+                document.getElementById("subtotal").innerHTML = "$0";
+                document.getElementById("taxes").innerHTML = "$0";
+                document.getElementById("total").innerHTML = "$0";
+                updateCart(onlineUser.id, productosConSubtotales.current)
+                completeCart(onlineUser.id, result.value);
+                Swal.fire({
+                  title: `Order completed. Thanks You!`,
+                  icon: 'success'
+                })
+               
+            }
         }
-      })
- }
+      });
+    };
+
+    function cancell(){  
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+              console.log(result);
+            if (result.value) {
+              cancellCart(onlineUser.id) 
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              );
+             // history.push('/'); 
+            }
+          })
+    }
 
         
      return (
+         <div className="container">
          <div className="container d-flex justify-content-center">
  <section class="blog-block">
      <div class="container">
+
          <div class="row offspace">
              <div class="view-set-block">
                  <div class="col-md-8 col-sm-8 col-xs-12">
                      <div class="event-blog-image">
-                         <table class="table">
+                         <table class="table table-hover">
                              <thead>
                              <tr align={'center'}>
                                  
                              <h2>Shopping Cart <i className={"fa fa-shopping-cart"}></i></h2>
+                             
                              </tr>
                              </thead>
-                             <tbody>
-                             
+                             <tbody>                             
                                  { 
-                                   getcart && products.map((e, i) => {
-                                                                
-                                       
-                                    
+                                   getcart && 
+                                   
+                                   
+                                   products.map((e, i) => {                                                               
                                        if(arr.includes(e.id)){
                                            return(
                                             <tr>
@@ -145,32 +180,25 @@ import Swal from 'sweetalert2'
                                             </td>
                                             <td width={'20%'}>                                            
                                                 <div class="col-auto">
-                                                    <label class="sr-only" for="inlineFormInput">{e.name}</label>
-                                                    
-                                                    <label>count</label>
-                                                    
-                                                     
+                                                    <label class="sr-only" for="inlineFormInput">{e.name}</label>                                                    
+                                                    <label>count</label>                                                                                                   
                                                     <input min="1" type="number" id={e.id} onClick={()=>sum(e.id, e.price)} class="form-control mb-2 mt-5" placeholder="Amount" />
                                                 </div>
                                             </td>
                                         </tr>
                                            )
                                        } 
-
-                                       {  
-                                         
+                                       {                                          
                                      }
-
-                                   })  
-                                     
+                                   })                                                                        
                                  }
-                                   
-                                 
                              </tbody>
+                                  
                          </table>
                      </div>
                  </div>
-                 <div class="col-md-4 col-sm-4 col-xs-12 side-in-image">
+                                 
+            {getcart.length !== 0 && <div class="col-md-4 col-sm-4 col-xs-12 side-in-image">
                      <div class="event-blog-details">
                          <table class="table">
                              <thead>
@@ -217,7 +245,7 @@ import Swal from 'sweetalert2'
                                      </th>
                                  </tr>
                                  <tr>
-                                     <th><button className="btn btn-danger btn-lg">Cancel</button></th>
+                                     <th><button className="btn btn-danger btn-lg" onClick={() => {cancell()}}>Cancel</button></th>
                                  
                                      <th><button className="btn btn-default active btn-lg" onClick={() => alertt()}>Next </button></th>
                                  </tr>
@@ -225,10 +253,21 @@ import Swal from 'sweetalert2'
                          </table>
                      </div>
                  </div>
+            }
+            
              </div>
          </div>
      </div>
+
+
  </section>
+</div>
+         {
+ getcart.length === 0 && 
+    
+         <div class="alert alert-danger" role="alert"><h2>Your cart is empty!</h2></div>
+
+ }
          </div>
      );
  }; 
@@ -238,7 +277,8 @@ import Swal from 'sweetalert2'
         getAllCart: (idUser) => dispatch(getAllCart(idUser)),
         completeCart: (idUser) => dispatch(completeCart(idUser)),
         updateCart: (idUser, body) => dispatch(updateCart(idUser, body)),
-  
+        cancellCart: (idUser) => dispatch(cancellCart(idUser)),
+
     }
   }
 
