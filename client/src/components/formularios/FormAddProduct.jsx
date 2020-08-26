@@ -37,8 +37,8 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
         let objetoo = {
           name: input.name,
           description: input.description,
-          price: input.price,
-          stock: input.stock,
+          price: parseFloat(input.price),
+          stock: parseFloat(input.stock),
           image: input.image,
           category: categ 
         }
@@ -77,9 +77,15 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
           'Good job!',
           'The product was inserted successfully!',
           'success'
-        )         
-       
+        )
+        document.getElementById("myForm").reset();
+        categories.forEach((x, i) => {
+          var boton = document.getElementById(`${i}`);
+          boton.className = 'btn btn-secondary';
+        })
+        document.getElementById("contCat").innerHTML = "";
         e.preventDefault();
+        
         return axios.post("http://localhost:3001/products/add", objetoo)
       }
 
@@ -90,19 +96,16 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
          
         if(categ.includes(select)){
           categ = categ.filter(word => word !== select); 
-          console.log(categ,"if true")
-          document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
-          document.getElementById(btnId).className = 'btn btn-primary';          
+          console.log(categ,"if true")          
+          document.getElementById(btnId).className = 'btn btn-secondary';          
            
         }else{
           categ.push(select); 
-          console.log(categ,"if false")
-          document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
-          document.getElementById(btnId).className = 'btn btn-danger';
+          console.log(categ,"if false")          
+          document.getElementById(btnId).className = 'btn btn-success';
         }          
       }
 
-      var idBtn = 0;
 
     return (
 
@@ -112,7 +115,7 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
                 <div class="container">
                     <div className="col-md-6 contact-form alert alert-dark">
                         <h3>Add  <span>Products</span></h3>
-                        <form action="#" method="post" onSubmit={handleSubmit}>
+                        <form action="#" method="post" onSubmit={handleSubmit} id="myForm">
                             <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
                             <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
                             <input type="text" className="form-control form-control-lg" name="price" placeholder="Price $ " id="price" onChange={handleInputChange} required=""/>
@@ -121,10 +124,9 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
                               <input type="file" className="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
                             </form>
                             <div className=" form-control-lg">
-                                    {categories.map((cat, i) => {
-                                      var btnId = idBtn ++;
+                                    {categories.map((cat, i) => {                                      
                                         return (                                           
-                                          <button type="button" class="btn btn-primary" id={btnId}  onClick={(e) => addCat(cat.name, btnId)} value={cat.name}>
+                                          <button type="button" class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
                                             {cat.name}
                                           </button>                                          
                                         )
