@@ -67,8 +67,8 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
     let objetoo = {
         name: input.name,
         description: input.description,
-        price: input.price,
-        stock: 10, //parseFloat(input.stock),
+        price: parseFloat(input.price),
+        stock: parseFloat(input.stock),
         image: input.image,
         category: array,
         id: elId.current
@@ -144,11 +144,9 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
           boton.className = 'btn btn-success';
         }
         if(categ.includes(select)){
-          categ = categ.filter(word => word !== select);                 
-          return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+          categ = categ.filter(word => word !== select);                           
           }else{
-            categ.push(select);                         
-            return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+            categ.push(select);                                     
           }   
             
          }  

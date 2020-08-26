@@ -7,9 +7,9 @@ import { userLogout } from "../actions/index.js"
 import Swal from 'sweetalert2'
 
 
-function SliderImage({onlineUser, userLogout, getcart}) {  
+function SliderImage() {
   
-            
+  
         
     return (
         <header className="header-content-fluid" style={{marginTop:'50px'}}>
