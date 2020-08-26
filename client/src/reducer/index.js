@@ -20,7 +20,10 @@ import {
     UPDATE_USER,
     UPDATE_CAR,
     COMPLETE_CAR,
-    CANCELL_CART
+    CANCELL_CART,
+    GET_ORDERS,
+    UPDATE_PRICE_ORDER
+  
    } from '../actions/index';
 
 const initialState = {
@@ -32,7 +35,9 @@ const initialState = {
   onlineUser: 0,
   cart:[],
   getcart:[],
-  all_users: []
+  all_users: [],
+  getorders: [],
+ 
 };
 const reducer = (state = initialState , action) => {   
   switch (action.type) {
@@ -177,6 +182,16 @@ const reducer = (state = initialState , action) => {
                 getcart: [],
                 cart: []
               }
+            case GET_ORDERS:
+              return {
+                ...state,
+                getorders: action.payload
+              }
+            case UPDATE_PRICE_ORDER:
+              return {
+                ...state,
+              }
+              
     default:
       return state;
     }

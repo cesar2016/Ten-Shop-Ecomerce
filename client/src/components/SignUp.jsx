@@ -198,7 +198,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                                 <button type="submit" class="btn btn-outline-primary signbutton" id='15' onClick={() => handleSubmit()}>Create my account</button>
                             </div>
                         </div>
-                        <div><h4>Do you have an account? <NavLink style ={{color: "blue"}}to = "/signin">Sign In!</NavLink></h4></div>
+                        <div><h4>Do you have an account? <NavLink style ={{color: "blue"}}to = "/login">Sign In!</NavLink></h4></div>
                       </fieldset> 
                 </div>
             </div>
