@@ -13,7 +13,7 @@ function NavBar({onlineUser, userLogout, getcart}) {
   const [admin, setAdmin] = useState(false);
     
     useEffect(() => {
-        var but = document.getElementById('SIGNIN');        
+        var but = document.getElementById('LOGIN');        
         if ( typeof onlineUser === "object"){
             but.style.display = 'none';          
         } else {
@@ -124,17 +124,17 @@ function NavBar({onlineUser, userLogout, getcart}) {
                           <li className="nav-item">   
                             <div className={'content'}>  
                               {typeof onlineUser !== "object" && 
-                              <button title="market" type="button" onClick={() => alertt()} className="btn btn-light my-2 my-sm-0">  
+                              <button title="CART" type="button" onClick={() => alertt()} className="btn btn-light my-2 my-sm-0">  
                                 <i style={{fontSize:"15px"}} className="fa fa-shopping-cart badge badge-light ">
                                   <span className="badge badge-info"></span>
                                 </i>
                               </button>
                               }
                               {typeof onlineUser === "object" &&  <NavLink to="/cart">
-                              <button title="market" type="button" className="btn btn-danger my-2 my-sm-0">
+                              <button title="CART" type="button" className="btn btn-light my-2 my-sm-0">
                                  
                                 <i style={{fontSize:"15px"}} className="fa fa-shopping-cart badge badge-light ">
-                            <span className="badge badge-info">{getcart && getcart.length}</span>
+                            <span className="badge badge-danger">{getcart && getcart.length}</span>
                                 </i>
                               </button>
                               </NavLink>}
@@ -155,10 +155,10 @@ function NavBar({onlineUser, userLogout, getcart}) {
                               {/* <h4>Welcome {onlineUser.firstname} {onlineUser.surname}</h4>} */}
                               <div class="dropdown">
                             <button id = "SIGNOUT" title="sign out" style={{fontSize:"14px"}} type="button" className="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <small text-danger><i className='fa fa-user'></i> Welcome {onlineUser.firstname} {onlineUser.surname}</small> 
+                           <small text-danger><i className='fa fa-user'></i> WELCOME {onlineUser.firstname.toUpperCase()} {onlineUser.surname.toUpperCase()}</small> 
                             </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a style={{color:"red"}} class="dropdown-item"  onClick={() => userLogout()}>LOGOUT</a>                                
+                                <a style={{color:"balck"}} class="fa fa-sign-out dropdown-item"  onClick={() => userLogout()}>LOGOUT</a>                                
                               </div>
                             </div> 
                               </li>
@@ -167,25 +167,24 @@ function NavBar({onlineUser, userLogout, getcart}) {
                                                       
                                                                              
                             
-                        <NavLink to="/signin">
+                        <NavLink to="/login">
                             <li className="nav-item">
-                          <button id = "SIGNIN" title="sign in" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
-                            <i className="fa fa-user" aria-hidden="true"></i>
+                          <button id = "LOGIN" title="LOGIN" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
+                            <i className="fa fa-user" aria-hidden="true"> Login</i>
                             
                         </button>
                               </li>
                         </NavLink>
-                        &nbsp;  
+                        &nbsp; 
+                        { typeof onlineUser !== "object" &&
                         <NavLink to="/signup">
                             <li className="nav-item">
-                          <button id = "SIGNIN" title="sign in" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
-                            <i className="fa fa-user-plus" aria-hidden="true"></i>
-                           
-                            
-                        </button>
-                              </li>
-                        </NavLink>
-
+                              <button id = "SIGNUP" title="SIGNUP" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
+                                <i className="fa fa-user-plus" aria-hidden="true"> Sing Up</i>                         
+                              </button>
+                            </li>
+                        </NavLink>  
+                        }
                        </ul> 
                         &nbsp;                            
                         <SearchBar/>
