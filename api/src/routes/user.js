@@ -187,6 +187,6 @@ server.post("/login",(req,res) => {
   .catch(() => {
     res.status(404).send(console.log(req.body))}
     )
-})
+});
 
 module.exports = server;
