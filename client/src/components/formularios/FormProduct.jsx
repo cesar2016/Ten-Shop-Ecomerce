@@ -68,7 +68,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
         name: input.name,
         description: input.description,
         price: input.price,
-        stock: parseFloat(input.stock),
+        stock: 10, //parseFloat(input.stock),
         image: input.image,
         category: array,
         id: elId.current
