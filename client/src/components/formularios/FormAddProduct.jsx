@@ -3,6 +3,8 @@ import axios from "axios"
 import { connect } from "react-redux";
 import { getAllProducts, getAllCategories } from "../../actions"
 
+import Swal from 'sweetalert2'
+
 
 function FormAddProduct({products, categories, getAllCategories, getAllProducts}) {
     useEffect(() => {
@@ -30,7 +32,8 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
       }
       var categ = [];
       
-      const handleSubmit = function(e) {        
+      const handleSubmit = function(e) { 
+        e.preventDefault();       
         let objetoo = {
           name: input.name,
           description: input.description,
@@ -39,26 +42,67 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
           image: input.image,
           category: categ 
         }
-        
+
+         
+        if (products.length) {   
+          
+          
+          for (let i = 0; i < products.length; i++) {
+            const element = products[i].name;
+
+            
+            if(element === objetoo.name){
+
+              Swal.fire({
+                title: 'Ups!',
+                text: "This product already exists, do you want to edit it?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                //confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.value) {
+                  window.location = "http://localhost:3000/formProduct"
+                }
+              })
+
+              return 
+            }///end if
+            
+          }//end for
+        }
+
+        Swal.fire(
+          'Good job!',
+          'The product was inserted successfully!',
+          'success'
+        )         
+       
         e.preventDefault();
-        axios.post("http://localhost:3001/products/add", objetoo)
+        return axios.post("http://localhost:3001/products/add", objetoo)
       }
 
       
-      function addCat(select){
+      function addCat(select, btnId){
         //console.log(categ.includes(select))
+        //alert(btnId)
+         
         if(categ.includes(select)){
-          categ = categ.filter(word => word !== select);        
-           console.log(categ,"if true")
-          return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+          categ = categ.filter(word => word !== select); 
+          console.log(categ,"if true")
+          document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+          document.getElementById(btnId).className = 'btn btn-primary';          
+           
         }else{
           categ.push(select); 
           console.log(categ,"if false")
-          return document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+          document.getElementById("contCat").innerHTML = "<p>"+categ+"</p>" ;
+          document.getElementById(btnId).className = 'btn btn-danger';
         }          
       }
 
-
+      var idBtn = 0;
 
     return (
 
@@ -77,8 +121,9 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
                             
                             <div className=" form-control-lg">
                                     {categories.map((cat, i) => {
+                                      var btnId = idBtn ++;
                                         return (                                           
-                                          <button type="button" class="btn btn-primary"  onClick={(e) => addCat(cat.name)} id="op" value={cat.name}>
+                                          <button type="button" class="btn btn-primary" id={btnId}  onClick={(e) => addCat(cat.name, btnId)} value={cat.name}>
                                             {cat.name}
                                           </button>                                          
                                         )
@@ -95,14 +140,6 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
             </section>
 
             
-           
-
-
-
-
-
-
-
         </div>
 
 
