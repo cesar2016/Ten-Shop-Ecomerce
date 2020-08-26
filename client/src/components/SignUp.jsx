@@ -108,7 +108,7 @@ function SignUp ({addUser, onlineUser}) {
             <div class="well well-sm">
                 <div style={{fontSize: '18px',  heigth: '25px'}} class="form-horizontal" method="post">
                    <fieldset className='align-items-center h-100'> 
-                        <legend class="text-center header"><h2>Contact Us ... <i className='fa fa-address-book'></i></h2></legend>
+                        <legend class="text-center header"><h2>Contact Us <i className='fa fa-address-book'></i></h2></legend>
 
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
@@ -154,6 +154,15 @@ function SignUp ({addUser, onlineUser}) {
                             </div>
                              
                         </div>
+
+                        <div class="clearfix alert alert">
+                                <NavLink className="link" to = "/signin">
+                                    <h3><strong title="Clic you account!" className={'fa fa-edit'}  style={{color:'black'}}>
+                                              -Do you already have an account? Log in
+                                        </strong>
+                                    </h3>
+                                </NavLink>
+                                </div>
 
                         <div class="form-group">
                             <div class="col-md-12 text-center">

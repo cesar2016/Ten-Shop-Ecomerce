@@ -19,7 +19,8 @@ import {
     GET_USERS,
     UPDATE_USER,
     UPDATE_CAR,
-    COMPLETE_CAR
+    COMPLETE_CAR,
+    CANCELL_CART
    } from '../actions/index';
 
 const initialState = {
@@ -45,6 +46,7 @@ const reducer = (state = initialState , action) => {
         ...state,
         all_products: action.payload
       };
+      /* adsadasdadasdasd */
     case UPDATE_PRODUCT:
       let id = action.payload.id;
       let categories = action.payload.category
@@ -166,7 +168,15 @@ const reducer = (state = initialState , action) => {
           case COMPLETE_CAR:
             return {
               ...state,
+              getcart: [],
+                cart: []
             }
+            case CANCELL_CART:
+              return {
+                ...state,
+                getcart: [],
+                cart: []
+              }
     default:
       return state;
     }
