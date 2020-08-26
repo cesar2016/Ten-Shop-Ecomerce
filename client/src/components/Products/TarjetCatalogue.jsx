@@ -16,13 +16,13 @@ export default function Catalogo({price, name, stock, id, image, description}) {
                                 <button type="button" className="btn btn-default">{name}</button>
                             </div>
 
-                                <h1 className="footer-details text-danger">$ {price}</h1>
+                                <h1 className="footer-details text-danger" style={{fontSize:"30px", marginTop:"10px"}}>${price}</h1>
 
                             <strong>Stock {stock}</strong>
                             <div className="gallery-image" >
-                                <img className="img-responsive asd"  src={image}/>
+                                <img className="img-responsive asd"  src={image} style={{marginTop:"40px"}}/>
                                 <div className="overlay" >                                   
-                                    <p><a className="text-warning">{description}</a></p>
+                                    <p style={{marginRight:"70px"}}><a className="text-warning">{description}</a></p>
                                 </div>
                             </div>
                         </div>      

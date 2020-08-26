@@ -35,7 +35,11 @@ server.get('/:idUser/orders', (req, res, next) => {
           res.send(result)
         })
       }else{
-        res.status(404).send("The user has no products in the cart")
+        // PREGUNTAR A GUILLE SI ESTO NO DEBERIA DE VOLVER UN ARRAY VACIO
+        // ya que si voy al carrito a la primera despues de haber comprado un carrito
+        // da error en la pagina porque no retorno un array sino que un string "The user has no products in the cart" 
+        // res.status(404).send("The user has no products in the cart")
+        res.status(200).send([])
       }
 	})
  });
