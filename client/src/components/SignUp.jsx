@@ -191,6 +191,15 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                              
                         </div>
 
+                        <div class="clearfix alert alert">
+                                <NavLink className="link" to = "/signin">
+                                    <h3><strong title="Clic you account!" className={'fa fa-edit'}  style={{color:'black'}}>
+                                              -Do you already have an account? Log in
+                                        </strong>
+                                    </h3>
+                                </NavLink>
+                                </div>
+
                         <div class="form-group">
                             <div class="col-md-12 text-center">
                                 <button type="submit" class="btn btn-outline-primary signbutton" id='15' onClick={() => handleSubmit()}>Create my account</button>

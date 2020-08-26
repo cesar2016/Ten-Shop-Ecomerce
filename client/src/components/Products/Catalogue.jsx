@@ -1,7 +1,7 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
-import { getAllProducts, getAllCategories, onlineUserError } from "../../actions"
+import { getAllProducts, getAllCategories, onlineUserError } from "../../actions";
 import Swal from 'sweetalert2'
 
 function Catalogue({ products, getAllProducts, onlineUser, onlineUserError }) {      

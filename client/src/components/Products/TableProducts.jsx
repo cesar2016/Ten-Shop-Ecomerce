@@ -3,7 +3,7 @@ import Product from './Product';
 import { connect } from "react-redux";
 import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, getAllCategories, getAllProducts } from "../../actions"
 
-function TableProducts({products, update, elId, deleteProduct, categxproducts, deleteCatxprod, getAllProducts, categoriesfromTableProducts}) {
+function TableProducts({products, update, elId, deleteProductxId, categxproducts, deleteCatxprod, getAllProducts, categoriesfromTableProducts}) {
     useEffect(() => {
       getAllCategories()
       getCategoriesxProducts()
@@ -20,7 +20,7 @@ function TableProducts({products, update, elId, deleteProduct, categxproducts, d
             <td>
             {categxproducts.map((cxp, i) => {//Mapea las cat que tenga cada products               
                 if(cxp.product_id === p.id){
-                return (<button title="Clic for delete" id={`${cxp.category}${p.id}`} onClick={ (e) => deleteCatxprod(cxp.category, p.id)} type="button" class="btn btn-info">
+                return (<button title="Click for delete" id={`${cxp.category}${p.id}`} onClick={ (e) => deleteCatxprod(cxp.category, p.id)} type="button" class="btn btn-secondary">
                      { cxp.category}
                      </button>) 
                 }
@@ -34,7 +34,7 @@ function TableProducts({products, update, elId, deleteProduct, categxproducts, d
             <i className="fa fa-pencil"></i>
             </button>
             &nbsp;
-            <button type="button" class="btn btn-danger"  onClick={ (e) => deleteProduct(p.id)}>
+            <button type="button" class="btn btn-danger"  onClick={ (e) => deleteProductxId(p.id)}>
             <i className="fa fa-trash"></i>
             </button>
             </td>
@@ -46,8 +46,7 @@ function TableProducts({products, update, elId, deleteProduct, categxproducts, d
 const mapDispatchToProps = dispatch => {
   return {
     updateProduct: (id, body) => dispatch(updateProduct(id, body)),
-    deleteCatxProd: (name, id) => dispatch(deleteCatxProd(name, id)),
-    deleteProduct: (id) => dispatch(deleteProduct(id)),
+    deleteCatxProd: (name, id) => dispatch(deleteCatxProd(name, id)),    
     getCategoriesxProducts: () => dispatch(getCategoriesxProducts()),
     getAllCategories: () => dispatch(getAllCategories()),
     getAllProducts: () => dispatch(getAllProducts())

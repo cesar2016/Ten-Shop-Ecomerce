@@ -45,10 +45,10 @@ function NavBar({onlineUser, userLogout, getcart}) {
         
     return (
         <header className="header-content">
-                <nav style={{fontSize:"20px", color:"black"}} className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-danger fixed-top">
+                <nav style={{fontSize:"20px", color:"red"}} className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-danger fixed-top">
                      <div id="logo">                                    
                     <NavLink to="/">                         
-                        <a href="/"><span>Ten</span><span style={{color:"yellow"}}>/ Shop</span></a>
+                        <a href="/"><span style={{color:"yellow"}}>Ten</span><span style={{color:"yellow"}}>/ Shop</span></a>
                     </NavLink>                         
                     </div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,6 +109,9 @@ function NavBar({onlineUser, userLogout, getcart}) {
                           <NavLink className="dropdown-item" to={`/formAddProduct`}>
                               <span style={{color:"black", marginLeft:"5px", display:"block"}}>Add Products</span>                                            
                           </NavLink>
+                          <NavLink className="dropdown-item" to={`/orders`}>
+                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>Orders</span>                                            
+                          </NavLink>
                           <NavLink className="dropdown-item" to={`/admin`}>
                               <span style={{color:"black", marginLeft:"5px", display:"block"}}>Admin</span>                                            
                           </NavLink>
@@ -121,8 +124,8 @@ function NavBar({onlineUser, userLogout, getcart}) {
                           <li className="nav-item">   
                             <div className={'content'}>  
                               {typeof onlineUser !== "object" && 
-                              <button title="market" type="button" onClick={() => alertt()} className="btn btn-danger my-2 my-sm-0">  
-                                <i style={{fontSize:"17px"}} className="fa fa-shopping-cart badge badge-warning ">
+                              <button title="market" type="button" onClick={() => alertt()} className="btn btn-light my-2 my-sm-0">  
+                                <i style={{fontSize:"15px"}} className="fa fa-shopping-cart badge badge-light ">
                                   <span className="badge badge-info"></span>
                                 </i>
                               </button>
@@ -130,7 +133,7 @@ function NavBar({onlineUser, userLogout, getcart}) {
                               {typeof onlineUser === "object" &&  <NavLink to="/cart">
                               <button title="market" type="button" className="btn btn-danger my-2 my-sm-0">
                                  
-                                <i style={{fontSize:"17px"}} className="fa fa-shopping-cart badge badge-warning ">
+                                <i style={{fontSize:"15px"}} className="fa fa-shopping-cart badge badge-light ">
                             <span className="badge badge-info">{getcart && getcart.length}</span>
                                 </i>
                               </button>
@@ -166,8 +169,19 @@ function NavBar({onlineUser, userLogout, getcart}) {
                             
                         <NavLink to="/signin">
                             <li className="nav-item">
-                          <button id = "SIGNIN" title="sign in" style={{fontSize:"15px"}} type="button" className="btn btn-info my-2 my-sm-0">
-                            <i className="fa fa-sign-in" aria-hidden="true"></i>
+                          <button id = "SIGNIN" title="sign in" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
+                            <i className="fa fa-user" aria-hidden="true"></i>
+                            
+                        </button>
+                              </li>
+                        </NavLink>
+                        &nbsp;  
+                        <NavLink to="/signup">
+                            <li className="nav-item">
+                          <button id = "SIGNIN" title="sign in" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
+                            <i className="fa fa-user-plus" aria-hidden="true"></i>
+                           
+                            
                         </button>
                               </li>
                         </NavLink>

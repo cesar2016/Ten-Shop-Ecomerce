@@ -21,6 +21,8 @@ export const GET_USERS = "GET_USERS";
 export const UPDATE_USER = "UPDATE_USER";
 export const UPDATE_CAR = "UPDATE_CAR";
 export const COMPLETE_CAR = "COMPLETE_CAR";
+export const CANCELL_CART = "CANCELL_CART";
+
 
 
 export function getSearchProducts (search) {
@@ -277,13 +279,27 @@ export function completeCart(idUser, addres){
     status: "complete",
     address: addres
   };
-  console.log("asdasd",body);
   return function (dispatch) {
     return axios.post(`http://localhost:3001/users/${idUser}/update/cart`, body)
     .then(result => result.data)
     .then(result => {
       dispatch({
         type: COMPLETE_CAR,
+      })
+    })
+  }
+}
+
+export function cancellCart(idUser){ 
+  let body = {
+    status: "cancelled",
+  };
+  return function (dispatch) {
+    return axios.post(`http://localhost:3001/users/${idUser}/update/cart`, body)
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: CANCELL_CART,
       })
     })
   }
