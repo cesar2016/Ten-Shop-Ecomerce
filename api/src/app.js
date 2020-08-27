@@ -292,7 +292,7 @@ const reviews1 = await Reviews.create({
 
 
 producto10.then((prod) => {
-    console.log("PRODUCTO ",prod)
+    //console.log("PRODUCTO ",prod)
     prod.setReviews(reviews1)
 })
 reviews1.setUser(user6);
