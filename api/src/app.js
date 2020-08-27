@@ -284,69 +284,26 @@ server.post("/", async (req, res) => {
 
    ////////// TABLA REVIEWS //////////////
    
-const reviews1 = Reviews.create({
-    rating: 5,
-    visited: 20,
+const reviews1 = await Reviews.create({
+    rating: 5,    
     comments: "Ya compre el producto muchas Gracias!!!"   
           
 });
 
-reviews1.then((rev) => {
-    rev.addProduct(producto13)
+
+producto10.then((prod) => {
+    console.log("PRODUCTO ",prod)
+    prod.setReviews(reviews1)
 })
+reviews1.setUser(user6);
 
-reviews1.then((orden) => {
-    orden.setUser(user6)
-})
 
-// const reviews2 = Reviews.create({
-//     rating: 10,
-//     visited: 25,
-//     comments: "En el monte santiagueño donde gritan las charatas...!!!",
-//     productId: 2,
-//     userId: 2
-          
-// });
-// const reviews3 = Reviews.create({
-//     rating: 110,
-//     visited: 22,
-//     comments: "Yo Soy de Santa Fe!!!, Santa FE!!!",
-//     productId: 3,
-//     userId: 3
-          
-// });
-// const reviews4 = Reviews.create({
-//     rating: 110,
-//     visited: 22,
-//     comments: "Excelente Producto lo compre y estoy muy conforme, Muchas gracias!!!",
-//     productId: 4,
-//     userId: 4
-          
-// });
-// const reviews5 = Reviews.create({
-//     rating: 15,
-//     visited: 30,
-//     comments: "Ya tengo el producto, muchas gracias por su Atencion!!!",
-//     productId: 5,
-//     userId: 5
-          
-// });
 
- 
-   
+
 
     res.send("LISTO")
 
 });
-
-
-
-
-
-
-
-
-
 
 
 

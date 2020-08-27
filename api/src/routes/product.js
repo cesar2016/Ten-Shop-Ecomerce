@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Product, categoriesxproducts, Category } = require('../db.js');
+const { Product, categoriesxproducts, Reviews,  Category } = require('../db.js');
 const { Op } = require("sequelize");
 
 
@@ -177,5 +177,36 @@ server.post("/update", (req, res) => {
 		}
 	})
 });
+
+//////////// ADD REVIEWS ///////////
+
+//POST /product/:id/review -> RUTA
+server.post("/:id/review", (req, res) => {
+	const { id } = req.params
+	const { body } = req
+
+	const rev = Reviews.create({
+		rating: body.rating,
+		comments: body.comments		 
+	})
+	//console.log('EL BODYYY',body);
+	//console.log('PARAMS', id)
+
+	Product.findOne({ where: { id } })
+
+	.then((productResult) => { 
+		console.log(productResult);
+		// productResult.setReviews(rev)
+		// rev.setUser()
+	})	
+
+	res.send('ENTROOOO!');
+	
+	//addReviews(req.body)
+		 
+});
+
+
+
 
 module.exports = server;

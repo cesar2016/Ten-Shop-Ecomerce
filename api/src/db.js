@@ -46,6 +46,13 @@ Product.hasMany(Reviews);
 Reviews.belongsTo(User);
 
 
+
+//belongsTo: PERTENECE A
+//belongsToMany: PERTENECE A MUCHOS 
+//hasMany: TIENE MUCHOS
+//hasOne: TIENE UNO
+//through: MEDIANTE
+
 // // Product.belongsToMany(Category, { as: "idCategory" })
 // // Category.belongsToMany(Product, { as: "idProduct" })
 // Product.belongsTo(Categories, {as:"categoria"});

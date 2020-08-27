@@ -5,16 +5,12 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('reviews', {    
     rating: {
-      type: DataTypes.STRING,
-      allowNull: true,        
-    },
-    visited: {
-        type: DataTypes.STRING,
-        allowNull:false
-    },
+      type: DataTypes.INTEGER,
+      allowNull: false       
+    },    
     comments: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull: false
   } 
   });
 };
