@@ -7,41 +7,9 @@ import { userLogout } from "../actions/index.js"
 import Swal from 'sweetalert2'
 
 
-function SliderImage({onlineUser, userLogout, getcart}) {
+function SliderImage() {
   
-  // const [categories, setCategories] = useState([]);
-  // const [admin, setAdmin] = useState(false);
-    
-    // useEffect(() => {
-    //     var but = document.getElementById('SIGNIN');        
-    //     if ( typeof onlineUser === "object"){
-    //         but.style.display = 'none';          
-    //     } else {
-    //         but.style.display = '';            
-    //     }
-    //     fetch("http://localhost:3001/categories/")
-    //     .then(r => r.json())
-    //     .then((recurso) => {                     
-    //         if(recurso) {                
-    //             setCategories(recurso)
-    //         }
-    //     })
-    //     if (typeof onlineUser  === "object"){
-    //       if (onlineUser.type == 1){
-    //         setAdmin(true)
-    //       }
-    //     } 
-    //     console.log(onlineUser)
-    //   }, [onlineUser])
-      
-    //   function alertt(){
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: 'Hello! To add to cart, log into your account',
-    //     })
-    //  }
-      
-            
+  
         
     return (
         <header className="header-content-fluid" style={{marginTop:'50px'}}>
