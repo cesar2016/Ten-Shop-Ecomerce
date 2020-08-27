@@ -1,6 +1,33 @@
 const server = require('express').Router();
 const { User, Order , Productsxorders , Product} = require('../db.js');
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
+const crypto = require('crypto'); //npm i --save sequelize crypto
 
+
+User.generateSalt = function() {
+  return crypto.randomBytes(16).toString('base64')
+};
+User.encryptPassword = function(plainText, salt) {
+  return crypto
+      .createHash('RSA-SHA256')
+      .update(plainText)
+      .update(salt)
+      .digest('hex')
+};
+
+const setSaltAndPassword = user => {
+  if (user.changed('password')) {
+      user.salt = User.generateSalt()
+      user.password = User.encryptPassword(user.password(), user.salt())
+  }
+};
+User.beforeCreate(setSaltAndPassword)
+User.beforeUpdate(setSaltAndPassword)
+
+User.prototype.correctPassword = function(enteredPassword) {
+  return User.encryptPassword(enteredPassword, this.salt()) === this.password()
+};
 
 //MUESTRA TODOS LOS USUARIOS:
 server.get('/', (req, res, next) => {
@@ -171,13 +198,13 @@ server.post("/:idUser/c/order", (req, res) => {
 });
 
 server.post("/adduser", (req, res) => {
-  const { firstname, surname, password, username } = req.body;  
+  const { firstname, surname, password, username, email } = req.body;  
   User.findAll({
     where: {username}
   })
     .then(result => {      
       if (!result.length) {
-        User.create({firstname, surname, password, type: "2", username})        
+        User.create({firstname, surname, password, type: "2", username, email})        
         .then(user => res.send([true, user.dataValues]))        
       } else {
         return res.send([false])
