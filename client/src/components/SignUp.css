@@ -68,3 +68,8 @@ h2 {
 .left { float: left; }
 
 .right { float: right; }
+
+.exampleEmail {
+  display: flex;
+  justify-content: center;
+}

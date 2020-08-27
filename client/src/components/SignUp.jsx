@@ -160,7 +160,9 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                             <div class= "col-md-3"></div>{errors.email && ( <small style={{fontSize: '14px',color:'red'}} >
                                   {errors.email}</small>)}
                         </div>
-                        <h5 style= {{marginRight: '400px'}}> example@domine.com </h5>
+                        <div className="exampleEmail">
+                        <h5 style={{marginRight:"25%"}}> example@domine.com </h5>
+                        </div>
 
                         <div class="form-group">
                             <span class="col-md-1 text-center"><i class="fa fa-user-plus"></i></span>
@@ -196,7 +198,11 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                             <div class= "col-md-3"></div>{errors.password2 && ( <small style={{fontSize: '14px',color:'red'}} >
                                   {errors.password2}</small>)}
                              
+
                         </div>
+
+                                      
+
 
                         <div class="form-group">
                             <div class="col-md-12 text-center">
