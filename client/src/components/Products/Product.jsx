@@ -4,6 +4,10 @@ import { addCart } from "../../actions";
 import { Route, NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import Cart from '../cart/Cart';
+import "./Product.css";
+import Rater from 'react-rater' // PARA INSTALAR --> npm install --save react-rater
+import 'react-rater/lib/react-rater.css'
+
 
 function Product({ addCart, id, products, searchProducts, onlineUser}) {
     if(typeof onlineUser === "object"){
@@ -40,6 +44,11 @@ function Product({ addCart, id, products, searchProducts, onlineUser}) {
           })
      }
 
+
+    function onRate({rating}) {
+      console.log("EL RATING",rating)
+    };
+
     return (
 
         <div className="container">
@@ -69,6 +78,15 @@ function Product({ addCart, id, products, searchProducts, onlineUser}) {
                     </div>
 
                 </div>
+            </section>
+            <section>
+              <div>
+                <h3>Product reviews</h3>              
+              </div>
+              <div className="puntaje">
+                <h1 id="numeroPuntaje">4.0</h1>
+                <Rater total={5} rating={3} style={{fontSize:"60px", $reactRaterLink: "red" }} onRate={onRate} />
+              </div>
             </section>
 
 
