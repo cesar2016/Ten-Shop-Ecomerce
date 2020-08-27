@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const crypto = require('crypto') //npm i --save sequelize crypto
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
@@ -17,8 +18,17 @@ module.exports = (sequelize) => {
       allowNull: true,        
     },
     password: {
-        type: DataTypes.STRING,
-        allowNull:false
+      type: DataTypes.STRING,
+      allowNull:false,
+      get() {
+          return () => this.getDataValue('password')
+      }
+     },
+    salt: {
+      type: DataTypes.STRING,
+      get() {
+          return() => this.getDataValue('salt')
+      }
     },
     type: {
       type: DataTypes.ENUM("1", "2"),
@@ -35,4 +45,5 @@ module.exports = (sequelize) => {
       unique: true
     }   
   });
+  
 };
