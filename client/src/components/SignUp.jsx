@@ -4,9 +4,11 @@ import { addUser, getUsers } from '../actions';
 import "./SignUp.css";
 import Swal from 'sweetalert2';
 import {NavLink} from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 
 function SignUp ({addUser, onlineUser,getUsers,all_users}) {
+  const history = useHistory(); 
   const [input, setInput] = React.useState({})
   const [errors, setErrors] = React.useState({});
   useEffect(() => {
@@ -59,7 +61,12 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
             timer: 1500
           })        
     } else {
-        addUser(input) 
+        addUser(input)
+        Swal.fire({
+          icon: 'success',
+          title: 'Your account has been created successfully',
+        })
+        history.push('/'); 
     }
   }
   
@@ -191,21 +198,12 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                              
                         </div>
 
-                        <div class="clearfix alert alert">
-                                <NavLink className="link" to = "/signin">
-                                    <h3><strong title="Clic you account!" className={'fa fa-edit'}  style={{color:'black'}}>
-                                              -Do you already have an account? Log in
-                                        </strong>
-                                    </h3>
-                                </NavLink>
-                                </div>
-
                         <div class="form-group">
                             <div class="col-md-12 text-center">
                                 <button type="submit" class="btn btn-outline-primary signbutton" id='15' onClick={() => handleSubmit()}>Create my account</button>
                             </div>
                         </div>
-                        <div><h4>Do you have an account? <NavLink style ={{color: "blue"}}to = "/login">Sign In!</NavLink></h4></div>
+                        <div><h4>Do you have an account? <NavLink style ={{color: "blue"}}to = "/login">Log In!</NavLink></h4></div>
                       </fieldset> 
                 </div>
             </div>

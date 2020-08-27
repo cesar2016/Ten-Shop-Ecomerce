@@ -33,7 +33,7 @@ return (
 
 <section class="image-head-wrapper" style={{backgroundImage: `url(${'https://r3.whistleout.com.mx/public/images/articles/2016/06/187625854.jpg'})`}}>
                 <div class="inner-wrapper">
-                    <h1 text-warning>WELCOM!</h1>
+                    <h1 text-warning>WELCOME!</h1>
                 </div>
                 <div class="content" >
                     <div class="align-items-center h-100">
