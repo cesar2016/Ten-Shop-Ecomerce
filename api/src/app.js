@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const product = require('./routes/product');
 const categories = require("./routes/categories")
-const { Product, Category, Order, User , ProductxOrder} = require("./db.js")
+const { Product, Category, Order, User , ProductxOrder, Reviews} = require("./db.js")
 const ind = require('./routes/index')
 
 
@@ -282,21 +282,57 @@ server.post("/", async (req, res) => {
         prod.addOrder(order2)
     }) */
 
+   ////////// TABLA REVIEWS //////////////
+
+   const user7 = await User.create({
+    firstname: "kun",
+    surname: "aguero",
+    address: "aasd",
+    password: "1234",
+    type: 2,
+    username: "kunaguero",
+    email: "kunaguero@gmail.com"  
+})
    
-   
+producto10.then((prod) => {
+prod.setReviews(reviews1)
+})
+producto10.then((prod) => {
+    prod.setReviews(reviews2)
+})
+
+
+const reviews1 = await Reviews.create({
+    rating: 5,
+    visited: 20,
+    comments: "Ya compre el producto muchas Gracias!!!"   
+          
+});
+const reviews2 = await Reviews.create({
+    rating: 3,
+    visited: 22,
+    comments: "Ya muchas Gracias!!!"   
+          
+});
+
+producto10.then((prod) => {
+    prod.setReviews(reviews1)
+})
+producto10.then((prod) => {
+    prod.setReviews(reviews2)
+})
+
+
+reviews1.setUser(user6);
+reviews2.setUser(user7);
+
+
+
+
 
     res.send("LISTO")
 
 });
-
-
-
-
-
-
-
-
-
 
 
 
