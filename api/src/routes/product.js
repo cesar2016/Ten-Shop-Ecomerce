@@ -1,6 +1,6 @@
 const server = require('express').Router();
-const { Product, categoriesxproducts, Category } = require('../db.js');
-const { Op } = require("sequelize");
+const { Product, categoriesxproducts, Reviews, User,  Category } = require('../db.js');
+const { Op, where } = require("sequelize");
 
 
 
@@ -179,5 +179,79 @@ server.post("/update", (req, res) => {
 		}
 	})
 });
+
+//////////// ADD REVIEWS ///////////
+server.post("/:id/review", (req, res) => {
+	const { id } = req.params;
+	const { username } = req.body;
+	const { review } = req.body;
+
+	Reviews.create({
+		rating: review.rating,
+		comments: review.comments
+	})
+	.then((r)=>{
+		Product.findOne({ where: { id } })	
+	.then((p)=>{				 
+			 p.addReviews(r)	
+		});		
+		User.findOne({ where: { username } })
+	.then((u)=>{		
+		r.setUser(u);
+	})
+	res.send(r); // El resultado del POST!!!
+
+	});
+	 
+});
+
+
+server.post("/review/:idReview", (req, res) => {	
+	const { idReview } = req.params
+	const { comments } = req.body
+	const { rating } = req.body
+	Reviews.findOne({ where:  {id: idReview }})	 
+        .then(function(resp) {			 
+			if(resp) { 
+				
+					resp.update({comments})				
+									
+					resp.update({rating}) 
+							           
+			}
+			res.send(resp)  ///Resultado del UPDATE           
+        })
+
+});
+
+
+server.delete("/review/:idReview", (req, res) => {
+	const { id } = req.params;
+	const { idReview } = req.params;
+
+	Reviews.destroy({ where:  {id: idReview}})	
+		.then(result => {
+			res.sendStatus(200);
+		})
+		.catch(() => res.status(404))
+});
+
+server.get("/:id/review", (req, res) => {
+	const { id } = req.params;
+
+	Reviews.findAll({where: {productId: id }})
+	.then((resp)=>{	
+		console.log(resp);
+		res.send(resp)
+	})
+
+
+	 
+ 
+	 
+});
+
+
+
 
 module.exports = server;
