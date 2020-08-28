@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -8,11 +6,58 @@ const product = require('./routes/product');
 const categories = require("./routes/categories")
 const { Product, Category, Order, User , ProductxOrder} = require("./db.js")
 const ind = require('./routes/index')
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
 
 
-require('./db.js');
+const db = require('./db.js');
+
+
+
+passport.use(new Strategy(
+  function(username, password, done) {    
+    db.User.findOne({ where: {username}})
+      .then(user => {                
+        if (!user) {
+          return done(null, false);
+        }        
+        if (!user.correctPassword(password)) {
+          return done(null, false);
+        }
+        return done(null, user.dataValues);
+      })
+      .catch(err => {
+        return done(err);
+      })
+  }));
+
+
+
+
+
+
+passport.serializeUser(function(user, done) {
+  console.log("EL ID", user.id)
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {    
+  db.User.findOne({ where: { id } })
+    .then(user => {      
+      done(null, user);
+    })
+    .catch(err => {
+      return done(err);
+    })
+});
 
 const server = express();
+
+server.use(require('express-session')({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false
+})); 
 
 server.name = 'API';
 
@@ -27,6 +72,37 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
+
+
+server.use(passport.initialize());
+server.use(passport.session());
+
+server.use((req, res, next) => {
+  console.log("QUE TIENE LA SESION", req.session);
+  console.log("QUE TIENE EL USUARIO ENCONTRADO", req.user);
+  next();
+});
+
+
+server.use('/',ind)
+
+
+server.post("/login",
+  passport.authenticate("local"),
+  (req, res) => {        
+    res.send(req.user)
+  });
+
+function isAuthenticated(req, res, next) {
+    if(req.isAuthenticated()){
+      next();
+    }
+    else{
+      res.redirect('/login');
+    }
+  }
+
+
 
 
 server.post("/", async (req, res) => {
@@ -300,7 +376,7 @@ server.post("/", async (req, res) => {
 
 
 
-server.use('/',ind)
+
 
 
 // Error catching endware.
