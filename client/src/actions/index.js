@@ -225,11 +225,26 @@ export function loginUser(body){
       };
     }
 
+
+/*export function userLogout() {
+  return function(dispatch) {
+    return axios.get('http://localhost:3001/logout', { withCredentials: true })        
+      .then(() => {
+        return {
+          type: USER_LOGOUT
+        }
+      })
+  }
+}*/
+
 export function userLogout () {
-      return {
-        type: USER_LOGOUT
-      }
-};
+    axios.get('http://localhost:3001/logout', { withCredentials: true })              
+    return {
+      type: USER_LOGOUT
+    }  
+    
+}
+
 
 
 export function onlineUserError () {
@@ -338,3 +353,15 @@ export function getOrders(status){
   }
 }
 
+export function loginUserCookie(){  
+  return function(dispatch){
+    return axios.get("http://localhost:3001/login", { withCredentials: true })
+    .then(result => result.data)
+    .then(data => {    
+      dispatch({
+        type: LOGIN_USER,
+        payload: data
+      })
+    })
+  }
+}

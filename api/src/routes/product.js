@@ -1,6 +1,9 @@
 const server = require('express').Router();
 const { Product, categoriesxproducts, Category } = require('../db.js');
 const { Op } = require("sequelize");
+const multer = require("multer");
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage });
 
 
 
@@ -73,9 +76,10 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 
 
 
-server.post("/add", (req, res) => {
-	const { category } = req.body;		
-	addProduct(req.body)
+server.post("/add", upload.single("laimagen"), (req, res) => {
+	const { category } = req.body;	
+	console.log("LA IMAGEN", req.file)	
+	addProduct(req.body, req.file)
 		.then(productCreated => {
 			if (category.length === 0) {
 				return res.json(productCreated)
@@ -93,14 +97,13 @@ server.post("/add", (req, res) => {
 		})
 });
 
-function addProduct(product) {
-	console.log("La imagen", img)
+function addProduct(product, imagen) {	
 	return Product.create({
 		name: product.name,
 		description: product.description,
 		price: product.price,
 		stock: product.stock,
-		image: product.image
+		image: imagen
 	})
 };
 

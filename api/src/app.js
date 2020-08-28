@@ -37,14 +37,14 @@ passport.use(new Strategy(
 
 
 passport.serializeUser(function(user, done) {
-  console.log("EL ID", user.id)
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {    
+  console.log("ENTRA EL ID", id)
   db.User.findOne({ where: { id } })
     .then(user => {      
-      done(null, user);
+      done(null, user.dataValues);
     })
     .catch(err => {
       return done(err);
@@ -78,8 +78,8 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.use((req, res, next) => {
-  console.log("QUE TIENE LA SESION", req.session);
-  console.log("QUE TIENE EL USUARIO ENCONTRADO", req.user);
+  console.log("Session! ", req.session);
+  console.log("User!", req.user);
   next();
 });
 
@@ -90,19 +90,33 @@ server.use('/',ind)
 server.post("/login",
   passport.authenticate("local"),
   (req, res) => {        
+    console.log("PASAAAA", req.user)
     res.send(req.user)
   });
+
+
+
 
 function isAuthenticated(req, res, next) {
     if(req.isAuthenticated()){
       next();
     }
     else{
-      res.redirect('/login');
+      res.send(false);
     }
   }
+  
+server.get("/logout", (req, res) => {
+  req.logout();
+  res.send("Ok!")
+});
 
 
+server.get("/login", 
+  isAuthenticated, 
+  (req, res) => {
+  res.send(req.user)  
+});
 
 
 server.post("/", async (req, res) => {

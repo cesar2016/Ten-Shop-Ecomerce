@@ -16,8 +16,7 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
         name: '',
         description: '',
         price: '',
-        stock: '',
-        image: '',
+        stock: '',        
         category: []
         
          
@@ -34,12 +33,13 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
       
       const handleSubmit = function(e) { 
         e.preventDefault();       
+        console.log("LA IMAGEN", input.laimagen)
         let objetoo = {
           name: input.name,
           description: input.description,
           price: parseFloat(input.price),
           stock: parseFloat(input.stock),
-          image: input.image,
+          image: input.laimagen,
           category: categ 
         }
 
@@ -120,9 +120,9 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
                             <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
                             <input type="text" className="form-control form-control-lg" name="price" placeholder="Price $ " id="price" onChange={handleInputChange} required=""/>
                             <input type="text" className="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>
-                            <form enctype="multipart/form-data">
-                              <input type="file" className="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
-                            </form>
+                            {/*<form enctype="multipart/form-data">*/}
+                              <input type="file" className="form-control form-control-lg" name="laimagen" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
+                            {/*</form>*/}
                             <div className=" form-control-lg">
                                     {categories.map((cat, i) => {                                      
                                         return (                                           

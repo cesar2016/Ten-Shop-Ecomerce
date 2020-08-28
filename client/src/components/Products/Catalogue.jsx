@@ -1,13 +1,14 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
-import { getAllProducts, getAllCategories, onlineUserError } from "../../actions";
+import { getAllProducts, getAllCategories, onlineUserError, loginUserCookie } from "../../actions";
 import Swal from 'sweetalert2'
 
-function Catalogue({ products, getAllProducts, onlineUser, onlineUserError }) {      
+function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, loginUserCookie }) {      
 
   React.useEffect(() => {
     getAllProducts()
+    loginUserCookie()
   }, [])
   var flag = false;  
 
@@ -54,7 +55,8 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError }) {
 const mapDispatchToProps = dispatch => {
   return {
     getAllProducts: () => dispatch(getAllProducts()),
-    onlineUserError: () => dispatch(onlineUserError())
+    onlineUserError: () => dispatch(onlineUserError()),
+    loginUserCookie: () => dispatch(loginUserCookie())
   }
 }
 
