@@ -191,51 +191,62 @@ server.post("/:id/review", (req, res) => {
 	.then((r)=>{
 		Product.findOne({ where: { id } })	
 	.then((p)=>{				 
-			 p.setReviews(r)	
-		});
+			 p.addReviews(r)	
+		});		
 		User.findOne({ where: { username } })
-	.then((u)=>{
+	.then((u)=>{		
 		r.setUser(u);
 	})
 	res.send(r); // El resultado del POST!!!
 
-	});		
+	});
 	 
 });
 
 
-server.post("/:id/review/:idReview", (req, res) => {
-	const { id } = req.params
+server.post("/review/:idReview", (req, res) => {	
 	const { idReview } = req.params
 	const { comments } = req.body
 	const { rating } = req.body
-
-	Reviews.findOne({ where:  {id: idReview} || {idUser: id}  })	 
-        .then(function(resp) {
-			var suma = rating + resp.rating		
-			console.log(suma)
+	Reviews.findOne({ where:  {id: idReview }})	 
+        .then(function(resp) {			 
 			if(resp) { 
-				if(comments != ''){ 
-					resp.update({comments}) 
-				}
-				if(rating != ''){ 					
-					resp.update({rating: suma}) 
-				}			           
+				
+					resp.update({comments})				
+									
+					resp.update({rating}) 
+							           
 			}
 			res.send(resp)  ///Resultado del UPDATE           
         })
+
 });
 
 
-server.delete("/:id/review/:idReview", (req, res) => {
+server.delete("/review/:idReview", (req, res) => {
 	const { id } = req.params;
 	const { idReview } = req.params;
 
-	Reviews.destroy({ where:  {id: idReview} || {idUser: id}  })	
+	Reviews.destroy({ where:  {id: idReview}})	
 		.then(result => {
 			res.sendStatus(200);
 		})
 		.catch(() => res.status(404))
+});
+
+server.get("/:id/review", (req, res) => {
+	const { id } = req.params;
+
+	Reviews.findAll({where: {productId: id }})
+	.then((resp)=>{	
+		console.log(resp);
+		res.send(resp)
+	})
+
+
+	 
+ 
+	 
 });
 
 

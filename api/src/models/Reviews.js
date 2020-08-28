@@ -6,11 +6,11 @@ module.exports = (sequelize) => {
   sequelize.define('reviews', {    
     rating: {
       type: DataTypes.INTEGER,
-      allowNull: false       
+      allowNull: true       
     },    
     comments: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
   } 
   });
 };
