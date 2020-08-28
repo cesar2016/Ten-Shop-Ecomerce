@@ -283,19 +283,48 @@ server.post("/", async (req, res) => {
     }) */
 
    ////////// TABLA REVIEWS //////////////
+
+   const user7 = await User.create({
+    firstname: "kun",
+    surname: "aguero",
+    address: "aasd",
+    password: "1234",
+    type: 2,
+    username: "kunaguero",
+    email: "kunaguero@gmail.com"  
+})
    
+producto10.then((prod) => {
+prod.setReviews(reviews1)
+})
+producto10.then((prod) => {
+    prod.setReviews(reviews2)
+})
+
+
 const reviews1 = await Reviews.create({
-    rating: 5,    
+    rating: 5,
+    visited: 20,
     comments: "Ya compre el producto muchas Gracias!!!"   
           
 });
-
+const reviews2 = await Reviews.create({
+    rating: 3,
+    visited: 22,
+    comments: "Ya muchas Gracias!!!"   
+          
+});
 
 producto10.then((prod) => {
-    //console.log("PRODUCTO ",prod)
     prod.setReviews(reviews1)
 })
+producto10.then((prod) => {
+    prod.setReviews(reviews2)
+})
+
+
 reviews1.setUser(user6);
+reviews2.setUser(user7);
 
 
 

@@ -1,6 +1,6 @@
 const server = require('express').Router();
 const { Product, categoriesxproducts, Reviews, User,  Category } = require('../db.js');
-const { Op } = require("sequelize");
+const { Op, where } = require("sequelize");
 
 
 server.get('/', (req, res, next) => {
@@ -179,21 +179,18 @@ server.post("/update", (req, res) => {
 });
 
 //////////// ADD REVIEWS ///////////
-
-//POST /product/:id/review -> RUTA
 server.post("/:id/review", (req, res) => {
-	const { id } = req.params
-	const { username } = req.body
-	const { review } = req.body
+	const { id } = req.params;
+	const { username } = req.body;
+	const { review } = req.body;
 
-	const rev = Reviews.create({
+	Reviews.create({
 		rating: review.rating,
 		comments: review.comments
 	})
-	rev.then((r)=>{
+	.then((r)=>{
 		Product.findOne({ where: { id } })	
-	.then((p)=>{	
-			 console.log(p)
+	.then((p)=>{				 
 			 p.setReviews(r)	
 		});
 		User.findOne({ where: { username } })
@@ -202,10 +199,43 @@ server.post("/:id/review", (req, res) => {
 	})
 	res.send(r); // El resultado del POST!!!
 
-	});	
-	
-	
+	});		
 	 
+});
+
+
+server.post("/:id/review/:idReview", (req, res) => {
+	const { id } = req.params
+	const { idReview } = req.params
+	const { comments } = req.body
+	const { rating } = req.body
+
+	Reviews.findOne({ where:  {id: idReview} || {idUser: id}  })	 
+        .then(function(resp) {
+			var suma = rating + resp.rating		
+			console.log(suma)
+			if(resp) { 
+				if(comments != ''){ 
+					resp.update({comments}) 
+				}
+				if(rating != ''){ 					
+					resp.update({rating: suma}) 
+				}			           
+			}
+			res.send(resp)  ///Resultado del UPDATE           
+        })
+});
+
+
+server.delete("/:id/review/:idReview", (req, res) => {
+	const { id } = req.params;
+	const { idReview } = req.params;
+
+	Reviews.destroy({ where:  {id: idReview} || {idUser: id}  })	
+		.then(result => {
+			res.sendStatus(200);
+		})
+		.catch(() => res.status(404))
 });
 
 
