@@ -51,13 +51,12 @@ passport.use(new Strategy(
 
 
 passport.serializeUser(function(user, done) {
-  console.log("QUE TRAE USEEEEER", user.dataValues.id);
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  User.findByPk(id)
-    .then(user => {
+passport.deserializeUser(function(id, done) {    
+  User.findOne({ where: { id } })
+    .then(user => {      
       done(null, user);
     })
     .catch(err => {
@@ -274,8 +273,7 @@ server.post("/adduser", (req, res) => {
 
 server.post("/login",
   passport.authenticate("local"),
-  (req, res) => {
-    console.log("EN LA RUTA LOGIN EL MIDDLEWARE ME DEVUELVE", req.user)
+  (req, res) => {        
     res.send(req.user)
   });
 
