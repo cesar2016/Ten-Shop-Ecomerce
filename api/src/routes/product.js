@@ -1,8 +1,7 @@
 const server = require('express').Router();
 const { Product, categoriesxproducts, Category } = require('../db.js');
 const { Op } = require("sequelize");
-const multer = require("multer");
-var upload = multer();
+
 
 
 server.get('/', (req, res, next) => {
@@ -74,8 +73,8 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 
 
 
-server.post("/add", upload.none(), (req, res) => {
-	const { category } = req.body;			
+server.post("/add", (req, res) => {
+	const { category } = req.body;		
 	addProduct(req.body)
 		.then(productCreated => {
 			if (category.length === 0) {
@@ -95,6 +94,7 @@ server.post("/add", upload.none(), (req, res) => {
 });
 
 function addProduct(product) {
+	console.log("La imagen", img)
 	return Product.create({
 		name: product.name,
 		description: product.description,

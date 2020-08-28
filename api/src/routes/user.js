@@ -5,6 +5,8 @@ var Strategy = require('passport-local').Strategy;
 const crypto = require('crypto'); //npm i --save sequelize crypto
 
 
+
+
 User.generateSalt = function() {
   return crypto.randomBytes(16).toString('base64')
 };
@@ -28,6 +30,60 @@ User.beforeUpdate(setSaltAndPassword)
 User.prototype.correctPassword = function(enteredPassword) {
   return User.encryptPassword(enteredPassword, this.salt()) === this.password()
 };
+
+
+passport.use(new Strategy(
+  function(username, password, done) {    
+    User.findOne({ where: {username}})
+      .then(user => {                
+        if (!user) {
+          return done(null, false);
+        }        
+        if (!user.correctPassword(password)) {
+          return done(null, false);
+        }
+        return done(null, user);
+      })
+      .catch(err => {
+        return done(err);
+      })
+  }));
+
+
+passport.serializeUser(function(user, done) {
+  console.log("QUE TRAE USEEEEER", user.dataValues.id);
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findByPk(id)
+    .then(user => {
+      done(null, user);
+    })
+    .catch(err => {
+      return done(err);
+    })
+});
+
+
+server.use(require('express-session')({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false
+})); 
+
+server.use(passport.initialize());
+server.use(passport.session());
+
+server.use((req, res, next) => {
+  console.log("QUE TIENE LA SESION", req.session);
+  console.log("QUE TIENE EL USUARIO ENCONTRADO", req.user);
+  next();
+});
+
+
+
+
 
 //MUESTRA TODOS LOS USUARIOS:
 server.get('/', (req, res, next) => {
@@ -215,7 +271,16 @@ server.post("/adduser", (req, res) => {
     })    
 });
 
-server.post("/login",(req,res) => {
+
+server.post("/login",
+  passport.authenticate("local"),
+  (req, res) => {
+    console.log("EN LA RUTA LOGIN EL MIDDLEWARE ME DEVUELVE", req.user)
+    res.send(req.user)
+  });
+
+
+/*server.post("/login",(req,res) => {
   User.findOne({where: {
     username: req.body.username
   }})
@@ -226,6 +291,6 @@ server.post("/login",(req,res) => {
   .catch(() => {
     res.status(404).send(console.log(req.body))}
     )
-});
+});*/
 
 module.exports = server;

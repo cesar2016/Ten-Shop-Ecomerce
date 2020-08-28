@@ -183,11 +183,11 @@ export function addUser (body) {
   }
 }
 
-export function loginUser(body){
+export function loginUser(body){  
   return function(dispatch){
-    return axios.post("http://localhost:3001/users/login",body)
+    return axios.post("http://localhost:3001/users/login",body, { withCredentials: true })
     .then(result => result.data)
-    .then(data => {
+    .then(data => {    
       dispatch({
         type: LOGIN_USER,
         payload: data

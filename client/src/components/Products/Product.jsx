@@ -45,7 +45,7 @@ function Product({ addCart, id, products, searchProducts, onlineUser}) {
      }
 
 
-    function onRate({rating}) {
+    function onRate(rating) {
       console.log("EL RATING",rating)
     };
 
@@ -85,7 +85,7 @@ function Product({ addCart, id, products, searchProducts, onlineUser}) {
               </div>
               <div className="puntaje">
                 <h1 id="numeroPuntaje">4.0</h1>
-                <Rater total={5} rating={3.5} style={{fontSize:"60px"}} onRate={onRate} />
+                <Rater total={5} rating={3.5} style={{fontSize:"60px"}} onRate={({rating}) => onRate(rating)} />
               </div>
             </section>
 
