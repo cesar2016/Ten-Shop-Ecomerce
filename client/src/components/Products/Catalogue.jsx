@@ -8,7 +8,6 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
 
   React.useEffect(() => {
     getAllProducts()
-    loginUserCookie()
   }, [])
   var flag = false;  
 
@@ -55,8 +54,7 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
 const mapDispatchToProps = dispatch => {
   return {
     getAllProducts: () => dispatch(getAllProducts()),
-    onlineUserError: () => dispatch(onlineUserError()),
-    loginUserCookie: () => dispatch(loginUserCookie())
+    onlineUserError: () => dispatch(onlineUserError())
   }
 }
 

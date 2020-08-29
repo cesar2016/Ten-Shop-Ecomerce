@@ -15,7 +15,7 @@ const db = require('./db.js');
 
 
 passport.use(new Strategy(
-  function(username, password, done) {    
+  function(username, password, done, info) {    
     db.User.findOne({ where: {username}})
       .then(user => {                
         if (!user) {   
@@ -87,14 +87,20 @@ server.use((req, res, next) => {
 server.use('/',ind)
 
 
-server.post("/login",
-  passport.authenticate("local"),
-  (req, res) => {        
-    if (req.user) return res.send(req.user)
-    return res.send(false)
-  });
-
-
+server.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) { return next(err); }
+    if (!user) {       
+      return res.send(user);
+    }
+    req.logIn(user, (err) => {
+      if (err) { 
+        return next(err); 
+      }      
+      return res.send(user)
+    });
+  })(req, res, next);
+})
 
 
 function isAuthenticated(req, res, next) {

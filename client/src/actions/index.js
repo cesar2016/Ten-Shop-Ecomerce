@@ -189,8 +189,7 @@ export function loginUser(body){
   return function(dispatch){
     return axios.post("http://localhost:3001/login",body, { withCredentials: true })
     .then(result => result.data)
-    .then(data => {    
-      console.log("QUE OCURRE DESPUES DEL THEN DE LA ACTION", data)
+    .then(data => {     
       dispatch({
         type: LOGIN_USER,
         payload: data

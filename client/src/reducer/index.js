@@ -208,7 +208,7 @@ export default reducer;
 
 
 
-function reducerAddUser(data) {
+function reducerAddUser(data) {  
   if (data[0]) {
     const { id, username, firstname, surname, type, address } = data[1];
     return { id, username, firstname, surname, type, address };
