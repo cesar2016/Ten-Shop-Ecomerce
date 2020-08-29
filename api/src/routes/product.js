@@ -79,7 +79,7 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 server.post("/add", upload.single("laimagen"), (req, res) => {
 	const { category } = req.body;	
 	console.log("LA IMAGEN", req.file)	
-	addProduct(req.body, req.file)
+	addProduct(req.body)
 		.then(productCreated => {
 			if (category.length === 0) {
 				return res.json(productCreated)
@@ -97,13 +97,13 @@ server.post("/add", upload.single("laimagen"), (req, res) => {
 		})
 });
 
-function addProduct(product, imagen) {	
+function addProduct(product) {	
 	return Product.create({
 		name: product.name,
 		description: product.description,
 		price: product.price,
 		stock: product.stock,
-		image: imagen
+		image: product.image
 	})
 };
 

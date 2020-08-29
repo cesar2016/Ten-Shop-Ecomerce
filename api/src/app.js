@@ -18,7 +18,7 @@ passport.use(new Strategy(
   function(username, password, done) {    
     db.User.findOne({ where: {username}})
       .then(user => {                
-        if (!user) {
+        if (!user) {   
           return done(null, false);
         }        
         if (!user.correctPassword(password)) {
@@ -90,8 +90,8 @@ server.use('/',ind)
 server.post("/login",
   passport.authenticate("local"),
   (req, res) => {        
-    console.log("PASAAAA", req.user)
-    res.send(req.user)
+    if (req.user) return res.send(req.user)
+    return res.send(false)
   });
 
 

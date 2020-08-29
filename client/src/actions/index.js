@@ -24,6 +24,7 @@ export const COMPLETE_CAR = "COMPLETE_CAR";
 export const CANCELL_CART = "CANCELL_CART";
 export const GET_ORDERS = "GET_ORDERS";
 export const UPDATE_PRICE_ORDER = "UPDATE_PRICE_ORDER";
+export const LOGIN_USER_COOKIE = "LOGIN_USER_COOKIE";
 
 
 
@@ -184,10 +185,12 @@ export function addUser (body) {
 }
 
 export function loginUser(body){  
+  console.log("QUE ENTRA AL BODY", body)
   return function(dispatch){
     return axios.post("http://localhost:3001/login",body, { withCredentials: true })
     .then(result => result.data)
     .then(data => {    
+      console.log("QUE OCURRE DESPUES DEL THEN DE LA ACTION", data)
       dispatch({
         type: LOGIN_USER,
         payload: data
@@ -359,7 +362,7 @@ export function loginUserCookie(){
     .then(result => result.data)
     .then(data => {    
       dispatch({
-        type: LOGIN_USER,
+        type: LOGIN_USER_COOKIE,
         payload: data
       })
     })
