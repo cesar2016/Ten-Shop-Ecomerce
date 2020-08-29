@@ -43,6 +43,7 @@ function Product({ addCart, id, products, searchProducts, onlineUser}) {
             text: 'Sold out',
           })
      }
+     
 
 
     function onRate(rating) {
