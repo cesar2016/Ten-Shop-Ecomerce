@@ -22,7 +22,8 @@ import {
     COMPLETE_CAR,
     CANCELL_CART,
     GET_ORDERS,
-    UPDATE_PRICE_ORDER
+    UPDATE_PRICE_ORDER,
+    LOGIN_USER_COOKIE
   
    } from '../actions/index';
 
@@ -191,6 +192,11 @@ const reducer = (state = initialState , action) => {
               return {
                 ...state,
               }
+            case LOGIN_USER_COOKIE:
+              return {
+                ...state,
+                onlineUser: loginUserCookie(action.payload)
+              }
               
     default:
       return state;
@@ -202,7 +208,7 @@ export default reducer;
 
 
 
-function reducerAddUser(data) {
+function reducerAddUser(data) {  
   if (data[0]) {
     const { id, username, firstname, surname, type, address } = data[1];
     return { id, username, firstname, surname, type, address };
@@ -226,4 +232,12 @@ function reducerUpdateUser (ar,id,body){
     }
     return ar
    }
+}
+
+function loginUserCookie (data) {
+  if (data) {
+    return data
+  } else {
+    return 0
+  }
 }
