@@ -184,11 +184,12 @@ server.post("/update", (req, res) => {
 server.post("/:id/review", (req, res) => {
 	const { id } = req.params;
 	const { username } = req.body;
-	const { review } = req.body;
-
+	const rating  = req.body.review.rating;
+	const { comments } = req.body.review;
+	console.log(req.body)
 	Reviews.create({
-		rating: review.rating,
-		comments: review.comments
+		rating,
+		comments
 	})
 	.then((r)=>{
 		Product.findOne({ where: { id } })	

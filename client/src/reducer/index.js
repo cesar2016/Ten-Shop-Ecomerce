@@ -22,8 +22,9 @@ import {
     COMPLETE_CAR,
     CANCELL_CART,
     GET_ORDERS,
-    UPDATE_PRICE_ORDER
-  
+    UPDATE_PRICE_ORDER,
+    GET_REVIEWS,
+    ADD_REVIEW
    } from '../actions/index';
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
   getcart:[],
   all_users: [],
   getorders: [],
+  reviews: [],
  
 };
 const reducer = (state = initialState , action) => {   
@@ -164,34 +166,44 @@ const reducer = (state = initialState , action) => {
             ...state,
             all_users: reducerUpdateUser(state.all_users,action.payload.id,action.payload.body)
           }
-          case UPDATE_CAR:
-            return {
-              ...state,
-              getcart: [],
-              cart: []
-            }
-          case COMPLETE_CAR:
-            return {
-              ...state,
-              getcart: [],
-                cart: []
-            }
-            case CANCELL_CART:
-              return {
-                ...state,
-                getcart: [],
-                cart: []
-              }
-            case GET_ORDERS:
-              return {
-                ...state,
-                getorders: action.payload
-              }
-            case UPDATE_PRICE_ORDER:
-              return {
-                ...state,
-              }
-              
+        case UPDATE_CAR:
+          return {
+            ...state,
+            getcart: [],
+            cart: []
+          }
+        case COMPLETE_CAR:
+          return {
+            ...state,
+            getcart: [],
+            cart: []
+          }
+        case CANCELL_CART:
+          return {
+            ...state,
+            getcart: [],
+            cart: []
+          }
+        case GET_ORDERS:
+           return {
+           ...state,
+           getorders: action.payload
+           }
+        case UPDATE_PRICE_ORDER:
+          return {
+            ...state,
+          }
+        case GET_REVIEWS:
+          return {
+            ...state,
+            reviews: action.payload
+          }
+        case ADD_REVIEW:
+          state.reviews.push(action.payload)
+          return {
+            ...state,
+            reviews: state.reviews
+          }
     default:
       return state;
     }

@@ -24,9 +24,8 @@ export const COMPLETE_CAR = "COMPLETE_CAR";
 export const CANCELL_CART = "CANCELL_CART";
 export const GET_ORDERS = "GET_ORDERS";
 export const UPDATE_PRICE_ORDER = "UPDATE_PRICE_ORDER";
-
-
-
+export const GET_REVIEWS = "GET_REVIEWS";
+export const ADD_REVIEW = "ADD_REVIEW"
 
 
 export function getSearchProducts (search) {
@@ -338,3 +337,29 @@ export function getOrders(status){
   }
 }
 
+export function getReviews(id){
+  return function (dispatch){
+    return axios.get(`http://localhost:3001/products/${id}/review`)
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: GET_REVIEWS,
+        payload: result
+      })
+    })
+  }
+}
+
+export function addReview(aux, idProduct){
+  return function (dispatch){
+    return axios.post(`http://localhost:3001/products/${idProduct}/review`, aux)
+    .then(result => result.data)
+    .then(data => {
+      console.log("payload", aux)
+      dispatch({
+        type: ADD_REVIEW,
+        payload: aux.review
+      })
+    })
+  }
+}
