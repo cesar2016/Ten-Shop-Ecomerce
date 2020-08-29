@@ -1,7 +1,7 @@
 const server = require('express').Router();
 const { User, Order , Productsxorders , Product} = require('../db.js');
-var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
+//var passport = require('passport');
+//var Strategy = require('passport-local').Strategy;
 const crypto = require('crypto'); //npm i --save sequelize crypto
 
 
