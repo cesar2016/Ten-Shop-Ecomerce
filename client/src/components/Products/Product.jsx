@@ -12,13 +12,14 @@ import  Reviews  from "../Reviews";
 function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers}) {
     const [input,setInput] = useState({});
     const [inputRating, setInputRating] = useState({});
-    // useEffect(()=> {
-    //     getUsers()
-    //     getReviews(id)
-    // },[])
+     
+    useEffect(()=> {
+         getUsers()
+        if(reviews){getReviews(id)}
+     },[reviews])
 
     function handleInputChange (e) {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         setInput({
             ...input,
             [e.target.name]: e.target.value 
@@ -32,8 +33,10 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
     }
 }
      function handleSubmit (e) {
-         console.log(aux, id, "submit")
-          addReview(aux, id)
+         addReview(aux, id);
+         console.log(aux, id, "submit");
+          getReviews(id);
+
     }
     if(typeof onlineUser === "object"){
     var idUser = onlineUser.id;
@@ -131,7 +134,23 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
                 <div className="collapsable-comment">
                     <div className="d-flex flex-row justify-content-between align-items-center action-collapse p-2" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1"><span style= {{fontSize:"20px", fontWeight:"bold"}}>Reviews: </span><i class="fa fa-chevron-down servicedrop"></i></div>
                     <div id="collapse-1" className="collapse">
-                    <Reviews  idProduct={{id}}    />
+                    
+              {      reviews && reviews.map (p => 
+  <div className="commented-section mt-2 row">
+     <div className="d-flex flex-row align-items-center commented-user col">
+        <h2 className="mr-2">{all_users.map(u => {if( p.userId === u.id) return ("  " + u.firstname.charAt(0).toUpperCase()+u.firstname.slice(1) + " " + u.surname.charAt(0).toUpperCase()+u.surname.slice(1))})}</h2>
+        {/* <span class="dot mb-1"></span> */}
+     </div>
+     <div className="reply-section col " style={{ textAlign:"right"}}>
+      <Rater total={5} rating={p.rating} interactive = {false} style={{fontSize:"30px"}}  />  
+    </div>
+     <div class="w-100"></div>
+     <div className="comment-text-sm col" style={{ textAlign:"left"}}><span style={{fontSize:"20px", textAlign:"left"}}>{p.comments}</span></div>
+    <div className= "col" style={{marginTop:"10px", textAlign:"right"}}>                          
+     <span class="mb-1 ml-2" style= {{ textAlign:"right", fontSize:"14px"}}>{p.createdAt.slice(0,10)}</span>
+     </div>
+  </div>
+      )}
                      {/* {reviews && reviews.map (p =>  */}
                     {/* // <div className="commented-section mt-2 row">
                     //     <div className="d-flex flex-row align-items-center commented-user col">

@@ -4,13 +4,17 @@ import {connect} from "react-redux"
 import Rater from 'react-rater'
 
 function Reviews ({idProduct, all_users,reviews,getUsers,getReviews}) {
+  console.log("ASDASDASD", reviews,idProduct)
   useEffect(()=> {
     getUsers()
+    
   },[])
-  console.log(idProduct, "este es el id product ")
-  useEffect(()=> {
+
+  useEffect(() => {
     getReviews(idProduct.id)
-  },[])
+  },[reviews.lenth])
+  console.log(idProduct, "este es el id product ")
+  
   
 
 

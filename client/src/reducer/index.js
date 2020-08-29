@@ -199,10 +199,8 @@ const reducer = (state = initialState , action) => {
             reviews: action.payload
           }
         case ADD_REVIEW:
-          state.reviews.push(action.payload)
           return {
             ...state,
-            reviews: state.reviews
           }
     default:
       return state;
