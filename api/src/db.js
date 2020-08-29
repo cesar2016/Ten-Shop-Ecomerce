@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -20,7 +21,6 @@ fs.readdirSync(path.join(__dirname, '/models'))
   .forEach((file) => {
     modelDefiners.push(require(path.join(__dirname, '/models', file)));
   });
-
 // Injectamos la conexion (sequelize) a todos los modelos
 modelDefiners.forEach(model => model(sequelize));
 // Capitalizamos los nombres de los modelos ie: product => Product
@@ -30,11 +30,51 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Product, Category } = sequelize.models;
+const { Product, Category, categoryxproduct , User, Order, Productsxorders, Reviews} = sequelize.models;
 
 // Aca vendrian las relaciones
+<<<<<<< HEAD
 //Product.belongsToMany(Category, {through: 'categoriesxproducts'});
 // Product.hasMany(Reviews);
+=======
+
+
+Product.belongsToMany(Category, {through: 'categoriesxproducts', foreignKey: "product_id", otherKey: "category"});
+Category.belongsToMany(Product, {through: 'categoriesxproducts', foreignKey: "category", otherKey: "product_id"});
+
+Order.belongsTo(User);
+Order.belongsToMany(Product, {through: "productsxorders", foreignKey: "order_id", otherKey: "product_id"});
+Product.belongsToMany(Order, {through: "productsxorders", foreignKey: "product_id", otherKey: "order_id"});
+
+
+Product.hasMany(Reviews);
+Reviews.belongsTo(User);
+
+
+
+//belongsTo: PERTENECE A
+//belongsToMany: PERTENECE A MUCHOS 
+//hasMany: TIENE MUCHOS
+//hasOne: TIENE UNO
+//through: MEDIANTE
+
+// // Product.belongsToMany(Category, { as: "idCategory" })
+// // Category.belongsToMany(Product, { as: "idProduct" })
+// Product.belongsTo(Categories, {as:"categoria"});
+// User.hasMany(Order, { as: 'orders' });
+// Product.belongsToMany(Order, { through: OrderDetail });
+// Order.belongsToMany(Product, { through: OrderDetail });
+// Product.hasMany(Reviews, { as: 'reviews' });
+// User.hasMany(Reviews, { as: 'reviews' });
+// Reviews.belongsTo(Product, { as: 'product' });
+// Reviews.belongsTo(User, { as: 'User' });
+// Order.belongsTo(User, { as: 'User' });
+// Product.belongsToMany(Category, { through: "categoriesxproducts" });
+// Category.belongsToMany(Product, { through: "categoriesxproducts" });
+
+// Category.hasMany(Product,{as:"idProduct", foreignKey: "Category"})
+// Category.belongsToMany(Product, { through: 'categoryxproduct', sourceKey: 'idCategory', targetKey: 'idProduct' });
+>>>>>>> 4b7577766bf83cf46487be220696698e1b011f24
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
