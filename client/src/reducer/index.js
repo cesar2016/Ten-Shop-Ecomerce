@@ -194,9 +194,15 @@ const reducer = (state = initialState , action) => {
             ...state,
           }
         case GET_REVIEWS:
-          return {
-            ...state,
-            reviews: action.payload
+          if(state.reviews.length !== action.payload.length){
+            return {
+              ...state,
+              reviews: action.payload
+            }
+          } else {
+            return {
+              ...state
+            }
           }
         case ADD_REVIEW:
           state.reviews.push(action.payload)
@@ -238,4 +244,14 @@ function reducerUpdateUser (ar,id,body){
     }
     return ar
    }
+}
+
+function reducerGetReviews(data,state){
+  if (data.length !== state.length){
+    return {
+      ...state,
+    }
+  } else {
+    return 
+  }
 }

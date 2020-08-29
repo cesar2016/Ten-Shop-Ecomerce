@@ -13,6 +13,7 @@ export default function Cards({products}) {
               price={c.price}
               stock={c.stock}
               image={c.image}
+              id = {c.id}
             /> )}
                
         </div>

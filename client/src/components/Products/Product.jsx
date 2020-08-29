@@ -12,10 +12,11 @@ import  Reviews  from "../Reviews";
 function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers}) {
     const [input,setInput] = useState({});
     const [inputRating, setInputRating] = useState({});
-    // useEffect(()=> {
-    //     getUsers()
-    //     getReviews(id)
-    // },[])
+    console.log("id puto ",id)
+     useEffect(()=> {
+         console.log("se ejectura el get reviews")
+         getReviews(id)
+     },[reviews])
 
     function handleInputChange (e) {
         console.log(e.target.value)
@@ -25,16 +26,20 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
         })
     }
     var aux = {
-        username: "matiascordoba",                           // onlineUser.username,
-        review: {
+        productId: id,
+        username: "matiascordoba",
         rating: inputRating,
-        comments: input.comments
+        comments: input.comments,
+        createdAt: Date(),
+        updatedAt: Date(),
+        userId: 4                        // idUser
     }
-}
+
      function handleSubmit (e) {
          console.log(aux, id, "submit")
+				 document.getElementById("review").value = "" 
           addReview(aux, id)
-    }
+        }
     if(typeof onlineUser === "object"){
     var idUser = onlineUser.id;
     }

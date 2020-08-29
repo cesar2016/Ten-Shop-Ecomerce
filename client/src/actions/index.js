@@ -355,10 +355,11 @@ export function addReview(aux, idProduct){
     return axios.post(`http://localhost:3001/products/${idProduct}/review`, aux)
     .then(result => result.data)
     .then(data => {
+      delete aux.username 
       console.log("payload", aux)
       dispatch({
         type: ADD_REVIEW,
-        payload: aux.review
+        payload: aux
       })
     })
   }

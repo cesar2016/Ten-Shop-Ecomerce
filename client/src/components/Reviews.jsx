@@ -6,12 +6,9 @@ import Rater from 'react-rater'
 function Reviews ({idProduct, all_users,reviews,getUsers,getReviews}) {
   useEffect(()=> {
     getUsers()
-  },[])
-  console.log(idProduct, "este es el id product ")
-  useEffect(()=> {
     getReviews(idProduct.id)
-  },[])
-  
+  },[reviews])
+  console.log(idProduct, "este es el id product ")
 
 
 return ( reviews && reviews.map (p => 

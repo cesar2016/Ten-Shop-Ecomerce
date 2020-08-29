@@ -184,23 +184,28 @@ server.post("/update", (req, res) => {
 server.post("/:id/review", (req, res) => {
 	const { id } = req.params;
 	const { username } = req.body;
-	const rating  = req.body.review.rating;
-	const { comments } = req.body.review;
+	const { rating }  = req.body;
+	const { comments } = req.body;
+	const { productId } = req.body
 	console.log(req.body)
+
 	Reviews.create({
 		rating,
-		comments
+		comments,
+		productId
 	})
 	.then((r)=>{
-		Product.findOne({ where: { id } })	
-	.then((p)=>{				 
-			 p.addReviews(r)	
-		});		
+		// Product.findOne({ where: { id } })	
+		// .then((p)=>{				 
+		// 		 p.addReviews(r)	
+		// });
+		console.log(r)		
 		User.findOne({ where: { username } })
 	.then((u)=>{		
 		r.setUser(u);
+		console.log(r, "errrrre")
+		res.send(r); // El resultado del POST!!!
 	})
-	res.send(r); // El resultado del POST!!!
 
 	});
 	 
