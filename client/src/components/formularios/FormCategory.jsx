@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import TableCategories from '../Products/TableCategories';
 import { connect } from 'react-redux'
 import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions';
+import Page404 from "../Page404";
 
- function FormCategory({categories, getAllCategories, addCategory, modifyCategory, elId}) {
+ function FormCategory({categories, getAllCategories, addCategory, modifyCategory, elId, onlineUser}) {
 
   useEffect(()=>{
     addCategory()
@@ -63,6 +64,7 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
     })
   }
     
+  if( onlineUser.type == 1){
   return (
      <div>
       <section class="contact-block">
@@ -105,6 +107,14 @@ import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../
      </section>
         </div>
   );
+ }else{
+  return (
+    <div>
+    <Page404 />
+    </div>
+  )
+ }
+
 }
 
 const mapDispatchToProps = dispatch =>{
@@ -121,7 +131,8 @@ return {
 
 const mapStateToProps = state =>{
    return {
-      categories: state.categories
+      categories: state.categories,
+      onlineUser: state.onlineUser
     }
 }
   
