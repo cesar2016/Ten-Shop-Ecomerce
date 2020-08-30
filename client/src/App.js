@@ -22,6 +22,7 @@ import Orders from './components/formularios/FormAdmin';
 //import Orders from './components/SliderImage';
 import SliderImage from './components/SliderImage';
 import Footer from './components/Footer'
+ 
 
 function App() {
 
@@ -42,8 +43,9 @@ function App() {
           <Route exact path="/login" render = {() => <SignIn/>}/>
           <Route exact path="/cart" render={() => <Cart />} />
           <Route exact path="/orders" render={() => <FormOrders />} />
-          <Route exact path="/admin" render={()=> <FormAdmin/>} />
+          <Route exact path="/admin" render={()=> <FormAdmin/>} />          
           <Route path="/" render={() => <Footer/>} />
+          
          
       </div>
       )
