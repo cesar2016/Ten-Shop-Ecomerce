@@ -4,6 +4,7 @@ const { Op, where } = require("sequelize");
 
 
 
+
 server.get('/', (req, res, next) => {
 	Product.findAll().then(function(data){
 			res.send(data)
@@ -73,8 +74,9 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 
 
 
-server.post("/add", (req, res) => {
-	const { category } = req.body;		
+server.post("/add", upload.single("laimagen"), (req, res) => {
+	const { category } = req.body;	
+	console.log("LA IMAGEN", req.file)	
 	addProduct(req.body)
 		.then(productCreated => {
 			if (category.length === 0) {
@@ -93,8 +95,7 @@ server.post("/add", (req, res) => {
 		})
 });
 
-function addProduct(product) {
-	console.log("La imagen", img)
+function addProduct(product) {	
 	return Product.create({
 		name: product.name,
 		description: product.description,
