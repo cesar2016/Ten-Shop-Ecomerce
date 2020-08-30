@@ -3,9 +3,10 @@ import TableProducts from "../Products/TableProducts";
 import { connect } from "react-redux";
 import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, getAllCategories, getAllProducts } from "../../actions"
 import Swal from 'sweetalert2';
+import Page404 from "../Page404";
 
 
-function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts, categoriesxproducts, products}) {
+function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts, categoriesxproducts, products, onlineUser}) {
   
   
   useEffect(() => {
@@ -152,7 +153,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
          }  
          
          
-
+if( onlineUser.type == 1){
     return (
       
         <div className="container">       
@@ -212,6 +213,13 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
 
         </div>
     );
+  }else{
+    return (
+      <div>
+      <Page404 />
+      </div>
+    )
+   }
 };
 
 const mapDispatchToProps = dispatch => {
@@ -230,7 +238,8 @@ const mapStateToProps = state => {
   return {
     categxproducts: state.categores_x_products,    
     categories: state.categories,
-    products: state.all_products,    
+    products: state.all_products,
+    onlineUser: state.onlineUser   
   }
 }
 

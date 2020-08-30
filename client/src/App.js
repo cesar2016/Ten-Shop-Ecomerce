@@ -22,7 +22,7 @@ import Orders from './components/formularios/FormAdmin';
 //import Orders from './components/SliderImage';
 import SliderImage from './components/SliderImage';
 import Footer from './components/Footer';
-import Page404 from './components/Page404'
+import Page404 from './components/Page404';
 
 
 
