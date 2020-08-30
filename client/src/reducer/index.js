@@ -25,7 +25,8 @@ import {
     UPDATE_PRICE_ORDER,
     GET_REVIEWS,
     ADD_REVIEW,
-    LOGIN_USER_COOKIE
+    LOGIN_USER_COOKIE,
+    GET_ORDERSXPRODUCT
   
 
    } from '../actions/index';
@@ -43,6 +44,7 @@ const initialState = {
   getorders: [],
   reviews: [],
   newrev: {},
+  ordersxproduct: []
  
 };
 const reducer = (state = initialState , action) => {   
@@ -116,120 +118,123 @@ const reducer = (state = initialState , action) => {
         ...state,
         categories: [...state.categories, action.payload]
             }
-      case MODIFY_CATEGORY:
-        let name = action.payload.name;
-        let newCategories = state.categories.filter(elem => name !== elem.name)
-        let filterCat = action.payload.body; 
-        newCategories.push(filterCat)
-        return {
-           ...state,
-           categories: newCategories
-        }
-      case DELETE_CATEGORY:
-        return {
+    case MODIFY_CATEGORY:
+      let name = action.payload.name;
+      let newCategories = state.categories.filter(elem => name !== elem.name)
+      let filterCat = action.payload.body; 
+      newCategories.push(filterCat)
+      return {
+         ...state,
+         categories: newCategories
+      }
+    case DELETE_CATEGORY:
+      return {
+        ...state,
+        categories: [...state.categories.filter(cat => cat.name !== action.payload)]
+      }
+    case ADD_USER:        
+      return {
+        ...state,
+        onlineUser: reducerAddUser(action.payload)
+      }
+    case LOGIN_USER:
+      return {
+        ...state,
+        onlineUser: reducerlogin(action.payload)
+      }
+    case ADD_CART:
+      return {///StateAdd_Prods
+        ...state,
+        cart: [...state.cart, action.payload]
+      }
+    case GET_ALL_CART:
+      return {///StateAdd_Prods
+        ...state,
+        getcart: action.payload
+      }
+    case USER_LOGOUT:
+      return {
+        ...state,
+        onlineUser: 3
+      }
+    case ONLINE_USER_ERROR:
+      return {
+        ...state,
+        onlineUser: 4
+      }
+    case GET_USERS:
+      return {
+        ...state,
+        all_users: action.payload
+      }
+    case UPDATE_USER:
+      return {
+        ...state,
+        all_users: reducerUpdateUser(state.all_users,action.payload.id,action.payload.body)
+      }
+    case UPDATE_CAR:
+      return {
+        ...state,
+        getcart: [],
+        cart: []
+      }
+    case COMPLETE_CAR:
+      return {
+        ...state,
+        getcart: [],
+        cart: []
+      }
+    case CANCELL_CART:
+      return {
+        ...state,
+        getcart: [],
+        cart: []
+      }
+    case GET_ORDERS:
+       return {
+       ...state,
+       getorders: action.payload
+       }
+    case UPDATE_PRICE_ORDER:
+      return {
+        ...state,
+      }
+    case ADD_REVIEW:
+      return {
           ...state,
-          categories: [...state.categories.filter(cat => cat.name !== action.payload)]
-        }
-      case ADD_USER:        
-        return {
-          ...state,
-          onlineUser: reducerAddUser(action.payload)
-        }
-      case LOGIN_USER:
-        return {
-          ...state,
-          onlineUser: reducerlogin(action.payload)
-        }
-      case ADD_CART:
-        return {///StateAdd_Prods
-          ...state,
-          cart: [...state.cart, action.payload]
-        }
-        case GET_ALL_CART:
-          return {///StateAdd_Prods
-            ...state,
-            getcart: action.payload
+            newrev: action.payload
           }
-        case USER_LOGOUT:
-          return {
-            ...state,
-            onlineUser: 3
-          }
-        case ONLINE_USER_ERROR:
-          return {
-            ...state,
-            onlineUser: 4
-          }
-        case GET_USERS:
-          return {
-            ...state,
-            all_users: action.payload
-          }
-        case UPDATE_USER:
-          return {
-            ...state,
-            all_users: reducerUpdateUser(state.all_users,action.payload.id,action.payload.body)
-          }
-        case UPDATE_CAR:
-          return {
-            ...state,
-            getcart: [],
-            cart: []
-          }
-        case COMPLETE_CAR:
-          return {
-            ...state,
-            getcart: [],
-            cart: []
-          }
-        case CANCELL_CART:
-          return {
-            ...state,
-            getcart: [],
-            cart: []
-          }
-        case GET_ORDERS:
-           return {
-           ...state,
-           getorders: action.payload
-           }
-        case UPDATE_PRICE_ORDER:
-          return {
-            ...state,
-          }
-          case ADD_REVIEW:
-            return {
-              ...state,
-              newrev: action.payload
-            }
-
-        case GET_REVIEWS:
-          return {
-            ...state,
-            reviews: action.payload
-          }
-
-            case CANCELL_CART:
-              return {
-                ...state,
-                getcart: [],
-                cart: []
-              }
-            case GET_ORDERS:
-              return {
-                ...state,
-                getorders: action.payload
-              }
-            case UPDATE_PRICE_ORDER:
-              return {
-                ...state,
-              }
-            case LOGIN_USER_COOKIE:
-              return {
-                ...state,
-                onlineUser: loginUserCookie(action.payload)
-              }
-              
+    case GET_REVIEWS:
+       return {
+         ...state,
+         reviews: action.payload
+       }
+    case CANCELL_CART:
+       return {
+         ...state,
+         getcart: [],
+         cart: []
+       }
+    case GET_ORDERS:
+      return {
+        ...state,
+        getorders: action.payload
+      }
+    case UPDATE_PRICE_ORDER:
+      return {
+        ...state,
+      }
+    case LOGIN_USER_COOKIE:
+      return {
+        ...state,
+        onlineUser: loginUserCookie(action.payload)
+      }
+    case GET_ORDERSXPRODUCT:
+      return {
+        ...state,
+        ordersxproduct: action.payload
+      }
+             
 
     default:
       return state;
