@@ -54,7 +54,6 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie}) {
       history.push('/login');
 
    }
-            
         
     return (
         <header className="header-content">
@@ -183,7 +182,7 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie}) {
                         <NavLink to="/login">
                             <li className="nav-item">
                           <button id = "LOGIN" title="LOGIN" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
-                            <i className="fa fa-user" aria-hidden="true"> Login</i>
+                            <i className="fa fa-user" aria-hidden="true"> Sign In</i>
                             
                         </button>
                               </li>
