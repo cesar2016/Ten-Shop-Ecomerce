@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableUsers from "./TableUsers";
 import { connect } from "react-redux";
+import Page404 from "../Page404";
 import { getUsers , updateUser, onlineUserError} from "../../actions";
 
 function FormAdmin({ updateUser, onlineUser }) {
@@ -35,7 +36,7 @@ const [input, setInput] = useState([])
     console.log(input)
     updateUser(elId.current, input)
   }
- if(typeof onlineUser === "object" && onlineUser.type === 1){
+ if(onlineUser.type == 1){
     return (
         <div className="container">
         <section class="contact-block"></section>
@@ -71,13 +72,14 @@ const [input, setInput] = useState([])
                 </div>
             </section>
         </div>
+    );
+  }else{
+    return(
+      <div>
+      <Page404 />
+      </div>
     )
-  }/* else{
-    return
-    (
-    <div>Error 404.</div>
-    )
-  } */
+  }   
 };
 
 const mapDispatchToProps = dispatch => {
