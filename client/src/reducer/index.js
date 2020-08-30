@@ -25,10 +25,8 @@ import {
     UPDATE_PRICE_ORDER,
     GET_REVIEWS,
     ADD_REVIEW,
-    LOGIN_USER_COOKIE
-  
-
-   } from '../actions/index';
+    LOGIN_USER_COOKIE,
+} from '../actions/index';
 
 const initialState = {
   all_products: [],
@@ -45,13 +43,13 @@ const initialState = {
   newrev: {},
  
 };
-const reducer = (state = initialState , action) => {   
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SEARCH_PRODUCTS:
-        return {
-          ...state,
-          search_result: action.payload
-        };    
+      return {
+        ...state,
+        search_result: action.payload
+      };
     case GET_ALL_PRODUCT:
       return {
         ...state,
@@ -62,7 +60,10 @@ const reducer = (state = initialState , action) => {
       let id = action.payload.id;
       let categories = action.payload.category
       let newCategories_x_products = state.categores_x_products.filter(el => id !== el.product_id)
-      categories.forEach(cat => newCategories_x_products.push({product_id: id, category:cat}))
+      categories.forEach(cat => newCategories_x_products.push({
+        product_id: id,
+        category: cat
+      }))
       /////
       let filterBody = action.payload;
       delete filterBody.category
@@ -85,7 +86,7 @@ const reducer = (state = initialState , action) => {
         ...state,
         all_products: state.all_products.filter(el => el.id !== idDelete)
       }
-    case DELETECATXPROD:        
+    case DELETECATXPROD:
       let legacycatxprod = state.categores_x_products;
       legacycatxprod.forEach((el, i) => {
         if (el.product_id === action.payload.id && el.category === action.payload.name) {
@@ -94,7 +95,7 @@ const reducer = (state = initialState , action) => {
       })
       return {
         ...state,
-        categores_x_products: legacycatxprod        
+        categores_x_products: legacycatxprod
       }
     case GET_CATEGORIES_X_PRODUCTS:
       return {
@@ -115,127 +116,126 @@ const reducer = (state = initialState , action) => {
       return {
         ...state,
         categories: [...state.categories, action.payload]
-            }
-      case MODIFY_CATEGORY:
-        let name = action.payload.name;
-        let newCategories = state.categories.filter(elem => name !== elem.name)
-        let filterCat = action.payload.body; 
-        newCategories.push(filterCat)
-        return {
-           ...state,
-           categories: newCategories
-        }
-      case DELETE_CATEGORY:
-        return {
-          ...state,
-          categories: [...state.categories.filter(cat => cat.name !== action.payload)]
-        }
-      case ADD_USER:        
-        return {
-          ...state,
-          onlineUser: reducerAddUser(action.payload)
-        }
-      case LOGIN_USER:
-        return {
-          ...state,
-          onlineUser: reducerlogin(action.payload)
-        }
-      case ADD_CART:
-        return {///StateAdd_Prods
-          ...state,
-          cart: [...state.cart, action.payload]
-        }
-        case GET_ALL_CART:
-          return {///StateAdd_Prods
-            ...state,
-            getcart: action.payload
-          }
-        case USER_LOGOUT:
-          return {
-            ...state,
-            onlineUser: 3
-          }
-        case ONLINE_USER_ERROR:
-          return {
-            ...state,
-            onlineUser: 4
-          }
-        case GET_USERS:
-          return {
-            ...state,
-            all_users: action.payload
-          }
-        case UPDATE_USER:
-          return {
-            ...state,
-            all_users: reducerUpdateUser(state.all_users,action.payload.id,action.payload.body)
-          }
-        case UPDATE_CAR:
-          return {
-            ...state,
-            getcart: [],
-            cart: []
-          }
-        case COMPLETE_CAR:
-          return {
-            ...state,
-            getcart: [],
-            cart: []
-          }
-        case CANCELL_CART:
-          return {
-            ...state,
-            getcart: [],
-            cart: []
-          }
-        case GET_ORDERS:
-           return {
-           ...state,
-           getorders: action.payload
-           }
-        case UPDATE_PRICE_ORDER:
-          return {
-            ...state,
-          }
-          case ADD_REVIEW:
-            return {
-              ...state,
-              newrev: action.payload
-            }
+      }
+    case MODIFY_CATEGORY:
+      let name = action.payload.name;
+      let newCategories = state.categories.filter(elem => name !== elem.name)
+      let filterCat = action.payload.body;
+      newCategories.push(filterCat)
+      return {
+        ...state,
+        categories: newCategories
+      }
+    case DELETE_CATEGORY:
+      return {
+        ...state,
+        categories: [...state.categories.filter(cat => cat.name !== action.payload)]
+      }
+    case ADD_USER:
+      return {
+        ...state,
+        onlineUser: reducerAddUser(action.payload)
+      }
+    case LOGIN_USER:
+      return {
+        ...state,
+        onlineUser: reducerlogin(action.payload)
+      }
+    case ADD_CART:
+      return { ///StateAdd_Prods
+        ...state,
+        cart: [...state.cart, action.payload]
+      }
+    case GET_ALL_CART:
+      return { ///StateAdd_Prods
+        ...state,
+        getcart: action.payload
+      }
+    case USER_LOGOUT:
+      return {
+        ...state,
+        onlineUser: 3
+      }
+    case ONLINE_USER_ERROR:
+      return {
+        ...state,
+        onlineUser: 4
+      }
+    case GET_USERS:
+      return {
+        ...state,
+        all_users: action.payload
+      }
+    case UPDATE_USER:
+      return {
+        ...state,
+        all_users: reducerUpdateUser(state.all_users, action.payload.id, action.payload.body)
+      }
+    case UPDATE_CAR:
+      return {
+        ...state,
+        getcart: [],
+        cart: []
+      }
+    case COMPLETE_CAR:
+      return {
+        ...state,
+        getcart: [],
+        cart: []
+      }
+    case CANCELL_CART:
+      return {
+        ...state,
+        getcart: [],
+        cart: []
+      }
+    case GET_ORDERS:
+      return {
+        ...state,
+        getorders: action.payload
+      }
+    case UPDATE_PRICE_ORDER:
+      return {
+        ...state,
+      }
+    case ADD_REVIEW:
+      return {
+        ...state,
+        newrev: action.payload
+      }
 
-        case GET_REVIEWS:
-          return {
-            ...state,
-            reviews: action.payload
-          }
+    case GET_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload
+      }
 
-            case CANCELL_CART:
-              return {
-                ...state,
-                getcart: [],
-                cart: []
-              }
-            case GET_ORDERS:
-              return {
-                ...state,
-                getorders: action.payload
-              }
-            case UPDATE_PRICE_ORDER:
-              return {
-                ...state,
-              }
-            case LOGIN_USER_COOKIE:
-              return {
-                ...state,
-                onlineUser: loginUserCookie(action.payload)
-              }
-              
+    case CANCELL_CART:
+      return {
+        ...state,
+        getcart: [],
+        cart: []
+      }
+    case GET_ORDERS:
+      return {
+        ...state,
+        getorders: action.payload
+      }
+    case UPDATE_PRICE_ORDER:
+      return {
+        ...state,
+      }
+    case LOGIN_USER_COOKIE:
+      return {
+        ...state,
+        onlineUser: loginUserCookie(action.payload)
+      }
+
 
     default:
       return state;
-    }
   }
-
+}
    
 export default reducer;
 
