@@ -33,10 +33,6 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Product, Category, categoryxproduct , User, Order, Productsxorders, Reviews} = sequelize.models;
 
 // Aca vendrian las relaciones
-<<<<<<< HEAD
-//Product.belongsToMany(Category, {through: 'categoriesxproducts'});
-// Product.hasMany(Reviews);
-=======
 
 
 Product.belongsToMany(Category, {through: 'categoriesxproducts', foreignKey: "product_id", otherKey: "category"});
@@ -74,7 +70,6 @@ Reviews.belongsTo(User);
 
 // Category.hasMany(Product,{as:"idProduct", foreignKey: "Category"})
 // Category.belongsToMany(Product, { through: 'categoryxproduct', sourceKey: 'idCategory', targetKey: 'idProduct' });
->>>>>>> 4b7577766bf83cf46487be220696698e1b011f24
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
