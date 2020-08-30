@@ -24,7 +24,10 @@ import {
     GET_ORDERS,
     UPDATE_PRICE_ORDER,
     GET_REVIEWS,
-    ADD_REVIEW
+    ADD_REVIEW,
+    LOGIN_USER_COOKIE
+  
+
    } from '../actions/index';
 
 const initialState = {
@@ -199,11 +202,35 @@ const reducer = (state = initialState , action) => {
               ...state,
               newrev: action.payload
             }
+
         case GET_REVIEWS:
           return {
             ...state,
             reviews: action.payload
           }
+
+            case CANCELL_CART:
+              return {
+                ...state,
+                getcart: [],
+                cart: []
+              }
+            case GET_ORDERS:
+              return {
+                ...state,
+                getorders: action.payload
+              }
+            case UPDATE_PRICE_ORDER:
+              return {
+                ...state,
+              }
+            case LOGIN_USER_COOKIE:
+              return {
+                ...state,
+                onlineUser: loginUserCookie(action.payload)
+              }
+              
+
     default:
       return state;
     }
@@ -214,7 +241,7 @@ export default reducer;
 
 
 
-function reducerAddUser(data) {
+function reducerAddUser(data) {  
   if (data[0]) {
     const { id, username, firstname, surname, type, address } = data[1];
     return { id, username, firstname, surname, type, address };
@@ -238,4 +265,12 @@ function reducerUpdateUser (ar,id,body){
     }
     return ar
    }
+}
+
+function loginUserCookie (data) {
+  if (data) {
+    return data
+  } else {
+    return 0
+  }
 }

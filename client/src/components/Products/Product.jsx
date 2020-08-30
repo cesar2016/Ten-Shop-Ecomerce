@@ -81,6 +81,7 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
             text: 'Sold out',
           })
      }
+     
 
 
     function onRate(rating) {
@@ -122,8 +123,10 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
                 <h3>Product reviews</h3>              
               </div>
               <div className="puntaje">
+
                 <h1 id="numeroPuntaje">{promedy}</h1>
                 <Rater total={5} rating={promedy} style={{fontSize:"60px"}} onRate={({rating}) => onRate(rating)} />
+
               </div>
             </section>
  

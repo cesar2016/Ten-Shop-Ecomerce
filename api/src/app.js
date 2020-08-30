@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -8,11 +6,58 @@ const product = require('./routes/product');
 const categories = require("./routes/categories")
 const { Product, Category, Order, User , ProductxOrder, Reviews} = require("./db.js")
 const ind = require('./routes/index')
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
 
 
-require('./db.js');
+const db = require('./db.js');
+
+
+
+passport.use(new Strategy(
+  function(username, password, done, info) {    
+    db.User.findOne({ where: {username}})
+      .then(user => {                
+        if (!user) {   
+          return done(null, false);
+        }        
+        if (!user.correctPassword(password)) {
+          return done(null, false);
+        }
+        return done(null, user.dataValues);
+      })
+      .catch(err => {
+        return done(err);
+      })
+  }));
+
+
+
+
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {    
+  console.log("ENTRA EL ID", id)
+  db.User.findOne({ where: { id } })
+    .then(user => {      
+      done(null, user.dataValues);
+    })
+    .catch(err => {
+      return done(err);
+    })
+});
 
 const server = express();
+
+server.use(require('express-session')({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false
+})); 
 
 server.name = 'API';
 
@@ -26,6 +71,57 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
+});
+
+
+server.use(passport.initialize());
+server.use(passport.session());
+
+server.use((req, res, next) => {
+  console.log("Session! ", req.session);
+  console.log("User!", req.user);
+  next();
+});
+
+
+server.use('/',ind)
+
+
+server.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) { return next(err); }
+    if (!user) {       
+      return res.send(user);
+    }
+    req.logIn(user, (err) => {
+      if (err) { 
+        return next(err); 
+      }      
+      return res.send(user)
+    });
+  })(req, res, next);
+})
+
+
+function isAuthenticated(req, res, next) {
+    if(req.isAuthenticated()){
+      next();
+    }
+    else{
+      res.send(false);
+    }
+  }
+  
+server.get("/logout", (req, res) => {
+  req.logout();
+  res.send("Ok!")
+});
+
+
+server.get("/login", 
+  isAuthenticated, 
+  (req, res) => {
+  res.send(req.user)  
 });
 
 
@@ -329,7 +425,7 @@ reviews2.setUser(user7);
 
 
 
-server.use('/',ind)
+
 
 
 // Error catching endware.
