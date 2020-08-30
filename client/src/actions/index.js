@@ -337,18 +337,6 @@ export function getOrders(status){
   }
 }
 
-export function getReviews(id){
-  return function (dispatch){
-    return axios.get(`http://localhost:3001/products/${id}/review`)
-    .then(result => result.data)
-    .then(result => {
-      dispatch({
-        type: GET_REVIEWS,
-        payload: result
-      })
-    })
-  }
-}
 
 export function addReview(aux, idProduct){
   return function (dispatch){
@@ -357,7 +345,20 @@ export function addReview(aux, idProduct){
     .then(data => {
       dispatch({
         type: ADD_REVIEW,
+        payload: data
       })
     })
   }
 }
+    export function getReviews(id){
+      return function (dispatch){
+        return axios.get(`http://localhost:3001/products/${id}/review`)
+        .then(result => result.data)
+        .then(result => {
+          dispatch({
+            type: GET_REVIEWS,
+            payload: result
+          })
+        })
+      }
+    }

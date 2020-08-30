@@ -192,18 +192,11 @@ server.post("/:id/review", (req, res) => {
 		comments,
 		productId: id
 	})
-	.then((r)=>{
+	.then(r=>{
 		User.findOne({ where: { username } })
-		.then((u)=>{		
+		.then(u=>{		
 			r.setUser(u);
-			console.log("bbbbbbbbbbbbbbbbbbbbbb---------",r)
-			Product.findOne({ where: { id } })
-				.then((p)=>{
-					p.addReviews(r);	
-					console.log("aaaaaaaaaaaaaaaaaa", r);				 
-			 })
-			 console.log("esto imprimeeee---------",r)
-			 res.send(r); // El resultado del POST!!!
+			res.send(r); // El resultado del POST!!!
 		});		
 
 	});

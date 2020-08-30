@@ -9,14 +9,20 @@ import Rater from 'react-rater' // PARA INSTALAR --> npm install --save react-ra
 import 'react-rater/lib/react-rater.css';
 import  Reviews  from "../Reviews";
 
-function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers}) {
+function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev}) {
     const [input,setInput] = useState({});
     const [inputRating, setInputRating] = useState({});
-     
+    
     useEffect(()=> {
-         getUsers()
-        if(reviews){getReviews(id)}
-     },[reviews])
+        getUsers();
+        getReviews(id);
+
+    },[newrev]);
+
+/*     useEffect(()=> {
+         getReviews(id);
+
+     },[reviews]) */
 
     function handleInputChange (e) {
         //console.log(e.target.value)
@@ -34,8 +40,8 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
 }
      function handleSubmit (e) {
          addReview(aux, id);
-         console.log(aux, id, "submit");
-          getReviews(id);
+         getReviews(id);
+          
 
     }
     if(typeof onlineUser === "object"){
@@ -206,7 +212,8 @@ const mapDispatchToProps = dispatch => {
       searchProducts: state.search_result,
       onlineUser : state.onlineUser,
       reviews: state.reviews,
-      all_users: state.all_users
+      all_users: state.all_users,
+      newrev: state.newrev
     }
   }
 

@@ -50,6 +50,7 @@ Reviews.belongsTo(User);
 
 
 
+
 //belongsTo: PERTENECE A
 //belongsToMany: PERTENECE A MUCHOS 
 //hasMany: TIENE MUCHOS

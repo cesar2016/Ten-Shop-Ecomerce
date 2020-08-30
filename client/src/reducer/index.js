@@ -39,6 +39,7 @@ const initialState = {
   all_users: [],
   getorders: [],
   reviews: [],
+  newrev: {},
  
 };
 const reducer = (state = initialState , action) => {   
@@ -193,14 +194,15 @@ const reducer = (state = initialState , action) => {
           return {
             ...state,
           }
+          case ADD_REVIEW:
+            return {
+              ...state,
+              newrev: action.payload
+            }
         case GET_REVIEWS:
           return {
             ...state,
             reviews: action.payload
-          }
-        case ADD_REVIEW:
-          return {
-            ...state,
           }
     default:
       return state;
