@@ -7,7 +7,6 @@ function Reviews ({idProduct, all_users,reviews,getUsers,getReviews}) {
   console.log("ASDASDASD", reviews,idProduct)
   useEffect(()=> {
     getUsers()
-    
   },[])
 
   useEffect(() => {

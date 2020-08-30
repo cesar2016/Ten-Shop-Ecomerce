@@ -26,7 +26,11 @@ import {
     GET_REVIEWS,
     ADD_REVIEW,
     LOGIN_USER_COOKIE,
-} from '../actions/index';
+    GET_ORDERSXPRODUCT,
+  
+
+   } from '../actions/index';
+
 
 const initialState = {
   all_products: [],
@@ -41,6 +45,7 @@ const initialState = {
   getorders: [],
   reviews: [],
   newrev: {},
+  ordersxproduct: []
  
 };
 const reducer = (state = initialState, action) => {
@@ -116,15 +121,15 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         categories: [...state.categories, action.payload]
-      }
+            }
     case MODIFY_CATEGORY:
       let name = action.payload.name;
       let newCategories = state.categories.filter(elem => name !== elem.name)
-      let filterCat = action.payload.body;
+      let filterCat = action.payload.body; 
       newCategories.push(filterCat)
       return {
-        ...state,
-        categories: newCategories
+         ...state,
+         categories: newCategories
       }
     case DELETE_CATEGORY:
       return {
@@ -190,20 +195,30 @@ const reducer = (state = initialState, action) => {
         cart: []
       }
     case GET_ORDERS:
-      return {
-        ...state,
-        getorders: action.payload
-      }
+       return {
+       ...state,
+       getorders: action.payload
+       }
     case UPDATE_PRICE_ORDER:
       return {
         ...state,
       }
     case ADD_REVIEW:
       return {
-        ...state,
-        newrev: action.payload
-      }
-
+          ...state,
+            newrev: action.payload
+          }
+    case GET_REVIEWS:
+       return {
+         ...state,
+         reviews: action.payload
+       }
+    case CANCELL_CART:
+       return {
+         ...state,
+         getcart: [],
+         cart: []
+       }
     case GET_REVIEWS:
       return {
         ...state,
@@ -230,7 +245,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         onlineUser: loginUserCookie(action.payload)
       }
-
+    case GET_ORDERSXPRODUCT:
+      return {
+        ...state,
+        ordersxproduct: action.payload
+      }
 
     default:
       return state;

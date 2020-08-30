@@ -27,6 +27,7 @@ export const UPDATE_PRICE_ORDER = "UPDATE_PRICE_ORDER";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const ADD_REVIEW = "ADD_REVIEW";
 export const LOGIN_USER_COOKIE = "LOGIN_USER_COOKIE";
+export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT"
 
 
 
@@ -362,12 +363,12 @@ export function getOrders(status){
 export function addReview(aux, idProduct) {
   return function(dispatch) {
     return axios.post(`http://localhost:3001/products/${idProduct}/review`, aux)
-      .then(result => result.data)
-      .then(data => {
-        dispatch({
-          type: ADD_REVIEW,
-        })
+    .then(result => result.data)
+    .then(data => {
+      dispatch({
+        type: ADD_REVIEW,
       })
+    })
   }
 }
 
@@ -382,7 +383,6 @@ export function loginUserCookie(){
       })
     })
   }
-
 }
     export function getReviews(id){
       return function (dispatch){
@@ -397,4 +397,15 @@ export function loginUserCookie(){
       }
     }
 
-
+    export function getOrdersxproduct(idProd) {
+      return function(dispatch) {
+        return axios.get(`http://localhost:3001/orders/${idProd}`)
+        .then(result => result.data)
+        .then(result => {
+          dispatch({
+            type: GET_ORDERSXPRODUCT,
+            payload: result
+          })
+        })
+      }
+    }

@@ -25,5 +25,14 @@ server.get('/status/:status', (req, res, next) => {
 	.catch(err => {res.status(404).send("ERROR")})
  });
 
+ //GET A LAS ORDENES QUE TENGAN ESE PRODUCTO
+  server.get('/:idProd', (req, res)=> {
+		const {idProd} = req.params
+		console.log(idProd)
+		Productsxorders.findAll({where: {product_id: idProd}})
+		.then((data) => {
+			res.send(data)
+		})
 
+	})
 module.exports = server;
