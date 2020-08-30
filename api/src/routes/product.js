@@ -72,7 +72,7 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 	 });
  });
 
-
+/* 
 
 server.post("/add", upload.single("laimagen"), (req, res) => {
 	const { category } = req.body;	
@@ -93,7 +93,7 @@ server.post("/add", upload.single("laimagen"), (req, res) => {
 				return res.json(productCreated)
 			};
 		})
-});
+}); */
 
 function addProduct(product) {	
 	return Product.create({
