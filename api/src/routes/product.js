@@ -74,9 +74,8 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 
 /* 
 
-server.post("/add", upload.single("laimagen"), (req, res) => {
+server.post("/add", (req, res) => {
 	const { category } = req.body;	
-	console.log("LA IMAGEN", req.file)	
 	addProduct(req.body)
 		.then(productCreated => {
 			if (category.length === 0) {

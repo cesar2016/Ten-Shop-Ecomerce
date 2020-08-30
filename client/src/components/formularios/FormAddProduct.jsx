@@ -106,7 +106,10 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
       }
 
       const handlerImageUpload = file => {
-        setInput({...input, image: file.base64})
+        setInput({
+          ...input,
+          image: file.base64
+        })
       }
 
     return (
