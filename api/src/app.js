@@ -390,13 +390,6 @@ server.post("/", async (req, res) => {
     email: "kunaguero@gmail.com"  
 })
    
-producto10.then((prod) => {
-prod.setReviews(reviews1)
-})
-producto10.then((prod) => {
-    prod.setReviews(reviews2)
-})
-
 
 const reviews1 = await Reviews.create({
     rating: 5,
@@ -412,10 +405,10 @@ const reviews2 = await Reviews.create({
 });
 
 producto10.then((prod) => {
-    prod.setReviews(reviews1)
+    prod.addReviews(reviews1)
 })
 producto10.then((prod) => {
-    prod.setReviews(reviews2)
+    prod.addReviews(reviews2)
 })
 
 

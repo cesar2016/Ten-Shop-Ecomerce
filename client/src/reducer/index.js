@@ -23,8 +23,11 @@ import {
     CANCELL_CART,
     GET_ORDERS,
     UPDATE_PRICE_ORDER,
+    GET_REVIEWS,
+    ADD_REVIEW,
     LOGIN_USER_COOKIE
   
+
    } from '../actions/index';
 
 const initialState = {
@@ -38,6 +41,8 @@ const initialState = {
   getcart:[],
   all_users: [],
   getorders: [],
+  reviews: [],
+  newrev: {},
  
 };
 const reducer = (state = initialState , action) => {   
@@ -165,18 +170,45 @@ const reducer = (state = initialState , action) => {
             ...state,
             all_users: reducerUpdateUser(state.all_users,action.payload.id,action.payload.body)
           }
-          case UPDATE_CAR:
+        case UPDATE_CAR:
+          return {
+            ...state,
+            getcart: [],
+            cart: []
+          }
+        case COMPLETE_CAR:
+          return {
+            ...state,
+            getcart: [],
+            cart: []
+          }
+        case CANCELL_CART:
+          return {
+            ...state,
+            getcart: [],
+            cart: []
+          }
+        case GET_ORDERS:
+           return {
+           ...state,
+           getorders: action.payload
+           }
+        case UPDATE_PRICE_ORDER:
+          return {
+            ...state,
+          }
+          case ADD_REVIEW:
             return {
               ...state,
-              getcart: [],
-              cart: []
+              newrev: action.payload
             }
-          case COMPLETE_CAR:
-            return {
-              ...state,
-              getcart: [],
-                cart: []
-            }
+
+        case GET_REVIEWS:
+          return {
+            ...state,
+            reviews: action.payload
+          }
+
             case CANCELL_CART:
               return {
                 ...state,
@@ -198,6 +230,7 @@ const reducer = (state = initialState , action) => {
                 onlineUser: loginUserCookie(action.payload)
               }
               
+
     default:
       return state;
     }

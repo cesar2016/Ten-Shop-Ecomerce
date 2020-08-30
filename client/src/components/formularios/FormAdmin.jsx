@@ -3,9 +3,12 @@ import TableUsers from "./TableUsers";
 import { connect } from "react-redux";
 import { getUsers , updateUser, onlineUserError} from "../../actions";
 
-function FormAdmin({ updateUser, onlineUser }) {
+function FormAdmin({ updateUser, onlineUser, getUsers}) {
 const [input, setInput] = useState([])
   
+  useEffect(() => {
+    getUsers()
+  },[])
 
   const handleInputChange = function(e) {
     setInput({
@@ -34,8 +37,10 @@ const [input, setInput] = useState([])
     console.log(elId.current)
     console.log(input)
     updateUser(elId.current, input)
+    getUsers()
   }
- if(typeof onlineUser === "object" && onlineUser.type === 1){
+  //if(typeof onlineUser === "object" && onlineUser.type === "1"){
+   if(true){ //agrego esta linea para poder debugear rapido
     return (
         <div className="container">
         <section class="contact-block"></section>
@@ -62,9 +67,9 @@ const [input, setInput] = useState([])
                     <div class="col-md-6 contact-form alert alert-dark">
                         <h3>Management <span>Users</span></h3>
                        <form id={'formulario'} style={{display:'none'}} onSubmit = {handleSubmit}>
-                            <input type="text" class="form-control form-control-lg" name="firstname" placeholder="Firstname" id="firstname" onChange={handleInputChange} required="true"/>
-                            <input type="text" class="form-control form-control-lg" name="surname" placeholder="Surname" id="surname" onChange={handleInputChange} required="true"/>
-                            <input type="text" class="form-control form-control-lg" name="type" placeholder="Type" id="type" onChange={handleInputChange} required="true"/>
+                           <label>Name: </label> <input type="text" class="form-control form-control-lg" name="firstname" placeholder="Firstname" id="firstname" onChange={handleInputChange} required="true"/>
+                            <label >Surname</label><input type="text" class="form-control form-control-lg" name="surname" placeholder="Surname" id="surname" onChange={handleInputChange} required="true"/>
+                            <label>Type</label><input type="text" class="form-control form-control-lg" name="type" placeholder="Type" id="type" onChange={handleInputChange} required="true"/>
                             <input type="submit" class="submit-btn" value="Submit" />
                         </form>
                     </div>
