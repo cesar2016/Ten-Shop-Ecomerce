@@ -72,8 +72,6 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 	 });
  });
 
-
-
 server.post("/add", (req, res) => {
 	const { category } = req.body;	
 	addProduct(req.body)

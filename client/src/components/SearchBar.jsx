@@ -6,11 +6,14 @@ import {getSearchProducts} from "../actions/index"
 function SearchBar({ getSearchProducts }) {
     const [inputSearch, setInputSearch] = useState("");
 
-    function handleChange(e) {
+    useEffect(() => {
+        getSearchProducts(inputSearch.inputSearch)
+    }, [inputSearch])
+
+    function handleChange(e) {        
         setInputSearch({
             inputSearch: e.target.value            
         });        
-        getSearchProducts(inputSearch.inputSearch)
     };
     function handleSubmit(e) {
         e.preventDefault()
