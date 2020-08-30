@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import "./FormOrders.css";
 import { connect } from "react-redux";
-import { getOrders, updateProduct} from "../../actions"
+import { getOrders, updateProduct} from "../../actions";
+import Page404 from "../Page404";
 
-function FormProduct({ orders, getOrders}) {
+
+function FormProduct({ orders, getOrders, onlineUser}) {
  
  
       function getord(select){
@@ -18,7 +20,7 @@ function FormProduct({ orders, getOrders}) {
       }
   
             
-  
+  if( onlineUser.type == 1){
       return (
   
           <div className="container">
@@ -83,6 +85,13 @@ function FormProduct({ orders, getOrders}) {
   
           </div>
       );
+    }else{
+      return (
+        <div>
+        <Page404 />
+        </div>
+      )
+     }
   };
   
   const mapDispatchToProps = dispatch => {
@@ -95,6 +104,7 @@ function FormProduct({ orders, getOrders}) {
     return {
     
       orders: state.getorders,  
+      onlineUser: state.onlineUser
    
     }
   }
