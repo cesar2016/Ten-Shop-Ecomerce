@@ -24,6 +24,8 @@ export const COMPLETE_CAR = "COMPLETE_CAR";
 export const CANCELL_CART = "CANCELL_CART";
 export const GET_ORDERS = "GET_ORDERS";
 export const UPDATE_PRICE_ORDER = "UPDATE_PRICE_ORDER";
+export const GET_REVIEWS = "GET_REVIEWS";
+export const ADD_REVIEW = "ADD_REVIEW"
 export const LOGIN_USER_COOKIE = "LOGIN_USER_COOKIE";
 
 
@@ -355,6 +357,16 @@ export function getOrders(status){
   }
 }
 
+
+
+export function addReview(aux, idProduct){
+  return function (dispatch){
+    return axios.post(`http://localhost:3001/products/${idProduct}/review`, aux)
+    .then(result => result.data)
+    .then(data => {
+      dispatch({
+        type: ADD_REVIEW,
+
 export function loginUserCookie(){  
   return function(dispatch){
     return axios.get("http://localhost:3001/login", { withCredentials: true })
@@ -362,8 +374,24 @@ export function loginUserCookie(){
     .then(data => {    
       dispatch({
         type: LOGIN_USER_COOKIE,
+
         payload: data
       })
     })
   }
+
+}
+    export function getReviews(id){
+      return function (dispatch){
+        return axios.get(`http://localhost:3001/products/${id}/review`)
+        .then(result => result.data)
+        .then(result => {
+          dispatch({
+            type: GET_REVIEWS,
+            payload: result
+          })
+        })
+      }
+    }
+
 }
