@@ -312,7 +312,7 @@ let body = {
 }
 
 export function completeCart(idUser, addres){ 
-  console.log("Acionssssss",addres)
+  console.log("Acionssssss",addres,idUser)
   let body = {
     status: "complete",
     address: addres
