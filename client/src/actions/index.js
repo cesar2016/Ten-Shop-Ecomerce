@@ -24,6 +24,9 @@ export const COMPLETE_CAR = "COMPLETE_CAR";
 export const CANCELL_CART = "CANCELL_CART";
 export const GET_ORDERS = "GET_ORDERS";
 export const UPDATE_PRICE_ORDER = "UPDATE_PRICE_ORDER";
+export const GET_REVIEWS = "GET_REVIEWS";
+export const ADD_REVIEW = "ADD_REVIEW"
+export const LOGIN_USER_COOKIE = "LOGIN_USER_COOKIE";
 
 
 
@@ -31,7 +34,7 @@ export const UPDATE_PRICE_ORDER = "UPDATE_PRICE_ORDER";
 
 export function getSearchProducts (search) {
     return function(dispatch) {
-      return axios.get("http://localhost:3001/products/searches/" + search)
+      return axios.get("http://localhost:3001/products/searches/" + search, { withCredentials: true })
         .then(result => result.data)
         .then(data => {
           dispatch({
@@ -44,7 +47,7 @@ export function getSearchProducts (search) {
 
 export function getAllProducts () {
   return function(dispatch) {
-    return axios.get("http://localhost:3001/products")      
+    return axios.get("http://localhost:3001/products", { withCredentials: true })      
       .then(result => result.data)
       .then(products => {
         dispatch({
@@ -56,7 +59,7 @@ export function getAllProducts () {
 
 export function addCategory(category){
   return function(dispatch){
-    return axios.post("http://localhost:3001/categories/add/", category)
+    return axios.post("http://localhost:3001/categories/add/", category, { withCredentials: true })
     .then(result => {
         dispatch({
             type: ADD_CATEGORY,
@@ -68,7 +71,7 @@ export function addCategory(category){
 
 export function modifyCategory(body,name){
   return function(dispatch){
-    return axios.put(`http://localhost:3001/categories/modify/${name}`, body)
+    return axios.put(`http://localhost:3001/categories/modify/${name}`, body, { withCredentials: true })
     .then(result => result.data)
     .then((data) => {
       dispatch({
@@ -133,7 +136,7 @@ export function deleteCatxProd (name, id) {
 
 export function getCategoriesxProducts ()  {
   return function(dispatch) {
-    return axios.get("http://localhost:3001/products/cxp") 
+    return axios.get("http://localhost:3001/products/cxp", { withCredentials: true }) 
       .then(result => result.data)
       .then(data => {
         dispatch({
@@ -146,7 +149,7 @@ export function getCategoriesxProducts ()  {
 
 export function getAllCategories () {
   return function(dispatch) {
-    return axios.get("http://localhost:3001/categories/")
+    return axios.get("http://localhost:3001/categories/" , { withCredentials: true })
       .then(result => result.data)
       .then(data => {
         dispatch({
@@ -172,7 +175,7 @@ export function getOneCategory (category) {
   }
 export function addUser (body) {
   return function(dispatch) {
-    return axios.post("http://localhost:3001/users/adduser", body)
+    return axios.post("http://localhost:3001/users/adduser", body, { withCredentials: true })
       .then(result => result.data)
       .then(data => {
         dispatch({
@@ -184,10 +187,11 @@ export function addUser (body) {
 }
 
 export function loginUser(body){  
+  console.log("QUE ENTRA AL BODY", body)
   return function(dispatch){
-    return axios.post("http://localhost:3001/users/login",body, { withCredentials: true })
+    return axios.post("http://localhost:3001/login",body, { withCredentials: true })
     .then(result => result.data)
-    .then(data => {    
+    .then(data => {     
       dispatch({
         type: LOGIN_USER,
         payload: data
@@ -202,7 +206,7 @@ export function loginUser(body){
       id: idProduct
     }
     return function(dispatch) {
-      return axios.post(`http://localhost:3001/users/${idUser}/cart/`, body)
+      return axios.post(`http://localhost:3001/users/${idUser}/cart/`, body, { withCredentials: true })
         .then(() => {
           dispatch({
             type: ADD_CART,
@@ -215,7 +219,7 @@ export function loginUser(body){
     //TRAYENDO PRODUCTOS DEL CARRITO DE UN USUARIO
     export function getAllCart (idUser) {
       return function(dispatch) {
-        return axios.get(`http://localhost:3001/users/${idUser}/cart/`)      
+        return axios.get(`http://localhost:3001/users/${idUser}/cart/`,{ withCredentials: true })      
           .then(result => result.data)
           .then(productsCart => {
             dispatch({
@@ -225,11 +229,26 @@ export function loginUser(body){
       };
     }
 
+
+/*export function userLogout() {
+  return function(dispatch) {
+    return axios.get('http://localhost:3001/logout', { withCredentials: true })        
+      .then(() => {
+        return {
+          type: USER_LOGOUT
+        }
+      })
+  }
+}*/
+
 export function userLogout () {
-      return {
-        type: USER_LOGOUT
-      }
-};
+    axios.get('http://localhost:3001/logout', { withCredentials: true })              
+    return {
+      type: USER_LOGOUT
+    }  
+    
+}
+
 
 
 export function onlineUserError () {
@@ -240,7 +259,7 @@ export function onlineUserError () {
 
 export function getUsers () {
   return function (dispatch) {
-    return axios.get('http://localhost:3001/users')
+    return axios.get('http://localhost:3001/users', { withCredentials: true })
     .then(result => result.data)
     .then(result => {
       dispatch({
@@ -266,7 +285,7 @@ export function updateUser(id, body) {
 
 export function updateCart(idUser, body) {
   return function (dispatch) {
-    return axios.post(`http://localhost:3001/users/${idUser}/c/cart`, body)
+    return axios.post(`http://localhost:3001/users/${idUser}/c/cart`, body, { withCredentials: true })
     .then(result => result.data)
     .then(result => {
       dispatch({
@@ -299,7 +318,7 @@ export function completeCart(idUser, addres){
     address: addres
   };
   return function (dispatch) {
-    return axios.post(`http://localhost:3001/users/${idUser}/update/cart`, body)
+    return axios.post(`http://localhost:3001/users/${idUser}/update/cart`, body, { withCredentials: true })
     .then(result => result.data)
     .then(result => {
       dispatch({
@@ -314,7 +333,7 @@ export function cancellCart(idUser){
     status: "cancelled",
   };
   return function (dispatch) {
-    return axios.post(`http://localhost:3001/users/${idUser}/update/cart`, body)
+    return axios.post(`http://localhost:3001/users/${idUser}/update/cart`, body, { withCredentials: true })
     .then(result => result.data)
     .then(result => {
       dispatch({
@@ -326,7 +345,7 @@ export function cancellCart(idUser){
 
 export function getOrders(status){ 
   return function (dispatch) {
-    return axios.get(`http://localhost:3001/orders/status/${status}`)
+    return axios.get(`http://localhost:3001/orders/status/${status}`, { withCredentials: true })
     .then(result => result.data)
     .then(result => {
       dispatch({
@@ -337,4 +356,43 @@ export function getOrders(status){
     })
   }
 }
+
+
+
+export function addReview(aux, idProduct){
+  return function (dispatch){
+    return axios.post(`http://localhost:3001/products/${idProduct}/review`, aux)
+    .then(result => result.data)
+    .then(data => {
+      dispatch({
+        type: ADD_REVIEW,
+      })
+    })
+  }
+}
+
+export function loginUserCookie(){  
+  return function(dispatch){
+    return axios.get("http://localhost:3001/login", { withCredentials: true })
+    .then(result => result.data)
+    .then(data => {    
+      dispatch({
+        type: LOGIN_USER_COOKIE,
+        payload: data
+      })
+    })
+  }
+}
+    export function getReviews(id){
+      return function (dispatch){
+        return axios.get(`http://localhost:3001/products/${id}/review`)
+        .then(result => result.data)
+        .then(result => {
+          dispatch({
+            type: GET_REVIEWS,
+            payload: result
+          })
+        })
+      }
+    }
 
