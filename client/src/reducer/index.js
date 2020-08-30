@@ -26,9 +26,7 @@ import {
     GET_REVIEWS,
     ADD_REVIEW,
     LOGIN_USER_COOKIE,
-    GET_ORDERSXPRODUCT,
-  
-
+    GET_ORDERSXPRODUCT,    
    } from '../actions/index';
 
 

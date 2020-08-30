@@ -32,7 +32,6 @@ export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT"
 
 
 
-
 export function getSearchProducts (search) {
     return function(dispatch) {
       return axios.get("http://localhost:3001/products/searches/" + search, { withCredentials: true })

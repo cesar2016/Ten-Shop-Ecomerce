@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
       }
     },
     type: {
-      type: DataTypes.ENUM("1", "2"),
+      type: DataTypes.ENUM("1", "2", "3"),
       allowNull: false,
     },
     username: {
