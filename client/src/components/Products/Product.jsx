@@ -19,11 +19,6 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
 
     },[newrev]);
 
-/*     useEffect(()=> {
-         getReviews(id);
-
-     },[reviews]) */
-
     function handleInputChange (e) {
         //console.log(e.target.value)
         setInput({
