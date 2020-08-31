@@ -26,7 +26,8 @@ import {
     GET_REVIEWS,
     ADD_REVIEW,
     LOGIN_USER_COOKIE,
-    GET_ORDERSXPRODUCT,    
+    GET_ORDERSXPRODUCT,
+    UPDATE_ONLINE_USER,    
    } from '../actions/index';
 
 
@@ -247,6 +248,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ordersxproduct: action.payload
+      }
+    case UPDATE_ONLINE_USER:
+      return {
+        ...state,
+        onlineUser: action.payload
       }
 
     default:
