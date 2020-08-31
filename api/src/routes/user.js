@@ -157,7 +157,7 @@ server.delete("/:id", (req, res) => {
 
 //ELIMINA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes o Completar ordenes):
 server.post("/:idUser/update/cart", (req, res) => {
-  console.log("ENTROOACAAAAA", req.body);
+  console.log("ENTROOACAAAAA", req.body , req.params);
   const { idUser } = req.params;
   const {body} = req;  //recibe por body: satatus: complete o cancelled y direccion;
   Order.update(body, { where: { userId: idUser, status: "processing" } }).then(data => {

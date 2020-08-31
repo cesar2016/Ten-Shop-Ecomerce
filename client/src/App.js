@@ -14,7 +14,7 @@ import Contact from './components/Contact.jsx';
 import SearchProduct from './components/Products/SearchProduct.jsx';
 import MenuCategories from './components/Products/MenuCategories';
 import SignUp from "./components/SignUp"
-import SignIn from "./components/SignIn"
+import SignIn from "./components/SignInPro"
 import Cart from './components/cart/Cart';
 import FormAdmin from './components/formularios/FormAdmin';
 import FormOrders from './components/formularios/FormOrders';
@@ -22,9 +22,12 @@ import Orders from './components/formularios/FormAdmin';
 //import Orders from './components/SliderImage';
 import SliderImage from './components/SliderImage';
 import Footer from './components/Footer';
-import Page404 from './components/Page404'
+import Page404 from './components/Page404';
+
+
 
 function App() {
+  
 
     return (
       <div className="App jumbotron bg-white">

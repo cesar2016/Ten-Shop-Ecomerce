@@ -3,6 +3,8 @@ import TableUsers from "./TableUsers";
 import { connect } from "react-redux";
 import { getUsers , updateUser, onlineUserError, deleteUser} from "../../actions";
 import Swal from 'sweetalert2';
+import Page404 from "../Page404";
+
 
 function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
   
@@ -53,6 +55,7 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
     
   }
 
+
   function deleUser(idUser){    
     Swal.fire({
       title: 'Are you sure?',
@@ -78,8 +81,9 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
   }    
 
 
-  //if(typeof onlineUser === "object" && onlineUser.type === "1"){
-   if(true){ //agrego esta linea para poder debugear rapido
+
+ if(onlineUser.type == 1){
+
     return (
         <div className="container">
         <section class="contact-block"></section>
@@ -162,13 +166,14 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
                 </div>
             </section>
         </div>
+    );
+  }else{
+    return(
+      <div>
+      <Page404 />
+      </div>
     )
-  }/* else{
-    return
-    (
-    <div>Error 404.</div>
-    )
-  } */
+  }   
 };
 
 const mapDispatchToProps = dispatch => {

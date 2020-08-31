@@ -3,10 +3,11 @@ import axios from "axios"
 import { connect } from "react-redux";
 import { getAllProducts, getAllCategories } from "../../actions"
 import FileBase64 from "react-file-base64"; // npm install react-file-base64
+import Page404 from "../Page404";
 import Swal from 'sweetalert2'
 
 
-function FormAddProduct({products, categories, getAllCategories, getAllProducts}) {
+function FormAddProduct({products, categories, getAllCategories, getAllProducts, onlineUser}) {
     useEffect(() => {
       getAllCategories()      
       getAllProducts()      
@@ -106,12 +107,16 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
       }
 
       const handlerImageUpload = file => {
-        setInput({...input, image: file.base64})
+        setInput({
+          ...input,
+          image: file.base64
+        })
       }
-
+      console.log(onlineUser)
+if( onlineUser.type == 1){
     return (
-
-        <div className="container">
+      
+     <div className="container">
         <section class="contact-block"></section>
             <section class="contact-block jumbotron">
                 <div class="container">
@@ -148,6 +153,13 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
 
 
     );
+   }else{
+    return (
+      <div>
+      <Page404 />
+      </div>
+    )
+   }
 };
 
 const mapDispatchToProps = dispatch => {
@@ -161,7 +173,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     products: state.all_products,
-    categories: state.categories
+    categories: state.categories,
+    onlineUser: state.onlineUser
   }
 }
 
