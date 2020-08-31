@@ -3,18 +3,18 @@ import "./NavBar.css";
 import SearchBar from "./SearchBar.jsx";
 import { NavLink } from 'react-router-dom';
 import { connect } from "react-redux";
-import { userLogout, loginUserCookie } from "../actions/index.js";
+import { userLogout, loginUserCookie, lsset } from "../actions/index.js";
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
+var ls = require('local-storage');
 
-
-function NavBar({onlineUser, userLogout, getcart, loginUserCookie}) {
+function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset}) {
   const history = useHistory(); 
   const [categories, setCategories] = useState([]);
   const [admin, setAdmin] = useState(false);
     
     useEffect(() => {
-        var but = document.getElementById('LOGIN');        
+        var but = document.getElementById('SIGNIN');        
         if ( typeof onlineUser === "object"){
             but.style.display = 'none';          
         } else {
@@ -34,16 +34,21 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie}) {
         }
         if (typeof onlineUser !== "object" ) loginUserCookie()
         console.log(onlineUser)
-      }, [onlineUser])
         
-      
+      }, [onlineUser])
+
+      useEffect(()=> {
+        lsset()
+    },[setid.length]);
+
       function alertt(){
         Swal.fire({
           icon: 'error',
           title: 'Hello! To add to cart, log into your account',
         })
      }
-
+/* var cantproductos = [...getcart,ls.get('idProducts')];
+console.log(cantproductos); */
      
      function salirr(){
       Swal.fire({
@@ -51,7 +56,7 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie}) {
         title: 'Bye! You have successfully disconnected',
       })
       userLogout()
-      history.push('/login');
+      history.push('/');
 
    }
         
@@ -135,21 +140,15 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie}) {
                       <ul className="navbar-nav ">
                           <li className="nav-item">   
                             <div className={'content'}>  
-                              {typeof onlineUser !== "object" && 
-                              <button title="CART" type="button" onClick={() => alertt()} className="btn btn-light my-2 my-sm-0">  
-                                <i style={{fontSize:"15px"}} className="fa fa-shopping-cart badge badge-light ">
-                                  <span className="badge badge-info"></span>
-                                </i>
-                              </button>
-                              }
-                              {typeof onlineUser === "object" &&  <NavLink to="/cart">
+                          
+                             <NavLink to="/cart">
                               <button title="CART" type="button" className="btn btn-light my-2 my-sm-0">
                                  
                                 <i style={{fontSize:"15px"}} className="fa fa-shopping-cart badge badge-light ">
-                            <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {getcart && getcart.length}</span>
+                            <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {getcart && getcart.length || setid && setid.length}</span>
                                 </i>
                               </button>
-                              </NavLink>}
+                              </NavLink>
                               
                            </div>   
                             </li>
@@ -179,10 +178,13 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie}) {
                                                       
                                                                              
                             
-                        <NavLink to="/login">
+                        <NavLink to="/signin">
                             <li className="nav-item">
-                          <button id = "LOGIN" title="LOGIN" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
+
+                          <button id = "SIGNIN" title="SIGNIN" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
+
                             <i className="fa fa-user" aria-hidden="true"> Sign In</i>
+
                             
                         </button>
                               </li>
@@ -192,7 +194,9 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie}) {
                         <NavLink to="/signup">
                             <li className="nav-item">
                               <button id = "SIGNUP" title="SIGNUP" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
-                                <i className="fa fa-user-plus" aria-hidden="true"> Sing Up</i>                         
+                                <i className="fa fa-user-plus" aria-hidden="true">
+                                  <span style={{fontFamily:'verdana'}}> Sing Up</span>
+                                </i>                         
                               </button>
                             </li>
                         </NavLink>  
@@ -209,14 +213,16 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie}) {
 const mapStateToProps = state => {
     return {
         onlineUser: state.onlineUser,
-        getcart: state.cart
+        getcart: state.cart,
+        setid: state.setid,
     }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     userLogout: () => dispatch(userLogout()),
-    loginUserCookie: () => dispatch(loginUserCookie())
+    loginUserCookie: () => dispatch(loginUserCookie()),
+    lsset: () => dispatch(lsset()),
   }
 }
 
