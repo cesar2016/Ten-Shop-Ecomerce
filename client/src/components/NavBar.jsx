@@ -196,7 +196,7 @@ console.log(cantproductos); */
                             <li className="nav-item">
                               <button id = "SIGNUP" title="SIGNUP" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
                                 <i className="fa fa-user-plus" aria-hidden="true">
-                                  <span style={{fontFamily:'verdana'}}> Sing Up</span>
+                                  <span style={{fontFamily:'verdana'}}> Sign Up</span>
                                 </i>                         
                               </button>
                             </li>
