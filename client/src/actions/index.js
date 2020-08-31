@@ -385,11 +385,6 @@ export function addReview(aux, idProduct) {
   }
 }
 
-      })
-    })
-  }
-
-}
 
 export function loginUserCookie(){  
   return function(dispatch){
