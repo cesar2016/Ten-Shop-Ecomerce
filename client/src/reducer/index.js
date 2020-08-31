@@ -1,3 +1,4 @@
+
 import {
     GET_ALL_PRODUCT,
     GET_SEARCH_PRODUCTS,
@@ -15,6 +16,7 @@ import {
     ADD_CART,
     GET_ALL_CART,
     USER_LOGOUT,
+    DELETE_USER,
     ONLINE_USER_ERROR,
     GET_USERS,
     UPDATE_USER,
@@ -27,10 +29,13 @@ import {
     ADD_REVIEW,
     LOGIN_USER_COOKIE,
     GET_ORDERSXPRODUCT,
+    SET_ID,
+    VACIAR_LS,
+    ADD_CART_INVITED,
   
 
    } from '../actions/index';
-
+   var ls = require('local-storage');
 
 const initialState = {
   all_products: [],
@@ -45,7 +50,8 @@ const initialState = {
   getorders: [],
   reviews: [],
   newrev: {},
-  ordersxproduct: []
+  ordersxproduct: [],
+  setid: [],
  
 };
 const reducer = (state = initialState, action) => {
@@ -151,6 +157,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: [...state.cart, action.payload]
       }
+    case ADD_CART_INVITED:
+      return { ///StateAdd_Prods
+        ...state,
+       // cart: agregaids(action.payload)
+      }
     case GET_ALL_CART:
       return { ///StateAdd_Prods
         ...state,
@@ -204,9 +215,16 @@ const reducer = (state = initialState, action) => {
         ...state,
       }
     case ADD_REVIEW:
-      return {
+        return {
           ...state,
-            newrev: action.payload
+          newrev: action.payload
+      }
+          case DELETE_USER:
+        return {////////////////////////////////////////
+          ...state,
+          all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
+        }
+
           }
     case GET_REVIEWS:
        return {
@@ -250,9 +268,25 @@ const reducer = (state = initialState, action) => {
         ...state,
         ordersxproduct: action.payload
       }
-
+    case SET_ID:
+      return {
+        ...state,
+        setid: action.payload
+      }
+    case VACIAR_LS:
+      return {
+        ...state,
+        setid: []
+      }
     default:
       return state;
+  }
+
+  function setidproduct (id) {
+    let asd = [...state.setid, id];
+    //ls.set('idProducts', asd);
+    return asd
+    
   }
 }
    
@@ -293,3 +327,9 @@ function loginUserCookie (data) {
     return 0
   }
 }
+
+/* function agregaids (ids) {
+  ids.forEach(element => {
+    return [...state.cart, element]
+  });
+} */
