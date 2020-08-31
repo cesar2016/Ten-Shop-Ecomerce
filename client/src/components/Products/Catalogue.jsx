@@ -11,7 +11,7 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
   }, [])
   var flag = false;  
 
-  if (onlineUser === 1) {
+/*   if (onlineUser === 1) {
     onlineUserError()
     Swal.fire({
             icon: 'error',
@@ -19,8 +19,8 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
             showConfirmButton: false,
             timer: 2500
           })    
-  }
-  if (onlineUser === 2) {
+  } */
+/*   if (onlineUser === 2) {
     onlineUserError()
     Swal.fire({
             icon: 'error',
@@ -28,7 +28,7 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
             showConfirmButton: false,
             timer: 3000
           })        
-  }  
+  }   */
     
 
     if(products){

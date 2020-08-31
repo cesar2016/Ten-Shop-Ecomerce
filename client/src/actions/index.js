@@ -187,19 +187,7 @@ export function addUser (body) {
   }
 }
 
-export function loginUser(body){  
-  console.log("QUE ENTRA AL BODY", body)
-  return function(dispatch){
-    return axios.post("http://localhost:3001/login",body, { withCredentials: true })
-    .then(result => result.data)
-    .then(data => {     
-      dispatch({
-        type: LOGIN_USER,
-        payload: data
-      })
-    })
-  }
-}
+
 
   ///AGREGANDO PRODUCT AL CARRITO 
   export function addCart (idProduct, idUser) {
@@ -367,6 +355,20 @@ export function addReview(aux, idProduct) {
     .then(data => {
       dispatch({
         type: ADD_REVIEW,
+      })
+    })
+  }
+}
+
+export function loginUser(body){  
+  console.log("QUE ENTRA AL BODY", body)
+  return function(dispatch){
+    return axios.post("http://localhost:3001/login",body, { withCredentials: true })
+    .then(result => result.data)
+    .then(data => {     
+      dispatch({
+        type: LOGIN_USER,
+        payload: data
       })
     })
   }

@@ -13,9 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
-import { loginUser } from "../actions";
+import { loginUser ,onlineUserError} from "../actions";
 import {connect} from "react-redux";
 import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const SignIn = ({ loginUser, onlineUser }) => {
+const SignIn = ({ loginUser, onlineUser , onlineUserError}) => {
   const classes = useStyles();
   const history = useHistory();
   const [input, setInput] = useState({username: "", password: ""});  
@@ -58,8 +59,25 @@ const SignIn = ({ loginUser, onlineUser }) => {
   const handleSubmit = (e) => {          
     e.preventDefault();
     loginUser(input);
-    history.push('/');    
   };
+     if ( onlineUser == 2) {
+      onlineUserError()
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops... user or password invalid!',
+              showConfirmButton: false,
+              timer: 3000
+            })        
+    }
+    if (typeof onlineUser === "object") {
+      Swal.fire({
+              icon: 'success',
+              title: 'Welcome,'+ ' ' +onlineUser.firstname.toUpperCase(),
+              showConfirmButton: false,
+              timer: 3000
+            })
+            history.push('/');     
+    }       
 
   return (
     <Container component="main" maxWidth="xs">
@@ -127,7 +145,8 @@ const SignIn = ({ loginUser, onlineUser }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-    loginUser: (body) => dispatch(loginUser(body))
+    loginUser: (body) => dispatch(loginUser(body)),
+    onlineUserError: () => dispatch(onlineUserError())
     }
 }
 const mapStateToProps = state => {
