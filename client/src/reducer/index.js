@@ -36,7 +36,7 @@ import {
     
  
    } from '../actions/index';
-   var ls = require('local-storage');
+var ls = require('local-storage');
 
 const initialState = {
   all_products: [],
@@ -225,7 +225,6 @@ const reducer = (state = initialState, action) => {
          ...state,
           all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
       }
-
           
     case GET_REVIEWS:
        return {
@@ -287,6 +286,8 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
+  
+
 
   function setidproduct (id) {
     let asd = [...state.setid, id];

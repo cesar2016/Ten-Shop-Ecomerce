@@ -1,16 +1,24 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
-import { getAllProducts, getAllCategories, onlineUserError, loginUserCookie } from "../../actions";
+import { getAllProducts, getAllCategories, onlineUserError, loginUserCookie, addCartInvited } from "../../actions";
 import Swal from 'sweetalert2'
 
-function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, loginUserCookie }) {      
+function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, loginUserCookie, setid, addCartInvited }) {      
 
   React.useEffect(() => {
     getAllProducts()
   }, [])
   var flag = false;  
-    
+  if (typeof onlineUser === "object") {
+    if (setid.length !== 0) {
+      let arr = [];
+      setid.forEach(function(ele) {
+        return arr.push(parseInt(ele))
+      });
+      addCartInvited(arr, onlineUser.id)      
+    }
+  }
 
     if(products){
       return (
@@ -35,14 +43,16 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
 const mapDispatchToProps = dispatch => {
   return {
     getAllProducts: () => dispatch(getAllProducts()),
-    onlineUserError: () => dispatch(onlineUserError())
+    onlineUserError: () => dispatch(onlineUserError()),
+     addCartInvited: (diProduc, idUser) => dispatch(addCartInvited(diProduc, idUser)),
   }
 }
 
 const mapStateToProps = state => {
   return {
     products: state.all_products,
-    onlineUser: state.onlineUser
+    onlineUser: state.onlineUser,
+    setid: state.setid
   }
 }
 
