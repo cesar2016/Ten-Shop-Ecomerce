@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { userLogout, loginUserCookie, lsset } from "../actions/index.js";
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
-var ls = require('local-storage');
+/*var ls = require('local-storage');*/
 
 function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset}) {
   const history = useHistory(); 
@@ -37,9 +37,9 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset})
         
       }, [onlineUser])
 
-      useEffect(()=> {
-        lsset()
-    },[setid.length]);
+  useEffect(() => {
+    lsset()
+  }, [setid.length]);
 
       function alertt(){
         Swal.fire({
