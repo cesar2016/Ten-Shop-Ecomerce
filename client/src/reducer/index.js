@@ -15,6 +15,7 @@ import {
     ADD_CART,
     GET_ALL_CART,
     USER_LOGOUT,
+    DELETE_USER,
     ONLINE_USER_ERROR,
     GET_USERS,
     UPDATE_USER,
@@ -204,9 +205,16 @@ const reducer = (state = initialState, action) => {
         ...state,
       }
     case ADD_REVIEW:
-      return {
+        return {
           ...state,
-            newrev: action.payload
+          newrev: action.payload
+      }
+          case DELETE_USER:
+        return {////////////////////////////////////////
+          ...state,
+          all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
+        }
+
           }
     case GET_REVIEWS:
        return {

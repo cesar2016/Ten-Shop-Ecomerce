@@ -21,8 +21,11 @@ export default function Catalogo({price, name, stock, id, image, description}) {
                             <strong>Stock {stock}</strong>
                             <div className="gallery-image" >
                                 <img className="img-responsive asd"  src={image} style={{marginTop:"40px"}}/>
-                                <div className="overlay" >                                   
-                                    <p style={{marginRight:"70px"}}><a className="text-warning">{description}</a></p>
+                                <div className="overlay" > 
+                                        <p style={{marginRight:"70px"}}> 
+                                        <a className="text-warning">{description}</a>
+                                        
+                                    </p>
                                 </div>
                             </div>
                         </div>      

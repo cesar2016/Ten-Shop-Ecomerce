@@ -49,6 +49,7 @@ function App() {
           <Route exact path="/admin" render={()=> <FormAdmin/>} />
           <Route exact path="/404" render={()=> <Page404/>} />
           <Route path="/" render={() => <Footer/>} />
+          
          
       </div>
       )
