@@ -1,4 +1,6 @@
-import axios from "axios"
+import axios from "axios";
+var ls = require('local-storage');
+
 export const GET_ALL_PRODUCT = 'GET_ALL_PRODUCT';
 export const GET_SEARCH_PRODUCTS = "GET_SEARCH_PRODUCTS";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
@@ -28,6 +30,11 @@ export const GET_REVIEWS = "GET_REVIEWS";
 export const ADD_REVIEW = "ADD_REVIEW";
 export const LOGIN_USER_COOKIE = "LOGIN_USER_COOKIE";
 export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT"
+export const UPDATE_ONLINE_USER = "UPDATE_ONLINE_USER";
+export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT";
+export const SET_ID = "SET_ID";
+export const VACIAR_LS = "VACIAR_LS";
+export const ADD_CART_INVITED = "ADD_CART_INVITED";
 
 
 
@@ -187,19 +194,7 @@ export function addUser (body) {
   }
 }
 
-export function loginUser(body){  
-  console.log("QUE ENTRA AL BODY", body)
-  return function(dispatch){
-    return axios.post("http://localhost:3001/login",body, { withCredentials: true })
-    .then(result => result.data)
-    .then(data => {     
-      dispatch({
-        type: LOGIN_USER,
-        payload: data
-      })
-    })
-  }
-}
+
 
 export function deleteUser (id) {
   console.log('El IDDDD', id)
@@ -224,6 +219,19 @@ export function deleteUser (id) {
           dispatch({
             type: ADD_CART,
             payload: body
+          })         
+        })       
+    }
+  }
+
+    ///AGREGANDO PRODUCT AL CARRITO CUANDO TE LOGEAS RECIEN.
+    export function addCartInvited (ids, idUser) {
+      let body = ids
+    return function(dispatch) {
+      return axios.post(`http://localhost:3001/users/${idUser}/invited/cart/`, body, { withCredentials: true })
+        .then(() => {
+          dispatch({
+            type: ADD_CART_INVITED,
           })         
         })       
     }
@@ -254,13 +262,7 @@ export function deleteUser (id) {
   }
 }*/
 
-export function userLogout () {
-    axios.get('http://localhost:3001/logout', { withCredentials: true })              
-    return {
-      type: USER_LOGOUT
-    }  
-    
-}
+
 
 
 
@@ -284,8 +286,6 @@ export function getUsers () {
 }
 export function updateUser(id, body) {
   return function (dispatch) {
-    console.log(id,body)
-    console.log(body)
     return axios.put(`http://localhost:3001/users/${id}`, body)
     .then(result => result.data)
     .then(result => {
@@ -298,6 +298,7 @@ export function updateUser(id, body) {
 }
 
 export function updateCart(idUser, body) {
+ //console.log("ACCIONSSSSSSSSSSSSSSS//////////////////////////////////////",body)
   return function (dispatch) {
     return axios.post(`http://localhost:3001/users/${idUser}/c/cart`, body, { withCredentials: true })
     .then(result => result.data)
@@ -311,6 +312,7 @@ export function updateCart(idUser, body) {
 }
 
 export function priceOrder(idUser, total) {
+   console.log("ACCIONSSSSSSSSSSSSSSS//////////////////////////////////////",total)
 let body = {
   total_price: total
 }
@@ -326,7 +328,7 @@ let body = {
 }
 
 export function completeCart(idUser, addres){ 
-  console.log("Acionssssss",addres,idUser)
+  //console.log("Acionssssss",addres,idUser)
   let body = {
     status: "complete",
     address: addres
@@ -386,6 +388,27 @@ export function addReview(aux, idProduct) {
 }
 
 
+export function loginUser(body){  
+ // console.log("QUE ENTRA AL BODY", body)
+  return function(dispatch){
+    return axios.post("http://localhost:3001/login",body, { withCredentials: true })
+    .then(result => result.data)
+    .then(data => {     
+      dispatch({
+        type: LOGIN_USER,
+        payload: data
+      })
+    })
+  }
+}
+export function userLogout () {
+  axios.get('http://localhost:3001/logout', { withCredentials: true })              
+  return {
+    type: USER_LOGOUT
+  }  
+
+}
+
 export function loginUserCookie(){  
   return function(dispatch){
     return axios.get("http://localhost:3001/login", { withCredentials: true })
@@ -412,16 +435,51 @@ export function loginUserCookie(){
     }
 
 
-    export function getOrdersxproduct(idProd) {
-      return function(dispatch) {
-        return axios.get(`http://localhost:3001/orders/${idProd}`)
-        .then(result => result.data)
-        .then(result => {
-          dispatch({
-            type: GET_ORDERSXPRODUCT,
-            payload: result
-          })
+export function updateOnlineUser (id, body) {
+  return function(dispatch) {
+    return axios.put(`http://localhost:3001/users/${id}`, body)
+      .then(result => result.data)
+      .then(data => {
+        dispatch({
+          type: UPDATE_ONLINE_USER,
+          payload: data
         })
-      }
-    }
+      })
+  }
+}
+
+
+export function lsset() {
+ // ls.set('idProducts', [...ls.get('idProducts'),id]);
+ let idproductos = ls.get('idProducts');
+  return function(dispatch) {
+      dispatch({
+        type: SET_ID,
+        payload: idproductos
+    })
+  }
+}
+
+export function vaciarls() {
+  ls.set('idProducts', []);
+   return function(dispatch) {
+       dispatch({
+         type: VACIAR_LS,
+     })
+   }
+ }
+
+
+export function getOrdersxproduct(idProd) {
+  return function(dispatch) {
+    return axios.get(`http://localhost:3001/orders/${idProd}`)
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: GET_ORDERSXPRODUCT,
+        payload: result
+      })
+    })
+  }
+}
 
