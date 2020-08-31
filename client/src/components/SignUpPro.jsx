@@ -16,6 +16,8 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { FormHelperText } from '@material-ui/core';
+import "./SignIn.css";
 import {
   fade,
   ThemeProvider,
@@ -57,13 +59,13 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
   help: {
-    fontSize: "12px"
+    fontSize: 12,
   }
 }));
 
@@ -169,7 +171,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
         return errors.username = "Username is already in use"
       }
     })} 
-    if(errors.username === "username") {
+    if(errors.username === undefined) {
       flagUsername.current = ""
     }
   
@@ -184,7 +186,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
     }
   })
   }
-  if ( errors.email === "email"){ flagEmail.current = ""}
+  if ( errors.email === undefined){ flagEmail.current = ""}
   
   // /(?=.*[0-9])/
   if (!input.password) {
@@ -199,6 +201,9 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
     } else if ( input.password !== input.password2) {
       errors.password2 = "Passwords doesnt equal."
     } else { flagPass2.current = ""} 
+    if(Object.keys(errors).length == 0){
+      verified.current = false;
+    }
     return (errors)
   };
   console.log(errors.username)
@@ -228,7 +233,10 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                 label="First Name"
                 autoFocus
                 onChange={handleInputChange}
-                helperText = {errors.firstname}
+              />
+              <FormHelperText
+                id="help" 
+                children = {errors.firstname}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -242,7 +250,10 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                 name="surname"
                 autoComplete="lname"
                 onChange={handleInputChange}
-                helperText = {errors.surname}
+              />
+              <FormHelperText
+                id="help" 
+                children = {errors.surname}
               />
             </Grid>
             <Grid item xs={12}>
@@ -256,7 +267,10 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                 name="email"
                 autoComplete="email"
                 onChange={handleInputChange}
-                helperText = {errors.email}
+              />
+              <FormHelperText
+                id="help" 
+                children = {errors.email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -269,7 +283,10 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                 label="Username"
                 id="username"
                 onChange={handleInputChange}
-                helperText={errors.username}
+              />
+              <FormHelperText
+                id="help" 
+                children = {errors.username}
               />
             </Grid>
             <Grid item xs={12} sm ={6}>
@@ -284,7 +301,10 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                 id="password"
                 autoComplete="current-password"
                 onChange={handleInputChange}
-                helperText={errors.password}
+              />
+              <FormHelperText
+                id="help" 
+                children = {errors.password}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -299,19 +319,23 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
                 id="password"
                 autoComplete="current-password"
                 onChange={handleInputChange}
-                helperText={errors.password2}
+              />
+              <FormHelperText
+                id="help" 
+                children = {errors.password2}
               />
             </Grid>
             
             
           </Grid>
           <Button
-            disabled = {verified}
+            disabled = {verified.current}
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
           >
             Sign Up
           </Button>

@@ -73,3 +73,8 @@ h2 {
   display: flex;
   justify-content: center;
 }
+
+#help {
+  font-size: 12px;
+  color: red;
+}
