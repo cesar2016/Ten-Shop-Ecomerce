@@ -230,13 +230,7 @@ export function addUser (body) {
   }
 }*/
 
-export function userLogout () {
-    axios.get('http://localhost:3001/logout', { withCredentials: true })              
-    return {
-      type: USER_LOGOUT
-    }  
-    
-}
+
 
 
 
@@ -372,6 +366,13 @@ export function loginUser(body){
       })
     })
   }
+}
+export function userLogout () {
+  axios.get('http://localhost:3001/logout', { withCredentials: true })              
+  return {
+    type: USER_LOGOUT
+  }  
+  
 }
 
 export function loginUserCookie(){  

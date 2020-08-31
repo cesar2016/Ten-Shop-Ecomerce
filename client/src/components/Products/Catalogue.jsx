@@ -10,25 +10,6 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
     getAllProducts()
   }, [])
   var flag = false;  
-
-/*   if (onlineUser === 1) {
-    onlineUserError()
-    Swal.fire({
-            icon: 'error',
-            title: 'Existing user. Try again',
-            showConfirmButton: false,
-            timer: 2500
-          })    
-  } */
-/*   if (onlineUser === 2) {
-    onlineUserError()
-    Swal.fire({
-            icon: 'error',
-            title: 'Oops... user or password invalid!',
-            showConfirmButton: false,
-            timer: 3000
-          })        
-  }   */
     
 
     if(products){
