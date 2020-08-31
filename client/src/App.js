@@ -25,11 +25,14 @@ import Orders from './components/formularios/FormAdmin';
 import SliderImage from './components/SliderImage';
 import Footer from './components/Footer';
 import Page404 from './components/Page404';
-
+var ls = require('local-storage');
 
 
 function App() {
-  
+    if(ls.get('idProducts')== null){
+
+        ls.set('idProducts',[]);
+    }
 
     return (
       <div className="App jumbotron bg-white">

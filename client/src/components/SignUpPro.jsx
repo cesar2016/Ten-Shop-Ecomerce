@@ -131,8 +131,9 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
           icon: 'success',
           title: 'Your account has been created successfully',
         })
+        history.push('/'); 
         console.log("ANTESS DE ENTRARRRRRR", setid)
-            if(setid.length !== 0){
+  /*           if(typeof onlineUser == "object"){
               console.log("ENTROOOOOOO", setid)
               let arr = [];
               setid.forEach(function(ele){
@@ -140,8 +141,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
                 });
                 addCartInvited(arr, onlineUser.id)
               console.log("SIGN IN PROOOOOOO", arr, onlineUser,onlineUser.id) 
-            } 
-        history.push('/'); 
+            }  */
     }
   }
   var flagName = useRef("true");

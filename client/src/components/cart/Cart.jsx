@@ -27,7 +27,7 @@ var ls = require('local-storage');
     ls.get('idProducts').forEach(function(ele){
        return arr.push(parseInt(ele))
     })
-   // console.log("ARRINVITADO", arrinvitado);
+   console.log("ARRINVITADO", arr, ls.get('idProducts'));
   }
   //console.log(arr);
  // console.log("PRODUICTSSSS",products)
