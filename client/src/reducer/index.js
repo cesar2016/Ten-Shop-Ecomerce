@@ -29,11 +29,11 @@ import {
     ADD_REVIEW,
     LOGIN_USER_COOKIE,
     GET_ORDERSXPRODUCT,
+    UPDATE_ONLINE_USER,    
     SET_ID,
     VACIAR_LS,
     ADD_CART_INVITED,
-  
-
+ 
    } from '../actions/index';
    var ls = require('local-storage');
 
@@ -267,6 +267,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ordersxproduct: action.payload
+      }
+    case UPDATE_ONLINE_USER:
+      return {
+        ...state,
+        onlineUser: action.payload
       }
     case SET_ID:
       return {

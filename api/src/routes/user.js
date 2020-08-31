@@ -175,9 +175,13 @@ server.post('/:idUser/invited/cart', (req, res) => {
 server.put('/:id', (req, res) => {
   const {id} = req.params;
   const {body} = req;  //Usuario tiene:  firstname, surname, address, password, type.
+  console.log("EEEELLLLL BODDDDYYYYY", body)
   User.update(body, {where: {id} })
-  .then(result => {
-  res.status(200).send("the user has been updated");
+  .then(() => {
+    User.findOne({ where: {id} })
+      .then(result => {
+        res.status(200).send(result)
+      })
   })
   .catch(err => {
     res.status(404).send("the user could not be updateders")
