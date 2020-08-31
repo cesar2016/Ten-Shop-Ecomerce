@@ -76,8 +76,7 @@ import Swal from 'sweetalert2'
     document.getElementById("total").innerHTML = "$"+total.current;
   };
   
-  function alertt(){  
-    updateCart(onlineUser.id, productosConSubtotales.current)
+  function alertt(){      
     Swal.fire({
         title: 'Submit your Address Please',
         input: 'text',
@@ -86,17 +85,14 @@ import Swal from 'sweetalert2'
         },
         showCancelButton: true,
         confirmButtonText: 'Look up',
-        showLoaderOnConfirm: true,
-        preConfirm: (address) => {
-          completeCart(address);
-        },
+        showLoaderOnConfirm: true,        
         allowOutsideClick: () => !Swal.isLoading()
       }).then((result) => {
         if (result.value) {
-            if(result.isConfirmed){
+            if(result.isConfirmed){            
+                completeCart(onlineUser.id, result.value);
                 priceOrder(onlineUser.id,total.current);
                 updateCart(onlineUser.id, productosConSubtotales.current);
-                completeCart(onlineUser.id, result.value);
                 Swal.fire({
                   title: `Order completed. Thanks You!`,
                   icon: 'success'
@@ -123,7 +119,7 @@ import Swal from 'sweetalert2'
               cancellCart(onlineUser.id) 
               Swal.fire(
                 'Deleted!',
-                'Your file has been deleted.',
+                'Your cart has been clear.',
                 'success'
               );
              // history.push('/'); 
@@ -274,7 +270,7 @@ import Swal from 'sweetalert2'
  const mapDispatchToProps = dispatch => {
     return {
         getAllCart: (idUser) => dispatch(getAllCart(idUser)),
-        completeCart: (idUser) => dispatch(completeCart(idUser)),
+        completeCart: (idUser, addres) => dispatch(completeCart(idUser, addres)),
         updateCart: (idUser, body) => dispatch(updateCart(idUser, body)),
         cancellCart: (idUser) => dispatch(cancellCart(idUser)),
         priceOrder: (id, total) => dispatch(priceOrder(id, total)),

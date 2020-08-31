@@ -32,53 +32,7 @@ User.prototype.correctPassword = function(enteredPassword) {
 };
 
 
-passport.use(new Strategy(
-  function(username, password, done) {    
-    User.findOne({ where: {username}})
-      .then(user => {                
-        if (!user) {
-          return done(null, false);
-        }        
-        if (!user.correctPassword(password)) {
-          return done(null, false);
-        }
-        return done(null, user);
-      })
-      .catch(err => {
-        return done(err);
-      })
-  }));
 
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {    
-  User.findOne({ where: { id } })
-    .then(user => {      
-      done(null, user);
-    })
-    .catch(err => {
-      return done(err);
-    })
-});
-
-
-server.use(require('express-session')({
-  secret: 'secret',
-  resave: false,
-  saveUninitialized: false
-})); 
-
-server.use(passport.initialize());
-server.use(passport.session());
-
-server.use((req, res, next) => {
-  console.log("QUE TIENE LA SESION", req.session);
-  console.log("QUE TIENE EL USUARIO ENCONTRADO", req.user);
-  next();
-});
 
 
 
@@ -203,7 +157,7 @@ server.delete("/:id", (req, res) => {
 
 //ELIMINA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes o Completar ordenes):
 server.post("/:idUser/update/cart", (req, res) => {
-  console.log("ENTROOACAAAAA", req.body);
+  console.log("ENTROOACAAAAA", req.body , req.params);
   const { idUser } = req.params;
   const {body} = req;  //recibe por body: satatus: complete o cancelled y direccion;
   Order.update(body, { where: { userId: idUser, status: "processing" } }).then(data => {
@@ -271,11 +225,6 @@ server.post("/adduser", (req, res) => {
 });
 
 
-server.post("/login",
-  passport.authenticate("local"),
-  (req, res) => {        
-    res.send(req.user)
-  });
 
 
 /*server.post("/login",(req,res) => {

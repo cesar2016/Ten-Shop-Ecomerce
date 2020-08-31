@@ -3,12 +3,12 @@ import "./NavBar.css";
 import SearchBar from "./SearchBar.jsx";
 import { NavLink } from 'react-router-dom';
 import { connect } from "react-redux";
-import { userLogout } from "../actions/index.js";
+import { userLogout, loginUserCookie } from "../actions/index.js";
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
 
 
-function NavBar({onlineUser, userLogout, getcart}) {
+function NavBar({onlineUser, userLogout, getcart, loginUserCookie}) {
   const history = useHistory(); 
   const [categories, setCategories] = useState([]);
   const [admin, setAdmin] = useState(false);
@@ -31,9 +31,11 @@ function NavBar({onlineUser, userLogout, getcart}) {
           if (onlineUser.type == 1){
             setAdmin(true)
           }
-        } 
+        }
+        if (typeof onlineUser !== "object" ) loginUserCookie()
         console.log(onlineUser)
       }, [onlineUser])
+        
       
       function alertt(){
         Swal.fire({
@@ -52,7 +54,6 @@ function NavBar({onlineUser, userLogout, getcart}) {
       history.push('/login');
 
    }
-            
         
     return (
         <header className="header-content">
@@ -218,7 +219,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    userLogout: () => dispatch(userLogout())
+    userLogout: () => dispatch(userLogout()),
+    loginUserCookie: () => dispatch(loginUserCookie())
   }
 }
 

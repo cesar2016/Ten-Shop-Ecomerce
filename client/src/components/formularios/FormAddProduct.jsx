@@ -2,11 +2,12 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios"
 import { connect } from "react-redux";
 import { getAllProducts, getAllCategories } from "../../actions"
-
+import FileBase64 from "react-file-base64"; // npm install react-file-base64
+import Page404 from "../Page404";
 import Swal from 'sweetalert2'
 
 
-function FormAddProduct({products, categories, getAllCategories, getAllProducts}) {
+function FormAddProduct({products, categories, getAllCategories, getAllProducts, onlineUser}) {
     useEffect(() => {
       getAllCategories()      
       getAllProducts()      
@@ -16,8 +17,7 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
         name: '',
         description: '',
         price: '',
-        stock: '',
-        image: '',
+        stock: '',        
         category: []
         
          
@@ -33,7 +33,7 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
       var categ = [];
       
       const handleSubmit = function(e) { 
-        e.preventDefault();       
+        e.preventDefault();               
         let objetoo = {
           name: input.name,
           description: input.description,
@@ -106,10 +106,17 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
         }          
       }
 
-
+      const handlerImageUpload = file => {
+        setInput({
+          ...input,
+          image: file.base64
+        })
+      }
+      console.log(onlineUser)
+if( onlineUser.type == 1){
     return (
-
-        <div className="container">
+      
+     <div className="container">
         <section class="contact-block"></section>
             <section class="contact-block jumbotron">
                 <div class="container">
@@ -119,10 +126,8 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
                             <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
                             <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
                             <input type="text" className="form-control form-control-lg" name="price" placeholder="Price $ " id="price" onChange={handleInputChange} required=""/>
-                            <input type="text" className="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>
-                            <form enctype="multipart/form-data">
-                              <input type="file" className="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
-                            </form>
+                            <input type="text" className="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>                                   
+                            <FileBase64 onDone={handlerImageUpload} />
                             <div className=" form-control-lg">
                                     {categories.map((cat, i) => {                                      
                                         return (                                           
@@ -148,6 +153,13 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts}
 
 
     );
+   }else{
+    return (
+      <div>
+      <Page404 />
+      </div>
+    )
+   }
 };
 
 const mapDispatchToProps = dispatch => {
@@ -161,7 +173,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     products: state.all_products,
-    categories: state.categories
+    categories: state.categories,
+    onlineUser: state.onlineUser
   }
 }
 
