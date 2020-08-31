@@ -1,4 +1,5 @@
-import axios from "axios"
+import axios from "axios";
+var ls = require('local-storage');
 
 export const GET_ALL_PRODUCT = 'GET_ALL_PRODUCT';
 export const GET_SEARCH_PRODUCTS = "GET_SEARCH_PRODUCTS";
@@ -27,7 +28,11 @@ export const UPDATE_PRICE_ORDER = "UPDATE_PRICE_ORDER";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const ADD_REVIEW = "ADD_REVIEW";
 export const LOGIN_USER_COOKIE = "LOGIN_USER_COOKIE";
-export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT"
+export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT";
+export const SET_ID = "SET_ID";
+export const VACIAR_LS = "VACIAR_LS";
+
+
 
 
 
@@ -400,15 +405,36 @@ export function loginUserCookie(){
       }
     }
 
-    export function getOrdersxproduct(idProd) {
-      return function(dispatch) {
-        return axios.get(`http://localhost:3001/orders/${idProd}`)
-        .then(result => result.data)
-        .then(result => {
-          dispatch({
-            type: GET_ORDERSXPRODUCT,
-            payload: result
-          })
-        })
-      }
-    }
+export function getOrdersxproduct(idProd) {
+  return function(dispatch) {
+    return axios.get(`http://localhost:3001/orders/${idProd}`)
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: GET_ORDERSXPRODUCT,
+        payload: result
+      })
+    })
+  }
+}
+
+export function lsset() {
+ // ls.set('idProducts', [...ls.get('idProducts'),id]);
+ let idproductos = ls.get('idProducts');
+  return function(dispatch) {
+      dispatch({
+        type: SET_ID,
+        payload: idproductos
+    })
+  }
+}
+
+export function vaciarls() {
+  // ls.set('idProducts', [...ls.get('idProducts'),id]);
+   return function(dispatch) {
+       dispatch({
+         type: VACIAR_LS,
+     })
+   }
+ }
+

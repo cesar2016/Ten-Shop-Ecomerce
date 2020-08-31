@@ -1,3 +1,4 @@
+
 import {
     GET_ALL_PRODUCT,
     GET_SEARCH_PRODUCTS,
@@ -27,10 +28,12 @@ import {
     ADD_REVIEW,
     LOGIN_USER_COOKIE,
     GET_ORDERSXPRODUCT,
+    SET_ID,
+    VACIAR_LS,
   
 
    } from '../actions/index';
-
+   var ls = require('local-storage');
 
 const initialState = {
   all_products: [],
@@ -45,7 +48,8 @@ const initialState = {
   getorders: [],
   reviews: [],
   newrev: {},
-  ordersxproduct: []
+  ordersxproduct: [],
+  setid: [],
  
 };
 const reducer = (state = initialState, action) => {
@@ -250,9 +254,25 @@ const reducer = (state = initialState, action) => {
         ...state,
         ordersxproduct: action.payload
       }
-
+    case SET_ID:
+      return {
+        ...state,
+        setid: action.payload
+      }
+    case VACIAR_LS:
+      return {
+        ...state,
+        setid: []
+      }
     default:
       return state;
+  }
+
+  function setidproduct (id) {
+    let asd = [...state.setid, id];
+    //ls.set('idProducts', asd);
+    return asd
+    
   }
 }
    
@@ -293,3 +313,4 @@ function loginUserCookie (data) {
     return 0
   }
 }
+

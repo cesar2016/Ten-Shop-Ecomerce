@@ -1,28 +1,42 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
-import { getAllCart,completeCart, updateCart, cancellCart, priceOrder} from "../../actions";
+import { getAllCart,completeCart, updateCart, cancellCart, priceOrder, getAllProducts, vaciarls} from "../../actions";
+import Swal from 'sweetalert2';
+var ls = require('local-storage');
 
-import Swal from 'sweetalert2'
-  function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder}) {
+  function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder,getAllProducts, vaciarls}) {
     const history = useHistory();    
-
+//console.log("RRRRRRRRRRRRRRR",ls.get('idProducts'))
   React.useEffect(() => {
     if(typeof onlineUser === "object"){  
     var idUser = onlineUser.id;
     getAllCart(idUser);
-   }
+  }
+  getAllProducts()
 
   }, [])
-           
+         
+  useEffect(()=> {
+
+},[]);
+
   var arr = [];
-     
+  if(ls.get('idProducts').length){
+    var arrinvitado = [];
+    ls.get('idProducts').forEach(function(ele){
+       return arr.push(parseInt(ele))
+    })
+   // console.log("ARRINVITADO", arrinvitado);
+  }
+  //console.log(arr);
+ // console.log("PRODUICTSSSS",products)
   if (getcart[0]) {
     getcart.forEach(element => {
       arr.push(element.product_id)
 
     });
-    console.log(getcart)
+    //console.log(getcart)
   }
 
   const productosConSubtotales = useRef([])
@@ -104,7 +118,8 @@ import Swal from 'sweetalert2'
     };
 
     function cancell(){  
-      console.log("LINEA 106 asdasdasd",total.current)
+     // console.log("LINEA 106 asdasdasd",total.current)
+     if(typeof onlineUser == "object"){
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -114,7 +129,7 @@ import Swal from 'sweetalert2'
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
-              console.log(result);
+              //console.log(result);
             if (result.value) {
               cancellCart(onlineUser.id) 
               Swal.fire(
@@ -122,9 +137,32 @@ import Swal from 'sweetalert2'
                 'Your cart has been clear.',
                 'success'
               );
-             // history.push('/'); 
             }
           })
+        }else{
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+              //console.log(result);
+            if (result.value) {
+              ls.set('idProducts', []);
+              vaciarls()
+              arr = [];
+              Swal.fire(
+                'Deleted!',
+                'Your cart has been clear.',
+                'success'
+              );
+              history.push('/')
+            }
+          });
+        }
     }
 
         
@@ -148,7 +186,7 @@ import Swal from 'sweetalert2'
                              </thead>
                              <tbody>                             
                                  { 
-                                   getcart && 
+                                   arr.length !== 0 && 
                                    
                                    
                                    products.map((e, i) => {                                                               
@@ -193,7 +231,7 @@ import Swal from 'sweetalert2'
                      </div>
                  </div>
                                  
-            {getcart.length !== 0 && <div class="col-md-4 col-sm-4 col-xs-12 side-in-image">
+            {arr.length !== 0 && <div class="col-md-4 col-sm-4 col-xs-12 side-in-image">
                      <div class="event-blog-details">
                          <table class="table">
                              <thead>
@@ -258,7 +296,7 @@ import Swal from 'sweetalert2'
  </section>
 </div>
          {
- getcart.length === 0 && 
+ arr.length === 0 && 
     
          <div class="alert alert-danger" role="alert"><h2>Your cart is empty!</h2></div>
 
@@ -274,6 +312,9 @@ import Swal from 'sweetalert2'
         updateCart: (idUser, body) => dispatch(updateCart(idUser, body)),
         cancellCart: (idUser) => dispatch(cancellCart(idUser)),
         priceOrder: (id, total) => dispatch(priceOrder(id, total)),
+        getAllProducts: () => dispatch(getAllProducts()),
+        vaciarls: () => dispatch(vaciarls()),
+        
     }
   }
 
@@ -281,7 +322,8 @@ import Swal from 'sweetalert2'
     return {
       products: state.all_products,
       getcart: state.getcart,
-      onlineUser : state.onlineUser
+      onlineUser : state.onlineUser,
+      setid: state.setid,
      
     }
   }
