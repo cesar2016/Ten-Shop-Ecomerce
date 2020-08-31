@@ -28,8 +28,14 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
     
     function invited () {
       ls.set('idProducts', [...ls.get('idProducts'),id]);
-      lsset()
-      console.log("EEEEEEEEEEE",ls.get('idProducts'))
+      lsset();
+      Swal.fire({
+        icon: 'success',
+        title: 'Your cart has been update!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      //console.log("EEEEEEEEEEE",ls.get('idProducts'))
   }
     var aux = {
         username: onlineUser.username,
@@ -130,7 +136,7 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
                     <h5><i aria-hidden="true" className="fa fa-money  fa-lg"></i> <strong className= "text-danger">$ {resultado.price}</strong> <i aria-hidden="true" className="fa fa-check fa-lg"></i><strong className = "text-success">Stock: {resultado.stock}</strong></h5>
                     <p>{resultado.description} </p>
                     {resultado.stock === 0 && <div> <button type="button" onClick={() => soldout()} className="book-now-btn btn-danger"> Sold Out  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
-                    {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <button type="button" onClick={() => invited()} className="book-now-btn btn-danger"> Sign In To Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
+                    {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <button type="button" onClick={() => invited()} className="book-now-btn btn-danger"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
                     {resultado.stock !== 0 &&  typeof onlineUser === "object" && <div> <button type="button" onClick={() => exitoAdd()} className="book-now-btn btn-success"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button> </div>}
                   </div>
                 </div>

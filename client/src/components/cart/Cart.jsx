@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
 import { getAllCart,completeCart, updateCart, cancellCart, priceOrder, getAllProducts, vaciarls} from "../../actions";
 import Swal from 'sweetalert2';
+import './Cart.css'
 var ls = require('local-storage');
 
   function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder,getAllProducts, vaciarls}) {
@@ -116,6 +117,15 @@ var ls = require('local-storage');
         }
       });
     };
+
+    function alerttinvited(){      
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        html: '<span class="aaaa">Please <b>login</b> or <b>register</b> to finalize your purchase. Thank you!</span>',
+        footer: '<a class="asdd" href="http://localhost:3000/signin">LOG IN</a>'+ '<span class="asdp">|</span>'  +'<a class="asda" href="http://localhost:3000/signup">SIGN UP</a>'
+      })
+      };
 
     function cancell(){  
      // console.log("LINEA 106 asdasdasd",total.current)
@@ -280,7 +290,8 @@ var ls = require('local-storage');
                                  <tr>
                                      <th><button className="btn btn-danger btn-lg" onClick={() => {cancell()}}>Cancel</button></th>
                                  
-                                     <th><button className="btn btn-default active btn-lg" onClick={() => alertt()}>Next </button></th>
+                                     {typeof onlineUser === "object" && <th><button className="btn btn-default active btn-lg" onClick={() => alertt()}>Next </button></th>}
+                                     {typeof onlineUser !== "object" && <th><button className="btn btn-default active btn-lg" onClick={() => alerttinvited()}>Next </button></th>}
                                  </tr>
                              </tbody>
                          </table>
