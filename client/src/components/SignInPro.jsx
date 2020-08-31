@@ -84,11 +84,7 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
                   return arr.push(parseInt(ele))
                 });
                 addCartInvited(arr, onlineUser.id)
-              //console.log("SIGN IN PROOOOOOO", arr)
-          /*   for (let i = 0; i < arr.length; i++) {
-              addCart(arr[i], onlineUser.id);
-            } */
-               
+              //console.log("SIGN IN PROOOOOOO", arr) 
     }  
   }     
 
