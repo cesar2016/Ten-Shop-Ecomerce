@@ -30,6 +30,7 @@ import {
     GET_ORDERSXPRODUCT,
     SET_ID,
     VACIAR_LS,
+    ADD_CART_INVITED,
   
 
    } from '../actions/index';
@@ -154,6 +155,11 @@ const reducer = (state = initialState, action) => {
       return { ///StateAdd_Prods
         ...state,
         cart: [...state.cart, action.payload]
+      }
+    case ADD_CART_INVITED:
+      return { ///StateAdd_Prods
+        ...state,
+       // cart: agregaids(action.payload)
       }
     case GET_ALL_CART:
       return { ///StateAdd_Prods
@@ -314,3 +320,8 @@ function loginUserCookie (data) {
   }
 }
 
+/* function agregaids (ids) {
+  ids.forEach(element => {
+    return [...state.cart, element]
+  });
+} */

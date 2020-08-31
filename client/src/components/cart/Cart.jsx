@@ -24,7 +24,6 @@ var ls = require('local-storage');
 
   var arr = [];
   if(ls.get('idProducts').length){
-    var arrinvitado = [];
     ls.get('idProducts').forEach(function(ele){
        return arr.push(parseInt(ele))
     })
@@ -105,9 +104,11 @@ var ls = require('local-storage');
       }).then((result) => {
         if (result.value) {
             if(result.isConfirmed){            
-                completeCart(onlineUser.id, result.value);
-                priceOrder(onlineUser.id,total.current);
-                updateCart(onlineUser.id, productosConSubtotales.current);
+              priceOrder(onlineUser.id,total.current);
+              updateCart(onlineUser.id, productosConSubtotales.current);
+              completeCart(onlineUser.id, result.value);
+                vaciarls()
+                arr = [];
                 Swal.fire({
                   title: `Order completed. Thanks You!`,
                   icon: 'success'

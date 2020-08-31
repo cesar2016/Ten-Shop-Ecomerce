@@ -31,6 +31,7 @@ export const LOGIN_USER_COOKIE = "LOGIN_USER_COOKIE";
 export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT";
 export const SET_ID = "SET_ID";
 export const VACIAR_LS = "VACIAR_LS";
+export const ADD_CART_INVITED = "ADD_CART_INVITED";
 
 
 
@@ -210,6 +211,19 @@ export function addUser (body) {
     }
   }
 
+    ///AGREGANDO PRODUCT AL CARRITO CUANDO TE LOGEAS RECIEN.
+    export function addCartInvited (ids, idUser) {
+      let body = ids
+    return function(dispatch) {
+      return axios.post(`http://localhost:3001/users/${idUser}/invited/cart/`, body, { withCredentials: true })
+        .then(() => {
+          dispatch({
+            type: ADD_CART_INVITED,
+          })         
+        })       
+    }
+  }
+
     //TRAYENDO PRODUCTOS DEL CARRITO DE UN USUARIO
     export function getAllCart (idUser) {
       return function(dispatch) {
@@ -259,7 +273,7 @@ export function getUsers () {
 }
 export function updateUser(id, body) {
   return function (dispatch) {
-    console.log(id,body)
+   //console.log(id,body)
     return axios.put(`http://localhost:3001/users/${id}`, body)
     .then(result => result.data)
     .then(result => {
@@ -272,6 +286,7 @@ export function updateUser(id, body) {
 }
 
 export function updateCart(idUser, body) {
+ //console.log("ACCIONSSSSSSSSSSSSSSS//////////////////////////////////////",body)
   return function (dispatch) {
     return axios.post(`http://localhost:3001/users/${idUser}/c/cart`, body, { withCredentials: true })
     .then(result => result.data)
@@ -285,6 +300,7 @@ export function updateCart(idUser, body) {
 }
 
 export function priceOrder(idUser, total) {
+   console.log("ACCIONSSSSSSSSSSSSSSS//////////////////////////////////////",total)
 let body = {
   total_price: total
 }
@@ -300,7 +316,7 @@ let body = {
 }
 
 export function completeCart(idUser, addres){ 
-  console.log("Acionssssss",addres,idUser)
+  //console.log("Acionssssss",addres,idUser)
   let body = {
     status: "complete",
     address: addres
@@ -360,7 +376,7 @@ export function addReview(aux, idProduct) {
 }
 
 export function loginUser(body){  
-  console.log("QUE ENTRA AL BODY", body)
+ // console.log("QUE ENTRA AL BODY", body)
   return function(dispatch){
     return axios.post("http://localhost:3001/login",body, { withCredentials: true })
     .then(result => result.data)
@@ -430,7 +446,7 @@ export function lsset() {
 }
 
 export function vaciarls() {
-  // ls.set('idProducts', [...ls.get('idProducts'),id]);
+  ls.set('idProducts', []);
    return function(dispatch) {
        dispatch({
          type: VACIAR_LS,
