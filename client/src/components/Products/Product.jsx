@@ -96,7 +96,7 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
      reviews && reviews.map((p) => {if (p.userId === onlineUser.id) flag = true})
         if (orders.length > 0){
           orders.map((or) => {
-            if (or.userId){
+            if (or.userId === onlineUser.id){
               ordersxproduct.map((op) => {if(op.order_id === or.id){if(or.status === "complete"){flagOrders = true}}} )
             }
           })
@@ -189,9 +189,6 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
             </div>
            </div>
          </div>
-
-
-
 
 
         </div>

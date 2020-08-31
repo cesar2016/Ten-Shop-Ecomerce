@@ -5,21 +5,22 @@ import { getUsers } from "../../actions/index";
   function TableUsers ({update,elId, getUsers,users}) {
  
     useEffect(() => {
-      getUsers()
+      getUsers();
+      //console.log('adasdsas');
     },[])
   return (
-    <div>
-            {
-              users && users.map((p) => {            
+    
+              users && users.map((p) => {                 
+                
               return (
                  <tr>
-                  <th scope="row"> {p.type} </th> 
-                  <td > {p.username} </td>
-                  <td > {p.firstname} </td>
-                  <td > {p.surname} </td>
+                  <th scope="row">{p.type}</th>
+                  <td> {p.username} </td>
+                  <td> {p.firstname} </td>
+                  <td> {p.surname} </td>
                     <td>
-                      <button type="button" class="btn btn-success" onClick={() => { update(elId.current, users); elId.current = p.id            
-                      }}>
+                      <button type="button" class="btn btn-success" onClick={() => update(elId.current, users, elId.current = p.id)            
+                      }>
                     <i className="fa fa-pencil"></i>
                       </button>
                     &nbsp;
@@ -32,8 +33,7 @@ import { getUsers } from "../../actions/index";
                   )
                 }
           )
-          }
-          </div> 
+          
          )
       }
  const mapDispatchToProps = dispatch => {

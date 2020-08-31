@@ -1,18 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
-import TableProducts from "../Products/TableProducts";
+import Probando from "../formularios/TableUsers";
 import { connect } from "react-redux";
 import { updateProduct, deleteCatxProd, deleteProduct, getCategoriesxProducts, getAllCategories, getAllProducts } from "../../actions"
 import Swal from 'sweetalert2';
-import Page404 from "../Page404";
 
 
-function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts, categoriesxproducts, products, onlineUser}) {
+function ProbandoUsers({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts, categoriesxproducts, products}) {
   
   
   useEffect(() => {
-    getAllCategories()
-    getCategoriesxProducts()
-    getAllProducts()  
+    // getAllCategories()
+    // getCategoriesxProducts()
+    // getAllProducts()  
         
   }, [])
   
@@ -154,7 +153,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
          }  
          
          
-if( onlineUser.type == 1){
+
     return (
       
         <div className="container">       
@@ -168,16 +167,12 @@ if( onlineUser.type == 1){
                         <table class="table table-hover">
                              <thead>
                                 <tr className="table-primary">
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Categories</th>
-                                    <th scope="col">Edit</th>
-
+                                    <th scope="col">USERS</th>
                                 </tr>
                              </thead>
 
                             <tbody >
-                                <TableProducts update={update} elId={elId} deleteProductxId={deleteProductxId} categxproducts={categxproducts} deleteCatxprod={deleteCatxprod} categoriesfromTableProducts={categoriesfromTableProducts}/>
+                                <Probando  />
                             </tbody>
 
                         </table>
@@ -185,26 +180,15 @@ if( onlineUser.type == 1){
 
                     <div class="col-md-6 contact-form alert alert-dark">
                         <h3>Management <span>Products</span></h3>
-                       <form id={'formulario'} style={{display:'none'}} onSubmit={handleSubmit}>
+                       <form id={'formulario'} onSubmit={handleSubmit}>
 
                             <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
                             <input type="text" class="form-control form-control-lg" name="price" placeholder="Price $" id="price" onChange={handleInputChange} required=""/>
-                            <input type="text" class="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>
-                            <div className=" form-control-lg">
-                                    {categories && categories.map((cat, i) => {
-                                       
-                                        return (                                           
-                                          <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name, i)} id={i+"cat"} value={cat.name}>
-                                            {cat.name}
-                                          </button>                                          
-                                        )
-                                    })}   
-                            </div>
+                                                         
                             <div className=" form-control-lg"> 
                               <span id='contCat'></span>
-                            </div>   
-                            <input type="text" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
+                            </div>                               
                             <input type="submit" class="submit-btn" value="Submit" style={{borderRadius: "15px"}}/>
                         </form>
                     </div>
@@ -214,35 +198,27 @@ if( onlineUser.type == 1){
 
         </div>
     );
-  }else{
-    return (
-      <div>
-      <Page404 />
-      </div>
-    )
-   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateProduct: (id, body) => dispatch(updateProduct(id, body)),
-    deleteCatxProd: (name, id) => dispatch(deleteCatxProd(name, id)),
-    deleteProduct: (id) => dispatch(deleteProduct(id)),
-    getCategoriesxProducts: () => dispatch(getCategoriesxProducts()),
-    getAllCategories: () => dispatch(getAllCategories()),
-    getAllProducts: () => dispatch(getAllProducts())
+    // updateProduct: (id, body) => dispatch(updateProduct(id, body)),
+    // deleteCatxProd: (name, id) => dispatch(deleteCatxProd(name, id)),
+    // deleteProduct: (id) => dispatch(deleteProduct(id)),
+    // getCategoriesxProducts: () => dispatch(getCategoriesxProducts()),
+    // getAllCategories: () => dispatch(getAllCategories()),
+    // getAllProducts: () => dispatch(getAllProducts())
 
   }
 }
 
 const mapStateToProps = state => {
   return {
-    categxproducts: state.categores_x_products,    
-    categories: state.categories,
-    products: state.all_products,
-    onlineUser: state.onlineUser   
+    // categxproducts: state.categores_x_products,    
+    // categories: state.categories,
+    // products: state.all_products,    
   }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormProduct)
+export default connect(mapStateToProps, mapDispatchToProps)(ProbandoUsers)
