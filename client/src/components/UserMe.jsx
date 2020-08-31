@@ -17,7 +17,7 @@ import {connect} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    position: 'relative',
+    position: 'relative',    
   },
   layout: {
     width: 'auto',
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
       width: 600,
       marginLeft: 'auto',
       marginRight: 'auto',
+      marginTop: "150px"
     },
   },
   paper: {

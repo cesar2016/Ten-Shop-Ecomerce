@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-
 import './App.css';
 import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
@@ -26,10 +25,14 @@ import Footer from './components/Footer';
 import Page404 from './components/Page404';
 import {UserMe} from "./components/UserMe"
 
+var ls = require('local-storage');
 
 function App() {
   
+    if(ls.get('idProducts')== null){
 
+        ls.set('idProducts',[]);
+    }
     return (
       <div className="App jumbotron bg-white">
           <Route path="/" render={() => <NavBar/> } />         
