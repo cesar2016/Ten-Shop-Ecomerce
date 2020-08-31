@@ -180,8 +180,11 @@ console.log(cantproductos); */
                             
                         <NavLink to="/signin">
                             <li className="nav-item">
+
                           <button id = "SIGNIN" title="SIGNIN" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
+
                             <i className="fa fa-user" aria-hidden="true"> Sign In</i>
+
                             
                         </button>
                               </li>
@@ -191,7 +194,9 @@ console.log(cantproductos); */
                         <NavLink to="/signup">
                             <li className="nav-item">
                               <button id = "SIGNUP" title="SIGNUP" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
-                                <i className="fa fa-user-plus" aria-hidden="true"> Sing Up</i>                         
+                                <i className="fa fa-user-plus" aria-hidden="true">
+                                  <span style={{fontFamily:'verdana'}}> Sing Up</span>
+                                </i>                         
                               </button>
                             </li>
                         </NavLink>  
