@@ -15,6 +15,7 @@ import {
     ADD_CART,
     GET_ALL_CART,
     USER_LOGOUT,
+    DELETE_USER,
     ONLINE_USER_ERROR,
     GET_USERS,
     UPDATE_USER,
@@ -22,8 +23,12 @@ import {
     COMPLETE_CAR,
     CANCELL_CART,
     GET_ORDERS,
-    UPDATE_PRICE_ORDER
+    UPDATE_PRICE_ORDER,
+    GET_REVIEWS,
+    ADD_REVIEW,
+    LOGIN_USER_COOKIE
   
+
    } from '../actions/index';
 
 const initialState = {
@@ -37,6 +42,8 @@ const initialState = {
   getcart:[],
   all_users: [],
   getorders: [],
+  reviews: [],
+  newrev: {},
  
 };
 const reducer = (state = initialState , action) => {   
@@ -158,24 +165,56 @@ const reducer = (state = initialState , action) => {
           return {
             ...state,
             all_users: action.payload
-          }
+          }          
         case UPDATE_USER:
           return {
             ...state,
             all_users: reducerUpdateUser(state.all_users,action.payload.id,action.payload.body)
           }
-          case UPDATE_CAR:
+          case DELETE_USER:
+        return {////////////////////////////////////////
+          ...state,
+          all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
+        }
+        case UPDATE_CAR:
+          return {
+            ...state,
+            getcart: [],
+            cart: []
+          }
+        case COMPLETE_CAR:
+          return {
+            ...state,
+            getcart: [],
+            cart: []
+          }
+        case CANCELL_CART:
+          return {
+            ...state,
+            getcart: [],
+            cart: []
+          }
+        case GET_ORDERS:
+           return {
+           ...state,
+           getorders: action.payload
+           }
+        case UPDATE_PRICE_ORDER:
+          return {
+            ...state,
+          }
+          case ADD_REVIEW:
             return {
               ...state,
-              getcart: [],
-              cart: []
+              newrev: action.payload
             }
-          case COMPLETE_CAR:
-            return {
-              ...state,
-              getcart: [],
-                cart: []
-            }
+
+        case GET_REVIEWS:
+          return {
+            ...state,
+            reviews: action.payload
+          }
+
             case CANCELL_CART:
               return {
                 ...state,
@@ -191,7 +230,13 @@ const reducer = (state = initialState , action) => {
               return {
                 ...state,
               }
+            case LOGIN_USER_COOKIE:
+              return {
+                ...state,
+                onlineUser: loginUserCookie(action.payload)
+              }
               
+
     default:
       return state;
     }
@@ -202,7 +247,7 @@ export default reducer;
 
 
 
-function reducerAddUser(data) {
+function reducerAddUser(data) {  
   if (data[0]) {
     const { id, username, firstname, surname, type, address } = data[1];
     return { id, username, firstname, surname, type, address };
@@ -226,4 +271,12 @@ function reducerUpdateUser (ar,id,body){
     }
     return ar
    }
+}
+
+function loginUserCookie (data) {
+  if (data) {
+    return data
+  } else {
+    return 0
+  }
 }

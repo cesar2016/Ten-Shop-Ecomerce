@@ -4,6 +4,7 @@ const { Op, where } = require("sequelize");
 
 
 
+
 server.get('/', (req, res, next) => {
 	Product.findAll().then(function(data){
 			res.send(data)
@@ -71,10 +72,11 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 	 });
  });
 
+/* 
 
-
-server.post("/add", (req, res) => {
-	const { category } = req.body;		
+server.post("/add", upload.single("laimagen"), (req, res) => {
+	const { category } = req.body;	
+	console.log("LA IMAGEN", req.file)	
 	addProduct(req.body)
 		.then(productCreated => {
 			if (category.length === 0) {
@@ -91,10 +93,9 @@ server.post("/add", (req, res) => {
 				return res.json(productCreated)
 			};
 		})
-});
+}); */
 
-function addProduct(product) {
-	console.log("La imagen", img)
+function addProduct(product) {	
 	return Product.create({
 		name: product.name,
 		description: product.description,
@@ -184,25 +185,23 @@ server.post("/update", (req, res) => {
 server.post("/:id/review", (req, res) => {
 	const { id } = req.params;
 	const { username } = req.body;
-	const { review } = req.body;
-
+	const rating  = req.body.review.rating;
+	const { comments } = req.body.review;
+	//console.log(req.body)
 	Reviews.create({
-		rating: review.rating,
-		comments: review.comments
+		rating,
+		comments,
+		productId: id
 	})
-	.then((r)=>{
-		Product.findOne({ where: { id } })	
-	.then((p)=>{				 
-			 p.addReviews(r)	
-		});		
+	.then(r=>{
 		User.findOne({ where: { username } })
-	.then((u)=>{		
-		r.setUser(u);
-	})
-	res.send(r); // El resultado del POST!!!
+		.then(u=>{		
+			r.setUser(u);
+			res.send(r); // El resultado del POST!!!
+		});		
 
 	});
-	 
+
 });
 
 
