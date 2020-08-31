@@ -3,9 +3,15 @@ import TableCategories from '../Products/TableCategories';
 import { connect } from 'react-redux'
 import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions';
 import Page404 from "../Page404";
+import Swal from 'sweetalert2'; 
 
  function FormCategory({categories, getAllCategories, addCategory, modifyCategory, elId, onlineUser}) {
-
+   function exitoAdd(){
+   Swal.fire({
+      icon: 'success', title: 'Your category has been created!', showConfirmButton: false, timer: 1500 }) 
+    }
+    function exitoUpdate(){
+       Swal.fire({ icon: 'success', title: 'The category has been modify succesfully.', showConfirmButton: false, timer: 1500 }) } 
   useEffect(()=>{
     addCategory()
     getAllCategories()
@@ -48,7 +54,6 @@ import Page404 from "../Page404";
     e.preventDefault();
     modifyCategory(inputModify,elId.current)
     form.style.display = 'none';
-    alert("The category has been modify succesfully.")
   };
 
   function update(elId, body) {        
@@ -92,7 +97,7 @@ import Page404 from "../Page404";
                 <form action="#" method="post" onSubmit={handleAddSubmit} >
                    <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" required onChange={handleinputAddChange} />
                    <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleinputAddChange}/>
-                   <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
+                   <input type="submit" onClick={() => exitoAdd()}className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
                 </form>
                 </div>
                 <div className="col-md-5 contact-form alert alert-dark" >
@@ -100,7 +105,7 @@ import Page404 from "../Page404";
                     <form onSubmit={handleModifySubmit} id = {"formulario"} style={{display:'none'}}>
                     <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="ModifyName" required onChange={handleInputModifyChange} />
                     <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id ="DescriptionName"onChange={handleInputModifyChange}/>
-                    <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
+                    <input type="submit" onClick={() => exitoUpdate()}  className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
                     </form>
                 </div>
             </div>
