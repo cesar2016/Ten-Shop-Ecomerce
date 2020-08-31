@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import Page404 from "../Page404";
 
 
+
 function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
   
   useEffect(() => {
@@ -83,7 +84,6 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
 
 
  if(onlineUser.type == 1){
-
     return (
         <div className="container">
         <section class="contact-block"></section>

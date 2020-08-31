@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct} from "../../actions";
+import { addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset} from "../../actions";
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import "./Product.css";
 import Rater from 'react-rater' // PARA INSTALAR --> npm install --save react-rater
 import 'react-rater/lib/react-rater.css';
+var ls = require('local-storage');
 
-function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct}) {
+function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset}) {
     const [input,setInput] = useState({});
     const [inputRating, setInputRating] = useState({});
 
@@ -24,6 +25,18 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
             [e.target.name]: e.target.value
         })
     }
+    
+    function invited () {
+      ls.set('idProducts', [...ls.get('idProducts'),id]);
+      lsset();
+      Swal.fire({
+        icon: 'success',
+        title: 'Your cart has been update!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      //console.log("EEEEEEEEEEE",ls.get('idProducts'))
+  }
     var aux = {
         username: onlineUser.username,
         review: {
@@ -123,7 +136,7 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
                     <h5><i aria-hidden="true" className="fa fa-money  fa-lg"></i> <strong className= "text-danger">$ {resultado.price}</strong> <i aria-hidden="true" className="fa fa-check fa-lg"></i><strong className = "text-success">Stock: {resultado.stock}</strong></h5>
                     <p>{resultado.description} </p>
                     {resultado.stock === 0 && <div> <button type="button" onClick={() => soldout()} className="book-now-btn btn-danger"> Sold Out  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
-                    {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <NavLink to="/login"><button type="button" className="book-now-btn btn-danger"> Sign In To Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></NavLink> </div>}
+                    {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <button type="button" onClick={() => invited()} className="book-now-btn btn-danger"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
                     {resultado.stock !== 0 &&  typeof onlineUser === "object" && <div> <button type="button" onClick={() => exitoAdd()} className="book-now-btn btn-success"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button> </div>}
                   </div>
                 </div>
@@ -201,7 +214,9 @@ const mapDispatchToProps = dispatch => {
         getReviews: (id) => dispatch(getReviews(id)),
 				getUsers: () => dispatch(getUsers()),
 				getOrders: (status) => dispatch(getOrders(status)),
-				getOrdersxproduct: (idProd) => dispatch(getOrdersxproduct(idProd))
+        getOrdersxproduct: (idProd) => dispatch(getOrdersxproduct(idProd)),
+        lsset: () => dispatch(lsset()),
+        
     }
   }
 
