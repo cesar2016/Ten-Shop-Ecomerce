@@ -112,6 +112,9 @@ function isAuthenticated(req, res, next) {
     }
   }
   
+
+
+
 server.get("/logout", (req, res) => {
   req.logout();
   res.send("Ok!")
