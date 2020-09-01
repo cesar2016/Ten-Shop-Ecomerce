@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { userLogout, loginUserCookie, lsset } from "../actions/index.js";
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
-var ls = require('local-storage');
+/*var ls = require('local-storage');*/
 
 function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset}) {
   const history = useHistory(); 
@@ -37,9 +37,9 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset})
         
       }, [onlineUser])
 
-      useEffect(()=> {
-        lsset()
-    },[setid.length]);
+  useEffect(() => {
+    lsset()
+  }, [setid.length]);
 
       function alertt(){
         Swal.fire({
@@ -56,6 +56,7 @@ console.log(cantproductos); */
         title: 'Bye! You have successfully disconnected',
       })
       userLogout()
+      setAdmin(false)
       history.push('/');
 
    }
@@ -111,29 +112,29 @@ console.log(cantproductos); */
                             }                                
                             </div>
                          </li>
-                        {admin && 
-                        <li style={{marginTop:"5px"}} className="nav-item dropdown">
-                          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span style={{color:"white"}}>Admin</span>
-                          </a>
-                          <div style={{fontSize:"15px", borderRadius:"10px"}} className="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <NavLink className="dropdown-item" to={`/formCategory`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>CRUD Category</span>                                            
-                          </NavLink>
-                          <NavLink className="dropdown-item" to={`/formProduct`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>CRUD Products</span>                                            
-                          </NavLink>
-                          <NavLink className="dropdown-item" to={`/formAddProduct`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>Add Products</span>                                            
-                          </NavLink>
-                          <NavLink className="dropdown-item" to={`/orders`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>Orders</span>                                            
-                          </NavLink>
-                          <NavLink className="dropdown-item" to={`/admin`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>Admin</span>                                            
-                          </NavLink>
-                          </div>
-                        </li>
+                        {admin ? 
+                        (<li style={{marginTop:"5px"}} className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span style={{color:"white"}}>Admin</span>
+                        </a>
+                        <div style={{fontSize:"15px", borderRadius:"10px"}} className="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <NavLink className="dropdown-item" to={`/formCategory`}>
+                            <span style={{color:"black", marginLeft:"5px", display:"block"}}>CRUD Category</span>                                            
+                        </NavLink>
+                        <NavLink className="dropdown-item" to={`/formProduct`}>
+                            <span style={{color:"black", marginLeft:"5px", display:"block"}}>CRUD Products</span>                                            
+                        </NavLink>
+                        <NavLink className="dropdown-item" to={`/formAddProduct`}>
+                            <span style={{color:"black", marginLeft:"5px", display:"block"}}>Add Products</span>                                            
+                        </NavLink>
+                        <NavLink className="dropdown-item" to={`/orders`}>
+                            <span style={{color:"black", marginLeft:"5px", display:"block"}}>Orders</span>                                            
+                        </NavLink>
+                        <NavLink className="dropdown-item" to={`/admin`}>
+                            <span style={{color:"black", marginLeft:"5px", display:"block"}}>Admin</span>                                            
+                        </NavLink>
+                        </div>
+                      </li>) : (<div></div>) 
                         }
                       </ul>
                       
@@ -198,7 +199,7 @@ console.log(cantproductos); */
                             <li className="nav-item">
                               <button id = "SIGNUP" title="SIGNUP" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
                                 <i className="fa fa-user-plus" aria-hidden="true">
-                                  <span style={{fontFamily:'verdana'}}> Sing Up</span>
+                                  <span style={{fontFamily:'verdana'}}> Sign Up</span>
                                 </i>                         
                               </button>
                             </li>
