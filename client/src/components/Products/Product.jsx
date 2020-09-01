@@ -203,13 +203,15 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
            </div>
          </div>
 
+         
+
 
 
          <div class="product-details"> 
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img src="https://bangho.vteximg.com.br/arquivos/ids/159374-360-360/notebook-bes-e6-intel-core-i5.jpg?v=637271406679500000" alt="" />
-								<h3>NOTEBOOK</h3>
+								<img  src={resultado.image} alt="" />
+								<h3>{resultado.name}</h3>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
 								
@@ -234,23 +236,32 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
 						<div class="col-sm-7">
 							<div class="product-information"> 
 								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
-								<h2>Anne Klein Sleeveless Colorblock Scuba</h2>
-								<p>Web ID: 1089772</p>
+								<h2>{resultado.name}</h2>
+								<p>{resultado.description}</p>
 								{/* <img src="images/product-details/rating.png" alt="" /> */}
 								<span>
-									<span>US $59</span>								
-									<button type="button" className="book-now-btn btn-success">
-										<h3><i class="fa fa-shopping-cart"></i> &nbsp;
-										Add to cart</h3>
-									</button>
+									<span>US $ {resultado.price}</span>								
+									  {resultado.stock === 0 && <div> <button type="button" onClick={() => soldout()} className="book-now-btn btn-danger"> Sold Out  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
+                    {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <button type="button" onClick={() => invited()} className="book-now-btn btn-danger"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
+                    {resultado.stock !== 0 &&  typeof onlineUser === "object" && <div> <button type="button" onClick={() => exitoAdd()} className="book-now-btn btn-success"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button> </div>}
 								</span>
-								<p><b>Availability:</b> In Stock</p>
-								<p><b>Condition:</b> New</p>
-								<p><b>Brand:</b> E-SHOPPER</p>
-								<a href=""><img src="https://cuidar.org/images/icons/formasdepago/mini_tarjetas.jpg" width="100" height="200" class="share img-responsive"  alt="" /></a>
+								<p><b>Availability:</b> {resultado.stock}</p>
+								<p><b>Esatate:</b> New</p>
+								<p><b>Shipping:</b> FREE</p>
+								<a href=""><img style={{margin: "0 auto"}}  src="https://cuidar.org/images/icons/formasdepago/mini_tarjetas.jpg" width="200" height="350" class="share img-responsive"  alt="" /></a>
 							</div> 
 						</div>
-					</div>  
+					</div> 
+
+          <section>
+          <div>
+          <h3>Average:</h3>
+          </div>
+            <div className="puntaje">
+              <Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false} 																							style={{fontSize:"60px"}} onRate={({rating}) => onRate(rating)} />
+	            </div>
+              
+         </section>
 
 
         </div>
