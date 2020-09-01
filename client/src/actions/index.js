@@ -33,6 +33,10 @@ export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT";
 export const SET_ID = "SET_ID";
 export const VACIAR_LS = "VACIAR_LS";
 export const ADD_CART_INVITED = "ADD_CART_INVITED";
+export const GET_PRODUCTSXORDER = "GET_PRODUCTSXORDER";
+export const FINISH_ORDER = "FINISH_ORDER";
+
+
 
 
 
@@ -330,7 +334,7 @@ let body = {
 export function completeCart(idUser, addres){ 
   //console.log("Acionssssss",addres,idUser)
   let body = {
-    status: "complete",
+    status: "processing",
     address: addres
   };
   return function (dispatch) {
@@ -339,6 +343,22 @@ export function completeCart(idUser, addres){
     .then(result => {
       dispatch({
         type: COMPLETE_CAR,
+      })
+    })
+  }
+}
+
+export function finishorder(idUser){ 
+  //console.log("Acionssssss",idUser)
+  let body = {
+    status: "complete",
+  };
+  return function (dispatch) {
+    return axios.post(`http://localhost:3001/users/${idUser}/update/cart`, body, { withCredentials: true })
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: FINISH_ORDER,
       })
     })
   }
@@ -456,7 +476,7 @@ export function vaciarls() {
    }
  }
 
-
+//TRAE TODAS LAS ORDENES DE UN PRODUCTO:
 export function getOrdersxproduct(idProd) {
   return function(dispatch) {
     return axios.get(`http://localhost:3001/orders/${idProd}`)
@@ -464,6 +484,19 @@ export function getOrdersxproduct(idProd) {
     .then(result => {
       dispatch({
         type: GET_ORDERSXPRODUCT,
+        payload: result
+      })
+    })
+  }
+}
+//TRAE TODOS LOS PRODUCTOS DE UNA ORDEN:
+export function getproductsxorders(idOrder) {
+  return function(dispatch) {
+    return axios.get(`http://localhost:3001/orders/products/${idOrder}`)
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: GET_PRODUCTSXORDER,
         payload: result
       })
     })

@@ -32,6 +32,8 @@ import {
     SET_ID,
     VACIAR_LS,
     ADD_CART_INVITED,
+    GET_PRODUCTSXORDER,
+    FINISH_ORDER,
   
 
    } from '../actions/index';
@@ -52,6 +54,7 @@ const initialState = {
   newrev: {},
   ordersxproduct: [],
   setid: [],
+  productsxorder: {},
  
 };
 const reducer = (state = initialState, action) => {
@@ -276,6 +279,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         setid: []
       }
+    case GET_PRODUCTSXORDER:
+      return {
+        ...state,
+        productsxorder: action.payload
+      }
+    case FINISH_ORDER:
+      return {
+        ...state,
+      }
+      
     default:
       return state;
   }

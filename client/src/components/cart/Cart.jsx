@@ -41,7 +41,7 @@ var ls = require('local-storage');
 
   const productosConSubtotales = useRef([])
 
-  if (arr.length && productosConSubtotales.current.length !== getcart.length) {
+  if (arr.length && productosConSubtotales.current.length !== arr.length) {
     products.forEach(e => {
       if (arr.includes(e.id)) {
         productosConSubtotales.current.push(e)

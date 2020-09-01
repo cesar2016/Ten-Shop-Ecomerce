@@ -1,16 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import "./FormOrders.css";
 import { connect } from "react-redux";
-import { getOrders, updateProduct} from "../../actions";
+import { getOrders, updateProduct, getproductsxorders,finishorder} from "../../actions";
 import Page404 from "../Page404";
+import Swal from 'sweetalert2';
 
-
-function FormProduct({ orders, getOrders, onlineUser}) {
+function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, productsxorder,finishorder}) {
  
  
       function getord(select){
         let status = select.target.value;    
-        for (let i = 1; i < 5; i++) {
+        for (let i = 1; i < 6; i++) {
           var boton = document.getElementById("op"+i);
           boton.className = 'btn btn-danger btn-lg';
         }
@@ -18,14 +18,103 @@ function FormProduct({ orders, getOrders, onlineUser}) {
         getOrders(status)
     
       }
-  
+      function completeorder(select){
+        let status = select.target.value;    
+        for (let i = 1; i < 6; i++) {
+          var boton = document.getElementById("op"+i);
+          boton.className = 'btn btn-danger btn-lg';
+        }
+        select.target.className = 'btn btn-success btn-lg';
+        getOrders(status) 
+      
+      
+      }
+
+function orderpriv(data){
+  console.log(data);
+  getproductsxorders(data.id)
+}
+
+function terminarorden(data){
+  finishorder(productsxorder.userId);
+  Swal.fire({
+    icon: 'success',
+    title: 'The Order,'+ ' ' +productsxorder.id+' '+ 'is Complete',
+    showConfirmButton: false,
+    timer: 3000
+  })
+}
+      
             
   if( onlineUser.type == 1){
       return (
   
           <div className="container">
-  
-  
+  {/* <!-- Modal --> */}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+       {/*  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> */}
+        <div class="alert alert-danger col" role="alert">Order Summary
+        
+        <button type="button btn-lg" class="close" data-dismiss="modal" aria-label="Close">
+
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+      </div>
+      <div class="modal-body">
+      <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Product</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+  {productsxorder.products && productsxorder.products.map((p) =>{ return ( <tr>
+      <th scope="row">1</th>
+      <td>{p.name}</td>
+      <td>{p.productsxorders.amount}</td>
+      <td>{p.productsxorders.total_price}</td>
+    </tr>)
+    })}
+  </tbody>
+</table>
+  <div class="alert alert-danger col" role="alert">Order Details</div>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Shipping</th>
+      <th scope="col">Payment details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row">{onlineUser.firstname+" "+onlineUser.surname}</td>
+      <td>Credit Card</td>
+    
+    </tr>
+      <td scope="row">{productsxorder.address}</td>
+    
+  </tbody>
+</table>
+      </div>
+      <div class="modal-footer" style={{display:"flex", justifyContent:"space-between"}}>
+        
+        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancell Order</button>
+      
+        <button type="button" class="btn btn-success btn-lg" onClick={(e) => terminarorden(e)} >Confirm Order</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+   {/* <!-- Modal --> */}
+
           <section class="contact-block"></section>
               <section class="contact-block jumbotron">
                   <div class="container">
@@ -37,11 +126,15 @@ function FormProduct({ orders, getOrders, onlineUser}) {
   
                               <button type="button" className="btn btn-danger btn-lg" onClick={(e) => getord(e)} id="op1" value="allorders">ALL ORDERS</button>
                               &nbsp; 
-                              <button type="button" class="btn btn-danger btn-lg" onClick={(e) => getord(e)} id="op2" value="processing">PROCESSING ORDERS</button>
+                              <button type="button" class="btn btn-danger btn-lg" onClick={(e) => getord(e)} id="op2" value="created">CREATED ORDERS</button>
                               &nbsp; 
                               <button type="button" class="btn btn-danger btn-lg" onClick={(e) => getord(e)} id="op3" value="cancelled">CANCELLED ORDERS</button>
                               &nbsp; 
-                              <button type="button" class="btn btn-danger btn-lg" onClick={(e) => getord(e)} id="op4" value="complete">COMPLETE ORDERS</button>
+                              <button type="button" class="btn btn-danger btn-lg" onClick={(e) => getord(e)} id="op4" value="processing"><a href=""></a> PROCESSING ORDERS</button>
+                              &nbsp; 
+                              <button type="button" class="btn btn-danger btn-lg" onClick={(e) => completeorder(e)} id="op5" value="complete"><a href=""></a> COMPLETE ORDERS</button>
+                              
+                              
                               &nbsp;                                                 
                               
                           </form>
@@ -55,25 +148,28 @@ function FormProduct({ orders, getOrders, onlineUser}) {
                                       <th scope="col">ID</th>
                                       <th scope="col">OWNER</th>
                                       <th scope="col">STATUS</th>
+                                      <th scope="col">DETAILS</th>
                                       <th scope="col">TOTAL PRICE</th>
   
                                   </tr>
                                </thead>
   
-                              <tbody >
-                             {  orders.map((p, i) => {            
+                                  <tbody >
+                                    {  orders.map((p, i) => {            
 
-                    return ( <tr>
-                      <th scope="row"> {p.id} </th>
-                      <td> <span className="palabras"> {p.user.firstname.toUpperCase()} {p.user.surname.toUpperCase()}</span> </td>
-                      <td>
-                      <span className="palabras">  {p.status.toUpperCase()}</span>
-                      </td>
-                    <td>  <span className="palabras"> $ {p.total_price}</span></td>
-            </tr>)
-                             })
-                            }
-                              </tbody>
+                                                        return ( <tr>
+                                                                      <th scope="row"> {p.id} </th>
+                                                                      <td> <span className="palabras"> {p.user.firstname.toUpperCase()} {p.user.surname.toUpperCase()}</span> </td>
+                                                                      <td>
+                                                                      <span className="palabras">  {p.status.toUpperCase()}</span>
+                                                                      </td>
+                                                                      <td>  <span className="palabras"> {p.status== "processing" &&  <button type="button" onClick={(e) => orderpriv(p)} class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Confirm Order</button>}  </span></td>
+                                                                    <td>  <span className="palabras"> $ {p.total_price}</span></td>
+                                                                  </tr>
+                                                                )
+                                          })
+                                      }
+                                  </tbody>
   
                           </table>
                       </div>
@@ -97,6 +193,9 @@ function FormProduct({ orders, getOrders, onlineUser}) {
   const mapDispatchToProps = dispatch => {
     return {
       getOrders: (status) => dispatch(getOrders(status)),
+      getproductsxorders: (id) => dispatch(getproductsxorders(id)),
+      finishorder: (id) => dispatch(finishorder(id)),
+      
     }
   }
   
@@ -104,7 +203,8 @@ function FormProduct({ orders, getOrders, onlineUser}) {
     return {
     
       orders: state.getorders,  
-      onlineUser: state.onlineUser
+      onlineUser: state.onlineUser,
+      productsxorder: state.productsxorder,
    
     }
   }
