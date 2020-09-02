@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import "./Product.css";
 import Rater from 'react-rater' // PARA INSTALAR --> npm install --save react-rater
-import 'react-rater/lib/react-rater.css';
+import 'react-rater/lib/react-rater.css'; 
 var ls = require('local-storage');
 
 function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset}) {
@@ -255,7 +255,7 @@ var img4 = resultado.image;
                         <div className="commented-section mt-2 row border-bottom px-6">
                          <div className="d-flex flex-row align-items-center commented-user col">
                            <h2 className="mr-2">{all_users.map(u => {if( p.userId === u.id) return ("  " + u.firstname.charAt(0).toUpperCase()+u.firstname.slice(1) + " " + u.surname.charAt(0).toUpperCase()+u.surname.slice(1))})}</h2>
-                           {/* <span class="dot mb-1"></span> */}
+                           
                          </div>
                          <div className="reply-section col " style={{ textAlign:"right"}}>
                            <Rater total={5} rating= {p.rating}interactive = {false} style={{fontSize:"30px"}}  />
@@ -274,7 +274,7 @@ var img4 = resultado.image;
             </div>
            </div>
          </div>
-
+         
 
          </section>
     );

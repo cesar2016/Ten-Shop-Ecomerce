@@ -6,7 +6,7 @@ import './App.css';
 import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
 import FormProduct from "./components/formularios/FormProduct"
-import Catalogue from "./components/Products/Catalogue"
+import Catalogue from "./components/Products/Catalogue" 
 import About from "./components/About"
 import FormAddProduct from "./components/formularios/FormAddProduct"
 import FormCategory from "./components/formularios/FormCategory"
@@ -50,7 +50,7 @@ function App() {
           <Route exact path="/cart" render={() => <Cart />} />
           <Route exact path="/orders" render={() => <FormOrders />} />
           <Route exact path="/admin" render={()=> <FormAdmin/>} />
-          <Route exact path="/404" render={()=> <Page404/>} />
+          <Route exact path="/404" render={()=> <Page404/>} />          
           <Route path="/" render={() => <Footer/>} />
           
          
