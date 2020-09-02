@@ -40,8 +40,7 @@ passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {    
-  console.log("ENTRA EL ID", id)
+passport.deserializeUser(function(id, done) {      
   db.User.findOne({ where: { id } })
     .then(user => {      
       done(null, user.dataValues);
@@ -78,8 +77,8 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.use((req, res, next) => {
-  console.log("Session! ", req.session);
-  console.log("User!", req.user);
+  /*console.log("Session! ", req.session);
+  console.log("User!", req.user);*/
   next();
 });
 
