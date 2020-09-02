@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import "./Product.css";
 import Rater from 'react-rater' // PARA INSTALAR --> npm install --save react-rater
-import 'react-rater/lib/react-rater.css';
+import 'react-rater/lib/react-rater.css'; 
 var ls = require('local-storage');
 
 function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset, getAllCart}) {
@@ -16,8 +16,11 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
         getUsers();
 				getReviews(id);
 				getOrders("complete")
-				getOrdersxproduct(id)
+        getOrdersxproduct(id)
+        
     },[newrev]);
+
+    
 
     function handleInputChange (e) {
         setInput({
@@ -117,45 +120,114 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
         }
     if(!flagOrders){flag = true}
    
-  resultado && console.log("STOOOOOOOOOOOOOOOOCK", resultado.stock);
+  console.log("flag", flag)
+
+  function changeImage(image, idimg) {
+
+    if(idimg === 1){
+      var element = document.getElementById("img1");
+      element.style.opacity =' 0.3';
+    }else{
+      var element = document.getElementById("img1");
+      element.style.opacity ='';
+    }
+
+    if(idimg === 2){
+      var element = document.getElementById("img2");
+      element.style.opacity =' 0.3';
+    }else{
+      var element = document.getElementById("img2");
+      element.style.opacity ='';
+    }
+
+    if(idimg === 3){
+      var element = document.getElementById("img3");
+      element.style.opacity =' 0.3';
+    }else{
+      var element = document.getElementById("img3");
+      element.style.opacity ='';
+    }
+
+    if(idimg === 4){
+      var element = document.getElementById("img4");
+      element.style.opacity =' 0.3';
+    }else{
+      var element = document.getElementById("img4");
+      element.style.opacity ='';
+    }
+
+    
+
+    
+  
+    document.getElementById("imgClickAndChange").src = image;
+}
+
+///harcod cambiar por DB
+var img1 = 'https://bangho.vteximg.com.br/arquivos/ids/159374-360-360/notebook-bes-e6-intel-core-i5.jpg?v=637271406679500000';
+var img2 = 'https://http2.mlstatic.com/D_NQ_NP_767579-MLA41407377205_042020-V.jpg';
+var img3 = 'https://player8.org/wp-content/uploads/2018/11/tendencias-notebooks-e1545604566700-890x606.jpg';
+var img4 = resultado.image;
+
+  
     return (
-       <div className="container">
-   
-         <section className="blog-block">
-          <div className="container">
-        	  <div className="row offspace-45">
-							<div class="col"> </div>
-        	    <div className="view-set-block col-6">
-                <div className="col-md-6 col-sm-6 col-xs-12">
-                  <div className="event-blog-image">
-                    <img alt="image" className="img-responsive" src={resultado.image}/>
-                  </div>
-         	    	</div>
-                <div className="col-md-6 col-sm-6 col-xs-12 side-in-image">
-                  <div className="event-blog-details">
-                    <h4><a href="single-blog.html">{resultado.name}</a></h4>
-                    <h5><i aria-hidden="true" className="fa fa-money  fa-lg"></i> <strong className= "text-danger">$ {resultado.price}</strong> <i aria-hidden="true" className="fa fa-check fa-lg"></i><strong className = "text-success">Stock: {resultado.stock}</strong></h5>
-                    <p>{resultado.description} </p>
-                    {resultado.stock === 0 && <div> <button type="button" onClick={() => soldout()} className="book-now-btn btn-danger"> Sold Out  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
+      
+       <section className="container-fluid" style={{marginTop: "10px"}}>
+         <section className="content"> 
+         
+         <div class="product-details"> 
+						<div class="col-sm-5">
+							<div class="view-product">
+								<img id="imgClickAndChange" src={resultado.image} alt="" />
+								<h3>{resultado.name}</h3>
+							</div>
+							<div id="similar-product" class="carousel slide" data-ride="carousel">
+								
+								  
+								    <div class="carousel-inner">
+										<div class="item active">
+										  <a  onClick={(e)=> changeImage(img1, 1)}><img id={'img1'} src={img1} width='84' height='85' alt=""/></a>
+										  <a  onClick={(e)=> changeImage(img2, 2)}><img id={'img2'} src={img2} width='84' height='85' alt=""/></a>
+										  <a  onClick={(e)=> changeImage(img3, 3)}><img id={'img3'} src={img3} width='84' height='85' alt=""/></a>
+                      <a  onClick={(e)=> changeImage(img4, 4)}><img id={'img4'} src={img4} width='84' height='85' alt=""/></a>
+										</div>																			 										
+									</div>
+								   
+								   
+							</div>
+
+						</div>
+						<div class="col-sm-7">
+							<div class="product-information"> 
+								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
+								<h2>{resultado.name}</h2>
+								<p>{resultado.description}</p>
+								{/* <img src="images/product-details/rating.png" alt="" /> */}
+								<span>
+									<span>US $ {resultado.price}</span>								
+									  {resultado.stock === 0 && <div> <button type="button" onClick={() => soldout()} className="book-now-btn btn-danger"> Sold Out  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
                     {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <button type="button" onClick={() => invited()} className="book-now-btn btn-danger"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
                     {resultado.stock !== 0 &&  typeof onlineUser === "object" && <div> <button type="button" onClick={() => exitoAdd()} className="book-now-btn btn-success"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button> </div>}
-                  </div>
-                </div>
-              </div>
-								<div class="col"></div>
-            </div>
-          </div>
-         </section>
-         <section>
+								</span>
+								<p><b>Availability:</b> {resultado.stock}</p>
+								<p><b>Esatate:</b> New</p>
+								<p><b>Shipping:</b> FREE</p>
+								<a><img style={{margin: "0 auto"}}  src="https://cuidar.org/images/icons/formasdepago/mini_tarjetas.jpg" width="200" height="350" class="share img-responsive"  alt="" /></a>
+							</div> 
+						</div>
+					</div>
+        </section> 
+
+          <div className={'content'}>
           <div>
           <h3>Average:</h3>
           </div>
-            <div className="puntaje">
-              <Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false}  																								style={{fontSize:"60px"}} onRate={({rating}) => onRate(rating)} />
-	            </div>
-         </section>
+          <div className="puntaje">
+              <Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false} style={{fontSize:"60px"}} onRate={({rating}) => onRate(rating)} />
+	        </div>              
+         </div>
 
-        <div className="container mt-5 mb-5" >
+         <div className="container mt-5 mb-5" >
           <div className="d-flex justify-content-center row">
             <div className="d-flex flex-column col-md-8">
             <div className="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
@@ -178,13 +250,13 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
 							}
 
                 <div className="collapsable-comment">
-                   <div className="d-flex flex-row justify-content-between align-items-center action-collapse p-2" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1"><span style= {{fontSize:"20px", fontWeight:"bold"}}>Reviews: </span><i class="fa fa-chevron-down servicedrop"></i></div>
-                     <div id="collapse-1" className="collapse">
+                   <div className="d-flex flex-row justify-content-between align-items-center" data-toggle=""><span style= {{fontSize:"20px", fontWeight:"bold"}}>Reviews: </span><i class="fa fa-chevron-down servicedrop"></i></div>
+                     <div id="" className="">
                       {reviews && reviews.map (p =>
                         <div className="commented-section mt-2 row border-bottom px-6">
                          <div className="d-flex flex-row align-items-center commented-user col">
                            <h2 className="mr-2">{all_users.map(u => {if( p.userId === u.id) return ("  " + u.firstname.charAt(0).toUpperCase()+u.firstname.slice(1) + " " + u.surname.charAt(0).toUpperCase()+u.surname.slice(1))})}</h2>
-                           {/* <span class="dot mb-1"></span> */}
+                           
                          </div>
                          <div className="reply-section col " style={{ textAlign:"right"}}>
                            <Rater total={5} rating= {p.rating}interactive = {false} style={{fontSize:"30px"}}  />
@@ -203,58 +275,9 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
             </div>
            </div>
          </div>
+         
 
-
-
-         <div class="product-details"> 
-						<div class="col-sm-5">
-							<div class="view-product">
-								<img src="https://bangho.vteximg.com.br/arquivos/ids/159374-360-360/notebook-bes-e6-intel-core-i5.jpg?v=637271406679500000" alt="" />
-								<h3>NOTEBOOK</h3>
-							</div>
-							<div id="similar-product" class="carousel slide" data-ride="carousel">
-								
-								  
-								    <div class="carousel-inner">
-										<div class="item active">
-										  <a href=""><img src="https://bangho.vteximg.com.br/arquivos/ids/159374-360-360/notebook-bes-e6-intel-core-i5.jpg?v=637271406679500000" width='84' height='85' alt=""/></a>
-										  <a href=""><img src="https://http2.mlstatic.com/D_NQ_NP_767579-MLA41407377205_042020-V.jpg" width='84' height='85' alt=""/></a>
-										  <a href=""><img src="https://player8.org/wp-content/uploads/2018/11/tendencias-notebooks-e1545604566700-890x606.jpg" width='84' height='85' alt=""/></a>
-										</div>
-										<div class="item">
-                    <a href=""><img src="https://bangho.vteximg.com.br/arquivos/ids/159374-360-360/notebook-bes-e6-intel-core-i5.jpg?v=637271406679500000" width='84' height='85' alt=""/></a>
-										  <a href=""><img src="https://http2.mlstatic.com/D_NQ_NP_767579-MLA41407377205_042020-V.jpg" width='84' height='85' alt=""/></a>
-										  <a href=""><img src="https://player8.org/wp-content/uploads/2018/11/tendencias-notebooks-e1545604566700-890x606.jpg" width='84' height='85' alt=""/></a>
-										</div>										 										
-									</div>
-								   
-								   
-							</div>
-
-						</div>
-						<div class="col-sm-7">
-							<div class="product-information"> 
-								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
-								<h2>Anne Klein Sleeveless Colorblock Scuba</h2>
-								<p>Web ID: 1089772</p>
-								{/* <img src="images/product-details/rating.png" alt="" /> */}
-								<span>
-									<span>US $59</span>								
-									<button type="button" className="book-now-btn btn-success">
-										<h3><i class="fa fa-shopping-cart"></i> &nbsp;
-										Add to cart</h3>
-									</button>
-								</span>
-								<p><b>Availability:</b> In Stock</p>
-								<p><b>Condition:</b> New</p>
-								<p><b>Brand:</b> E-SHOPPER</p>
-								<a href=""><img src="https://cuidar.org/images/icons/formasdepago/mini_tarjetas.jpg" width="100" height="200" class="share img-responsive"  alt="" /></a>
-							</div> 
-						</div>
-					</div>  
-
-
-        </div>
+         </section>
     );
 };
 const mapDispatchToProps = dispatch => {

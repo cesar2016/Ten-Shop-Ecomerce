@@ -55,6 +55,7 @@ console.log(cantproductos); */
         title: 'Bye! You have successfully disconnected',
       })
       userLogout()
+      setAdmin(false)
       history.push('/');
 
    }

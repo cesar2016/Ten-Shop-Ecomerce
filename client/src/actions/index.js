@@ -29,14 +29,13 @@ export const UPDATE_PRICE_ORDER = "UPDATE_PRICE_ORDER";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const ADD_REVIEW = "ADD_REVIEW";
 export const LOGIN_USER_COOKIE = "LOGIN_USER_COOKIE";
-export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT";
+export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT"
+export const UPDATE_ONLINE_USER = "UPDATE_ONLINE_USER";
 export const SET_ID = "SET_ID";
 export const VACIAR_LS = "VACIAR_LS";
 export const ADD_CART_INVITED = "ADD_CART_INVITED";
 export const GET_PRODUCTSXORDER = "GET_PRODUCTSXORDER";
 export const FINISH_ORDER = "FINISH_ORDER";
-
-
 
 
 
@@ -455,9 +454,21 @@ export function loginUserCookie(){
     }
 
 
+export function updateOnlineUser (id, body) {
+  return function(dispatch) {
+    return axios.put(`http://localhost:3001/users/${id}`, body)
+      .then(result => result.data)
+      .then(data => {
+        dispatch({
+          type: UPDATE_ONLINE_USER,
+          payload: data
+        })
+      })
+  }
+}
 
-export function lsset() {
- // ls.set('idProducts', [...ls.get('idProducts'),id]);
+
+export function lsset() { 
  let idproductos = ls.get('idProducts');
   return function(dispatch) {
       dispatch({
