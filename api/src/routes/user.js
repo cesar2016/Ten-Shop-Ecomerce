@@ -1,10 +1,10 @@
-import server from 'express'.Router();
-import { User, Order , Productsxorders , Product} from '../db.js';
-import passport  from 'passport';
-import Strategy  from 'passport-local'.Strategy;
-import crypto from 'crypto'; //npm i --save sequelize crypto
+const server = require('express').Router();
+const { User, Order , Productsxorders , Product} = require('../db.js');
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
+const crypto = require('crypto'); //npm i --save sequelize crypto
 //const template = require ('../../templatehtml')
-import {template} from "./templatehtml"; 
+const template = require("./templatehtml"); 
 
 var API_KEY = '8b9c761e52be8997a21042f8a5202a72-7cd1ac2b-48179440';
 var DOMAIN = 'sandbox4e9997fe4bc84f0ca0bd8c2c653688bf.mailgun.org';
