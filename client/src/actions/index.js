@@ -33,6 +33,7 @@ export const UPDATE_ONLINE_USER = "UPDATE_ONLINE_USER";
 export const SET_ID = "SET_ID";
 export const VACIAR_LS = "VACIAR_LS";
 export const ADD_CART_INVITED = "ADD_CART_INVITED";
+export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT";
 
 
 
