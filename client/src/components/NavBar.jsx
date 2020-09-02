@@ -71,7 +71,7 @@ console.log(cantproductos); */
                         </NavLink>
 						</div>
 					</div>
-					<div class="col-md-8 clearfix">
+					<div class="col-md-8 clearfix" style={{paddingTop:"70px"}}>
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
 								<li>
