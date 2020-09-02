@@ -1,4 +1,4 @@
-export function template (username){
+function template (username){
 	return (`
 
 	<!DOCTYPE html>
@@ -210,3 +210,4 @@ export function template (username){
 	`)
 }
 
+module.export = template
