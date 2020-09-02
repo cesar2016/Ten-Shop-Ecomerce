@@ -64,7 +64,7 @@ console.log(cantproductos); */
 		<div class="header-middle">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-4 clearfix">
+					<div class="col-md-4 clearfix" style={{display:'flex', justifyContent:'center'}}>
 						<div class="logo pull-left">
                         <NavLink to="/">
 							<a href=""><img src="logo.png" alt="" /></a>
@@ -77,9 +77,9 @@ console.log(cantproductos); */
 								<li>
                                     <NavLink to="/cart">
                                     <a href="">
-                                        <i class="fa fa-shopping-cart badge badge-light">
-                                        {typeof onlineUser !== "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {ls.get('idProducts').length}</span>}
-                                        {typeof onlineUser === "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {getcart.length !== 0 ? getcart.length : 0}</span>}
+                                        <i class="fa fa-shopping-cart badge" style={{backgroundColor:'orange'}}>
+                                        {typeof onlineUser !== "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px", backgroundColor:'orange'}}>  {ls.get('idProducts').length}</span>}
+                                        {typeof onlineUser === "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px", backgroundColor:'orange'}}>  {getcart.length !== 0 ? getcart.length : 0}</span>}
                                             
                                         </i> 
                                         Cart
@@ -115,7 +115,7 @@ console.log(cantproductos); */
 	
 		<div class="header-bottom">
 			<div class="container">
-				<div class="row">
+				<div class="row" style={{display:"flex", alignItems:'center'}}>
 					<div class="col-sm-9">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
