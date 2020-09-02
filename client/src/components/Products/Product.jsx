@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset} from "../../actions";
+import { addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset, getAllCart} from "../../actions";
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import "./Product.css";
@@ -8,7 +8,7 @@ import Rater from 'react-rater' // PARA INSTALAR --> npm install --save react-ra
 import 'react-rater/lib/react-rater.css';
 var ls = require('local-storage');
 
-function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset}) {
+function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset, getAllCart}) {
     const [input,setInput] = useState({});
     const [inputRating, setInputRating] = useState({});
 
@@ -82,6 +82,7 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
             showConfirmButton: false,
             timer: 1500
           })
+          getAllCart(idUser) 
      }
 
 
@@ -116,10 +117,10 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
         }
     if(!flagOrders){flag = true}
    
-  console.log("flag", flag)
+  resultado && console.log("STOOOOOOOOOOOOOOOOCK", resultado.stock);
     return (
        <div className="container">
-
+   
          <section className="blog-block">
           <div className="container">
         	  <div className="row offspace-45">
@@ -216,6 +217,7 @@ const mapDispatchToProps = dispatch => {
 				getOrders: (status) => dispatch(getOrders(status)),
         getOrdersxproduct: (idProd) => dispatch(getOrdersxproduct(idProd)),
         lsset: () => dispatch(lsset()),
+        getAllCart: (id) => dispatch(getAllCart(id)),
         
     }
   }

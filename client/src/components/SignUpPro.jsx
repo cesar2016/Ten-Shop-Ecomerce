@@ -132,7 +132,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
           title: 'Your account has been created successfully',
         })
         history.push('/'); 
-        console.log("ANTESS DE ENTRARRRRRR", setid)
+        //console.log("ANTESS DE ENTRARRRRRR", setid)
   /*           if(typeof onlineUser == "object"){
               console.log("ENTROOOOOOO", setid)
               let arr = [];

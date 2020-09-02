@@ -3,12 +3,12 @@ import "./NavBar.css";
 import SearchBar from "./SearchBar.jsx";
 import { NavLink } from 'react-router-dom';
 import { connect } from "react-redux";
-import { userLogout, loginUserCookie, lsset } from "../actions/index.js";
+import { userLogout, loginUserCookie, lsset , getAllCart} from "../actions/index.js";
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
 var ls = require('local-storage');
 
-function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset}) {
+function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset, getAllCart,cart}) {
   const history = useHistory(); 
   const [categories, setCategories] = useState([]);
   const [admin, setAdmin] = useState(false);
@@ -28,6 +28,7 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset})
             }
         })
         if (typeof onlineUser  === "object"){
+         getAllCart(onlineUser.id)
           if (onlineUser.type == 1){
             setAdmin(true)
           }
@@ -37,9 +38,11 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset})
         
       }, [onlineUser])
 
-      useEffect(()=> {
-        lsset()
-    },[setid.length]);
+       useEffect(()=> {
+        if(typeof onlineUser == "object"){
+           getAllCart(onlineUser.id) 
+      }
+    },[cart]); 
 
       function alertt(){
         Swal.fire({
@@ -59,7 +62,9 @@ console.log(cantproductos); */
       history.push('/');
 
    }
-        
+   getcart && console.log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ",getcart);
+      if (getcart.length !== 0 && typeof onlineUser == "object"){ 
+       console.log("ASDASDASDASDASDASDASDASDASDASDASDASDASDASD", getcart.length);}
     return (
         <header className="header-content">
                 <nav style={{fontSize:"20px", color:"red"}} className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-danger fixed-top">
@@ -145,7 +150,9 @@ console.log(cantproductos); */
                               <button title="CART" type="button" className="btn btn-light my-2 my-sm-0">
                                  
                                 <i style={{fontSize:"15px"}} className="fa fa-shopping-cart badge badge-light ">
-                            <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {getcart && getcart.length || setid && setid.length}</span>
+                               {typeof onlineUser !== "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {ls.get('idProducts').length}</span>}
+                               {typeof onlineUser === "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {getcart.length !== 0 ? getcart.length : 0}</span>}
+
                                 </i>
                               </button>
                               </NavLink>
@@ -213,8 +220,9 @@ console.log(cantproductos); */
 const mapStateToProps = state => {
     return {
         onlineUser: state.onlineUser,
-        getcart: state.cart,
+        getcart: state.getcart,
         setid: state.setid,
+        cart: state.cart
     }
 }
 
@@ -223,6 +231,8 @@ const mapDispatchToProps = dispatch => {
     userLogout: () => dispatch(userLogout()),
     loginUserCookie: () => dispatch(loginUserCookie()),
     lsset: () => dispatch(lsset()),
+    getAllCart: (id) => dispatch(getAllCart(id)),
+    
   }
 }
 

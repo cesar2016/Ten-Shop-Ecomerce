@@ -138,7 +138,7 @@ server.post('/:idUser/invited/cart', (req, res) => {
  const {idUser} = req.params;//Id del usuario
    const {body} = req;//un arrays con productos [1, 5 , 13]
    Order.findAll({where: { userId: idUser, status: "created" }}).then(ord => {
-        // console.log("EStaaaaaa la ordennnn-------------------",body, ord);
+         console.log("EStaaaaaa la ordennnnASDASDASDASDASDASDADASDAq-------------------",body, ord);
          if(ord.length){   
           for (let i = 0; i < body.length; i++) {
             Product.findByPk(body[i]).then(producto => {  
