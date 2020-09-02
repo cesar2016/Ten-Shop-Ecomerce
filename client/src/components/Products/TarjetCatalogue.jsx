@@ -11,7 +11,7 @@ export default function Catalogo({price, name, stock, id, image, description}) {
 
                     <NavLink to ={`/product/${id}`} > 
                                     
-                        <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 alert alert" style={{height:"600px"}}> 
+                        {/* <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 alert alert" style={{height:"600px"}}> 
                             <div className="vacation-offer-details">
                                 <button type="button" className="btn btn-default">{name}</button>
                             </div>
@@ -28,7 +28,28 @@ export default function Catalogo({price, name, stock, id, image, description}) {
                                     </p>
                                 </div>
                             </div>
-                        </div>      
+                        </div>  */}
+                        <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12" >
+							<div class="product-image-wrapper">
+								<div class="single-products">
+										<div class="productinfo text-center">
+											<img src={image}/>
+											<h2>$ {price}</h2>
+                                            <p>{name}</p>
+											
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2>{description}</h2>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Click for more detail</a>
+											</div>
+										</div>
+								</div>
+								<div class="choose text-center">
+                                <a href="#" class="btn btn-default"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+								</div>
+							</div>
+						</div>     
                                         
                       </NavLink>
 

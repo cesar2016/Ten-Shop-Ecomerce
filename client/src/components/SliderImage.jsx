@@ -12,42 +12,70 @@ function SliderImage() {
   
         
     return (
-        <header className="header-content-fluid" style={{marginTop:'50px'}}>
-
-
-        <div id="myCarousel1" class="carousel slide" data-ride="carousel">
-
-                <ol className={"carousel-indicators"}>
-                    <li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel1" data-slide-to="1"></li>
-                    <li data-target="#myCarousel1" data-slide-to="2"></li>
-                </ol>
-                
-                <div class="carousel-inner">
-                    <div class="item active"> <img src="style/images/slider1.png" style={{width:'100%', height:' 500px'}}  alt="First slide"/>
-                        <div class="carousel-caption">
-                            {/* <h1>PROMO Tablet</h1> */}
-                        </div>
-                    </div>
-                    <div class="item"> <img src="style/images/slider2.png" style={{width:'100%', height:' 500px'}} alt="Second slide"/>
-                        <div class="carousel-caption">
-                            {/* <h1>vacayhome spa & Resort</h1> */}
-                        </div>
-                    </div>
-                    <div class="item"> <img src="style/images/slider3.png" style={{width:'100%', height:' 500px'}} alt="Third slide"/>
-                        <div class="carousel-caption">
-                            {/* <h1>vacayhome spa & Resort</h1> */}
-                        </div>
-                    </div>
-
-                </div>
-                <a class="left carousel-control" href="#myCarousel1" data-slide="prev"> <img src="style/images/icons/left-arrow.png" onmouseover="this.src = 'style/images/icons/left-arrow-hover.png'" onmouseout="this.src = 'style/images/icons/left-arrow.png'" alt="left"/></a>
-                <a class="right carousel-control" href="#myCarousel1" data-slide="next"><img src="style/images/icons/right-arrow.png" onmouseover="this.src = 'style/images/icons/right-arrow-hover.png'" onmouseout="this.src = 'style/images/icons/right-arrow.png'" alt="left"/></a>
-
-            </div>
-            <div class="clearfix"></div>
-
-            </header>
+        <section id="slider">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+							<li data-target="#slider-carousel" data-slide-to="1"></li>
+							<li data-target="#slider-carousel" data-slide-to="2"></li>
+						</ol>
+						
+						<div class="carousel-inner">
+							<div class="item active">
+								<div class="col-sm-6">
+									<h1><span>E</span>-SHOPPER</h1>
+									<h2>Free E-Commerce Template</h2>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<button type="button" class="btn btn-default get">Get it now</button>
+								</div>
+								<div class="col-sm-6">
+									<img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />
+									<img src="images/home/pricing.png"  class="pricing" alt="" />
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-sm-6">
+									<h1><span>E</span>-SHOPPER</h1>
+									<h2>100% Responsive Design</h2>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<button type="button" class="btn btn-default get">Get it now</button>
+								</div>
+								<div class="col-sm-6">
+									<img src="images/home/girl2.jpg" class="girl img-responsive" alt="" />
+									<img src="images/home/pricing.png"  class="pricing" alt="" />
+								</div>
+							</div>
+							
+							<div class="item">
+								<div class="col-sm-6">
+									<h1><span>E</span>-SHOPPER</h1>
+									<h2>Free Ecommerce Template</h2>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<button type="button" class="btn btn-default get">Get it now</button>
+								</div>
+								<div class="col-sm-6">
+									<img src="images/home/girl3.jpg" class="girl img-responsive" alt="" />
+									<img src="images/home/pricing.png" class="pricing" alt="" />
+								</div>
+							</div>
+							
+						</div>
+						
+						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+							<i class="fa fa-angle-left"></i>
+						</a>
+						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+							<i class="fa fa-angle-right"></i>
+						</a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</section>
         
 
 

@@ -171,7 +171,7 @@ var img4 = resultado.image;
   
     return (
       
-       <section className="container-fluid" style={{marginTop: "70px"}}>
+       <section className="container-fluid" style={{marginTop: "10px"}}>
          <section className="content"> 
          
          <div class="product-details"> 
