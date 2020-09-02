@@ -32,7 +32,7 @@ function App() {
   
 
     return (
-      <div className="App jumbotron bg-white">
+      <div className="App jumbotron">
           <Route path="/" render={() => <NavBar/> } />         
           <Route exact path="/" render={()=> <SliderImage/>} />
           <Route exact path="/" render={() => <Catalogue/> } />
