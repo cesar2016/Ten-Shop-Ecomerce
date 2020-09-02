@@ -29,13 +29,13 @@ import {
     ADD_REVIEW,
     LOGIN_USER_COOKIE,
     GET_ORDERSXPRODUCT,
+    UPDATE_ONLINE_USER,    
     SET_ID,
     VACIAR_LS,
     ADD_CART_INVITED,
-  
-
+ 
    } from '../actions/index';
-   var ls = require('local-storage');
+var ls = require('local-storage');
 
 const initialState = {
   all_products: [],
@@ -219,16 +219,11 @@ const reducer = (state = initialState, action) => {
           ...state,
           newrev: action.payload
       }
-    case DELETE_USER:
-      return {////////////////////////////////////////
-      ...state,
-      all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
-      }
-    case GET_REVIEWS:
-       return {
-         ...state,
-         reviews: action.payload
-       }
+          case DELETE_USER:
+        return {////////////////////////////////////////
+          ...state,
+          all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
+        }
     case CANCELL_CART:
        return {
          ...state,
@@ -266,6 +261,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         ordersxproduct: action.payload
       }
+    case UPDATE_ONLINE_USER:
+      return {
+        ...state,
+        onlineUser: action.payload
+      }
     case SET_ID:
       return {
         ...state,
@@ -279,6 +279,8 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
+  
+
 
   function setidproduct (id) {
     let asd = [...state.setid, id];

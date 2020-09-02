@@ -112,7 +112,8 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
             className={classes.input}
             helperText=""
             error={false}
-            onChange={handleChange}            
+            onChange={handleChange} 
+            inputProps={{style: {fontSize: 20}}}           
           />
           <TextField
             variant="outlined"
@@ -127,6 +128,7 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
             className={classes.input} 
             onChange={handleChange} 
             error={false}           
+            inputProps={{style: {fontSize: 20}}}           
           />          
           <Button
             type="submit"
