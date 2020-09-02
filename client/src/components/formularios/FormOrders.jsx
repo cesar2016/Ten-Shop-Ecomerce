@@ -42,7 +42,8 @@ function terminarorden(data){
     title: 'The Order,'+ ' ' +productsxorder.id+' '+ 'is Complete',
     showConfirmButton: false,
     timer: 3000
-  })
+  });
+ 
 }
       
             
@@ -107,7 +108,7 @@ function terminarorden(data){
         
         <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancell Order</button>
       
-        <button type="button" class="btn btn-success btn-lg" onClick={(e) => terminarorden(e)} >Confirm Order</button>
+        <button type="button" class="btn btn-success btn-lg" data-dismiss="modal" onClick={(e) => terminarorden(e)} >Confirm Order</button>
        
       </div>
     </div>
@@ -163,7 +164,7 @@ function terminarorden(data){
                                                                       <td>
                                                                       <span className="palabras">  {p.status.toUpperCase()}</span>
                                                                       </td>
-                                                                      <td>  <span className="palabras"> {p.status== "processing" &&  <button type="button" onClick={(e) => orderpriv(p)} class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Confirm Order</button>}  </span></td>
+                                                                      <td>  <span className="palabras"> {p.status== "processing" ?  <button type="button" onClick={(e) => orderpriv(p)} class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Confirm Order</button> : <span className="palabras">  {p.updatedAt.slice(0,10)+" | "+p.updatedAt.slice(11,19)}</span>}  </span></td>
                                                                     <td>  <span className="palabras"> $ {p.total_price}</span></td>
                                                                   </tr>
                                                                 )

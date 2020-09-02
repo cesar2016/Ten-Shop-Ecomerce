@@ -316,9 +316,9 @@ export function updateCart(idUser, body) {
 }
 
 export function priceOrder(idUser, total) {
-   console.log("ACCIONSSSSSSSSSSSSSSS//////////////////////////////////////",total)
+  // console.log("ACCIONSSSSSSSSSSSSSSS//////////////////////////////////////",total)
 let body = {
-  total_price: total
+  total_price: Math.round(total)
 }
   return function (dispatch) {
     return axios.post(`http://localhost:3001/users/${idUser}/c/order`, body)

@@ -138,7 +138,7 @@ server.post('/:idUser/invited/cart', (req, res) => {
  const {idUser} = req.params;//Id del usuario
    const {body} = req;//un arrays con productos [1, 5 , 13]
    Order.findAll({where: { userId: idUser, status: "created" }}).then(ord => {
-         console.log("EStaaaaaa la ordennnn-------------------",body, ord);
+        // console.log("EStaaaaaa la ordennnn-------------------",body, ord);
          if(ord.length){   
           for (let i = 0; i < body.length; i++) {
             Product.findByPk(body[i]).then(producto => {  
@@ -194,20 +194,44 @@ server.delete("/:id", (req, res) => {
   .catch(() => res.status(404).send("User has not be deleted"))
   });
 
-//ELIMINA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes o Completar ordenes):
+//CANCELA, PROCESA Y COMPLETA ORDENES:
 server.post("/:idUser/update/cart", (req, res) => {
-  console.log("ENTROOACAAAAA", req.body , req.params);
+  //console.log("ENTROOACAAAAA", req.body , req.params);
   const { idUser } = req.params;
-  const {body} = req;  //recibe por body: satatus: complete o cancelled y direccion;
-  Order.update(body, { where: { userId: idUser, status: "created" } }).then(data => {
-   // console.log(data[0]);
+  const {body} = req;  //recibe por body: satatus: processing  y direccion, cancelled , complete;
+  if(req.body.status == "cancelled"){
+      Order.update(body, { where: { userId: idUser, status: "created" } }).then(data => {
+    // console.log(data[0]);
+      if(data[0]){
+      res.status(200).send("Order has been deleted/complete");
+      }else{
+        res.status(404).send("You do not have an order created");
+      }
+    });
+  }
+  if(req.body.status == "processing"){
+    Order.update(body, { where: { userId: idUser, status: "created" } }).then(data => {
+  // console.log(data[0]);
     if(data[0]){
     res.status(200).send("Order has been deleted/complete");
     }else{
       res.status(404).send("You do not have an order created");
     }
-  });
+    });
+  }
+  if(req.body.status == "complete"){
+    Order.update(body, { where: { userId: idUser, status: "processing" } }).then(data => {
+  // console.log(data[0]);
+    if(data[0]){
+    res.status(200).send("Order has been deleted/complete");
+    }else{
+      res.status(404).send("You do not have an order created");
+    }
+    });
+  }
+
 });
+
 
 
 //RUTAS PARA EDITAR CANTIDADES TABLA PRODUCTSXORDERS

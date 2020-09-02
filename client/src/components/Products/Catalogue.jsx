@@ -10,7 +10,7 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
     getAllProducts()
   }, [])
   var flag = false;  
-        if (typeof onlineUser === "object") {
+/*         if (typeof onlineUser === "object") {
                 if(setid.length !== 0){
                   let arr = [];
                   setid.forEach(function(ele){
@@ -19,7 +19,7 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
                     addCartInvited(arr, onlineUser.id)
                   //console.log("SIGN IN PROOOOOOO", arr) 
         }  
-      }  
+      }  */ 
 
     if(products){
       return (

@@ -83,7 +83,6 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
               setid.forEach(function(ele){
                   return arr.push(parseInt(ele))
                 });
-                addCartInvited(arr, onlineUser.id)
               //console.log("SIGN IN PROOOOOOO", arr) 
     }  
   }     

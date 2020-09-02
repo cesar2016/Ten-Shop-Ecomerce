@@ -18,9 +18,6 @@ var ls = require('local-storage');
 
   }, [])
          
-  useEffect(()=> {
-
-},[]);
 
   var arr = [];
   if(ls.get('idProducts').length){
@@ -98,7 +95,7 @@ var ls = require('local-storage');
           autocapitalize: 'off'
         },
         showCancelButton: true,
-        confirmButtonText: 'Look up',
+        confirmButtonText: 'Confirm Address',
         showLoaderOnConfirm: true,        
         allowOutsideClick: () => !Swal.isLoading()
       }).then((result) => {

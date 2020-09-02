@@ -287,6 +287,7 @@ const reducer = (state = initialState, action) => {
     case FINISH_ORDER:
       return {
         ...state,
+        getorders: [],
       }
       
     default:
