@@ -59,7 +59,7 @@ console.log(cantproductos); */
     return (
 
     <header id="header">
-		<div class="header-middle navbar-fixed-top">
+		<div class="header-middle">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 clearfix">
@@ -83,11 +83,25 @@ console.log(cantproductos); */
                                     </NavLink>
                                 </li>
 								<li>
-                                    <NavLink to="/signin">
-                                    <a href=""><i class="fa fa-user"></i> Account</a>
+                                { typeof onlineUser !== "object" &&
+                                    <NavLink to="/signup">
+                                    <a href=""><i class="fa fa-user"></i> Create Account</a>
                                     </NavLink>
+                                }
                                 </li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li>
+                                { typeof onlineUser !== "object" &&
+                                    <NavLink to="/signin">
+                                    <a href=""><i class="fa fa-lock"></i> Login</a>
+                                    </NavLink>
+                                }
+                                </li>
+                                {onlineUser.firstname && (
+                                <li>
+                                    <a href="" onClick={() => salirr()}><i class="fa fa-lock"></i>WELCOME {onlineUser.firstname.toUpperCase()} {onlineUser.surname.toUpperCase()} Logout</a>
+                                    
+                                </li>
+                                )}
 							</ul>
 						</div>
 					</div>
@@ -140,6 +154,38 @@ console.log(cantproductos); */
                                     </li>  
                                     </ul>
                                 </li> 
+                                {admin && 
+                                <li class="dropdown">
+                                    <a href="#">Admin<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                    <NavLink className="dropdown-item" to={`/formCategory`}>
+                                    <li>       
+                                        <a href="">Form Category</a><br/>                                                  
+                                    </li>
+                                    </NavLink>  
+                                    <NavLink className="dropdown-item" to={`/formProduct`}>
+                                    <li>       
+                                        <a href="">Form Product</a><br/>                                                  
+                                    </li>
+                                    </NavLink> 
+                                    <NavLink className="dropdown-item" to={`/formAddProduct`}>
+                                    <li>       
+                                        <a href=""></a>Add Product<br/>                                                  
+                                    </li>
+                                    </NavLink> 
+                                    <NavLink className="dropdown-item" to={`/orders`}>
+                                    <li>       
+                                        <a href=""></a>Orders<br/>                                                  
+                                    </li>
+                                    </NavLink> 
+                                    <NavLink className="dropdown-item" to={`/admin`}>
+                                    <li>       
+                                        <a href=""></a>Admin<br/>                                                  
+                                    </li>
+                                    </NavLink> 
+                                    </ul>
+                                </li> 
+                                }
 							</ul>
 						</div>
 					</div>

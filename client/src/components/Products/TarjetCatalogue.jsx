@@ -29,13 +29,13 @@ export default function Catalogo({price, name, stock, id, image, description}) {
                                 </div>
                             </div>
                         </div>  */}
-                        <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12" >
+                        <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt-5" >
 							<div class="product-image-wrapper">
 								<div class="single-products">
 										<div class="productinfo text-center">
-											<img src={image}/>
-											<h2>$ {price}</h2>
-                                            <p>{name}</p>
+											<img src={image} style={{height:"200px"}}/>
+											<h2>{name}</h2>
+                                            <p>$ {price}</p>
 											
 										</div>
 										<div class="product-overlay">
@@ -49,7 +49,7 @@ export default function Catalogo({price, name, stock, id, image, description}) {
                                 <a href="#" class="btn btn-default"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 								</div>
 							</div>
-						</div>     
+						</div>    
                                         
                       </NavLink>
 
