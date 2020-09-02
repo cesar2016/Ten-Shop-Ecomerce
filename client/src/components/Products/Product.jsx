@@ -205,6 +205,55 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
          </div>
 
 
+
+         <div class="product-details"> 
+						<div class="col-sm-5">
+							<div class="view-product">
+								<img src="https://bangho.vteximg.com.br/arquivos/ids/159374-360-360/notebook-bes-e6-intel-core-i5.jpg?v=637271406679500000" alt="" />
+								<h3>NOTEBOOK</h3>
+							</div>
+							<div id="similar-product" class="carousel slide" data-ride="carousel">
+								
+								  
+								    <div class="carousel-inner">
+										<div class="item active">
+										  <a href=""><img src="https://bangho.vteximg.com.br/arquivos/ids/159374-360-360/notebook-bes-e6-intel-core-i5.jpg?v=637271406679500000" width='84' height='85' alt=""/></a>
+										  <a href=""><img src="https://http2.mlstatic.com/D_NQ_NP_767579-MLA41407377205_042020-V.jpg" width='84' height='85' alt=""/></a>
+										  <a href=""><img src="https://player8.org/wp-content/uploads/2018/11/tendencias-notebooks-e1545604566700-890x606.jpg" width='84' height='85' alt=""/></a>
+										</div>
+										<div class="item">
+                    <a href=""><img src="https://bangho.vteximg.com.br/arquivos/ids/159374-360-360/notebook-bes-e6-intel-core-i5.jpg?v=637271406679500000" width='84' height='85' alt=""/></a>
+										  <a href=""><img src="https://http2.mlstatic.com/D_NQ_NP_767579-MLA41407377205_042020-V.jpg" width='84' height='85' alt=""/></a>
+										  <a href=""><img src="https://player8.org/wp-content/uploads/2018/11/tendencias-notebooks-e1545604566700-890x606.jpg" width='84' height='85' alt=""/></a>
+										</div>										 										
+									</div>
+								   
+								   
+							</div>
+
+						</div>
+						<div class="col-sm-7">
+							<div class="product-information"> 
+								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
+								<h2>Anne Klein Sleeveless Colorblock Scuba</h2>
+								<p>Web ID: 1089772</p>
+								{/* <img src="images/product-details/rating.png" alt="" /> */}
+								<span>
+									<span>US $59</span>								
+									<button type="button" className="book-now-btn btn-success">
+										<h3><i class="fa fa-shopping-cart"></i> &nbsp;
+										Add to cart</h3>
+									</button>
+								</span>
+								<p><b>Availability:</b> In Stock</p>
+								<p><b>Condition:</b> New</p>
+								<p><b>Brand:</b> E-SHOPPER</p>
+								<a href=""><img src="https://cuidar.org/images/icons/formasdepago/mini_tarjetas.jpg" width="100" height="200" class="share img-responsive"  alt="" /></a>
+							</div> 
+						</div>
+					</div>  
+
+
         </div>
     );
 };

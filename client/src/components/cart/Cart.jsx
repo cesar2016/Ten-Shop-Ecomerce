@@ -8,7 +8,7 @@ var ls = require('local-storage');
 
   function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder,getAllProducts, vaciarls}) {
     const history = useHistory();    
-//console.log("RRRRRRRRRRRRRRR",ls.get('idProducts'))
+
   React.useEffect(() => {
     if(typeof onlineUser === "object"){  
     var idUser = onlineUser.id;
@@ -175,142 +175,90 @@ var ls = require('local-storage');
 
         
      return (
-         <div className="container">
-         <div className="container d-flex justify-content-center">
- <section class="blog-block">
-     <div class="container">
-
-         <div class="row offspace">
+        <section id="cart_items">
+             <div class="container">
+             <div class="row offspace">
              <div class="view-set-block">
                  <div class="col-md-8 col-sm-8 col-xs-12">
-                     <div class="event-blog-image">
-                         <table class="table table-hover">
-                             <thead>
-                             <tr align={'center'}>
-                                 
-                             <h2>Shopping Cart <i className={"fa fa-shopping-cart"}></i></h2>
-                             
-                             </tr>
-                             </thead>
-                             <tbody>                             
-                                 { 
-                                   arr.length !== 0 && 
-                                   
-                                   
-                                   products.map((e, i) => {                                                               
-                                       if(arr.includes(e.id)){
-                                           return(
-                                            <tr>
-                                            <th width={'30%'}>
-                                                <div class="text-center">
-                                                    <img width={'150'} src={e.image} class="rounded" alt="..." />
-                                                </div>
-                                            </th>
-                                            <td width={'50%'} >
-                                                <p>
-                                           <h4><a>{e.name}</a></h4>
-                                                </p>
-                                                <p>
-                                                    <div class="event-blog-details">
-                                                        <p>{e.description}
-                                                </p>
-                                                    </div>
-                                                </p>
-                                                
-                                           <h3><strong  id={i+"strong"} >${e.price}</strong></h3>
-                                            </td>
-                                            <td width={'20%'}>                                            
-                                                <div class="col-auto">
-                                                    <label class="sr-only" for="inlineFormInput">{e.name}</label>                                                    
-                                                    <label>count</label>                                                                                                   
-                                                    <input min="1" type="number" id={e.id} onClick={()=>sum(e.id, e.price)} class="form-control mb-2 mt-5" placeholder="Amount" />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                           )
-                                       } 
-                                       {                                          
-                                     }
-                                   })                                                                        
-                                 }
-                             </tbody>
-                                  
-                         </table>
-                     </div>
-                 </div>
-                                 
-            {arr.length !== 0 && <div class="col-md-4 col-sm-4 col-xs-12 side-in-image">
-                     <div class="event-blog-details">
-                         <table class="table">
-                             <thead>
-                                 <tr>
-                                     <h2>Sumary <i className={"fa fa-calculator"}></i></h2>
-                                 </tr>
-                             </thead>
-                             <tbody>
-                                 <tr>
-                                     <th>
-                                         <p>
-                                             <div class="event-blog-details">
-                                                 <p>SubTotal</p>
-                                                 <p>Shipping</p>
-                                                 <p>Taxes</p>
-                                             </div>
-                                         </p>
-                                     </th>
-                                     <th>
-                                         <p>
-                                             <div class="event-blog-details">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li class="active">Shopping Cart</li>
+				</ol>
+			</div>
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description"></td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+                    { 
+                        arr.length !== 0 && 
+                        products.map((e, i) => {                                                               
+                            if(arr.includes(e.id)){
+                                return(
+						<tr>
+							<td class="cart_product">
+								<a href=""><img width={'150'} src={e.image} alt=""/></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="">{e.name}</a></h4>
+							</td>
+							<td class="cart_price">
+								<p>${e.price}</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" href=""> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2"/>
+									<a class="cart_quantity_down" href=""> - </a>
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">$59</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+                        )
+                        } 
+                        {                                          
+                        }
+                        }) }
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+        <div class="col-sm-4">
+        <div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li class="active">Shopping Cart</li>
+				</ol>
+			</div>
+					<div class="total_area">
+						<ul>
+							<li>Cart Sub Total <span>$59</span></li>
+							<li>Eco Tax <span>$2</span></li>
+							<li>Shipping Cost <span>Free</span></li>
+							<li>Total <span>$61</span></li>
+						</ul>
+							<a class="btn btn-default update" href="">Update</a>
+							<a class="btn btn-default check_out" href="">Check Out</a>
+					</div>
+				</div>
+                </div>
+                </div>
+                </div>
 
-                                                <p id="subtotal">0</p>  
-                                                <p>$400</p>
-                                                <p id="taxes">0</p>
-                                             </div>
-                                         </p>
-                                     </th>
-                                 </tr>
-                                 <tr>
-                                     <th>
-                                         <p>
-                                             <div class="event-blog-details">
-                                                 <h3>Total</h3>
-                                             </div>
-                                         </p>
-                                     </th>
-                                     <th>
-                                         <p>
-                                             <div class="event-blog-details">
-                                                 <h3><strong id="total">$ 400</strong></h3>
-                                             </div>
-                                         </p>
-                                     </th>
-                                 </tr>
-                                 <tr>
-                                     <th><button className="btn btn-danger btn-lg" onClick={() => {cancell()}}>Cancel</button></th>
-                                 
-                                     {typeof onlineUser === "object" && <th><button className="btn btn-default active btn-lg" onClick={() => alertt()}>Next </button></th>}
-                                     {typeof onlineUser !== "object" && <th><button className="btn btn-default active btn-lg" onClick={() => alerttinvited()}>Next </button></th>}
-                                 </tr>
-                             </tbody>
-                         </table>
-                     </div>
-                 </div>
-            }
-            
-             </div>
-         </div>
-     </div>
-
-
- </section>
-</div>
-         {
- arr.length === 0 && 
-    
-         <div class="alert alert-danger" role="alert"><h2>Your cart is empty!</h2></div>
-
- }
-         </div>
+        </section>
      );
  }; 
 

@@ -15,11 +15,7 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset, 
     
     useEffect(() => {
         var but = document.getElementById('SIGNIN');        
-        if ( typeof onlineUser === "object"){
-            but.style.display = 'none';          
-        } else {
-            but.style.display = '';            
-        }
+        
         fetch("http://localhost:3001/categories/")
         .then(r => r.json())
         .then((recurso) => {                     
@@ -62,160 +58,152 @@ console.log(cantproductos); */
       history.push('/');
 
    }
-   getcart && console.log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ",getcart);
-      if (getcart.length !== 0 && typeof onlineUser == "object"){ 
-       console.log("ASDASDASDASDASDASDASDASDASDASDASDASDASDASD", getcart.length);}
     return (
-        <header className="header-content">
-                <nav style={{fontSize:"20px", color:"red"}} className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-danger fixed-top">
-                     <div id="logo">                                    
-                    <NavLink to="/">                         
-                        <a href="/"><span style={{color:"yellow"}}>Ten</span><span style={{color:"yellow"}}>/ Shop</span></a>
-                    </NavLink>                         
-                    </div>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                      <ul className="navbar-nav mr-auto">
+
+    <header id="header">
+		<div class="header-middle">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 clearfix">
+						<div class="logo pull-left">
                         <NavLink to="/">
-                        <li style={{marginTop:"10px"}} className="nav-item active">
-                          <a className="nav-link" href="#">
-                          <i className="fa fa-home fa-lg"></i>                                                              
-                          </a>
-                        </li>
-                        </NavLink> 
-                        <NavLink to="/about" >
-                        <li style={{marginTop:"10px"}} className="nav-item">
-                          <a className="nav-link" href="#">                                 
-                          <span style={{color:"white"}}>About</span>
-                          </a>
-                        </li>
+							<a href=""><img src="logo.png" alt="" /></a>
                         </NavLink>
-                        
-                        <NavLink to="/contact">
-                        <li style={{marginTop:"10px"}} className="nav-item">
-                          <a className="nav-link" href="#">                                 
-                          <span style={{color:"white"}}>Contact</span>
-                          </a>
-                        </li>
-                        </NavLink>                            
-                        <li style={{marginTop:"5px"}} className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                
-                            <span style={{color:"white"}}>Categories</span>
-                            </a>
-                            <div style={{fontSize:"15px", borderRadius:"10px"}} className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {
-                                categories.map((cat, i) => {
-                                    return (                                           
-                                    <NavLink className="dropdown-item" to={`/categories/${cat.name}`}>
-                                        <span style={{color:"black", marginLeft:"5px", display:"block"}}>{cat.name}</span>                                            
+						</div>
+					</div>
+					<div class="col-md-8 clearfix">
+						<div class="shop-menu clearfix pull-right">
+							<ul class="nav navbar-nav">
+								<li>
+                                    <NavLink to="/cart">
+                                    <a href="">
+                                        <i class="fa fa-shopping-cart badge badge-light">
+                                        {typeof onlineUser !== "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {ls.get('idProducts').length}</span>}
+                                        {typeof onlineUser === "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {getcart.length !== 0 ? getcart.length : 0}</span>}
+                                            
+                                        </i> 
+                                        Cart
+                                    </a>
                                     </NavLink>
-                                    )
-                                })
-                            }                                
-                            </div>
-                         </li>
-                        {admin && 
-                        <li style={{marginTop:"5px"}} className="nav-item dropdown">
-                          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span style={{color:"white"}}>Admin</span>
-                          </a>
-                          <div style={{fontSize:"15px", borderRadius:"10px"}} className="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <NavLink className="dropdown-item" to={`/formCategory`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>CRUD Category</span>                                            
-                          </NavLink>
-                          <NavLink className="dropdown-item" to={`/formProduct`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>CRUD Products</span>                                            
-                          </NavLink>
-                          <NavLink className="dropdown-item" to={`/formAddProduct`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>Add Products</span>                                            
-                          </NavLink>
-                          <NavLink className="dropdown-item" to={`/orders`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>Orders</span>                                            
-                          </NavLink>
-                          <NavLink className="dropdown-item" to={`/admin`}>
-                              <span style={{color:"black", marginLeft:"5px", display:"block"}}>Admin</span>                                            
-                          </NavLink>
-                          </div>
-                        </li>
-                        }
-                      </ul>
-                      
-                      <ul className="navbar-nav ">
-                          <li className="nav-item">   
-                            <div className={'content'}>  
-                          
-                             <NavLink to="/cart">
-                              <button title="CART" type="button" className="btn btn-light my-2 my-sm-0">
-                                 
-                                <i style={{fontSize:"15px"}} className="fa fa-shopping-cart badge badge-light ">
-                               {typeof onlineUser !== "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {ls.get('idProducts').length}</span>}
-                               {typeof onlineUser === "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px"}}>  {getcart.length !== 0 ? getcart.length : 0}</span>}
-
-                                </i>
-                              </button>
-                              </NavLink>
-                              
-                           </div>   
-                            </li>
-                          &nbsp;                          
-                            {/* {onlineUser.firstname && (<li className="nav-item"> */}
-                              {/* <h4>Welcome {onlineUser.firstname} {onlineUser.surname}</h4>}                             */}
-                              {/* <button id = "SIGNOUT" title="sign out" style={{fontSize:"15px"}} type="button" className=" nav-link dropdown-toggle btn btn-info my-2 my-sm-0" onClick={() => userLogout()}>
-                               <i className="fa fa-sign-out" aria-hidden="true"></i>
-                              </button>
-                              </li>
-                              
-                            )} */}
-                                                     
-                            {onlineUser.firstname && (<li className="nav-item">
-                              {/* <h4>Welcome {onlineUser.firstname} {onlineUser.surname}</h4>} */}
-                              <div class="dropdown">
-                            <button id = "SIGNOUT" title="sign out" style={{fontSize:"14px"}} type="button" className="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <small text-danger><i className='fa fa-user'></i> WELCOME {onlineUser.firstname.toUpperCase()} {onlineUser.surname.toUpperCase()}</small> 
-                            </button>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a style={{color:"balck"}} class="fa fa-sign-out dropdown-item"  onClick={() => salirr()}>LOGOUT</a>                                
-                              </div>
-                            </div> 
-                              </li>
-                              
-                            )}
-                                                      
-                                                                             
-                            
-                        <NavLink to="/signin">
-                            <li className="nav-item">
-
-                          <button id = "SIGNIN" title="SIGNIN" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
-
-                            <i className="fa fa-user" aria-hidden="true"> Sign In</i>
-
-                            
-                        </button>
-                              </li>
-                        </NavLink>
-                        &nbsp; 
-                        { typeof onlineUser !== "object" &&
-                        <NavLink to="/signup">
-                            <li className="nav-item">
-                              <button id = "SIGNUP" title="SIGNUP" style={{fontSize:"15px"}} type="button" className="btn btn-light my-2 my-sm-0">
-                                <i className="fa fa-user-plus" aria-hidden="true">
-                                  <span style={{fontFamily:'verdana'}}> Sing Up</span>
-                                </i>                         
-                              </button>
-                            </li>
-                        </NavLink>  
-                        }
-                       </ul> 
-                        &nbsp;                            
+                                </li>
+								<li>
+                                { typeof onlineUser !== "object" &&
+                                    <NavLink to="/signup">
+                                    <a href=""><i class="fa fa-user"></i> Create Account</a>
+                                    </NavLink>
+                                }
+                                </li>
+								<li>
+                                { typeof onlineUser !== "object" &&
+                                    <NavLink to="/signin">
+                                    <a href=""><i class="fa fa-lock"></i> Login</a>
+                                    </NavLink>
+                                }
+                                </li>
+                                {onlineUser.firstname && (
+                                <li>
+                                    <a href="" onClick={() => salirr()}><i class="fa fa-lock"></i>WELCOME {onlineUser.firstname.toUpperCase()} {onlineUser.surname.toUpperCase()} Logout</a>
+                                    
+                                </li>
+                                )}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="header-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li>
+                                    <NavLink to="/">
+                                        <a href="" class="active">Home</a>
+                                    </NavLink>
+                                </li>
+								<li>
+                                    <NavLink to="/about" >
+                                        <a href="">About</a>
+                                    </NavLink>
+                                </li>
+								<li>
+                                    <NavLink to="/contact">
+                                        <a href="">Contact</a>
+                                    </NavLink>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#">Categories<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                    <li>
+                                        {
+                                        categories.map((cat) => {
+                                        return (                                           
+                                                <NavLink to={`/categories/${cat.name}`}>
+                                                    <a href="">{cat.name}</a><br/>                                       
+                                                </NavLink>
+                                                )
+                                            })
+                                        } 
+                                    </li>  
+                                    </ul>
+                                </li> 
+                                {admin && 
+                                <li class="dropdown">
+                                    <a href="#">Admin<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                    <NavLink className="dropdown-item" to={`/formCategory`}>
+                                    <li>       
+                                        <a href="">Form Category</a><br/>                                                  
+                                    </li>
+                                    </NavLink>  
+                                    <NavLink className="dropdown-item" to={`/formProduct`}>
+                                    <li>       
+                                        <a href="">Form Product</a><br/>                                                  
+                                    </li>
+                                    </NavLink> 
+                                    <NavLink className="dropdown-item" to={`/formAddProduct`}>
+                                    <li>       
+                                        <a href=""></a>Add Product<br/>                                                  
+                                    </li>
+                                    </NavLink> 
+                                    <NavLink className="dropdown-item" to={`/orders`}>
+                                    <li>       
+                                        <a href=""></a>Orders<br/>                                                  
+                                    </li>
+                                    </NavLink> 
+                                    <NavLink className="dropdown-item" to={`/admin`}>
+                                    <li>       
+                                        <a href=""></a>Admin<br/>                                                  
+                                    </li>
+                                    </NavLink> 
+                                    </ul>
+                                </li> 
+                                }
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="search_box pull-right input-group">
                         <SearchBar/>
-              </div>
-                  </nav>
-        </header>
-        
- )
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+)
 }
 const mapStateToProps = state => {
     return {
