@@ -3,6 +3,12 @@ const { User, Order , Productsxorders , Product} = require('../db.js');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 const crypto = require('crypto'); //npm i --save sequelize crypto
+const template = require ("../../templatehtml.js")
+
+
+var API_KEY = '8b9c761e52be8997a21042f8a5202a72-7cd1ac2b-48179440';
+var DOMAIN = 'sandbox4e9997fe4bc84f0ca0bd8c2c653688bf.mailgun.org';
+var mailgun = require('mailgun-js')({apiKey: API_KEY, domain: DOMAIN});
 
 
 
@@ -30,8 +36,6 @@ User.beforeUpdate(setSaltAndPassword)
 User.prototype.correctPassword = function(enteredPassword) {
   return User.encryptPassword(enteredPassword, this.salt()) === this.password()
 };
-
-
 
 
 
@@ -253,13 +257,28 @@ server.post("/:idUser/c/order", (req, res) => {
 
 server.post("/adduser", (req, res) => {
   const { firstname, surname, password, username, email } = req.body;  
+
+  
   User.findAll({
     where: {username}
   })
     .then(result => {      
       if (!result.length) {
         User.create({firstname, surname, password, type: "2", username, email})        
-        .then(user => res.send([true, user.dataValues]))        
+        .then(user => {
+          res.send([true, user.dataValues])})
+        .then(() => {
+          const data = {
+            from: 'tenshopsoyhenry@gmail.com',
+            to: email,
+            subject: 'Verify your account',
+            text: '',
+            html: 'template(username)'
+          };
+          mailgun.messages().send(data, (error, body) => {
+            console.log(body);
+          });
+        })        
       } else {
         return res.send([false])
       }
