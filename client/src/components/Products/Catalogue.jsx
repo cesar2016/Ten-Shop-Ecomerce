@@ -1,25 +1,24 @@
 import React from 'react';
 import TarjetCatalogue from './TarjetCatalogue.jsx';
 import { connect } from "react-redux";
-import { getAllProducts, getAllCategories, onlineUserError, loginUserCookie , addCartInvited} from "../../actions";
+import { getAllProducts, getAllCategories, onlineUserError, loginUserCookie, addCartInvited } from "../../actions";
 import Swal from 'sweetalert2'
 
-function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, loginUserCookie , addCartInvited, setid}) {      
+function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, loginUserCookie, setid, addCartInvited }) {      
 
   React.useEffect(() => {
     getAllProducts()
   }, [])
   var flag = false;  
-        if (typeof onlineUser === "object") {
-                if(setid.length !== 0){
-                  let arr = [];
-                  setid.forEach(function(ele){
-                      return arr.push(parseInt(ele))
-                    });
-                    addCartInvited(arr, onlineUser.id)
-                  //console.log("SIGN IN PROOOOOOO", arr) 
-        }  
-      }  
+  if (typeof onlineUser === "object") {
+    if (setid.length !== 0) {
+      let arr = [];
+      setid.forEach(function(ele) {
+        return arr.push(parseInt(ele))
+      });
+      addCartInvited(arr, onlineUser.id)      
+    }
+  }
 
     if(products){
       return (
@@ -45,7 +44,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getAllProducts: () => dispatch(getAllProducts()),
     onlineUserError: () => dispatch(onlineUserError()),
-    addCartInvited: (diProduc, idUser) => dispatch(addCartInvited(diProduc, idUser)),
+     addCartInvited: (diProduc, idUser) => dispatch(addCartInvited(diProduc, idUser)),
   }
 }
 
@@ -53,8 +52,7 @@ const mapStateToProps = state => {
   return {
     products: state.all_products,
     onlineUser: state.onlineUser,
-    setid: state.setid,
-
+    setid: state.setid
   }
 }
 
