@@ -96,14 +96,13 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
          
         if(categ.includes(select)){
           categ = categ.filter(word => word !== select); 
-          console.log(categ,"if true")          
-          document.getElementById(btnId).className = 'btn btn-secondary';
+          console.log(categ,"if true")
+          document.getElementById(btnId).style.background= "";          
 
         }else{
           categ.push(select); 
-          console.log(categ,"if false")          
-          document.getElementById(btnId).className = 'btn btn-success';
-
+          console.log(categ,"if false")   
+          document.getElementById(btnId).style.background= "orange  ";
         }          
       }
 
@@ -133,7 +132,7 @@ if( onlineUser.type == 1){
                                      {categories.map((cat, i) => {                                      
                                          return ( 
                                           <div class="btn-group"  style={{"margin":"3px"}} role="group" aria-label="Basic example">                                         
-                                           <button type="button" style={{"borderRadius":"5px"}} class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
+                                           <button type="button" style={{"borderRadius":"5px", "background":"","font":"black"}} class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
                                              {cat.name}
                                            </button>   
                                            </div>
@@ -144,7 +143,7 @@ if( onlineUser.type == 1){
                                <span id='contCat'></span>
                              </div> 
            
-      <button type="submit" className="submit-btn" value="Submit" style={{"borderRadius":"5px"}} class="btn  btn-lg btn-block">Add Product</button>
+      <button type="submit" className="submit-btn" value="Submit" style={{"borderRadius":"5px","background":"orange"}} class="btn  btn-lg btn-block">Add Product</button>
       </form>
     </div>
   </div>
