@@ -12,9 +12,9 @@ function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, product
         let status = select.target.value;    
         for (let i = 1; i < 6; i++) {
           var boton = document.getElementById("op"+i);
-          boton.className = 'btn btn-danger btn-lg';
+          boton.className = 'btn btn-secondary btn-lg';
         }
-        select.target.className = 'btn btn-success btn-lg';
+        select.target.className = 'btn btn-warning btn-lg';
         getOrders(status)
     
       }
@@ -22,9 +22,9 @@ function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, product
         let status = select.target.value;    
         for (let i = 1; i < 6; i++) {
           var boton = document.getElementById("op"+i);
-          boton.className = 'btn btn-danger btn-lg';
+          boton.className = 'btn btn-secondary btn-lg';
         }
-        select.target.className = 'btn btn-success btn-lg';
+        select.target.className = 'btn btn-warning btn-lg';
         getOrders(status) 
       
       
@@ -121,19 +121,19 @@ function terminarorden(data){
                   <div class="container">
 
   
-                      <div class="col-md-12 contact-form alert alert-dark" style={{paddingBottom:"25px"}}>
-                          <h3>Management <span>Orders</span></h3>
+                      <div class="col-md-12 contact-form alert alert-secondary" style={{paddingBottom:"25px"}}>
+                      <div className="alertaguille">Management  <span style={{color:"black", marginLeft:"10px"}}>Orders</span></div>
                          <form id={'formulario'} style={{display:''}} >
   
-                              <button type="button" className="btn btn-danger btn-lg" onClick={(e) => getord(e)} id="op1" value="allorders">ALL ORDERS</button>
+                              <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => getord(e)} id="op1" value="allorders">ALL ORDERS</button>
                               &nbsp; 
-                              <button type="button" class="btn btn-danger btn-lg" onClick={(e) => getord(e)} id="op2" value="created">CREATED ORDERS</button>
+                              <button type="button" class="btn btn-secondary btn-lg" onClick={(e) => getord(e)} id="op2" value="created">CREATED ORDERS</button>
                               &nbsp; 
-                              <button type="button" class="btn btn-danger btn-lg" onClick={(e) => getord(e)} id="op3" value="cancelled">CANCELLED ORDERS</button>
+                              <button type="button" class="btn btn-secondary btn-lg" onClick={(e) => getord(e)} id="op3" value="cancelled">CANCELLED ORDERS</button>
                               &nbsp; 
-                              <button type="button" class="btn btn-danger btn-lg" onClick={(e) => getord(e)} id="op4" value="processing"><a href=""></a> PROCESSING ORDERS</button>
+                              <button type="button" class="btn btn-secondary btn-lg" onClick={(e) => getord(e)} id="op4" value="processing"><a href=""></a> PROCESSING ORDERS</button>
                               &nbsp; 
-                              <button type="button" class="btn btn-danger btn-lg" onClick={(e) => completeorder(e)} id="op5" value="complete"><a href=""></a> COMPLETE ORDERS</button>
+                              <button type="button" class="btn btn-secondary btn-lg" onClick={(e) => completeorder(e)} id="op5" value="complete"><a href=""></a> COMPLETE ORDERS</button>
                               
                               
                               &nbsp;                                                 
@@ -142,7 +142,7 @@ function terminarorden(data){
                           
                       </div>
                       {orders.length !== 0 && <div class="col-md-12 contact-form alert alert-dark">
-                          <h3>Orders in <span>List</span></h3>
+                          <div className="alertaguille2">Orders <span style={{color:"white", marginLeft:"10px"}}>List</span></div>
                           <table class="table table-hover">
                                <thead>
                                   <tr className="table-danger table-primary">
@@ -164,7 +164,7 @@ function terminarorden(data){
                                                                       <td>
                                                                       <span className="palabras">  {p.status.toUpperCase()}</span>
                                                                       </td>
-                                                                      <td>  <span className="palabras"> {p.status== "processing" ?  <button type="button" onClick={(e) => orderpriv(p)} class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Confirm Order</button> : <span className="palabras">  {p.updatedAt.slice(0,10)+" | "+p.updatedAt.slice(11,19)}</span>}  </span></td>
+                                                                      <td>  <span className="palabras"> {p.status== "processing" ?  <button type="button" onClick={(e) => orderpriv(p)} class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Confirm Order</button> : <span className="palabras">  {p.updatedAt.slice(0,10)+" | "+p.updatedAt.slice(11,19)}</span>}  </span></td>
                                                                     <td>  <span className="palabras"> $ {p.total_price}</span></td>
                                                                   </tr>
                                                                 )
