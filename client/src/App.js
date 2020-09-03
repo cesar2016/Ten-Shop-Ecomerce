@@ -54,7 +54,7 @@ function App() {
           <Route exact path="/admin" render={()=> <FormAdmin/>} />
           <Route exact path="/404" render={()=> <Page404/>} />
           <Route exact path="/me" component={UserMe}/>
-          <Route exact path="/" render={() => <Footer/>} />
+          <Route path="/" render={() => <Footer/>} />
 
       </div>
       )

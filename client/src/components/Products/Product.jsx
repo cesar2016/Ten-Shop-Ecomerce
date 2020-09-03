@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset} from "../../actions";
+import {images, addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset} from "../../actions";
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import "./Product.css";
@@ -8,19 +8,19 @@ import Rater from 'react-rater' // PARA INSTALAR --> npm install --save react-ra
 import 'react-rater/lib/react-rater.css'; 
 var ls = require('local-storage');
 
-function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset}) {
+function Product({getImages, addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset}) {
     const [input,setInput] = useState({});
-    const [inputRating, setInputRating] = useState({});
+    const [inputRating, setInputRating] = useState({}); 
+    
+    
 
     useEffect(()=> {
         getUsers();
 				getReviews(id);
 				getOrders("complete")
-        getOrdersxproduct(id)
+        getOrdersxproduct(id)              
         
-    },[newrev]);
-
-    
+    },[newrev]);    
 
     function handleInputChange (e) {
         setInput({
@@ -119,7 +119,7 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
         }
     if(!flagOrders){flag = true}
    
-  console.log("flag", flag)
+  //console.log("flag", flag)
 
   function changeImage(image, idimg) {
 
@@ -155,24 +155,25 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
       element.style.opacity ='';
     }
 
-    
-
-    
   
     document.getElementById("imgClickAndChange").src = image;
 }
 
 ///harcod cambiar por DB
-var img1 = 'https://bangho.vteximg.com.br/arquivos/ids/159374-360-360/notebook-bes-e6-intel-core-i5.jpg?v=637271406679500000';
-var img2 = 'https://http2.mlstatic.com/D_NQ_NP_767579-MLA41407377205_042020-V.jpg';
-var img3 = 'https://player8.org/wp-content/uploads/2018/11/tendencias-notebooks-e1545604566700-890x606.jpg';
+
+var img1 = images[id - 1].img1;
+var img2 = images[id - 1].img2;
+var img3 = images[id - 1].img3;
 var img4 = resultado.image;
 
+// var idImagenDB = 2
+// console.log('nameeeeee', images[idImagenDB - 1].id)
+// console.log('IDDDDDDD', id)
+ 
   
     return (
       
-       <section className="container-fluid" style={{marginTop: "10px"}}>
-         <section className="content"> 
+       <section className="container" style={{marginTop: "10px"}}>         
          
          <div class="product-details"> 
 						<div class="col-sm-5">
@@ -181,7 +182,6 @@ var img4 = resultado.image;
 								<h3>{resultado.name}</h3>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
-								
 								  
 								    <div class="carousel-inner">
 										<div class="item active">
@@ -192,13 +192,11 @@ var img4 = resultado.image;
 										</div>																			 										
 									</div>
 								   
-								   
 							</div>
 
 						</div>
-						<div class="col-sm-7">
-							<div class="product-information"> 
-								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
+						<div  class="col-sm-7 title text-center">
+							<div class="product-information"> 								
 								<h2>{resultado.name}</h2>
 								<p>{resultado.description}</p>
 								{/* <img src="images/product-details/rating.png" alt="" /> */}
@@ -211,72 +209,63 @@ var img4 = resultado.image;
 								<p><b>Availability:</b> {resultado.stock}</p>
 								<p><b>Esatate:</b> New</p>
 								<p><b>Shipping:</b> FREE</p>
+                <p><b>Rating: </b> 	<Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false} style={{fontSize:"30px"}} onRate={({rating}) => onRate(rating)} /></p>
 								<a><img style={{margin: "0 auto"}}  src="https://cuidar.org/images/icons/formasdepago/mini_tarjetas.jpg" width="200" height="350" class="share img-responsive"  alt="" /></a>
 							</div> 
 						</div>
 					</div>
-        </section> 
 
-          <div className={'content'}>
-          <div>
-          <h3>Average:</h3>
-          </div>
-          <div className="puntaje">
-              <Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false} style={{fontSize:"60px"}} onRate={({rating}) => onRate(rating)} />
-	        </div>              
-         </div>
-
-         <div className="container mt-5 mb-5" >
-          <div className="d-flex justify-content-center row">
-            <div className="d-flex flex-column col-md-8">
-            <div className="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
-            </div>
-            <div className="coment-bottom bg-white p-2 px-4">
-							{!flag? // si es false cambia el valor y renderiza
-								<div style = {{height:"70px", marginBottom:"10px"}}className="d-flex flex-row add-comment-section mt-4 mb-4">
-								<div style={{width:"70%"}} >
-							 <input onChange={handleInputChange}  name = "comments" id="review" type="text" class="form-control mr-3" placeholder="Add comment" style={{height: "60px", fontSize:"20px"}}/>
-								</div>
-								<div>
-								<div style={{justifyContent:"flex-end"}}>
-									<Rater total= {5}  onRate={({rating}) => onRate(rating)} style={{fontSize:"30px", alignSelf:"flexStart", height:"30px"}}/>
-								</div>
-								<div>
-							 <button onClick={()=> handleSubmit()} class="btn btn-primary btn-lg" type="button">Leave my review.</button>
-								</div>
-							</div>
-							</div> : <div></div>
-							}
-
-                <div className="collapsable-comment">
-                   <div className="d-flex flex-row justify-content-between align-items-center" data-toggle=""><span style= {{fontSize:"20px", fontWeight:"bold"}}>Reviews: </span><i class="fa fa-chevron-down servicedrop"></i></div>
-                     <div id="" className="">
-                      {reviews && reviews.map (p =>
-                        <div className="commented-section mt-2 row border-bottom px-6">
-                         <div className="d-flex flex-row align-items-center commented-user col">
-                           <h2 className="mr-2">{all_users.map(u => {if( p.userId === u.id) return ("  " + u.firstname.charAt(0).toUpperCase()+u.firstname.slice(1) + " " + u.surname.charAt(0).toUpperCase()+u.surname.slice(1))})}</h2>
-                           
-                         </div>
-                         <div className="reply-section col " style={{ textAlign:"right"}}>
-                           <Rater total={5} rating= {p.rating}interactive = {false} style={{fontSize:"30px"}}  />
-                         </div>
-                         <div class="w-100"></div>
-                         <div className="comment-text-sm col" style={{ textAlign:"left"}}><span style={{fontSize:"20px", textAlign:"left"}}>{p.comments}</span>
-													</div>
-                         <div className= "col" style={{marginTop:"10px", textAlign:"right"}}>
-                          	<span class="mb-1 ml-2 " style= {{ textAlign:"right", fontSize:"14px"}}>{p.createdAt.slice(0,10)}</span>
-                    		 </div>
-												</div>
-              				)}
-                     </div>
+          
+        
+        {!flag ? <div class="tab-pane" id="reviews" >
+						<div class="col-sm-12">
+	    			  <div class="contact-form">
+               <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+				            
+				            
+                    <div class="form-group col-md-8">
+				                <input type="text" onChange={handleInputChange}  style={{height: "60px", fontSize:"20px"}}  name = "comments" id="review" class="form-control" required="required" placeholder="Add comment"/>
+                        Add Rating: <Rater total= {5}  onRate={({rating}) => onRate(rating)} style={{fontSize:"30px", alignSelf:"flexStart", height:"30px"}}/>
+                    
+				                <input onClick={()=> handleSubmit()} type="submit" name="submit" class="btn btn-primary pull-right" value="Leave my review."/>
+				            </div>
+				        </form>
                 </div>
-              </div>
-            </div>
-           </div>
-         </div>
-         
+            </div>        
 
+          </div>:''}
+      
+
+     
+        {reviews && reviews.map (p =>
+        <div class="tab-pane fade active in" id="reviews" >
+                               
+								<div class="col-sm-12">
+                  <div class='container alert alert-success'>
+                  <h2 class="title text-center">MESAGES <strong>Clients</strong></h2> 
+                    <ul>
+                      <li><a><i class="fa fa-user"></i>
+                      {all_users.map(u => {if( p.userId === u.id) return ("  " + u.firstname.charAt(0).toUpperCase()+u.firstname.slice(1) + " " + u.surname.charAt(0).toUpperCase()+u.surname.slice(1))})}
+                      </a>
+                      </li>
+                      <li><a><i class="fa fa-calendar-o"></i>
+                      {p.createdAt.slice(0,10)}
+                      </a></li>                      
+                    </ul>
+                    
+                    <p>{p.comments}</p>
+                    <p> Review 
+                    <Rater total={5} rating= {p.rating}interactive = {false} style={{fontSize:"30px"}}  />
+                    </p>								
+                    </div>	
+                  </div>
+							</div>
+              	)}
+                 
          </section>
+ 
+               
+         
     );
 };
 const mapDispatchToProps = dispatch => {
@@ -288,6 +277,7 @@ const mapDispatchToProps = dispatch => {
 				getOrders: (status) => dispatch(getOrders(status)),
         getOrdersxproduct: (idProd) => dispatch(getOrdersxproduct(idProd)),
         lsset: () => dispatch(lsset()),
+        
         
     }
   }

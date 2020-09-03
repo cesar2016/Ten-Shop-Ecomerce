@@ -35,7 +35,7 @@ export default function Catalogo({price, name, stock, id, image, description}) {
 										<div class="productinfo text-center">
 											<img src={image}/>
 											<h2>$ {price}</h2>
-                                            <p>{name}</p>
+                    <p>{name}</p>
 											
 										</div>
 										<div class="product-overlay">
