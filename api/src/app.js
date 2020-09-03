@@ -6,12 +6,17 @@ const product = require('./routes/product');
 const categories = require("./routes/categories")
 const { Product, Category, Order, User , ProductxOrder, Reviews} = require("./db.js")
 const ind = require('./routes/index')
-var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const GitHubStrategy = require('passport-github').Strategy;
 
 
 const db = require('./db.js');
 
+
+passport.use(GitHubStrategy({
+  
+}));
 
 
 passport.use(new Strategy(
