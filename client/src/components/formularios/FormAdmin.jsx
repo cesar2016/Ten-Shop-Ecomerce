@@ -145,6 +145,10 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
           
                         <form id={'formulario'} style={{display:'none'}} onSubmit = {handleSubmit}>
                           <h3>Management <span>Users</span></h3>
+                          <div class="form-group row">
+                             <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" id="username" onChange={handleInputChange} required="true"/>
+                             
+                           </div>
                            <div class="form-group row">
                              <input type="text" class="form-control form-control-lg" name="firstname" placeholder="Firstname" id="firstname" onChange={handleInputChange} required="true"/>
                              

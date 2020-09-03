@@ -129,7 +129,7 @@ if( onlineUser.type == 1){
           <div className=" form-control-lg">
                                      {categories.map((cat, i) => {                                      
                                          return (  
-                                          <div class="btn-group" role="group" aria-label="Basic example">                                         
+                                          <div class="btn-group p-3" role="group" aria-label="Basic example">                                         
                                            <button type="button"  class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
                                              {cat.name}
                                            </button>   

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import  {getAllCategories,  modifyCategory, deleteCategory} from '../../actions'
+import Swal from 'sweetalert2';
 
 
  function TableCategories({getAllCategories, category, update,  elId, deleteCategory}) {
@@ -9,6 +10,29 @@ import  {getAllCategories,  modifyCategory, deleteCategory} from '../../actions'
     useEffect(()=>{
         getAllCategories()
     },[])
+
+    function deleteCat(name) {   
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.value) {
+            deleteCategory(name)                                   
+            Swal.fire({
+                icon: 'success',
+                title: 'Your category has been deleted!',
+                showConfirmButton: false,
+                timer: 2000
+            })
+          }
+        })
+          
+      }
    
     return (
 
@@ -18,10 +42,10 @@ import  {getAllCategories,  modifyCategory, deleteCategory} from '../../actions'
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
+							<td class="delete">Update</td>
+                            <td class="total">Delete</td>
 							<td class="price">Name</td>
                             <td class="quantity">Description</td>
-							<td class="delete">Edit</td>
-                            <td class="total">Delete</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -29,14 +53,8 @@ import  {getAllCategories,  modifyCategory, deleteCategory} from '../../actions'
                     category.map((p, i) => {
                     return (
 						<tr>
-							<td class="cart_price">
-								<p>{p.name}</p>
-							</td>
-                            <td class="cart_quantity">
-								<p>{p.description}</p>
-							</td>
 							<td class="cart_total">
-							<button type="button" class="btn btn-success" onClick={() => {
+							<button type="button" class="btn btn-warning" onClick={() => {
                                 elId.current = p.name
                             update(elId.current, category);
                             }}>
@@ -44,9 +62,15 @@ import  {getAllCategories,  modifyCategory, deleteCategory} from '../../actions'
                             </button>
                             </td>
                             <td class="cart_total">
-                            <button type="button" class="btn btn-danger" onClick={(e) => deleteCategory(p.name)}>
-                            <i class="fa fa-pencil"></i>
+                            <button type="button" class="btn btn-danger" onClick={(e) => deleteCat(p.name)}>
+                            <i class="fa fa-trash-o"></i>
                             </button>
+							</td>
+							<td class="cart_price">
+								<p>{p.name}</p>
+							</td>
+                            <td class="cart_quantity">
+								<p>{p.description}</p>
 							</td>
 						</tr>
                         )
