@@ -5,7 +5,10 @@ import { NavLink } from 'react-router-dom'
 import { connect } from "react-redux";
 import { userLogout } from "../actions/index.js"
 import Swal from 'sweetalert2'
-
+import imagenA from '../image/imagen1.png';
+import imagenB from '../image/slider1.png';
+import imagenC from '../image/slider2.png';
+import imagenD from '../image/slider3.png';
 
 function SliderImage() {
   
@@ -17,51 +20,34 @@ function SliderImage() {
 			<div class="row">
 				<div class="col-sm-12">
 					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
+						<ol class="carousel-indicators">				
+							<li data-target="#slider-carousel" data-slide-to="1" class="active"></li>
+							<li data-target="#slider-carousel" data-slide-to="2" ></li>
+							<li data-target="#slider-carousel" data-slide-to="3" ></li>
+							<li data-target="#slider-carousel" data-slide-to="4" ></li>
 						</ol>
 						
 						<div class="carousel-inner">
-							<div class="item active">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free E-Commerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+							<div class="item active" >						
+								<div class="col">
+									<img src={imagenA}  class="girl img-responsive" alt="" />						
 								</div>
-								<div class="col-sm-6">
-									<img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
+							</div>							
+							<div class="item ">
+								<div class="col">
+									<img src={imagenB} class="girl img-responsive" alt="" />								
 								</div>
 							</div>
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>100% Responsive Design</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/girl2.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
+							<div class="item " >						
+								<div class="col">
+									<img src={imagenC}  class="girl img-responsive" alt="" />						
 								</div>
 							</div>
-							
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free Ecommerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/girl3.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png" class="pricing" alt="" />
+							<div class="item " >						
+								<div class="col">
+									<img src={imagenD}  class="girl img-responsive" alt="" />						
 								</div>
 							</div>
-							
 						</div>
 						
 						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
