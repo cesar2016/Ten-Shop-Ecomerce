@@ -12,7 +12,7 @@ function NavBar({}) {
 		 <div class="footer-top">
 			<div class="container">
 				<div class="row">
-                <div class="col-sm-12"> 
+                <div class="col-sm-12 text-center"> 
 					<div class='content fluid alert alert'>
 						<img src="logo.png" alt="" />
 					</div>                     
