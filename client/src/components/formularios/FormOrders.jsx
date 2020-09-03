@@ -14,7 +14,7 @@ function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, product
           var boton = document.getElementById("op"+i);
           boton.className = 'btn btn-secondary btn-lg';
         }
-        select.target.className = 'btn btn-warning btn-lg';
+        select.target.className = 'btn  btn-lg orange';
         getOrders(status)
     
       }
@@ -24,7 +24,7 @@ function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, product
           var boton = document.getElementById("op"+i);
           boton.className = 'btn btn-secondary btn-lg';
         }
-        select.target.className = 'btn btn-warning btn-lg';
+        select.target.className = 'btn btn-lg orange';
         getOrders(status) 
       
       
