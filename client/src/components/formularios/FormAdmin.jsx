@@ -93,18 +93,29 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
+              <td class="total">Actions</td> 
 							<td class="price">Type</td>
               <td class="quantity">UserName</td>
               <td class="price">Name</td>
 							<td class="delete">SurName</td>
               <td class="total">Delete</td>
-              <td class="total">Edit</td>
+              
 						</tr>
 					</thead>
 					<tbody>
           {users && users.map((p) => {  
              return (
 						<tr>
+              <td class="cart_total">
+							<button style={{marginRight: '2px'}} type="button" class="btn btn-success" onClick={(e) => update(elId.current = p.id, users)            
+                                            }>
+              <i class="fa fa-pencil"></i>
+              </button>
+              
+              <button type="button" class="btn btn-danger" onClick={(e)=>deleUser(p.id)}>
+              <i class="fa fa-pencil"></i>
+              </button>
+							</td>
 							<td class="cart_price">
 								<p>{ p.type == 1 && 'ADMIN' ||  p.type == 2 && 'USER' || p.type == 3 && 'VISITOR'}</p>
 							</td>
@@ -117,17 +128,7 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
               <td class="cart_quantity">
 								<p>{p.surname}</p>
 							</td>
-							<td class="cart_total">
-							<button type="button" class="btn btn-success" onClick={(e) => update(elId.current = p.id, users)            
-                                            }>
-                            <i class="fa fa-pencil"></i>
-                            </button>
-                            </td>
-                            <td class="cart_total">
-                            <button type="button" class="btn btn-danger" onClick={(e)=>deleUser(p.id)}>
-                            <i class="fa fa-pencil"></i>
-                            </button>
-							</td>
+							
 						</tr>
                 )
                                }
