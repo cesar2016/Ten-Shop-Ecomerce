@@ -14,6 +14,14 @@ const db = require('./db.js');
 
 
 
+
+
+
+
+
+
+
+
 passport.use(new Strategy(
   function(username, password, done, info) {    
     db.User.findOne({ where: {username}})
@@ -60,6 +68,38 @@ server.use(require('express-session')({
 })); 
 
 server.name = 'API';
+
+
+
+
+
+//GOOGLE API, REQUIERE npm install passport-google-oauth20
+
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+passport.use(new GoogleStrategy({
+    clientID: "1091738503095-fha2ruo3mic5qr58e7k7a3ov886bd1st.apps.googleusercontent.com",
+    clientSecret: "LVg54cc6HXSI74765h1jbjZT",
+    callbackURL: "http://localhost:3001/google"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    console.log(accessToken)
+    User.findOrCreate({ id: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
+server.get('/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+server.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
