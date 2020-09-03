@@ -97,12 +97,13 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
         if(categ.includes(select)){
           categ = categ.filter(word => word !== select); 
           console.log(categ,"if true")          
-          document.getElementById(btnId).className = 'btn btn-secondary';          
-           
+          document.getElementById(btnId).className = 'btn btn-secondary';
+
         }else{
           categ.push(select); 
           console.log(categ,"if false")          
           document.getElementById(btnId).className = 'btn btn-success';
+
         }          
       }
 
@@ -117,10 +118,12 @@ if( onlineUser.type == 1){
     return (
 <div class="container">
 <div class="row">
-  <div class="col-sm-5 my-5">
+<div class="col-sm-3"> </div>
+
+  <div class="col-sm-6 my-5">
     <div class="login-form ">
       <form action="#" method="post" onSubmit={handleSubmit} id="myForm">
-      <h3>Add<span>Product</span></h3>
+      <h3 className="text-center">Add<span>Product</span></h3>
       <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
         <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
           <input type="text" className="form-control form-control-lg" name="price" placeholder="Price $ " id="price" onChange={handleInputChange} required=""/>
@@ -128,12 +131,12 @@ if( onlineUser.type == 1){
           <FileBase64 onDone={handlerImageUpload} />
           <div className=" form-control-lg">
                                      {categories.map((cat, i) => {                                      
-                                         return (  
-                                          <div class="btn-group" role="group" aria-label="Basic example">                                         
-                                           <button type="button"  class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
+                                         return ( 
+                                          <div class="btn-group"  style={{"margin":"3px"}} role="group" aria-label="Basic example">                                         
+                                           <button type="button" style={{"borderRadius":"5px"}} class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
                                              {cat.name}
                                            </button>   
-                                           </div>                                       
+                                           </div>
                                          )
                                      })}      
                              </div>
@@ -141,10 +144,11 @@ if( onlineUser.type == 1){
                                <span id='contCat'></span>
                              </div> 
            
-      <button type="submit" className="submit-btn" value="Submit" class="btn btn-default update">Add</button>
+      <button type="submit" className="submit-btn" value="Submit" style={{"borderRadius":"5px"}} class="btn  btn-lg btn-block">Add Product</button>
       </form>
     </div>
   </div>
+  <div class="col-sm-3">  </div>
 </div>
 </div>
 
