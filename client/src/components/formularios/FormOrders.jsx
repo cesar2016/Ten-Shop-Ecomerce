@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import "./FormOrders.css";
 import { connect } from "react-redux";
 import { getOrders, updateProduct, getproductsxorders,finishorder} from "../../actions";
