@@ -139,7 +139,7 @@ console.log(cantproductos); */
                                     </NavLink>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#">Categories<i class="fa fa-angle-down"></i></a>
+                                    <a >Categories<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                     <li>
                                         {
@@ -156,33 +156,33 @@ console.log(cantproductos); */
                                 </li> 
                                 {admin && 
                                 <li class="dropdown">
-                                    <a href="#">Admin<i class="fa fa-angle-down"></i></a>
+                                    <a >Admin<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                    <NavLink className="dropdown-item" to={`/formCategory`}>
-                                    <li>       
-                                        <a href="">Form Category</a><br/>                                                  
+                                    <li>   
+                                    <NavLink className="dropdown-item" to={`/formCategory`}>    
+                                        <a href="">Form Category</a> 
+                                        </NavLink>                                                 
                                     </li>
-                                    </NavLink>  
-                                    <NavLink className="dropdown-item" to={`/formProduct`}>
-                                    <li>       
-                                        <a href="">Form Product</a><br/>                                                  
+                                    <li>     
+                                    <NavLink className="dropdown-item" to={`/formProduct`}>  
+                                        <a href="">Form Product</a>      
+                                        </NavLink>                                          
                                     </li>
-                                    </NavLink> 
+                                    <li>       
                                     <NavLink className="dropdown-item" to={`/formAddProduct`}>
-                                    <li>       
-                                        <a href=""></a>Add Product<br/>                                                  
-                                    </li>
+                                        <a href="">Add Product</a>                                                 
                                     </NavLink> 
+                                    </li>
+                                    <li>       
                                     <NavLink className="dropdown-item" to={`/orders`}>
-                                    <li>       
-                                        <a href=""></a>Orders<br/>                                                  
-                                    </li>
+                                        <a href="">Orders</a>                                                 
                                     </NavLink> 
+                                    </li>
+                                    <li>       
                                     <NavLink className="dropdown-item" to={`/admin`}>
-                                    <li>       
-                                        <a href=""></a>Admin<br/>                                                  
-                                    </li>
+                                        <a href="">Admin</a>                                                 
                                     </NavLink> 
+                                    </li>
                                     </ul>
                                 </li> 
                                 }

@@ -115,40 +115,38 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
       console.log(onlineUser)
 if( onlineUser.type == 1){
     return (
-      
-     <div className="container">
-        <section class="contact-block"></section>
-            <section class="contact-block jumbotron">
-                <div class="container">
-                    <div className="col-md-6 contact-form alert alert-dark">
-                        <h3>Add  <span>Products</span></h3>
-                        <form action="#" method="post" onSubmit={handleSubmit} id="myForm">
-                            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
-                            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
-                            <input type="text" className="form-control form-control-lg" name="price" placeholder="Price $ " id="price" onChange={handleInputChange} required=""/>
-                            <input type="text" className="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>                                   
-                            <FileBase64 onDone={handlerImageUpload} />
-                            <div className=" form-control-lg">
-                                    {categories.map((cat, i) => {                                      
-                                        return (                                           
-                                          <button type="button" class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
-                                            {cat.name}
-                                          </button>                                          
-                                        )
-                                    })}      
-                            </div>
-                            <div className=" form-control-lg"> 
-                              <span id='contCat'></span>
-                            </div>   
-                            <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
-                        </form>
-                    </div>
-
-                </div>
-            </section>
-
-            
-        </div>
+<div class="container">
+<div class="row">
+  <div class="col-sm-5 my-5">
+    <div class="login-form ">
+      <form action="#" method="post" onSubmit={handleSubmit} id="myForm">
+      <h3>Add<span>Product</span></h3>
+      <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
+        <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
+          <input type="text" className="form-control form-control-lg" name="price" placeholder="Price $ " id="price" onChange={handleInputChange} required=""/>
+          <input type="text" className="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>  
+          <FileBase64 onDone={handlerImageUpload} />
+          <div className=" form-control-lg">
+                                     {categories.map((cat, i) => {                                      
+                                         return (  
+                                          <div class="btn-group" role="group" aria-label="Basic example">                                         
+                                           <button type="button"  class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
+                                             {cat.name}
+                                           </button>   
+                                           </div>                                       
+                                         )
+                                     })}      
+                             </div>
+                             <div className=" form-control-lg"> 
+                               <span id='contCat'></span>
+                             </div> 
+           
+      <button type="submit" className="submit-btn" value="Submit" class="btn btn-default update">Add</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
 
 
 

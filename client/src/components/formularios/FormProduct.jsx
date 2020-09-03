@@ -157,61 +157,39 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
 if( onlineUser.type == 1){
     return (
       
-        <div className="container">       
-
-        <section class="contact-block"></section>
-            <section class="contact-block jumbotron">
-
-                <div class="container">
-                    <div class="col-md-6 contact-form alert alert-dark">
-                        <h3>Products in <span>List</span></h3>
-                        <table class="table table-hover">
-                             <thead>
-                                <tr className="table-primary">
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Categories</th>
-                                    <th scope="col">Edit</th>
-
-                                </tr>
-                             </thead>
-
-                            <tbody >
-                                <TableProducts update={update} elId={elId} deleteProductxId={deleteProductxId} categxproducts={categxproducts} deleteCatxprod={deleteCatxprod} categoriesfromTableProducts={categoriesfromTableProducts}/>
-                            </tbody>
-
-                        </table>
-                    </div>
-
-                    <div class="col-md-6 contact-form alert alert-dark">
-                        <h3>Management <span>Products</span></h3>
-                       <form id={'formulario'} style={{display:'none'}} onSubmit={handleSubmit}>
-
-                            <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
-                            <input type="text" class="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
-                            <input type="text" class="form-control form-control-lg" name="price" placeholder="Price $" id="price" onChange={handleInputChange} required=""/>
-                            <input type="text" class="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>
-                            <div className=" form-control-lg">
-                                    {categories && categories.map((cat, i) => {
-                                       
-                                        return (                                           
-                                          <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name, i)} id={i+"cat"} value={cat.name}>
-                                            {cat.name}
-                                          </button>                                          
-                                        )
-                                    })}   
-                            </div>
-                            <div className=" form-control-lg"> 
-                              <span id='contCat'></span>
-                            </div>   
-                            <input type="text" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
-                            <input type="submit" class="submit-btn" value="Submit" style={{borderRadius: "15px"}}/>
-                        </form>
-                    </div>
-
-                </div>
-            </section>
-
+        <div >      
+          <div class="col-md-8 ">
+          <h3>Products <span>List</span></h3>
+                <TableProducts update={update} elId={elId} deleteProductxId={deleteProductxId} categxproducts={categxproducts} deleteCatxprod={deleteCatxprod} categoriesfromTableProducts={categoriesfromTableProducts}/>
+          </div>
+          <div class="container">
+			<div class="row">
+				<div class="col-sm-3 my-5">
+					<div class="login-form">
+						<form id={'formulario'} style={{display:'none'}} onSubmit={handleSubmit}>
+            <h3>Update<span>Product</span></h3>
+            <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
+                  <input type="text" class="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
+                  <input type="text" class="form-control form-control-lg" name="price" placeholder="Price $" id="price" onChange={handleInputChange} required=""/>
+                  <input type="text" class="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>
+                  {categories && categories.map((cat, i) => {
+                              
+                              return (                                           
+                                <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name, i)} id={i+"cat"} value={cat.name}>
+                                  {cat.name}
+                                </button>                                          
+                              )
+                          })} 
+                          <div className=" form-control-lg"> 
+                    <span id='contCat'></span>
+                  </div> 
+                  <input type="text" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
+            <button type="submit" className="submit-btn" value="Submit" class="btn btn-default update">Add</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
         </div>
     );
   }else{

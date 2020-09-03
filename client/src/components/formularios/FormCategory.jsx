@@ -67,45 +67,37 @@ import Page404 from "../Page404";
   if( onlineUser.type == 1){
   return (
      <div>
-      <section class="contact-block">
-      </section>
-      <section class="contact-block col-md-2"> </section>
-      <div class="col-md-6 contact-form alert alert-dark">
-         <h3>Category <span>List</span></h3>
-           <table class="table table-hover">
-             <thead>
-               <tr className="table-primary">
-               <th scope="col">Name</th>
-               <th scope="col">Description</th>
-               <th scope="col">Edit</th>
-               </tr>
-               </thead>
-               <tbody >
-                 <TableCategories categories={categories} update={update} elId={elId} deleteCategories={{deleteCategory}} />
-               </tbody>
-             </table>
+      <div class="col-md-8">
+        <h3>Category <span>List</span></h3>
+        <TableCategories categories={categories} update={update} elId={elId} deleteCategories={{deleteCategory}} />
+               
       </div>
-      <section className="contact-block jumbotron ">
-        <div className="container">
-           <div className="col-md-5 contact-form alert alert-dark">
-               <h3>Add <span>Category</span></h3>
-                <form action="#" method="post" onSubmit={handleAddSubmit} >
-                   <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" required onChange={handleinputAddChange} />
-                   <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleinputAddChange}/>
-                   <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
-                </form>
-                </div>
-                <div className="col-md-5 contact-form alert alert-dark" >
-                    <h3>Modify <span>Category</span></h3>
-                    <form onSubmit={handleModifySubmit} id = {"formulario"} style={{display:'none'}}>
-                    <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="ModifyName" required onChange={handleInputModifyChange} />
-                    <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id ="DescriptionName"onChange={handleInputModifyChange}/>
-                    <input type="submit" className="submit-btn" value="Submit" style={{borderRadius:"10px"}}/>
-                    </form>
-                </div>
-            </div>
-     </section>
-        </div>
+     
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3 my-5">
+					<div class="login-form">
+						<form action="#" method="post" onSubmit={handleAddSubmit} >
+            <h3>Add <span>Category</span></h3>
+            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" required onChange={handleinputAddChange} />
+            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleinputAddChange}/>
+						<button type="submit" className="submit-btn" value="Submit" class="btn btn-default update">Add</button>
+						</form>
+					</div>
+				</div>
+				<div class="col-sm-3 my-5">
+					<div class="login-form">
+						<form onSubmit={handleModifySubmit} id = {"formulario"}>
+            <h3>Update <span>Category</span></h3>
+            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="ModifyName" required onChange={handleInputModifyChange} />
+            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id ="DescriptionName"onChange={handleInputModifyChange}/>
+						<button type="submit" className="submit-btn" value="Submit" class="btn btn-default update">Update</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
   );
  }else{
   return (
