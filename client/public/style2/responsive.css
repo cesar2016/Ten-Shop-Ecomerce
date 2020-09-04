@@ -118,6 +118,9 @@
 /* xs */
 
 @media (max-width: 767px) {
+    .asdasd{
+        display: block;
+    }
     .productinfo img {
         width: auto;
     }

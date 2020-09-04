@@ -217,17 +217,13 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
              <div class="row offspace">
              <div class="view-set-block">
                  <div class="col-md-8 col-sm-8 col-xs-12">
-			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-				  <li class="active"></li>
-				</ol>
-			</div>
+      <div class="asdasd">
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
-					<thead>
-						<tr class="cart_menu">
+					<thead >
+						<tr class="cart_menu" style={{backgroundColor:'orange'}}>
 							<td class="image">Item</td>
-							<td class="description"></td>
+							<td class="name">Name</td>
 							<td class="price">Price</td>
 							<td class="quantity">Quantity</td>
 							<td class="total">Total</td>
@@ -244,8 +240,8 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 							<td class="cart_product">
 								<a href=""><img width={'150'} src={e.image} alt=""/></a>
 							</td>
-							<td class="cart_description">
-								<h4><a href="">{e.name}</a></h4>
+							<td class="name">
+								<h4>{e.name}</h4>
 							</td>
 							<td class="cart_price">
 								<p>${e.price}</p>
@@ -273,27 +269,30 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 
 					</tbody>
 				</table>
+        </div>
+
 			</div>
 		</div>
         <div class="col-sm-4">
-        <div class="breadcrumbs">
-				<ol class="breadcrumb">
-				  <li class="active">Shopping Cart</li>
+        <div class="breadcrumbs"style={{width:'100%', textAlign:'center', height:'51px', backgroundColor:'orange'}}>
+				<ol class="breadcrumb" style={{width:'100%', marginBottom:'0px'}}>
+				  <li class="active" style={{marginBottom:'0px', color:'white'}}>Shopping Cart</li>
 				</ol>
 			</div>
-					<div class="total_area">
-						<ul>
+					<div class="total_area" style={{width:'100%'}}>
+						<ul style={{paddingLeft: '0px'}}>
 							<li>Cart Sub Total <span id="subtotal">$0</span></li>
 							<li>Eco Tax <span id="taxes">$0</span></li>
 							<li>Shipping Cost <span id="shipping">$400</span></li>
 							<li>Total <span id="total">$400</span></li>
 						</ul>
+            <div style={{display:'flex', justifyContent:'center'}}>
 							<a class="btn btn-default update" href="" onClick={(e) => cancell(e)}>Cancel</a>
               {
                 typeof onlineUser === "object" ? (<a class="btn btn-default check_out" href="" onClick={(e) => alertt(e)}>Check Out</a>)
                 : (<a class="btn btn-default check_out" href="" onClick={(e) => alerttinvited(e)}>Check Out</a>)
               }
-
+            </div>
 					</div>
 				</div>
                 </div>

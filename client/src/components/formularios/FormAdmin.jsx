@@ -4,11 +4,13 @@ import { connect } from "react-redux";
 import { getUsers , updateUser, onlineUserError, deleteUser} from "../../actions";
 import Swal from 'sweetalert2';
 import Page404 from "../Page404";
+import { useHistory } from 'react-router-dom';
+
 
 
 
 function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
-  
+  const history = useHistory();
   useEffect(() => {
     getUsers()  
        
@@ -53,6 +55,7 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
       'User updated successfully',
       'success'
     )
+    history.push('/admin')
     
   }
 
