@@ -18,11 +18,11 @@ function TableProducts({products, update, elId, deleteProductxId, categxproducts
                 <table class="table table-condensed">
                   <thead>
                     <tr class="cart_menu">
-                      <td class="price">Id</td>
-                        <td class="quantity">Name</td>
-                        <td class="delete">Category</td>
-                        <td class="total">Update</td>
-                        <td class="total">Delete</td>
+                    <td class="total">Acciones</td>                    
+                    <td class="price">Id</td>
+                    <td class="quantity">Name</td>
+                    <td class="delete">Category</td>
+                        
                     </tr>
                   </thead>
                   <tbody>
@@ -31,6 +31,20 @@ function TableProducts({products, update, elId, deleteProductxId, categxproducts
 
                   return (     
                     <tr>
+                      <td class="cart_total">
+                      <button style={{marginRight: '2px'}} type="button" class="btn btn-success"
+                      onClick={()   => {
+                        update(p.id, products);
+                         elId.current = p.id            
+                         }}>
+                      <i class="fa fa-pencil"></i>
+                      </button>
+                      
+                      <button type="button" class="btn btn-danger"
+                      onClick={ (e) => deleteProductxId(p.id)}>
+                      <i class="fa fa-pencil"></i>
+                      </button>
+                      </td>
                       <td class="cart_price">
                         <p>{p.id}</p>
                       </td>
@@ -42,7 +56,7 @@ function TableProducts({products, update, elId, deleteProductxId, categxproducts
                 if(cxp.product_id === p.id){
                 return (
                   <div class="btn-group" role="group" aria-label="Basic example">
-                <button title="Click for delete" id={`${cxp.category}${p.id}`} onClick={ (e) => deleteCatxprod(cxp.category, p.id)} type="button" class="btn btn-secondary">
+                <button style={{marginRight: '2px'}} title="Click for delete" id={`${cxp.category}${p.id}`} onClick={ (e) => deleteCatxprod(cxp.category, p.id)} type="button" class="btn btn-secondary">
                      { cxp.category}
                 </button>
                 </div>
@@ -51,21 +65,7 @@ function TableProducts({products, update, elId, deleteProductxId, categxproducts
             })}       
             </td>
                       
-                      <td class="cart_total">
-                      <button type="button" class="btn btn-success"
-                      onClick={()   => {
-                        update(p.id, products);
-                         elId.current = p.id            
-                         }}>
-                                    <i class="fa fa-pencil"></i>
-                                    </button>
-                                    </td>
-                                    <td class="cart_total">
-                                    <button type="button" class="btn btn-danger"
-                                    onClick={ (e) => deleteProductxId(p.id)}>
-                                    <i class="fa fa-pencil"></i>
-                                    </button>
-                      </td>
+                      
                     </tr>
 )})                               
 }

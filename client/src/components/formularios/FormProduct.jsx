@@ -78,9 +78,15 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
       updateProduct(objetoo)
       categories.forEach((x, i) => {
         var boton = document.getElementById(`${i}cat`);
-        boton.className = 'btn btn-primary';      
+        boton.className = 'btn btn-warning';      
       })
       document.getElementById("contCat").innerHTML = "" 
+      getAllProducts()
+      Swal.fire({
+        title: "Good job!",
+        text: "Update product saccess!",
+        icon: "success",
+      });
       
     }
 
@@ -141,7 +147,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
         const boton = document.getElementById(`${i}cat`);        
         var style = document.getElementById(`${i}cat`).className;
         if (style === 'btn btn-success') {
-          boton.className = 'btn btn-primary';
+          boton.className = 'btn btn-warning';
         } else {
           boton.className = 'btn btn-success';
         }
@@ -164,25 +170,35 @@ if( onlineUser.type == 1){
           </div>
           <div class="container">
 			<div class="row">
-				<div class="col-sm-3 my-5">
-					<div class="login-form">
-						<form id={'formulario'} style={{display:'none'}} onSubmit={handleSubmit}>
+				<div class="col-md-3 my-5">
+					<div class="content">
+						<form id="main-contact-form" class="contact-form row" id={'formulario'} style={{display:'none'}} onSubmit={handleSubmit}>
             <h3>Update<span>Product</span></h3>
-            <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
+                <div class="form-group col-md-10">
+                  <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
+                </div> 
+                <div class="form-group col-md-10"> 
                   <input type="text" class="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
+                </div>
+                <div class="form-group col-md-10">
                   <input type="text" class="form-control form-control-lg" name="price" placeholder="Price $" id="price" onChange={handleInputChange} required=""/>
+                </div>
+                <div class="form-group col-md-10">
                   <input type="text" class="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>
+                </div>
+                <div class="form-group col-md-10" >
                   {categories && categories.map((cat, i) => {
                               
                               return (                                           
-                                <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name, i)} id={i+"cat"} value={cat.name}>
+                                <button style={{marginRight: '2px'}} type="button" class="btn btn-warning" onClick={(e) => addCat(cat.name, i)} id={i+"cat"} value={cat.name}>
                                   {cat.name}
                                 </button>                                          
                               )
                           })} 
-                          <div className=" form-control-lg"> 
-                    <span id='contCat'></span>
-                  </div> 
+                </div> 
+                <div className=" form-control-lg"> 
+                  <span id='contCat'></span>
+                </div>
                   <input type="text" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
             <button type="submit" className="submit-btn" value="Submit" class="btn btn-default update">Add</button>
 						</form>

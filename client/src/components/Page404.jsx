@@ -22,9 +22,9 @@ function Notfound({getSearchProducts}) {
       return(
  <div className="contenedor">
 
-<div className="top">
-  <h1>404</h1>
-  <h3>Page Not Found</h3>
+<div className="top ">
+  <h1 class='title text-center'>404</h1>
+  <h3 class='title text-center'>Page Not Found</h3>
 </div>
 <div className="containera">
   <div className="ghost-copy">
@@ -44,20 +44,23 @@ function Notfound({getSearchProducts}) {
 </div>
 <div className="buscador">
   <p>Boo, looks like a ghost stole this page!</p>
-    <div className="asd">                
-                    <form class="form-inline" onSubmit={(e) => handleSubmit(e)}>
-                        <input style={{fontSize:"15px"}} class="form-control " type="text" placeholder="Search to Product.." aria-label="Search" onChange={(e) => handleChange(e)}/>                        
-                    <Link to="/search">
-                        <button title="SEARCH" style={{fontSize:"15px"}} class="btn btn-secondary" type="submit"><i className="fa fa-search"></i></button>
-                    </Link>
-                    </form>
+    <div className="input-group"> 
+  
+        <div className="input-group">                
+          <form class="form-inline my-2 my-lg-0" onSubmit={(e) => handleSubmit(e)} style={{ width:"300px", display:'flex', alignItems:'center'}}>
+              <input style={{fontSize:"15px"}} class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" onChange={(e) => handleChange(e)}/>                        
+              <Link to="/search" style={{display:"flex", marginLeft:'3px'}}>
+                  <button title="SEARCH" style={{fontSize:"15px"}} class="btn btn-secondary " type="submit"><i className="fa fa-search" ></i></button>
+              </Link>
+          </form>
+      </div>
     </div>
-  <div className="buttonsa">
-    {/* <button className="btn btn-secondary btn-lg" >Back</button> */}
-    <Link to="/">
-    <button className="btn btn-secondary btn-lg" style={{marginLeft:"10px", height:"35px"}}> Go to Home !</button>
-    </Link>
-  </div>
+    <div className="buttonsa">
+      {/* <button className="btn btn-secondary btn-lg" >Back</button> */}
+      <Link to="/">
+         <h2 class="title text-center"><i className={'fa fa-arrow-left'}></i> Go to Home</h2>
+      </Link>
+    </div>
 </div>
 
 </div>
