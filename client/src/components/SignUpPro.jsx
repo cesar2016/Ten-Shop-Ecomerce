@@ -37,7 +37,7 @@ const ValidationTextField = withStyles({
       borderWidth: 2,
     },
     '& input:invalid + fieldset': {
-      borderColor: 'red',
+      borderColor: 'orange',
       borderWidth: 2,
     },
     '& input:valid:focus + fieldset': {
@@ -55,13 +55,15 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor:"#FE980F",
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(2),
   },
   submit: {
+    fontSize:"14px",
+    backgroundColor:"#FE980F",
     margin: theme.spacing(3, 0, 2),
   },
   help: {
@@ -284,7 +286,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
               />
             </Grid>
             <Grid item xs={12}>
-              <ValidationTextField
+              <TextField
                 error = {flagUsername.current}
                 variant="outlined"
                 required
@@ -349,9 +351,9 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="center">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/signin" style= {{"fontSize":"13px","color":"black"}} variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
