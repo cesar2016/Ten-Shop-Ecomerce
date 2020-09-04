@@ -12,14 +12,14 @@ var ls = require('local-storage');
  	useEffect(()=> {
  	 getReviews(id)
  	},[])
- 	console.log("producto: ",name, "id: ", id, "reviews: ", reviews )
+ 	//console.log("producto: ",name, "id: ", id, "reviews: ", reviews )
  	function promedy(acum, length){
 			var promedy = acum / length
 			if (length === 0){
 				return 0
 			}
 			promedy.toFixed(2)
- 		  console.log("PRoemdios", promedy)
+ 		  //console.log("PRoemdios", promedy)
 			return promedy
 		}
  	var acum = 0;
@@ -27,7 +27,7 @@ var ls = require('local-storage');
       acum = acum + reviews[i].rating;
     }
 	function addhome(data){
-		console.log(data.target.value);
+		//console.log(data.target.value);
 		Swal.fire({
 			title: data.target.value,
 			text: "You want to add it to the cart?",
