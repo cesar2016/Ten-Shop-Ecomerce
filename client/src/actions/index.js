@@ -36,6 +36,7 @@ export const VACIAR_LS = "VACIAR_LS";
 export const ADD_CART_INVITED = "ADD_CART_INVITED";
 export const GET_PRODUCTSXORDER = "GET_PRODUCTSXORDER";
 export const FINISH_ORDER = "FINISH_ORDER";
+export const DELETE_PRODUCT_CART = "DELETE_PRODUCT_CART";
 
 
 
@@ -58,7 +59,7 @@ export function getSearchProducts (search) {
 
 export function getAllProducts () {
   return function(dispatch) {
-    return axios.get("http://localhost:3001/products", { withCredentials: true })      
+    return axios.get("http://localhost:3001/products", { withCredentials: true })
       .then(result => result.data)
       .then(products => {
         dispatch({
@@ -87,7 +88,7 @@ export function modifyCategory(body,name){
     .then((data) => {
       dispatch({
         type: MODIFY_CATEGORY,
-        payload: data 
+        payload: data
       });
     })
 
@@ -120,7 +121,7 @@ export function updateProduct (body) {
       })
   }
 }
- 
+
 export function deleteProduct (id) {
   return function(dispatch) {
     return axios.delete(`http://localhost:3001/products/${id}`)
@@ -129,7 +130,7 @@ export function deleteProduct (id) {
           type: DELETE_PRODUCT,
           payload: id
         })
-      })            
+      })
   }
  }
 
@@ -147,7 +148,7 @@ export function deleteCatxProd (name, id) {
 
 export function getCategoriesxProducts ()  {
   return function(dispatch) {
-    return axios.get("http://localhost:3001/products/cxp", { withCredentials: true }) 
+    return axios.get("http://localhost:3001/products/cxp", { withCredentials: true })
       .then(result => result.data)
       .then(data => {
         dispatch({
@@ -208,10 +209,10 @@ export function deleteUser (id) {
           type: DELETE_USER,
           payload: id
         })
-      })            
+      })
   }
  }
-  ///AGREGANDO PRODUCT AL CARRITO 
+  ///AGREGANDO PRODUCT AL CARRITO
   export function addCart (idProduct, idUser) {
       var body = {
       id: idProduct
@@ -222,8 +223,8 @@ export function deleteUser (id) {
           dispatch({
             type: ADD_CART,
             payload: body
-          })         
-        })       
+          })
+        })
     }
   }
 
@@ -235,15 +236,15 @@ export function deleteUser (id) {
         .then(() => {
           dispatch({
             type: ADD_CART_INVITED,
-          })         
-        })       
+          })
+        })
     }
   }
 
     //TRAYENDO PRODUCTOS DEL CARRITO DE UN USUARIO
     export function getAllCart (idUser) {
       return function(dispatch) {
-        return axios.get(`http://localhost:3001/users/${idUser}/cart/`,{ withCredentials: true })      
+        return axios.get(`http://localhost:3001/users/${idUser}/cart/`,{ withCredentials: true })
           .then(result => result.data)
           .then(productsCart => {
             dispatch({
@@ -256,7 +257,7 @@ export function deleteUser (id) {
 
 /*export function userLogout() {
   return function(dispatch) {
-    return axios.get('http://localhost:3001/logout', { withCredentials: true })        
+    return axios.get('http://localhost:3001/logout', { withCredentials: true })
       .then(() => {
         return {
           type: USER_LOGOUT
@@ -330,7 +331,7 @@ let body = {
   }
 }
 
-export function completeCart(idUser, addres){ 
+export function completeCart(idUser, addres){
   //console.log("Acionssssss",addres,idUser)
   let body = {
     status: "processing",
@@ -347,7 +348,7 @@ export function completeCart(idUser, addres){
   }
 }
 
-export function finishorder(idUser){ 
+export function finishorder(idUser){
   //console.log("Acionssssss",idUser)
   let body = {
     status: "complete",
@@ -363,7 +364,7 @@ export function finishorder(idUser){
   }
 }
 
-export function cancellCart(idUser){ 
+export function cancellCart(idUser){
   let body = {
     status: "cancelled",
   };
@@ -378,7 +379,7 @@ export function cancellCart(idUser){
   }
 }
 
-export function getOrders(status){ 
+export function getOrders(status){
   return function (dispatch) {
     return axios.get(`http://localhost:3001/orders/status/${status}`, { withCredentials: true })
     .then(result => result.data)
@@ -407,12 +408,12 @@ export function addReview(aux, idProduct) {
 }
 
 
-export function loginUser(body){  
+export function loginUser(body){
  // console.log("QUE ENTRA AL BODY", body)
   return function(dispatch){
     return axios.post("http://localhost:3001/login",body, { withCredentials: true })
     .then(result => result.data)
-    .then(data => {     
+    .then(data => {
       dispatch({
         type: LOGIN_USER,
         payload: data
@@ -421,18 +422,18 @@ export function loginUser(body){
   }
 }
 export function userLogout () {
-  axios.get('http://localhost:3001/logout', { withCredentials: true })              
+  axios.get('http://localhost:3001/logout', { withCredentials: true })
   return {
     type: USER_LOGOUT
-  }  
+  }
 
 }
 
-export function loginUserCookie(){  
+export function loginUserCookie(){
   return function(dispatch){
     return axios.get("http://localhost:3001/login", { withCredentials: true })
     .then(result => result.data)
-    .then(data => {    
+    .then(data => {
       dispatch({
         type: LOGIN_USER_COOKIE,
         payload: data
@@ -468,7 +469,7 @@ export function updateOnlineUser (id, body) {
 }
 
 
-export function lsset() { 
+export function lsset() {
  let idproductos = ls.get('idProducts');
   return function(dispatch) {
       dispatch({
@@ -514,3 +515,15 @@ export function getproductsxorders(idOrder) {
   }
 }
 
+export function deleteProductCart(orderId, productId) {
+  return function(dispatch) {
+    return axios.delete(`http://localhost:3001/orders/orderdelete/${orderId}/${productId}`)
+      .then(result => result.data)
+      .then(data => {
+        dispatch({
+          type: DELETE_PRODUCT_CART,
+          payload: { orderId, productId }
+        });
+      });
+  };
+};
