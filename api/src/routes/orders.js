@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { User, Order , Productsxorders , Product} = require('../db.js');
+const { User, Order , Productsxorders , Product } = require('../db.js');
 
 server.get('/status/:status', (req, res, next) => {
 	const {status} = req.params;
@@ -46,4 +46,17 @@ server.get('/products/:idOrder', (req, res)=> {
 	})
 
 })
+
+server.delete("/orderdelete/:orderId/:productId", (req, res) => {
+	const { orderId, productId } = req.params;
+	Productsxorders.destroy({
+		where: {
+			order_id: orderId, product_id: productId
+		}
+	})
+		.then((result) => {
+			return res.sendStatus(200)
+		})
+		.catch(err => res.send(err))
+});
 module.exports = server;
