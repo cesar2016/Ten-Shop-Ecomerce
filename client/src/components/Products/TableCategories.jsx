@@ -38,8 +38,9 @@ import Swal from 'sweetalert2';
 
                 <section id="cart_items">
 		<div class="container">
+        <h3 class="text-center">Category <span>List</span></h3>
 			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
+				<table class="table table-condensed table-striped">
 					<thead>
 						<tr class="cart_menu">
 							<td class="delete">Update</td>
