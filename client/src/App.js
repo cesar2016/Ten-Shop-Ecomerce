@@ -5,7 +5,7 @@ import './App.css';
 import NavBar from "./components/NavBar"
 import Product from "./components/Products/Product"
 import FormProduct from "./components/formularios/FormProduct"
-import Catalogue from "./components/Products/Catalogue"
+import Catalogue from "./components/Products/Catalogue" 
 import About from "./components/About"
 import FormAddProduct from "./components/formularios/FormAddProduct"
 import FormCategory from "./components/formularios/FormCategory"
@@ -15,7 +15,7 @@ import MenuCategories from './components/Products/MenuCategories';
 import SignUp from "./components/SignUp"
 import SignInPro from "./components/SignInPro"
 import SignUpPro from "./components/SignUpPro"
-
+import {UserMe} from './components/UserMe'
 import Cart from './components/cart/Cart';
 import FormAdmin from './components/formularios/FormAdmin';
 import FormOrders from './components/formularios/FormOrders';
@@ -23,18 +23,18 @@ import Orders from './components/formularios/FormAdmin';
 import SliderImage from './components/SliderImage';
 import Footer from './components/Footer';
 import Page404 from './components/Page404';
-import {UserMe} from "./components/UserMe"
-
 var ls = require('local-storage');
 
+
 function App() {
-  
     if(ls.get('idProducts')== null){
 
         ls.set('idProducts',[]);
     }
+
+   
     return (
-      <div className="App jumbotron bg-white">
+      <div className="App jumbotron">
           <Route path="/" render={() => <NavBar/> } />         
           <Route exact path="/" render={()=> <SliderImage/>} />
           <Route exact path="/" render={() => <Catalogue/> } />
@@ -54,7 +54,7 @@ function App() {
           <Route exact path="/admin" render={()=> <FormAdmin/>} />
           <Route exact path="/404" render={()=> <Page404/>} />
           <Route exact path="/me" component={UserMe}/>
-          <Route exact path="/" render={() => <Footer/>} />
+          <Route path="/" render={() => <Footer/>} />
 
       </div>
       )

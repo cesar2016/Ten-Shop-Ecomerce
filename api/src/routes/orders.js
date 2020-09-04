@@ -35,4 +35,15 @@ server.get('/status/:status', (req, res, next) => {
 		})
 
 	})
+
+	//GET A LAS ORDENES QUE TENGAN ESE PRODUCTO
+server.get('/products/:idOrder', (req, res)=> {
+	const {idOrder} = req.params
+	//console.log(idProd)
+	Order.findOne({where: {id: idOrder}, include: Product })
+	.then((data) => {
+		res.send(data)
+	})
+
+})
 module.exports = server;

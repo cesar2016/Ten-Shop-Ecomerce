@@ -1,6 +1,6 @@
 import React, {useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { addUser, getUsers } from '../actions';
+import { addUser, getUsers, addCartInvited } from '../actions';
 // import "./SignUp.css";
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
@@ -17,7 +17,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { FormHelperText } from '@material-ui/core';
-import "./SignIn.css";
+import "./SignUpPro.css";
 import {
   fade,
   ThemeProvider,
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function SignUp ({addUser, onlineUser,getUsers,all_users}) {
+function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}) {
   
   const classes = useStyles();
   const history = useHistory(); 
@@ -132,6 +132,16 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
           title: 'Your account has been created successfully',
         })
         history.push('/'); 
+        //console.log("ANTESS DE ENTRARRRRRR", setid)
+  /*           if(typeof onlineUser == "object"){
+              console.log("ENTROOOOOOO", setid)
+              let arr = [];
+              setid.forEach(function(ele){
+                  return arr.push(parseInt(ele))
+                });
+                addCartInvited(arr, onlineUser.id)
+              console.log("SIGN IN PROOOOOOO", arr, onlineUser,onlineUser.id) 
+            }  */
     }
   }
   var flagName = useRef("true");
@@ -357,7 +367,8 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
 const mapDispatchToProps = dispatch => {
   return {
     addUser: (body) => dispatch(addUser(body)),
-    getUsers: () => dispatch(getUsers())
+    getUsers: () => dispatch(getUsers()),
+    addCartInvited: (diProduc, idUser) => dispatch(addCartInvited(diProduc, idUser)),
   }
 }
 
@@ -365,7 +376,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     onlineUser: state.onlineUser,
-    all_users: state.all_users
+    all_users: state.all_users,
+    setid: state.setid,
   }
 }
 
