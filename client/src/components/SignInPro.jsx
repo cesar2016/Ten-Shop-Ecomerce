@@ -27,17 +27,18 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#FE980F"
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),    
   },
   submit: {
+    backgroundColor: "#FE980F",
     margin: theme.spacing(3, 0, 2),
     height: "40px",
-    fontSize: "15px"
-  },
+    fontSize: "15px",
+    },
   tolink: {
     fontSize: "15px"
   },  
@@ -78,18 +79,13 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
               timer: 3000
             })
             history.push('/');
-            if(setid.length !== 0){
+          /*   if(setid.length !== 0){
               let arr = [];
               setid.forEach(function(ele){
                   return arr.push(parseInt(ele))
-                });
-                addCartInvited(arr, onlineUser.id)
-              //console.log("SIGN IN PROOOOOOO", arr)
-          /*   for (let i = 0; i < arr.length; i++) {
-              addCart(arr[i], onlineUser.id);
-            } */
-               
-    }  
+                }); 
+              //console.log("SIGN IN PROOOOOOO", arr) 
+    }  */
   }     
 
   return (
@@ -144,11 +140,16 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
             Sign In
           </Button>
           <Grid container>            
-            <Grid item>              
-              <Link href="/signup#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>              
-            </Grid>
+            <Grid item xs={12} sm={6}>               
+              <Link href="/signup" style= {{"fontSize":"13px","color":"black"}} variant="body2">
+                {"You don't have an account?"}
+              </Link>
+              </Grid>
+              <Grid item xs={12} sm={6}>  
+              <Link href="/signup" style= {{"fontSize":"13px","color":"black"}} variant="body2">
+                {"I forgot the password."}
+              </Link>
+              </Grid>
           </Grid>
         </form>
       </div>

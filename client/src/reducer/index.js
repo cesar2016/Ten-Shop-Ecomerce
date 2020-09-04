@@ -33,7 +33,10 @@ import {
     SET_ID,
     VACIAR_LS,
     ADD_CART_INVITED,
- 
+    GET_PRODUCTSXORDER,
+    FINISH_ORDER,
+  
+
    } from '../actions/index';
 var ls = require('local-storage');
 
@@ -52,6 +55,7 @@ const initialState = {
   newrev: {},
   ordersxproduct: [],
   setid: [],
+  productsxorder: {},
  
 };
 const reducer = (state = initialState, action) => {
@@ -219,11 +223,18 @@ const reducer = (state = initialState, action) => {
           ...state,
           newrev: action.payload
       }
-          case DELETE_USER:
-        return {////////////////////////////////////////
-          ...state,
-          all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
-        }
+ 
+    case DELETE_USER:
+      return {////////////////////////////////////////
+      ...state,
+      all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
+      }
+    case GET_REVIEWS:
+       return {
+         ...state,
+         reviews: action.payload
+       }
+
     case CANCELL_CART:
        return {
          ...state,
@@ -276,6 +287,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         setid: []
       }
+    case GET_PRODUCTSXORDER:
+      return {
+        ...state,
+        productsxorder: action.payload
+      }
+    case FINISH_ORDER:
+      return {
+        ...state,
+        getorders: [],
+      }
+      
     default:
       return state;
   }

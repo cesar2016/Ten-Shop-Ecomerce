@@ -1,6 +1,6 @@
 import React, {useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { addUser, getUsers } from '../actions';
+import { addUser, getUsers, addCartInvited } from '../actions';
 // import "./SignUp.css";
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
@@ -17,7 +17,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { FormHelperText } from '@material-ui/core';
-import "./SignIn.css";
+import "./SignUpPro.css";
 import {
   fade,
   ThemeProvider,
@@ -37,7 +37,7 @@ const ValidationTextField = withStyles({
       borderWidth: 2,
     },
     '& input:invalid + fieldset': {
-      borderColor: 'red',
+      borderColor: 'orange',
       borderWidth: 2,
     },
     '& input:valid:focus + fieldset': {
@@ -55,13 +55,15 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor:"#FE980F",
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(2),
   },
   submit: {
+    fontSize:"14px",
+    backgroundColor:"#FE980F",
     margin: theme.spacing(3, 0, 2),
   },
   help: {
@@ -70,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function SignUp ({addUser, onlineUser,getUsers,all_users}) {
+function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}) {
   
   const classes = useStyles();
   const history = useHistory(); 
@@ -132,6 +134,16 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
           title: 'Your account has been created successfully',
         })
         history.push('/'); 
+        //console.log("ANTESS DE ENTRARRRRRR", setid)
+  /*           if(typeof onlineUser == "object"){
+              console.log("ENTROOOOOOO", setid)
+              let arr = [];
+              setid.forEach(function(ele){
+                  return arr.push(parseInt(ele))
+                });
+                addCartInvited(arr, onlineUser.id)
+              console.log("SIGN IN PROOOOOOO", arr, onlineUser,onlineUser.id) 
+            }  */
     }
   }
   var flagName = useRef("true");
@@ -274,7 +286,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
               />
             </Grid>
             <Grid item xs={12}>
-              <ValidationTextField
+              <TextField
                 error = {flagUsername.current}
                 variant="outlined"
                 required
@@ -339,9 +351,9 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="center">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/signin" style= {{"fontSize":"13px","color":"black"}} variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -357,7 +369,8 @@ function SignUp ({addUser, onlineUser,getUsers,all_users}) {
 const mapDispatchToProps = dispatch => {
   return {
     addUser: (body) => dispatch(addUser(body)),
-    getUsers: () => dispatch(getUsers())
+    getUsers: () => dispatch(getUsers()),
+    addCartInvited: (diProduc, idUser) => dispatch(addCartInvited(diProduc, idUser)),
   }
 }
 
@@ -365,7 +378,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     onlineUser: state.onlineUser,
-    all_users: state.all_users
+    all_users: state.all_users,
+    setid: state.setid,
   }
 }
 

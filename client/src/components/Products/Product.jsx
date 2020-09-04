@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset} from "../../actions";
+import { images,addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset, getAllCart} from "../../actions";
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import "./Product.css";
 import Rater from 'react-rater' // PARA INSTALAR --> npm install --save react-rater
-import 'react-rater/lib/react-rater.css';
+import 'react-rater/lib/react-rater.css'; 
 var ls = require('local-storage');
 
-function Product({ addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset}) {
+function Product({getImages, addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset, getAllCart}) {
     const [input,setInput] = useState({});
-    const [inputRating, setInputRating] = useState({});
+    const [inputRating, setInputRating] = useState({}); 
+    
+    
 
     useEffect(()=> {
         getUsers();
 				getReviews(id);
 				getOrders("complete")
-				getOrdersxproduct(id)
-    },[newrev]);
+        getOrdersxproduct(id)              
+        
+    },[newrev]);    
 
     function handleInputChange (e) {
         setInput({
@@ -82,6 +85,7 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
             showConfirmButton: false,
             timer: 1500
           })
+          getAllCart(idUser) 
      }
 
 
@@ -116,95 +120,155 @@ function Product({ addCart, id, products, searchProducts, onlineUser, reviews,ad
         }
     if(!flagOrders){flag = true}
    
-  console.log("flag", flag)
+  //console.log("flag", flag)
+
+  function changeImage(image, idimg) {
+
+    if(idimg === 1){
+      var element = document.getElementById("img1");
+      element.style.opacity =' 0.3';
+    }else{
+      var element = document.getElementById("img1");
+      element.style.opacity ='';
+    }
+
+    if(idimg === 2){
+      var element = document.getElementById("img2");
+      element.style.opacity =' 0.3';
+    }else{
+      var element = document.getElementById("img2");
+      element.style.opacity ='';
+    }
+
+    if(idimg === 3){
+      var element = document.getElementById("img3");
+      element.style.opacity =' 0.3';
+    }else{
+      var element = document.getElementById("img3");
+      element.style.opacity ='';
+    }
+
+    if(idimg === 4){
+      var element = document.getElementById("img4");
+      element.style.opacity =' 0.3';
+    }else{
+      var element = document.getElementById("img4");
+      element.style.opacity ='';
+    }
+
+  
+    document.getElementById("imgClickAndChange").src = image;
+}
+
+///harcod cambiar por DB
+
+var img1 = images[id - 1].img1;
+var img2 = images[id - 1].img2;
+var img3 = images[id - 1].img3;
+var img4 = resultado.image;
+
+// var idImagenDB = 2
+// console.log('nameeeeee', images[idImagenDB - 1].id)
+// console.log('IDDDDDDD', id)
+ 
+  
     return (
-       <div className="container">
-
-         <section className="blog-block">
-          <div className="container">
-        	  <div className="row offspace-45">
-							<div class="col"> </div>
-        	    <div className="view-set-block col-6">
-                <div className="col-md-6 col-sm-6 col-xs-12">
-                  <div className="event-blog-image">
-                    <img alt="image" className="img-responsive" src={resultado.image}/>
-                  </div>
-         	    	</div>
-                <div className="col-md-6 col-sm-6 col-xs-12 side-in-image">
-                  <div className="event-blog-details">
-                    <h4><a href="single-blog.html">{resultado.name}</a></h4>
-                    <h5><i aria-hidden="true" className="fa fa-money  fa-lg"></i> <strong className= "text-danger">$ {resultado.price}</strong> <i aria-hidden="true" className="fa fa-check fa-lg"></i><strong className = "text-success">Stock: {resultado.stock}</strong></h5>
-                    <p>{resultado.description} </p>
-                    {resultado.stock === 0 && <div> <button type="button" onClick={() => soldout()} className="book-now-btn btn-danger"> Sold Out  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
-                    {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <button type="button" onClick={() => invited()} className="book-now-btn btn-danger"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
-                    {resultado.stock !== 0 &&  typeof onlineUser === "object" && <div> <button type="button" onClick={() => exitoAdd()} className="book-now-btn btn-success"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button> </div>}
-                  </div>
-                </div>
-              </div>
-								<div class="col"></div>
-            </div>
-          </div>
-         </section>
-         <section>
-          <div>
-          <h3>Average:</h3>
-          </div>
-            <div className="puntaje">
-              <Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false}  																								style={{fontSize:"60px"}} onRate={({rating}) => onRate(rating)} />
-	            </div>
-         </section>
-
-        <div className="container mt-5 mb-5" >
-          <div className="d-flex justify-content-center row">
-            <div className="d-flex flex-column col-md-8">
-            <div className="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
-            </div>
-            <div className="coment-bottom bg-white p-2 px-4">
-							{!flag? // si es false cambia el valor y renderiza
-								<div style = {{height:"70px", marginBottom:"10px"}}className="d-flex flex-row add-comment-section mt-4 mb-4">
-								<div style={{width:"70%"}} >
-							 <input onChange={handleInputChange}  name = "comments" id="review" type="text" class="form-control mr-3" placeholder="Add comment" style={{height: "60px", fontSize:"20px"}}/>
-								</div>
-								<div>
-								<div style={{justifyContent:"flex-end"}}>
-									<Rater total= {5}  onRate={({rating}) => onRate(rating)} style={{fontSize:"30px", alignSelf:"flexStart", height:"30px"}}/>
-								</div>
-								<div>
-							 <button onClick={()=> handleSubmit()} class="btn btn-primary btn-lg" type="button">Leave my review.</button>
-								</div>
+      
+       <section className="container" style={{marginTop: "10px"}}>         
+         
+         <div class="product-details"> 
+						<div class="col-sm-5">
+							<div class="view-product">
+								<img id="imgClickAndChange" src={resultado.image} alt="" />
+								<h3>{resultado.name}</h3>
 							</div>
-							</div> : <div></div>
-							}
+							<div id="similar-product" class="carousel slide" data-ride="carousel">
+								  
+								    <div class="carousel-inner">
+										<div class="item active">
+										  <a  onClick={(e)=> changeImage(img1, 1)}><img id={'img1'} src={img1} width='84' height='85' alt=""/></a>
+										  <a  onClick={(e)=> changeImage(img2, 2)}><img id={'img2'} src={img2} width='84' height='85' alt=""/></a>
+										  <a  onClick={(e)=> changeImage(img3, 3)}><img id={'img3'} src={img3} width='84' height='85' alt=""/></a>
+                      <a  onClick={(e)=> changeImage(img4, 4)}><img id={'img4'} src={img4} width='84' height='85' alt=""/></a>
+										</div>																			 										
+									</div>
+								   
+							</div>
 
-                <div className="collapsable-comment">
-                   <div className="d-flex flex-row justify-content-between align-items-center action-collapse p-2" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1"><span style= {{fontSize:"20px", fontWeight:"bold"}}>Reviews: </span><i class="fa fa-chevron-down servicedrop"></i></div>
-                     <div id="collapse-1" className="collapse">
-                      {reviews && reviews.map (p =>
-                        <div className="commented-section mt-2 row border-bottom px-6">
-                         <div className="d-flex flex-row align-items-center commented-user col">
-                           <h2 className="mr-2">{all_users.map(u => {if( p.userId === u.id) return ("  " + u.firstname.charAt(0).toUpperCase()+u.firstname.slice(1) + " " + u.surname.charAt(0).toUpperCase()+u.surname.slice(1))})}</h2>
-                           {/* <span class="dot mb-1"></span> */}
-                         </div>
-                         <div className="reply-section col " style={{ textAlign:"right"}}>
-                           <Rater total={5} rating= {p.rating}interactive = {false} style={{fontSize:"30px"}}  />
-                         </div>
-                         <div class="w-100"></div>
-                         <div className="comment-text-sm col" style={{ textAlign:"left"}}><span style={{fontSize:"20px", textAlign:"left"}}>{p.comments}</span>
-													</div>
-                         <div className= "col" style={{marginTop:"10px", textAlign:"right"}}>
-                          	<span class="mb-1 ml-2 " style= {{ textAlign:"right", fontSize:"14px"}}>{p.createdAt.slice(0,10)}</span>
-                    		 </div>
-												</div>
-              				)}
-                     </div>
+						</div>
+						<div  class="col-sm-7 title text-center">
+							<div class="product-information"> 								
+								<h2>{resultado.name}</h2>
+								<p>{resultado.description}</p>
+								{/* <img src="images/product-details/rating.png" alt="" /> */}
+								<span>
+									<span>US $ {resultado.price}</span>								
+									  {resultado.stock === 0 && <div> <button type="button" onClick={() => soldout()} class="btn btn-danger"> Sold Out  <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></button></div>}
+                    {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <button type="button" onClick={() => invited()} class="btn btn-danger"> Add To Cart  <i class="fa fa-shopping-cart fa-lg"></i></button></div>}
+                    {resultado.stock !== 0 &&  typeof onlineUser === "object" && <div> <button type="button" onClick={() => exitoAdd()} class="btn btn-success"> Add To Cart  <i  class="fa fa-shopping-cart fa-lg"></i></button> </div>}
+                   {/* { resultado.stock !== 0 &&  typeof onlineUser === "object" && <div className="form-group col-md-12" ><button class="btn btn-success"><i class="fa fa-shopping-cart fa-lg"></i> Add to cart</button> </div>} */}
+                    
+								</span>
+								<p><b>Availability:</b> {resultado.stock}</p>
+								<p><b>Esatate:</b> New</p>
+								<p><b>Shipping:</b> FREE</p>
+                <p><b>Rating: </b> 	<Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false} style={{fontSize:"30px"}} onRate={({rating}) => onRate(rating)} /></p>
+								<a><img style={{margin: "0 auto"}}  src="https://cuidar.org/images/icons/formasdepago/mini_tarjetas.jpg" width="200" height="350" class="share img-responsive"  alt="" /></a>
+							</div> 
+						</div>
+					</div>
+
+          
+        
+        {!flag ? <div class="tab-pane" id="reviews" >
+						<div class="col-sm-12">
+	    			  <div class="contact-form">
+               <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+				            
+				            
+                    <div class="form-group col-md-8">
+				                <input type="text" onChange={handleInputChange}  style={{height: "60px", fontSize:"20px"}}  name = "comments" id="review" class="form-control" required="required" placeholder="Add comment"/>
+                        Add Rating: <Rater total= {5}  onRate={({rating}) => onRate(rating)} style={{fontSize:"30px", alignSelf:"flexStart", height:"30px"}}/>
+                    
+				                <input onClick={()=> handleSubmit()} type="submit" name="submit" class="btn btn-primary pull-right" value="Leave my review."/>
+				            </div>
+				        </form>
                 </div>
-              </div>
-            </div>
-           </div>
-         </div>
+            </div>        
 
+          </div>:''}
+      
 
-        </div>
+     
+        {reviews && reviews.map (p =>
+        <div class="tab-pane fade active in" id="reviews" >
+                               
+								<div class="col-sm-12">
+                  <div class='container alert alert-success'>
+                  <h2 class="title text-center">MESAGES <strong>Clients</strong></h2> 
+                    <ul>
+                      <li><a><i class="fa fa-user"></i>
+                      {all_users.map(u => {if( p.userId === u.id) return ("  " + u.firstname.charAt(0).toUpperCase()+u.firstname.slice(1) + " " + u.surname.charAt(0).toUpperCase()+u.surname.slice(1))})}
+                      </a>
+                      </li>
+                      <li><a><i class="fa fa-calendar-o"></i>
+                      {p.createdAt.slice(0,10)}
+                      </a></li>                      
+                    </ul>
+                    
+                    <p>{p.comments}</p>
+                    <p> Review 
+                    <Rater total={5} rating= {p.rating}interactive = {false} style={{fontSize:"30px"}}  />
+                    </p>								
+                    </div>	
+                  </div>
+							</div>
+              	)}
+                 
+         </section>
+ 
+               
+         
     );
 };
 const mapDispatchToProps = dispatch => {
@@ -216,6 +280,8 @@ const mapDispatchToProps = dispatch => {
 				getOrders: (status) => dispatch(getOrders(status)),
         getOrdersxproduct: (idProd) => dispatch(getOrdersxproduct(idProd)),
         lsset: () => dispatch(lsset()),
+        getAllCart: (id) => dispatch(getAllCart(id)),
+        
         
     }
   }
