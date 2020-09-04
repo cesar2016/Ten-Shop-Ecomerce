@@ -516,8 +516,7 @@ export function getproductsxorders(idOrder) {
   }
 }
 
-<<<<<<< HEAD
-////////////////////// IMAGES PRODUTS
+
 
 export var images = [
 
@@ -526,7 +525,7 @@ export var images = [
     img2: 'https://www.cronista.com/__export/1566304459280/sites/revistait/img/2019/08/20/122686_85931.jpg',
     img3: 'https://tecnologia-informatica.com/wp-content/uploads/2018/12/word-image-140.jpeg'
   },
-  {   //2 
+  {   //2
     img1: 'https://d2ye0ltusw47tz.cloudfront.net/379072-large_default/tv-led-4k-65-rca-x65andtv-android-tv-fhd-netflix-youtube-tda.jpg',
     img2: 'https://http2.mlstatic.com/smart-tv-rca-android-50-x50andtv-con-comando-de-voz-D_NQ_NP_790109-MLA32568164311_102019-F.jpg',
     img3: 'https://images.samsung.com/is/image/samsung/ar-uhdtv-mu6100-un50mu6100gxzd-black-136495500?$PD_GALLERY_L_JPG$'
@@ -589,9 +588,9 @@ export var images = [
 
 
 ]
- 
 
-=======
+
+
 export function deleteProductCart(orderId, productId) {
   return function(dispatch) {
     return axios.delete(`http://localhost:3001/orders/orderdelete/${orderId}/${productId}`)
@@ -604,4 +603,3 @@ export function deleteProductCart(orderId, productId) {
       });
   };
 };
->>>>>>> facu_carrito_jueves
