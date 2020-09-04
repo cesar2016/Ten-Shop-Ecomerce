@@ -352,7 +352,7 @@ server.post("/", async (req, res) => {
 
 //CREAR ORDENES:
     const order1 = Order.create({
-        status: "processing",
+        status: "created",
         address: "",        
     }) 
     
