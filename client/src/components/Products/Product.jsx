@@ -203,9 +203,11 @@ var img4 = resultado.image;
 								{/* <img src="images/product-details/rating.png" alt="" /> */}
 								<span>
 									<span>US $ {resultado.price}</span>								
-									  {resultado.stock === 0 && <div> <button type="button" onClick={() => soldout()} className="book-now-btn btn-danger"> Sold Out  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
-                    {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <button type="button" onClick={() => invited()} className="book-now-btn btn-danger"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button></div>}
-                    {resultado.stock !== 0 &&  typeof onlineUser === "object" && <div> <button type="button" onClick={() => exitoAdd()} className="book-now-btn btn-success"> Add To Cart  <i className="fa fa-cart-arrow-down fa-lg" aria-hidden="true"></i></button> </div>}
+									  {resultado.stock === 0 && <div> <button type="button" onClick={() => soldout()} class="btn btn-danger"> Sold Out  <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></button></div>}
+                    {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <button type="button" onClick={() => invited()} class="btn btn-danger"> Add To Cart  <i class="fa fa-shopping-cart fa-lg"></i></button></div>}
+                    {resultado.stock !== 0 &&  typeof onlineUser === "object" && <div> <button type="button" onClick={() => exitoAdd()} class="btn btn-success"> Add To Cart  <i  class="fa fa-shopping-cart fa-lg"></i></button> </div>}
+                   {/* { resultado.stock !== 0 &&  typeof onlineUser === "object" && <div className="form-group col-md-12" ><button class="btn btn-success"><i class="fa fa-shopping-cart fa-lg"></i> Add to cart</button> </div>} */}
+                    
 								</span>
 								<p><b>Availability:</b> {resultado.stock}</p>
 								<p><b>Esatate:</b> New</p>

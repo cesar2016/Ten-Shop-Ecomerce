@@ -27,17 +27,18 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#FE980F"
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),    
   },
   submit: {
+    backgroundColor: "#FE980F",
     margin: theme.spacing(3, 0, 2),
     height: "40px",
-    fontSize: "15px"
-  },
+    fontSize: "15px",
+    },
   tolink: {
     fontSize: "15px"
   },  
@@ -139,11 +140,16 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
             Sign In
           </Button>
           <Grid container>            
-            <Grid item>              
-              <Link href="/signup#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>              
-            </Grid>
+            <Grid item xs={12} sm={6}>               
+              <Link href="/signup" style= {{"fontSize":"13px","color":"black"}} variant="body2">
+                {"You don't have an account?"}
+              </Link>
+              </Grid>
+              <Grid item xs={12} sm={6}>  
+              <Link href="/signup" style= {{"fontSize":"13px","color":"black"}} variant="body2">
+                {"I forgot the password."}
+              </Link>
+              </Grid>
           </Grid>
         </form>
       </div>

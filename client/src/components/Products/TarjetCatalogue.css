@@ -55,3 +55,7 @@ height: 250px;
   color: orange;
   border-color: orange;
 }
+
+.react-rater-star.is-active {
+  color:orange;
+}
