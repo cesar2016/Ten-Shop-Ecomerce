@@ -3,6 +3,7 @@ const { User, Order , Productsxorders , Product} = require('../db.js');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 const crypto = require('crypto'); //npm i --save sequelize crypto
+const nodemailer = require("nodemailer");
 
 
 
@@ -59,7 +60,7 @@ server.get('/:idUser/orders', (req, res, next) => {
  //MUESTRA LOS ITEMS DEL CARRITO DEL USUARIO
  server.get('/:idUser/cart', (req, res, next) => {
     const {idUser} = req.params;
-    Order.findAll({where: {userId: idUser, status: "processing"}})
+    Order.findAll({where: {userId: idUser, status: "created"}})
       .then(data => {
       //console.log("asdasdsadd",data)
       if(data[0]){
@@ -104,7 +105,7 @@ server.post('/:idUser/cart', (req, res) => {
    // console.log("este es el consolelogg",req);
 	const {idUser} = req.params;//Id del usuario
     const {body} = req;//el id del producto.
-    Order.findAll({where: { userId: idUser, status: "processing" }}).then(ord => {
+    Order.findAll({where: { userId: idUser, status: "created" }}).then(ord => {
           console.log("EStaaaaaa la ordennnn",ord);
           if(ord.length){       
             Product.findByPk(body.id).then(producto => {  
@@ -113,7 +114,7 @@ server.post('/:idUser/cart', (req, res) => {
             })         
           }else{//El usuario no tiene orden, creo la orden primero y luego anado el producto.
                 Order.create({
-                status: "processing",
+                status: "created",
                 address: body.address,                    
             }).then(order => {              
               User.findByPk(idUser).then(user => { 
@@ -137,8 +138,8 @@ server.post('/:idUser/invited/cart', (req, res) => {
   // console.log("este es el consolelogg",req);
  const {idUser} = req.params;//Id del usuario
    const {body} = req;//un arrays con productos [1, 5 , 13]
-   Order.findAll({where: { userId: idUser, status: "processing" }}).then(ord => {
-         console.log("EStaaaaaa la ordennnn-------------------",body, ord);
+   Order.findAll({where: { userId: idUser, status: "created" }}).then(ord => {
+         console.log("EStaaaaaa la ordennnnASDASDASDASDASDASDADASDAq-------------------",body, ord);
          if(ord.length){   
           for (let i = 0; i < body.length; i++) {
             Product.findByPk(body[i]).then(producto => {  
@@ -149,7 +150,7 @@ server.post('/:idUser/invited/cart', (req, res) => {
           }    
          }else{//El usuario no tiene orden, creo la orden primero y luego anado el producto.
                Order.create({
-               status: "processing",
+               status: "created",
                address: body.address,                    
            }).then(order => {              
              User.findByPk(idUser).then(user => { 
@@ -198,20 +199,44 @@ server.delete("/:id", (req, res) => {
   .catch(() => res.status(404).send("User has not be deleted"))
   });
 
-//ELIMINA ORDENES DE UN USUARIO(vaciar el carrito)(Cancelar ordenes o Completar ordenes):
+//CANCELA, PROCESA Y COMPLETA ORDENES:
 server.post("/:idUser/update/cart", (req, res) => {
   //console.log("ENTROOACAAAAA", req.body , req.params);
   const { idUser } = req.params;
-  const {body} = req;  //recibe por body: satatus: complete o cancelled y direccion;
-  Order.update(body, { where: { userId: idUser, status: "processing" } }).then(data => {
-   // console.log(data[0]);
+  const {body} = req;  //recibe por body: satatus: processing  y direccion, cancelled , complete;
+  if(req.body.status == "cancelled"){
+      Order.update(body, { where: { userId: idUser, status: "created" } }).then(data => {
+    // console.log(data[0]);
+      if(data[0]){
+      res.status(200).send("Order has been deleted/complete");
+      }else{
+        res.status(404).send("You do not have an order created");
+      }
+    });
+  }
+  if(req.body.status == "processing"){
+    Order.update(body, { where: { userId: idUser, status: "created" } }).then(data => {
+  // console.log(data[0]);
     if(data[0]){
     res.status(200).send("Order has been deleted/complete");
     }else{
       res.status(404).send("You do not have an order created");
     }
-  });
+    });
+  }
+  if(req.body.status == "complete"){
+    Order.update(body, { where: { userId: idUser, status: "processing" } }).then(data => {
+  // console.log(data[0]);
+    if(data[0]){
+    res.status(200).send("Order has been deleted/complete");
+    }else{
+      res.status(404).send("You do not have an order created");
+    }
+    });
+  }
+
 });
+
 
 
 //RUTAS PARA EDITAR CANTIDADES TABLA PRODUCTSXORDERS
@@ -219,7 +244,7 @@ server.post("/:idUser/c/cart", (req, res) => {
   const { idUser } = req.params;
   const { body } = req;                             //Recibe amount y total_price por body. y el ID del producto
   //console.log("APIIIIIIIIIIIIII------------------------------------------------,",body)
-  Order.findAll({where: {userId: idUser, status: "processing"}}).then(orden => {
+  Order.findAll({where: {userId: idUser, status: "created"}}).then(orden => {
     let idOrder = orden[0].id;
     for (let i = 0; i < body.length; i++) {
       if(body[i].cantidad){
@@ -244,7 +269,7 @@ server.post("/:idUser/c/order", (req, res) => {
   const { idUser } = req.params;
   const { body } = req;       
   console.log("APIIIIIIIIIIIIII------------------------------------------------,",body)                      
-  Order.update(body, { where: {userId: idUser, status: "processing"}})
+  Order.update(body, { where: {userId: idUser, status: "created"}})
   .then(result => {
   res.status(200).send("the order has been updated");
   })
@@ -253,6 +278,39 @@ server.post("/:idUser/c/order", (req, res) => {
 
 server.post("/adduser", (req, res) => {
   const { firstname, surname, password, username, email } = req.body;  
+
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+        user: 'zander.crona48@ethereal.email', // generated ethereal user
+        pass: 'nZy5srMEQazj596J2p'  // generated ethereal password
+    }    
+  });
+
+  // setup email data with unicode symbols
+  let mailOptions = {
+      from: 'zander.crona48@ethereal.email', // sender address
+      to: 'tenshop@mailinator.com', // list of receivers
+      subject: 'Node Contact Request', // Subject line
+      text: 'TE HAS LOGUEADO CORRECTAMENTE!', // plain text body
+      html: "<p>HAS LOGUEADO CORRECTAMENTE!</p>" // html body
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        res.status(500).send(error.message);
+      } else {        
+        console.log("ENVIA!")
+        res.status(200).send("Email enviado!!!")
+      }
+  });
+
+
+
+/*
   User.findAll({
     where: {username}
   })
@@ -266,7 +324,7 @@ server.post("/adduser", (req, res) => {
     })
     .catch((err) => {      
       return res.send(err)
-    })    
+    })    */
 });
 
 

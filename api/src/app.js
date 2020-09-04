@@ -6,21 +6,26 @@ const product = require('./routes/product');
 const categories = require("./routes/categories")
 const { Product, Category, Order, User , ProductxOrder, Reviews} = require("./db.js")
 const ind = require('./routes/index')
-var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const GitHubStrategy = require('passport-github').Strategy;
 
 
 const db = require('./db.js');
 
 
+// passport.use(GitHubStrategy({
+//
+// }));
+
 
 passport.use(new Strategy(
-  function(username, password, done, info) {    
+  function(username, password, done, info) {
     db.User.findOne({ where: {username}})
-      .then(user => {                
-        if (!user) {   
+      .then(user => {
+        if (!user) {
           return done(null, false);
-        }        
+        }
         if (!user.correctPassword(password)) {
           return done(null, false);
         }
@@ -40,10 +45,9 @@ passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {    
-  console.log("ENTRA EL ID", id)
+passport.deserializeUser(function(id, done) {
   db.User.findOne({ where: { id } })
-    .then(user => {      
+    .then(user => {
       done(null, user.dataValues);
     })
     .catch(err => {
@@ -57,7 +61,7 @@ server.use(require('express-session')({
   secret: 'secret',
   resave: false,
   saveUninitialized: false
-})); 
+}));
 
 server.name = 'API';
 
@@ -78,8 +82,8 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.use((req, res, next) => {
-  console.log("Session! ", req.session);
-  console.log("User!", req.user);
+  /*console.log("Session! ", req.session);
+  console.log("User!", req.user);*/
   next();
 });
 
@@ -90,13 +94,13 @@ server.use('/',ind)
 server.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) { return next(err); }
-    if (!user) {       
+    if (!user) {
       return res.send(user);
     }
     req.logIn(user, (err) => {
-      if (err) { 
-        return next(err); 
-      }      
+      if (err) {
+        return next(err);
+      }
       return res.send(user)
     });
   })(req, res, next);
@@ -111,17 +115,17 @@ function isAuthenticated(req, res, next) {
       res.send(false);
     }
   }
-  
+
 server.get("/logout", (req, res) => {
   req.logout();
   res.send("Ok!")
 });
 
 
-server.get("/login", 
-  isAuthenticated, 
+server.get("/login",
+  isAuthenticated,
   (req, res) => {
-  res.send(req.user)  
+  res.send(req.user)
 });
 
 
@@ -282,7 +286,7 @@ server.post("/", async (req, res) => {
     producto12.then((prod) => {
         prod.addCategory(categoria2)
     })
-  
+
 
     // creating users
 
@@ -293,7 +297,7 @@ server.post("/", async (req, res) => {
         password: "1234",
         type: 1,
         username:"facuuriona",
-        email:"faqq.uri@gmail.com"      
+        email:"faqq.uri@gmail.com"
     });
 
     const user2 = User.create({
@@ -303,7 +307,7 @@ server.post("/", async (req, res) => {
         password: "1234",
         type: 1,
         username: "cesarsanchez",
-        email:"cesars.pro@gmail.com"        
+        email:"cesars.pro@gmail.com"
     });
 
     const user3 = User.create({
@@ -313,7 +317,7 @@ server.post("/", async (req, res) => {
         password: "1234",
         type: 1,
         username: "rodrigopinea",
-        email:"rodrigomp88@gmail.com"        
+        email:"rodrigomp88@gmail.com"
     });
 
     const user4 = User.create({
@@ -323,7 +327,7 @@ server.post("/", async (req, res) => {
         password: "1234",
         type: 1,
         username: "matiascordoba",
-        email: "matiascba99@gmail.com"      
+        email: "matiascba99@gmail.com"
     });
 
     const user5 = User.create({
@@ -333,7 +337,7 @@ server.post("/", async (req, res) => {
         password: "1234",
         type: 1,
         username: "guillermoambroggio",
-        email: "guillermoambroggio@gmail.com"        
+        email: "guillermoambroggio@gmail.com"
     })
 
     const user6 = await User.create({
@@ -343,22 +347,22 @@ server.post("/", async (req, res) => {
         password: "1234",
         type: 2,
         username: "lionelmessi",
-        email: "leomessi@gmail.com"  
-    })    
+        email: "leomessi@gmail.com"
+    })
 
 //CREAR ORDENES:
     const order1 = Order.create({
-        status: "processing",
-        address: "",        
-    }) 
-    
+        status: "created",
+        address: "",
+    })
+
    /*  const order2 = await Order.create({
         status: "created",
-        address: "",        
+        address: "",
     })   */
 
 
-//RELACION(1-1) USUARIO-ORDEN:    
+//RELACION(1-1) USUARIO-ORDEN:
 //La orden 1 Pertenece al usuario 6
     order1.then(orden => {
         orden.setUser(user6)
@@ -387,21 +391,21 @@ server.post("/", async (req, res) => {
     password: "1234",
     type: 2,
     username: "kunaguero",
-    email: "kunaguero@gmail.com"  
+    email: "kunaguero@gmail.com"
 })
-   
+
 
 const reviews1 = await Reviews.create({
     rating: 5,
     visited: 20,
-    comments: "Ya compre el producto muchas Gracias!!!"   
-          
+    comments: "Ya compre el producto muchas Gracias!!!"
+
 });
 const reviews2 = await Reviews.create({
     rating: 3,
     visited: 22,
-    comments: "Ya muchas Gracias!!!"   
-          
+    comments: "Ya muchas Gracias!!!"
+
 });
 
 producto10.then((prod) => {

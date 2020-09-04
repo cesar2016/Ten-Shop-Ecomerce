@@ -23,7 +23,7 @@ return ( reviews && reviews.map (p =>
         <h2 className="mr-2">{all_users.map(u => {if( p.userId === u.id) return ("  " + u.firstname.charAt(0).toUpperCase()+u.firstname.slice(1) + " " + u.surname.charAt(0).toUpperCase()+u.surname.slice(1))})}</h2>
         {/* <span class="dot mb-1"></span> */}
      </div>
-     <div className="reply-section col " style={{ textAlign:"right"}}>
+     <div className="reply-section col" style={{ textAlign:"right"}}>
       <Rater total={5} rating={p.rating} interactive = {false} style={{fontSize:"30px"}}  />  
     </div>
      <div class="w-100"></div>
