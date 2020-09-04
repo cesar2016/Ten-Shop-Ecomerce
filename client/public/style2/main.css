@@ -54,7 +54,6 @@ a#scrollUp {
     bottom: 0px;
     right: 10px;
     padding: 5px 10px;
-    background: #FE980F;
     color: #FFF;
     -webkit-animation: bounce 2s ease infinite;
     animation: bounce 2s ease infinite;
@@ -1468,7 +1467,6 @@ h2.title {
 
 .login-form form button,
 .signup-form form button {
-    background: #FE980F;
     border: medium none;
     border-radius: 0;
     color: #FFFFFF;
