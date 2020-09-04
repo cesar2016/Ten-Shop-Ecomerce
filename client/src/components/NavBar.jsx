@@ -64,7 +64,7 @@ console.log(cantproductos); */
     <header id="header">
 		<div class="header-middle">
 			<div class="container">
-				<div class="row">
+				<div class="row" style={{alignItems:'flex-start'}}>
 					<div class="col-md-4 clearfix" style={{display:'flex', justifyContent:'center'}}>
 						<div class="logo pull-left">
                         <NavLink to="/">
@@ -72,7 +72,7 @@ console.log(cantproductos); */
                         </NavLink>
 						</div>
 					</div>
-					<div class="col-md-8 clearfix" style={{paddingTop:"70px"}}>
+					<div class="col-md-8 clearfix" style={{alignSelf:"center"}}>
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
 								<li>

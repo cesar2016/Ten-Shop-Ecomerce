@@ -63,7 +63,7 @@ var ls = require('local-storage');
 								</div>
                       </NavLink>
 								<div class="choose text-center">
-								<button type="button" className="btn btn-secondary addhome" onClick={(e) => addhome(e)} id="op1" value={name}>Add To Cart</button>
+								<button type="button" className="btn btn-secondary addhome" onClick={(e) => addhome(e)} id="op1" value={name}><i class="fa fa-shopping-cart" style={{marginRight:'10px'}}></i>Add To Cart</button>
                               {/*   <a href="#" class="btn btn-default"><i class="fa fa-shopping-cart"></i>Add to cart</a> */}
 								</div>
 							</div>

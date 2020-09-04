@@ -17,7 +17,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { FormHelperText } from '@material-ui/core';
-import "./SignIn.css";
+import "./SignUpPro.css";
 import {
   fade,
   ThemeProvider,
