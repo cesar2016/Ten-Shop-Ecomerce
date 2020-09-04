@@ -55,7 +55,6 @@ function App() {
           <Route exact path="/404" render={()=> <Page404/>} />
           <Route exact path="/me" component={UserMe}/>
           <Route path="/" render={() => <Footer/>} />
-
       </div>
       )
 
