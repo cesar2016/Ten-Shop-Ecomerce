@@ -78,18 +78,13 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
               timer: 3000
             })
             history.push('/');
-            if(setid.length !== 0){
+          /*   if(setid.length !== 0){
               let arr = [];
               setid.forEach(function(ele){
                   return arr.push(parseInt(ele))
-                });
-                addCartInvited(arr, onlineUser.id)
-              //console.log("SIGN IN PROOOOOOO", arr)
-          /*   for (let i = 0; i < arr.length; i++) {
-              addCart(arr[i], onlineUser.id);
-            } */
-               
-    }  
+                }); 
+              //console.log("SIGN IN PROOOOOOO", arr) 
+    }  */
   }     
 
   return (
