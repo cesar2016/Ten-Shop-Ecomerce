@@ -52,7 +52,7 @@ function App() {
           <Route exact path="/cart" render={() => <Cart />} />
           <Route exact path="/orders" render={() => <FormOrders />} />
           <Route exact path="/admin" render={()=> <FormAdmin/>} />
-          <Route exact path="/404" render={()=> <Page404/>} />
+          <Route exact path="/404" component={Page404}/>
           <Route exact path="/me" component={UserMe}/>
           <Route path="/" render={() => <Footer/>} />
 

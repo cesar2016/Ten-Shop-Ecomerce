@@ -139,7 +139,7 @@ a#scrollUp i {
     margin-left: 0;
     margin-right: 0;
     padding-bottom: 20px;
-    
+
    
 }
 
@@ -249,7 +249,7 @@ a#scrollUp i {
 .mainmenu ul li a.active,
 .shop-menu ul li a.active {
     background: none;
-    color: #fdb45e;
+    color: orange;
 }
 
 .search_box input {
