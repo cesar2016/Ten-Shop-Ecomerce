@@ -99,7 +99,14 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
 
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault()
+    //mailgun.messages().send(data, (error, body) => {
+     // console.log(body);
+     // });
+
+     
+
     var keys = Object.keys(input)    
     if (errors.firstname || errors.surname || errors.username || errors.password || errors.password2 || errors.email)  {
       var err = Object.keys(errors).filter(el => el !== "password2")
@@ -128,12 +135,16 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
             timer: 1500
           })        
     } else {
+      console.log("Si agrega usuario" , input)
         addUser(input)
+        
         Swal.fire({
           icon: 'success',
           title: 'Your account has been created successfully',
         })
         history.push('/'); 
+      }
+      
         //console.log("ANTESS DE ENTRARRRRRR", setid)
   /*           if(typeof onlineUser == "object"){
               console.log("ENTROOOOOOO", setid)
@@ -145,15 +156,27 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
               console.log("SIGN IN PROOOOOOO", arr, onlineUser,onlineUser.id) 
             }  */
     }
-  }
   var flagName = useRef("true");
   var flagSurname = useRef("true");
   var flagUsername = useRef("true");
   var flagPass = useRef("true");
   var flagPass2 = useRef("true");
   var flagEmail = useRef("true");
-  
-  
+
+//   var API_KEY = '42a6fff54d7abd9021a77f44e0d7eb51-7cd1ac2b-8b692ccc';
+// var DOMAIN = 'sandbox233afed3745040c296739c02f2367640.mailgun.org';
+// var mailgun = require('mailgun-js')({apiKey: API_KEY, domain: DOMAIN});
+
+// const data = {
+//   from: 'tenshop@mailinator.com',
+// 	to: 'faqqu.fu@gmail.com',
+//   subject: 'faq',
+//   text: 'Probandoooooss!'
+// };
+
+
+
+    
   function validate(input) {
     let errors = {};
     
@@ -341,13 +364,13 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
             
           </Grid>
           <Button
-            disabled = {verified.current}
+            //disabled = {verified.current}
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSubmit}
+            onClick={(e) => {handleSubmit(e)}}
           >
             Sign Up
           </Button>

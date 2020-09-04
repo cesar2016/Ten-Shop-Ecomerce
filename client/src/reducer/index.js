@@ -219,12 +219,22 @@ const reducer = (state = initialState, action) => {
           ...state,
           newrev: action.payload
       }
-
     case DELETE_USER:
       return {////////////////////////////////////////
-      ...state,
-      all_users: [...state.all_users.filter(user => user.id !== action.payload)]
+         ...state,
+          all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
       }
+    case GET_REVIEWS:
+       return {
+         ...state,
+         reviews: action.payload
+       }
+    case CANCELL_CART:
+       return {
+         ...state,
+         getcart: [],
+         cart: []
+       }
     case GET_REVIEWS:
       return {
         ...state,
