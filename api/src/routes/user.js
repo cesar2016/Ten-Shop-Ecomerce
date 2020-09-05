@@ -345,13 +345,12 @@ server.post("/adduser", (req, res) => {
 
 server.put("/aaa/updatePassword", (req, res) => {
   const { id, password } = req.body;
-  User.update({password}, {where: {id}})
-    .then(() => {
-      User.findOne({where: {id}})
-        .then(user => {
-          user.encryptPassword()          
-          res.send("Ok!")
-        })
+  User.findOne({where: {id}})
+    .then(user => {
+      var salto = user.dataValues.salt;
+      var passwordEncripted = User.encryptPassword(password, salto);
+      User.update({password: passwordEncripted}, {where: {id}})
+        .then(() => res.send("Ok!"))
     })
 });
 
