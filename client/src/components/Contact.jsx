@@ -4,29 +4,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Contact (){
   return (
-    // <div className="containera">
-    //   <div className="contacta">
-    //     <div className="createdBya">
-    //       <p>Created By:</p>
-    //     </div>
-    //      <a href="https://github.com/GuillermoAmbroggio" className="linka" target="_blank">
-    //     <p>Ambroggio, Guillermo</p>
-    //     </a>
-    //     <a href="https://github.com/maticordoba7/" className="linka" target="_blank">      
-    //     <p>Cordoba, Matias</p>
-    //     </a>
-    //     <a href="https://github.com/rodrigomp88" className="linka" target="_blank">         
-    //     <p>Pinea, Rodrigo</p>
-    //     </a>
-    //     <a href="https://github.com/cesar2016" className="linka" target="_blank">        
-    //     <p>Sanchez, Cesar</p>
-    //     </a>
-    //     <a href="https://github.com/facuuriona4/" className="linka" target="_blank">  
-    //     <p>Uriona, Facundo</p>
-    //     </a>
-    //   </div>
-    // </div>
-
+    
 
     <div id="contact-page" class="container">
     <div class="bg">
@@ -63,15 +41,8 @@ export default function Contact (){
         </div>
         <div class="col-sm-4">
           <div class="contact-info">
-            <h2 class="title text-center">Contact Info</h2>
-            {/* <address>
-              <p>E-Shopper Inc.</p>
-            <p>935 W. Webster Ave New Streets Chicago, IL 60614, NY</p>
-            <p>Newyork USA</p>
-            <p>Mobile: +2346 17 38 93</p>
-            <p>Fax: 1-714-252-0026</p>
-            <p>Email: info@e-shopper.com</p>
-            </address> */}
+            <h2 class="title text-center">Give us your like</h2>
+           
             <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FTen-Shop-730405934009493%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=644328202376419" width="340" height="500" style={{border:'none', overflow:'hidden'}} scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
             <div class="social-networks">
               <h2 class="title text-center">Social Networking</h2>
