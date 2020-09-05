@@ -86,13 +86,14 @@ function NavBar({}) {
 						</div>
 					</div>
 					<div class="col-sm-3 col-sm-offset-1">
-						<div class="single-widget">
-							<h2>Info Ten/Shop</h2>
-							<form action="#" class="searchform">
-								<input type="text" placeholder="Your email address" />
-								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-								<p>Leave us your email and find out about our offers</p>
-							</form>
+					<div class="single-widget">
+					<h2>Contact direct Ten/Shop</h2>
+					</div>
+						<div className="input-group">                
+								<form class="form-inline my-2 my-lg-0"   style={{ width:"300px", display:'flex', alignItems:'center'}}>
+									<input style={{fontSize:"15px"}} class="form-control mr-sm-2" type="text" placeholder="Your Email" aria-label="Search" /> 
+									<button title="Send Email" style={{fontSize:"15px"}} class="btn btn-default " type="submit"><i className="fa fa-location-arrow" ></i></button>
+								</form>
 						</div>
 					</div>
 					
