@@ -46,7 +46,7 @@ function cancelaorden(data){
 
 
 function terminarorden(data){
-  finishorder(productsxorder.userId);
+  finishorder(productsxorder.userId, productsxorder.id);
   Swal.fire({
     icon: 'success',
     title: 'The Order,'+ ' ' +productsxorder.id+' '+ 'is Complete',
@@ -285,7 +285,7 @@ function terminarorden(data){
     return {
       getOrders: (status) => dispatch(getOrders(status)),
       getproductsxorders: (id) => dispatch(getproductsxorders(id)),
-      finishorder: (id) => dispatch(finishorder(id)),
+      finishorder: (id, idd) => dispatch(finishorder(id, idd)),
       celarordenPanel: (idus,idpr) => dispatch(celarordenPanel(idus,idpr)),
       vaciarpanelorders: (idus,idpr) => dispatch(vaciarpanelorders(idus,idpr)),
 

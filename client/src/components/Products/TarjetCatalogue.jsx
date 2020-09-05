@@ -3,15 +3,25 @@ import { connect } from "react-redux";
 import "./TarjetCatalogue.css"
 import { NavLink } from 'react-router-dom'
 import Swal from 'sweetalert2';
-import {addCart, lsset, getReviews} from "../../actions";
-import Rater from "react-rater"
+import {addCart, lsset, getReviews, getAllCart} from "../../actions";
+import Rater from "react-rater";
+import { useHistory } from 'react-router-dom';
 var ls = require('local-storage');
 
 
- function Catalogo({price, name, stock, id, image, description,addCart, onlineUser, lsset, reviews,getReviews}) {
+ function Catalogo({price, name, stock, id, image, description,addCart, onlineUser, lsset, reviews,getReviews,getAllCart,cart}) {
+	const history = useHistory();
  	useEffect(()=> {
  	 getReviews(id)
- 	},[])
+	 },[])
+	 
+	 useEffect(()=> {
+        if(typeof onlineUser == "object"){
+           getAllCart(onlineUser.id)
+      }
+
+	},[cart]);
+	
  	//console.log("producto: ",name, "id: ", id, "reviews: ", reviews )
  	function promedy(acum, length){
 			var promedy = acum / length
@@ -41,6 +51,7 @@ var ls = require('local-storage');
 			if (result.value) {
 				if(typeof onlineUser == "object"){
 				addCart(id, onlineUser.id);
+				history.push('/')
 			}else{
 				ls.set('idProducts', [...ls.get('idProducts'),id]);
 				lsset();
@@ -109,7 +120,7 @@ var ls = require('local-storage');
               </div>) :
               (<div class=" choose text-center">
               <button type="button" className="btn btn-secondary notCart" onClick={(e) => notCart(e)} id="op1" value={name}>
-              <i class="fa fa-shopping-cart" style={{marginRight:'10px'}}></i>
+              <i class="fa fa fa-ban" style={{marginRight:'7px'}}></i>
               Sold Out
               </button>
             </div>)}
@@ -125,7 +136,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		addCart: (diProduc, idUser) => dispatch(addCart(diProduc, idUser)),
 		lsset: () => dispatch(lsset()),
-		getReviews: (id) => dispatch(getReviews(id))
+		getReviews: (id) => dispatch(getReviews(id)),
+		getAllCart: (id) => dispatch(getAllCart(id)),
+		
 	}
   }
 
@@ -133,7 +146,8 @@ const mapDispatchToProps = dispatch => {
 	return {
 
 	  onlineUser : state.onlineUser,
-		reviews: state.reviews
+		reviews: state.reviews,
+		cart: state.cart
 	}
   }
 
