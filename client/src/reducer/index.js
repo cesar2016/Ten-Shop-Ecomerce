@@ -347,12 +347,13 @@ function reducerlogin(data){
 }
 
 function reducerUpdateUser (ar,id,body){
-  for (let i = 0; i< ar.length;i++ ){
-    if (ar[i].id === id){
-      ar[i] = Object.assign({},ar[i],body)
+  ar.forEach((item, i) => {
+    if (item.id == id) {
+      item = body;
     }
-    return ar
-   }
+  });
+  return ar
+
 }
 
 function loginUserCookie (data) {

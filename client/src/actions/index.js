@@ -293,14 +293,11 @@ export function getUsers () {
 }
 export function updateUser(id, body) {
   return function (dispatch) {
-    return axios.put(`http://localhost:3001/users/${id}`, body)
-    .then(result => result.data)
-    .then(result => {
+    return axios.put(`http://localhost:3001/users/${id}`, body)    
       dispatch({
         type: UPDATE_USER,
         payload: {id,body}
       })
-    })
   }
 }
 
