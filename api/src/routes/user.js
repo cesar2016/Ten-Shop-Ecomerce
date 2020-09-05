@@ -239,6 +239,7 @@ server.post("/:idUser/update/cart", (req, res) => {
 
 
 
+
 //RUTAS PARA EDITAR CANTIDADES TABLA PRODUCTSXORDERS
 server.post("/:idUser/c/cart", (req, res) => {
   const { idUser } = req.params;
@@ -328,19 +329,25 @@ server.post("/adduser", (req, res) => {
 });
 
 
+//CANCELA ORDENES DESDE EL PANEL DE ADMIN:
+server.post("/:idUser/canc/:idOrder", (req, res) => {
+  //console.log("ENTROOACAAAAA", req.body , req.params);
+  const { idUser } = req.params;
+  const { idOrder } = req.params;
+  let body = {
+    status: 'cancelled'
+  }
+  
+      Order.update(body, { where: { userId: idUser, id: idOrder } }).then(data => {
+    // console.log(data[0]);
+      if(data[0]){
+      res.status(200).send("Order has been deleted/complete");
+      }else{
+        res.status(404).send("You do not have an order created");
+      }
+    });
+  
 
-
-/*server.post("/login",(req,res) => {
-  User.findOne({where: {
-    username: req.body.username
-  }})
-  .then(result => {
-    console.log("EL LOGIN", result)
-    res.status(200).send(result)
-  })
-  .catch(() => {
-    res.status(404).send(console.log(req.body))}
-    )
-});*/
+});
 
 module.exports = server;
