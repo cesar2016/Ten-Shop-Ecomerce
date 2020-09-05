@@ -29,13 +29,16 @@ import {
     ADD_REVIEW,
     LOGIN_USER_COOKIE,
     GET_ORDERSXPRODUCT,
-    UPDATE_ONLINE_USER,    
+    UPDATE_ONLINE_USER,
     SET_ID,
     VACIAR_LS,
     ADD_CART_INVITED,
     GET_PRODUCTSXORDER,
     FINISH_ORDER,
-  
+    DELETE_PRODUCT_CART,
+    CANCELL_ORDER,
+    GET_SUMARY_CART,
+
 
    } from '../actions/index';
 var ls = require('local-storage');
@@ -56,7 +59,8 @@ const initialState = {
   ordersxproduct: [],
   setid: [],
   productsxorder: {},
- 
+  sumary_cart: {},
+
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -135,7 +139,7 @@ const reducer = (state = initialState, action) => {
     case MODIFY_CATEGORY:
       let name = action.payload.name;
       let newCategories = state.categories.filter(elem => name !== elem.name)
-      let filterCat = action.payload.body; 
+      let filterCat = action.payload.body;
       newCategories.push(filterCat)
       return {
          ...state,
@@ -209,32 +213,33 @@ const reducer = (state = initialState, action) => {
         getcart: [],
         cart: []
       }
+
+    case CANCELL_ORDER:
+      return {
+        ...state,
+      }
+
     case GET_ORDERS:
        return {
        ...state,
        getorders: action.payload
        }
-    case UPDATE_PRICE_ORDER:
-      return {
-        ...state,
-      }
     case ADD_REVIEW:
         return {
           ...state,
           newrev: action.payload
       }
- 
     case DELETE_USER:
       return {////////////////////////////////////////
-      ...state,
-      all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
+         ...state,
+          all_users: [...state.all_users.filter(user => user.id !== action.payload)]
+
       }
     case GET_REVIEWS:
        return {
          ...state,
          reviews: action.payload
        }
-
     case CANCELL_CART:
        return {
          ...state,
@@ -297,26 +302,39 @@ const reducer = (state = initialState, action) => {
         ...state,
         getorders: [],
       }
-      
+    case DELETE_PRODUCT_CART:
+      return {
+        ...state,
+        getcart: state.getcart.filter(prod => prod.order_id !== action.payload.orderId && prod.product_id !== action.payload.productId),
+        cart: state.cart.filter(prod => prod.order_id !== action.payload.orderId && prod.product_id !== action.payload.productId),
+      }
+
+    case GET_SUMARY_CART:
+      return {
+        ...state,
+        sumary_cart: action.payload
+      }
+
+
     default:
       return state;
   }
-  
+
 
 
   function setidproduct (id) {
     let asd = [...state.setid, id];
     //ls.set('idProducts', asd);
     return asd
-    
+
   }
 }
-   
+
 export default reducer;
 
 
 
-function reducerAddUser(data) {  
+function reducerAddUser(data) {
   if (data[0]) {
     const { id, username, firstname, surname, type, address } = data[1];
     return { id, username, firstname, surname, type, address };
@@ -334,12 +352,14 @@ function reducerlogin(data){
 }
 
 function reducerUpdateUser (ar,id,body){
-  for (let i = 0; i< ar.length;i++ ){
-    if (ar[i].id === id){
-      ar[i] = Object.assign({},ar[i],body) 
+
+  ar.forEach((item, i) => {
+    if (item.id == id) {
+      item = body;
     }
-    return ar
-   }
+  });
+  return ar
+
 }
 
 function loginUserCookie (data) {

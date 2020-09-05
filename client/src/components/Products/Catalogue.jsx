@@ -29,6 +29,7 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
                 return arr.push(parseInt(ele))
               }); */
     if(products){
+      
       return (
         <div className='container' style={{marginTop: "40px"}}>
           {products.map(c => <TarjetCatalogue
@@ -37,7 +38,8 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
               description={c.description}
               price={c.price}
               stock={c.stock}
-              image={c.image}
+              image={c.image}    
+              
             /> )}
         </div>
       );

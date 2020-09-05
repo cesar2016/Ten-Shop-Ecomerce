@@ -7,24 +7,24 @@ import Page404 from "../Page404";
 
 
 function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd, updateProduct, getCategoriesxProducts, getAllCategories, getAllProducts, categoriesxproducts, products, onlineUser}) {
-  
-  
+
+
   useEffect(() => {
     getAllCategories()
     getCategoriesxProducts()
-    getAllProducts()  
-        
+    getAllProducts()
+
   }, [])
-  
+
   const [input, setInput] = useState({});
-      
-    
+
+
 
   const handleInputChange = function(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value
-    });    
+    });
 
   }
 
@@ -32,15 +32,15 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
 
   var elId = useRef(null)
   var categoriesfromTableProducts = []
-  function update(id, prod) {        
+  function update(id, prod) {
     prod.find((e) => {
       if (e.id == id) {
         setInput(e)
-        document.getElementById("name").value = e.name;            
+        document.getElementById("name").value = e.name;
         document.getElementById("description").value = e.description;
         document.getElementById("price").value = e.price;
         document.getElementById("stock").value = e.stock;
-        document.getElementById("image").value = e.image;            
+        document.getElementById("image").value = e.image;
         var form = document.getElementById('formulario');
         form.style.display = '';
 
@@ -73,18 +73,24 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
         image: input.image,
         category: array,
         id: elId.current
-      }  
-       
+      }
+
       updateProduct(objetoo)
       categories.forEach((x, i) => {
         var boton = document.getElementById(`${i}cat`);
-        boton.className = 'btn btn-primary';      
+        boton.className = 'btn btn-warning';
       })
-      document.getElementById("contCat").innerHTML = "" 
-      
+      document.getElementById("contCat").innerHTML = ""
+      getAllProducts()
+      Swal.fire({
+        title: "Good job!",
+        text: "Update product saccess!",
+        icon: "success",
+      });
+
     }
 
-    function deleteProductxId(id) {   
+    function deleteProductxId(id) {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -95,7 +101,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
-          deleteProduct(id)                                   
+          deleteProduct(id)
           Swal.fire(
             'Deleted!',
             'Your file has been deleted.',
@@ -103,9 +109,9 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
           )
         }
       })
-        
+
     }
-    
+
 
     function deleteCatxprod(nameCxp, idProd){
       // nameCxp es la cateogoria que se esta por borrar
@@ -122,7 +128,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
       }).then((result) => {
         if (result.value) {
           var boton = document.getElementById(`${nameCxp}${idProd}`);
-          boton.className = 'btn btn-danger';          
+          boton.style.display = 'none';          
           deleteCatxProd(nameCxp, idProd)
           Swal.fire(
             'Deleted!',
@@ -131,58 +137,68 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
           )
         }
       })
-       
+
       // alert('Delete success Category')
 
-    }    
+    }
 
-   
-    function addCat(select, i){//inser categorias al array y eliminar      
-        const boton = document.getElementById(`${i}cat`);        
+
+    function addCat(select, i){//inser categorias al array y eliminar
+        const boton = document.getElementById(`${i}cat`);
         var style = document.getElementById(`${i}cat`).className;
         if (style === 'btn btn-success') {
-          boton.className = 'btn btn-primary';
+          boton.className = 'btn btn-warning';
         } else {
           boton.className = 'btn btn-success';
         }
         if(categ.includes(select)){
-          categ = categ.filter(word => word !== select);                           
+          categ = categ.filter(word => word !== select);
           }else{
-            categ.push(select);                                     
-          }   
-            
-         }  
-         
-         
+            categ.push(select);
+          }
+
+         }
+
+
 if( onlineUser.type == 1){
     return (
-      
-        <div >      
+
+        <div >
           <div class="col-md-8 ">
           <h3>Products <span>List</span></h3>
                 <TableProducts update={update} elId={elId} deleteProductxId={deleteProductxId} categxproducts={categxproducts} deleteCatxprod={deleteCatxprod} categoriesfromTableProducts={categoriesfromTableProducts}/>
           </div>
           <div class="container">
 			<div class="row">
-				<div class="col-sm-3 my-5">
-					<div class="login-form">
-						<form id={'formulario'} style={{display:'none'}} onSubmit={handleSubmit}>
+				<div class="col-md-3 my-5">
+					<div class="content">
+						<form id="main-contact-form" class="contact-form row" id={'formulario'} style={{display:'none'}} onSubmit={handleSubmit}>
             <h3>Update<span>Product</span></h3>
-            <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
+                <div class="form-group col-md-10">
+                  <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
+                </div>
+                <div class="form-group col-md-10">
                   <input type="text" class="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
+                </div>
+                <div class="form-group col-md-10">
                   <input type="text" class="form-control form-control-lg" name="price" placeholder="Price $" id="price" onChange={handleInputChange} required=""/>
+                </div>
+                <div class="form-group col-md-10">
                   <input type="text" class="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>
+                </div>
+                <div class="form-group col-md-10" >
                   {categories && categories.map((cat, i) => {
-                              
-                              return (                                           
-                                <button type="button" class="btn btn-primary" onClick={(e) => addCat(cat.name, i)} id={i+"cat"} value={cat.name}>
+
+                              return (
+                                <button style={{marginRight: '2px'}} type="button" class="btn btn-warning" onClick={(e) => addCat(cat.name, i)} id={i+"cat"} value={cat.name}>
                                   {cat.name}
-                                </button>                                          
+                                </button>
                               )
-                          })} 
-                          <div className=" form-control-lg"> 
-                    <span id='contCat'></span>
-                  </div> 
+                          })}
+                </div>
+                <div className=" form-control-lg">
+                  <span id='contCat'></span>
+                </div>
                   <input type="text" class="form-control form-control-lg" name="image" placeholder="Url Imagen" id="image" onChange={handleInputChange} required=""/>
             <button type="submit" className="submit-btn" value="Submit" class="btn btn-default update">Add</button>
 						</form>
@@ -215,10 +231,10 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    categxproducts: state.categores_x_products,    
+    categxproducts: state.categores_x_products,
     categories: state.categories,
     products: state.all_products,
-    onlineUser: state.onlineUser   
+    onlineUser: state.onlineUser
   }
 }
 

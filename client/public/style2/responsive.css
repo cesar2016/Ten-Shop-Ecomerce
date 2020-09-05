@@ -10,6 +10,9 @@
         padding-left: 8px;
         padding-right: 8px;
     }
+    .header-middle .container .row {
+        display: flex;
+    }
     .usa {
         margin-right: 0;
     }
@@ -115,6 +118,12 @@
 /* xs */
 
 @media (max-width: 767px) {
+    .asdasd{
+        display: block;
+    }
+    .productinfo img {
+        width: auto;
+    }
     #cart_items .cart_info table{
         min-width: 600px;
     }

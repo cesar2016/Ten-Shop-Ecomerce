@@ -18,9 +18,8 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
         description: '',
         price: '',
         stock: '',        
-        category: []
-        
-         
+        category: [],
+        image: ""
       });
 
      
@@ -34,13 +33,22 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
       
       const handleSubmit = function(e) { 
         e.preventDefault();               
+        console.log("imagen",input.image)
+        if (input.image === ""){
+          Swal.fire({
+              title: "Ups!",
+              text: "Please, charge image for upload this product",
+              icon: "warning",
+            })
+        } else {
         let objetoo = {
           name: input.name,
           description: input.description,
           price: parseFloat(input.price),
           stock: parseFloat(input.stock),
           image: input.image,
-          category: categ 
+          category: categ,
+
         }
 
          
@@ -88,6 +96,7 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
         
         return axios.post("http://localhost:3001/products/add", objetoo)
       }
+    }
 
       
       function addCat(select, btnId){
@@ -96,13 +105,13 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
          
         if(categ.includes(select)){
           categ = categ.filter(word => word !== select); 
-          console.log(categ,"if true")          
-          document.getElementById(btnId).className = 'btn btn-secondary';          
-           
+          console.log(categ,"if true")
+          document.getElementById(btnId).style.background= "";          
+
         }else{
           categ.push(select); 
-          console.log(categ,"if false")          
-          document.getElementById(btnId).className = 'btn btn-success';
+          console.log(categ,"if false")   
+          document.getElementById(btnId).style.background= "#FE980F";
         }          
       }
 
@@ -112,36 +121,42 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
           image: file.base64
         })
       }
-      console.log(onlineUser)
 if( onlineUser.type == 1){
     return (
 <div class="container">
 <div class="row">
-  <div class="col-sm-5 my-5">
+<div class="col-sm-3"> </div>
+
+  <div class="col-sm-6 my-5">
     <div class="login-form ">
-      <form action="#" method="post" onSubmit={handleSubmit} id="myForm">
-      <h3>Add<span>Product</span></h3>
-      <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
-        <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required=""/>
-          <input type="text" className="form-control form-control-lg" name="price" placeholder="Price $ " id="price" onChange={handleInputChange} required=""/>
-          <input type="text" className="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required=""/>  
-          <FileBase64 onDone={handlerImageUpload} />
+      <form onSubmit={handleSubmit} id="myForm">
+      <h3 className="text-center" style = {{"background":"#FE980F", "borderRadius":"5px"}}>Form<span style={{color:"black", marginLeft:"10px"}}>Add Product</span></h3>
+      <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange}  required />
+        <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required/>
+          <input type="text" className="form-control form-control-lg" name="price" placeholder="Price $ " id="price" onChange={handleInputChange} required/>
+          <input type="text" className="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required/>  
+          <FileBase64 onDone={handlerImageUpload} required />
           <div className=" form-control-lg">
                                      {categories.map((cat, i) => {                                      
                                          return (  
                                           <div class="btn-group p-3" role="group" aria-label="Basic example">                                         
                                            <button type="button"  class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
+
                                              {cat.name}
                                            </button>   
-                                           </div>                                       
+                                           </div>
                                          )
                                      })}      
                              </div>
                              <div className=" form-control-lg"> 
                                <span id='contCat'></span>
                              </div> 
-           
-      <button type="submit" className="submit-btn" value="Submit" class="btn btn-default update">Add</button>
+      <div class="col-sm-4"> </div>
+      <div class="col-sm-4">
+      <button id = "submitButton" type="submit" className="submit-btn" value="Submit" style={{"borderRadius":"5px","background":"#FE980F",}} class="btn  btn-lg btn-block">Add Product </button>
+
+       </div>
+       <div class="col-sm-4"> </div>           
       </form>
     </div>
   </div>
