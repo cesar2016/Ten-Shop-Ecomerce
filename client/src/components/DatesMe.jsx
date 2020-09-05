@@ -12,6 +12,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import { updateOnlineUser, updateUser } from "../actions/index"
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
+import axios from "axios";
 
 const estilos = {
     labelFontSize: {
@@ -125,7 +126,7 @@ const DatesMe = ({ user, loginUserCookie, updateOnlineUser, updateUser }) => {
     };
 
 
-    updateUser(user.id, {password: changePassword.password1})
+    axios.put("http://localhost:3001/users/aaa/updatePassword", { id: user.id, password: changePassword.password1 })
 
     Swal.fire({
       icon: 'success',

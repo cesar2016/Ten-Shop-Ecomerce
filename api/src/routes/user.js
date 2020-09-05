@@ -343,17 +343,19 @@ server.post("/adduser", (req, res) => {
     )
 });*/
 
-server.put("/updatePassword", (req, res) => {
+server.put("/aaa/updatePassword", (req, res) => {
   const { id, password } = req.body;
   User.update({password}, {where: {id}})
     .then(() => {
-      User.findOne({ where: {id} })
+      User.findOne({where: {id}})
         .then(user => {
-
-          res.send(user.encryptPassword(password, this.salt()))
+          user.encryptPassword()          
+          res.send("Ok!")
         })
     })
-    .catch(err => res.send(err))
 });
+
+
+
 
 module.exports = server;
