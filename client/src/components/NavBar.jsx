@@ -122,7 +122,7 @@ console.log(cantproductos); */
 
 		<div class="header-bottom">
 			<div class="container">
-				<div class="row" style={{display:"flex", alignItems:'center'}}>
+				<div class="row" style={{display:"flex"}}>
 					<div class="col-sm-9">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
