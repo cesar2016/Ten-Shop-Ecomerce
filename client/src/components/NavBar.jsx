@@ -66,7 +66,7 @@ console.log(cantproductos); */
 			<div class="container">
 				<div class="row" style={{alignItems:'flex-start'}}>
 					<div class="col-md-4 clearfix" style={{display:'flex', justifyContent:'center'}}>
-						<div class="logo pull-left">
+						<div class="logo pull-left animate__animated animate__bounceInLeft animate__delay-2s">
                         <NavLink to="/">
 							<a href=""><img src="logo.png" alt="" /></a>
                         </NavLink>
