@@ -101,12 +101,15 @@ console.log(cantproductos); */
                                     </NavLink>
                                 }
                                 </li>
-                                {onlineUser.firstname && (
-                                <li>
-                                    <a href="" onClick={() => salirr()}><i class="fa fa-lock"></i>WELCOME {onlineUser.firstname.toUpperCase()} {onlineUser.surname.toUpperCase()} Logout</a>
-                                    <a href="/me" id="profile"><i className="fa fa-user" aria-hidden="true"></i>Profile</a>
-                                </li>
-                                )}
+                                {onlineUser.firstname &&
+
+                                            <li class="dropdown">
+                                            <a href="" onClick={() => salirr()}><i class="fa fa-lock"></i>WELCOME {onlineUser.firstname.toUpperCase()} {onlineUser.surname.toUpperCase()} Logout</a>
+                                            <ul role="menu" class="sub-menu">
+                                            <li>LOGOUT</li>
+                                            </ul>
+                                        </li>
+                                }
 							</ul>
 						</div>
 					</div>
