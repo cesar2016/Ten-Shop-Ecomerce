@@ -74,7 +74,7 @@ server.get('/:idUser/orders', (req, res, next) => {
       }else{
         // PREGUNTAR A GUILLE SI ESTO NO DEBERIA DE VOLVER UN ARRAY VACIO
         // ya que si voy al carrito a la primera despues de haber comprado un carrito
-        // da error en la pagina porque no retorno un array sino que un string "The user has no products in the cart" 
+        // da error en la pagina porque no retorno un array sino que un string "The user has no products in the cart"
         // res.status(404).send("The user has no products in the cart")
         res.status(200).send([])
       }
@@ -107,29 +107,29 @@ server.post('/:idUser/cart', (req, res) => {
     const {body} = req;//el id del producto.
     Order.findAll({where: { userId: idUser, status: "created" }}).then(ord => {
           console.log("EStaaaaaa la ordennnn",ord);
-          if(ord.length){       
-            Product.findByPk(body.id).then(producto => {  
+          if(ord.length){
+            Product.findByPk(body.id).then(producto => {
               producto.addOrder(ord);
-              return res.status(200).send("Order created")      
-            })         
+              return res.status(200).send("Order created")
+            })
           }else{//El usuario no tiene orden, creo la orden primero y luego anado el producto.
                 Order.create({
                 status: "created",
-                address: body.address,                    
-            }).then(order => {              
-              User.findByPk(idUser).then(user => { 
-                  //console.log("Entreee acaaaa",user,"esta es la orden creada",order)              
+                address: body.address,
+            }).then(order => {
+              User.findByPk(idUser).then(user => {
+                  //console.log("Entreee acaaaa",user,"esta es la orden creada",order)
                   order.setUser(user);
-                  Product.findByPk(body.id).then(producto => { 
+                  Product.findByPk(body.id).then(producto => {
                       producto.addOrder(order);
                       res.status(200).send("Order created")
-                  })                                    
+                  })
               }).catch(err => {
-                res.status(404).send("Error. Order no created!")                
+                res.status(404).send("Error. Order no created!")
               })
-            }) 
+            })
           }
-          
+
       })
     });
 
@@ -140,35 +140,35 @@ server.post('/:idUser/invited/cart', (req, res) => {
    const {body} = req;//un arrays con productos [1, 5 , 13]
    Order.findAll({where: { userId: idUser, status: "created" }}).then(ord => {
          console.log("EStaaaaaa la ordennnnASDASDASDASDASDASDADASDAq-------------------",body, ord);
-         if(ord.length){   
+         if(ord.length){
           for (let i = 0; i < body.length; i++) {
-            Product.findByPk(body[i]).then(producto => {  
+            Product.findByPk(body[i]).then(producto => {
               producto.addOrder(ord);
-              return res.status(200).send("Order created")      
-            })         
-            
-          }    
+              return res.status(200).send("Order created")
+            })
+
+          }
          }else{//El usuario no tiene orden, creo la orden primero y luego anado el producto.
                Order.create({
                status: "created",
-               address: body.address,                    
-           }).then(order => {              
-             User.findByPk(idUser).then(user => { 
-                 //console.log("Entreee acaaaa",user,"esta es la orden creada",order)              
+               address: body.address,
+           }).then(order => {
+             User.findByPk(idUser).then(user => {
+                 //console.log("Entreee acaaaa",user,"esta es la orden creada",order)
                  order.setUser(user);
                  for (let i = 0; i < body.length; i++) {
-                  Product.findByPk(body[i]).then(producto => { 
+                  Product.findByPk(body[i]).then(producto => {
                       producto.addOrder(order);
                       res.status(200).send("Order created")
                   })
                 }
-                                                    
+
              }).catch(err => {
-               res.status(404).send("Error. Order no created!")                
+               res.status(404).send("Error. Order no created!")
              })
-           }) 
+           })
          }
-         
+
      })
    });
 
@@ -252,14 +252,14 @@ server.post("/:idUser/c/cart", (req, res) => {
           amount: body[i].cantidad,
           total_price: body[i].subtotal
         }
-      
+
         Productsxorders.update(obj, { where: {product_id: body[i].id, order_id: idOrder}})
         .then(result => {
         res.status(200).send("the order has been updated");
         })
-             
-      } 
-    } 
+
+      }
+    }
   })
   .catch(() => res.status(404).send("ERROR. Order has not be complete"));
 });
@@ -267,8 +267,8 @@ server.post("/:idUser/c/cart", (req, res) => {
 //RUTAS PARA AGREGAR PRECIOS TABLA ORDERS
 server.post("/:idUser/c/order", (req, res) => {
   const { idUser } = req.params;
-  const { body } = req;       
-  console.log("APIIIIIIIIIIIIII------------------------------------------------,",body)                      
+  const { body } = req;
+  console.log("APIIIIIIIIIIIIII------------------------------------------------,",body)
   Order.update(body, { where: {userId: idUser, status: "created"}})
   .then(result => {
   res.status(200).send("the order has been updated");
@@ -277,7 +277,7 @@ server.post("/:idUser/c/order", (req, res) => {
 });
 
 server.post("/adduser", (req, res) => {
-  const { firstname, surname, password, username, email } = req.body;  
+  const { firstname, surname, password, username, email } = req.body;
 
   let transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
@@ -286,7 +286,7 @@ server.post("/adduser", (req, res) => {
     auth: {
         user: 'zander.crona48@ethereal.email', // generated ethereal user
         pass: 'nZy5srMEQazj596J2p'  // generated ethereal password
-    }    
+    }
   });
 
   // setup email data with unicode symbols
@@ -302,7 +302,7 @@ server.post("/adduser", (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         res.status(500).send(error.message);
-      } else {        
+      } else {
         console.log("ENVIA!")
         res.status(200).send("Email enviado!!!")
       }
@@ -314,15 +314,15 @@ server.post("/adduser", (req, res) => {
   User.findAll({
     where: {username}
   })
-    .then(result => {      
+    .then(result => {
       if (!result.length) {
-        User.create({firstname, surname, password, type: "2", username, email})        
-        .then(user => res.send([true, user.dataValues]))        
+        User.create({firstname, surname, password, type: "2", username, email})
+        .then(user => res.send([true, user.dataValues]))
       } else {
         return res.send([false])
       }
     })
-    .catch((err) => {      
+    .catch((err) => {
       return res.send(err)
     })    */
 });
@@ -342,5 +342,18 @@ server.post("/adduser", (req, res) => {
     res.status(404).send(console.log(req.body))}
     )
 });*/
+
+server.put("/updatePassword", (req, res) => {
+  const { id, password } = req.body;
+  User.update({password}, {where: {id}})
+    .then(() => {
+      User.findOne({ where: {id} })
+        .then(user => {
+
+          res.send(user.encryptPassword(password, this.salt()))
+        })
+    })
+    .catch(err => res.send(err))
+});
 
 module.exports = server;

@@ -9,7 +9,9 @@ import { loginUserCookie } from "../actions/index.js"
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
-import { updateOnlineUser } from "../actions/index"
+import { updateOnlineUser, updateUser } from "../actions/index"
+import Swal from 'sweetalert2';
+import { useHistory } from 'react-router-dom';
 
 const estilos = {
     labelFontSize: {
@@ -35,14 +37,28 @@ const estilos = {
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
+    },
+    changePassword: {
+      color: "black"
+    },
+    inputsChange: {
+      fontSize: "30px"
+    },
+    errorPassword: {
+      height: "20px",
+      color: "red"
     }
   }
 
 
-const DatesMe = ({ user, loginUserCookie, updateOnlineUser }) => {
+const DatesMe = ({ user, loginUserCookie, updateOnlineUser, updateUser }) => {
 
   const [input, setInput] = useState({});
   const [boton, setBoton] = useState(false)
+  const [changePassword, setChangePassword] = useState({password1: "", password2: ""});
+  const [errorPassword1, setErrorPassword1] = useState("")
+  const [errorPassword2, setErrorPassword2] = useState("")
+  const history = useHistory();
 
   if (boton) {
     document.getElementById("firstname").disabled = false;
@@ -79,6 +95,44 @@ const DatesMe = ({ user, loginUserCookie, updateOnlineUser }) => {
     document.getElementById("email").disabled = true;
     document.getElementById("username").disabled = true;
     setBoton(false)
+  };
+
+  const handleChangePassword = (e) => {
+    e.preventDefault();
+    setErrorPassword1("");
+    setErrorPassword2("");
+    setChangePassword({...changePassword, [e.target.name]: e.target.value});
+
+  };
+
+  const handleSubmitChangePassword = (e) => {
+    e.preventDefault()
+    if (!changePassword.password1) {
+      setErrorPassword1("Obligatory field!")
+      return;
+    } else if (!changePassword.password2) {
+      setErrorPassword2("Obligatory field!");
+      return;
+    }
+    if (changePassword.password1.length < 8) {
+      setErrorPassword1("Does not exceed 8 characters");
+      return;
+    };
+    if (changePassword.password1 !== changePassword.password2) {
+      setErrorPassword1("Passwords do not match")
+      setErrorPassword2("Passwords do not match")
+      return;
+    };
+
+
+    updateUser(user.id, {password: changePassword.password1})
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Password changed!',
+      showConfirmButton: false,
+      timer: 1500
+    })
   };
 
   return (
@@ -174,6 +228,40 @@ const DatesMe = ({ user, loginUserCookie, updateOnlineUser }) => {
             />
           </div>
 
+          <div>
+            <a style={estilos.changePassword} href="" data-toggle="modal" data-target="#exampleModal"data-whatever="@getbootstrap">Do you want to change the password?</a>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">TEN SHOP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form onSubmit={(e) => handleSubmitChangePassword(e)}>
+                  <div class="modal-body">
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">New Password:</label>
+                        <input autofocus requireds name="password1" style={estilos.inputsChange} onChange={(e) => handleChangePassword(e)} type="password" class="form-control" id="recipient-name"/>
+                        <div style={estilos.errorPassword}><p>{errorPassword1}</p></div>
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Repeat Password Please:</label>
+                        <input required name="password2" style={estilos.inputsChange} onChange={(e) => handleChangePassword(e)} type="password" class="form-control" id="recipient-name"/>
+                        <div style={estilos.errorPassword}><p>{errorPassword2}</p></div>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-secondary">Change Password</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div style={estilos.botones}>
             {boton   ?
             (<div id="botonSave">
@@ -215,7 +303,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     loginUserCookie: () => dispatch(loginUserCookie()),
-    updateOnlineUser: (id, body) => dispatch(updateOnlineUser(id, body))
+    updateOnlineUser: (id, body) => dispatch(updateOnlineUser(id, body)),
+    updateUser: (id, body) => dispatch(updateUser(id, body))
   }
 };
 
