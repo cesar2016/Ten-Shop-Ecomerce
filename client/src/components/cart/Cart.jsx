@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
-import { getAllCart,completeCart, updateCart, cancellCart, priceOrder, getAllProducts, vaciarls, deleteProductCart} from "../../actions";
+import { getAllCart,completeCart, updateCart, cancellCart, priceOrder, getAllProducts, vaciarls, deleteProductCart, getSumaryCart} from "../../actions";
 import Swal from 'sweetalert2';
 import './Cart.css'
 var ls = require('local-storage');
 
-function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder,getAllProducts, vaciarls, deleteProductCart}) {
+function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder,getAllProducts, vaciarls, deleteProductCart, sumary_cart, getSumaryCart}) {
     const history = useHistory();
 
   React.useEffect(() => {
@@ -17,6 +17,10 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
   getAllProducts()
 
   }, [])
+
+  React.useEffect(() => {
+    getSumaryCart(onlineUser.id)
+  }, [cart, getcart])
 
   var arr = [];
   if(ls.get('idProducts').length){
@@ -34,9 +38,20 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 
   const productosConSubtotales = useRef([])
 
+  const calculaTotal = () => {
+    let previo_total = 0;
+    productosConSubtotales.current.forEach((item, i) => {
+      previo_total += item.subtotal
+    });
+    let taxes = previo_total * 0.21;
+    return previo_total + taxes + 400
+  };
+
   if (arr.length && productosConSubtotales.current.length !== arr.length) {
     products.forEach(e => {
       if (arr.includes(e.id)) {
+        e.subtotal= e.price
+        e.cantidad=1
         productosConSubtotales.current.push(e)
       }
     })
@@ -100,9 +115,15 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
       }).then((result) => {
         if (result.value) {
             if(result.isConfirmed){
-              priceOrder(onlineUser.id,total.current);
-              updateCart(onlineUser.id, productosConSubtotales.current);
-              completeCart(onlineUser.id, result.value);
+              if (total.current === 0) {
+                priceOrder(onlineUser.id, calculaTotal())
+                updateCart(onlineUser.id, productosConSubtotales.current);
+                completeCart(onlineUser.id, result.value);
+              } else {
+                priceOrder(onlineUser.id,total.current);
+                updateCart(onlineUser.id, productosConSubtotales.current);
+                completeCart(onlineUser.id, result.value);                
+              }
                 vaciarls()
                 arr = [];
                 Swal.fire({
@@ -191,7 +212,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
       history.push('/cart')
 
 
-    
+
 
   }
 
@@ -281,10 +302,10 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 			</div>
 					<div class="total_area" style={{width:'100%'}}>
 						<ul style={{paddingLeft: '0px'}}>
-							<li>Cart Sub Total <span id="subtotal">$0</span></li>
-							<li>Eco Tax <span id="taxes">$0</span></li>
+							<li>Cart Sub Total <span id="subtotal">${sumary_cart.contadorSubtotal ? sumary_cart.contadorSubtotal : "0"}</span></li>
+							<li>Eco Tax <span id="taxes">${sumary_cart.contadorEcoTax ? sumary_cart.contadorEcoTax : "0"}</span></li>
 							<li>Shipping Cost <span id="shipping">$400</span></li>
-							<li>Total <span id="total">$400</span></li>
+							<li>Total <span id="total">${sumary_cart.total ? sumary_cart.total : "0"}</span></li>
 						</ul>
             <div style={{display:'flex', justifyContent:'center'}}>
 							<a class="btn btn-default update" href="" onClick={(e) => cancell(e)}>Cancel</a>
@@ -301,7 +322,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 
         </section>)
         : (<div className="alertacartguille">Your  <span style={{color:"black", margin:'0px 10px 0px 10px'}}>Cart</span> is Empty!</div>
-        )      
+        )
      );
  };
 
@@ -314,7 +335,8 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
         priceOrder: (id, total) => dispatch(priceOrder(id, total)),
         getAllProducts: () => dispatch(getAllProducts()),
         vaciarls: () => dispatch(vaciarls()),
-        deleteProductCart: (orderId, productId) => dispatch(deleteProductCart(orderId, productId))
+        deleteProductCart: (orderId, productId) => dispatch(deleteProductCart(orderId, productId)),
+        getSumaryCart: (id) => dispatch(getSumaryCart(id))
     }
   }
 
@@ -324,7 +346,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
       getcart: state.getcart,
       onlineUser : state.onlineUser,
       setid: state.setid,
-
+      sumary_cart: state.sumary_cart
     }
   }
 

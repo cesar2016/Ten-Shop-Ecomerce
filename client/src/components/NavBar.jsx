@@ -3,12 +3,12 @@ import "./NavBar.css";
 import SearchBar from "./SearchBar.jsx";
 import { NavLink } from 'react-router-dom';
 import { connect } from "react-redux";
-import { userLogout, loginUserCookie, lsset , getAllCart} from "../actions/index.js";
+import { userLogout, loginUserCookie, lsset , getAllCart, getSumaryCart} from "../actions/index.js";
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
 var ls = require('local-storage');
 
-function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset, getAllCart,cart}) {
+function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset, getAllCart,cart, getSumaryCart}) {
   const history = useHistory();
   const [categories, setCategories] = useState([]);
   const [admin, setAdmin] = useState(false);
@@ -25,6 +25,7 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset, 
         })
         if (typeof onlineUser  === "object"){
          getAllCart(onlineUser.id)
+         getSumaryCart(onlineUser.id)
           if (onlineUser.type == 1){
             setAdmin(true)
           }
@@ -38,6 +39,7 @@ function NavBar({onlineUser, userLogout, getcart, loginUserCookie,setid, lsset, 
         if(typeof onlineUser == "object"){
            getAllCart(onlineUser.id)
       }
+
     },[cart]);
 
       function alertt(){
@@ -108,6 +110,7 @@ console.log(cantproductos); */
                                             <ul role="menu" class="sub-menu">
                                             <li>LOGOUT</li>
                                             </ul>
+                                            <a href="/me" id="profile"><i className="fa fa-user" aria-hidden="true"></i>Profile</a>
                                         </li>
                                 }
 							</ul>
@@ -224,7 +227,7 @@ const mapDispatchToProps = dispatch => {
     loginUserCookie: () => dispatch(loginUserCookie()),
     lsset: () => dispatch(lsset()),
     getAllCart: (id) => dispatch(getAllCart(id)),
-
+    getSumaryCart: (id) => dispatch(getSumaryCart(id))
   }
 }
 

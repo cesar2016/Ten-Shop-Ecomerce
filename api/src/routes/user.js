@@ -337,7 +337,7 @@ server.post("/:idUser/canc/:idOrder", (req, res) => {
   let body = {
     status: 'cancelled'
   }
-  
+
       Order.update(body, { where: { userId: idUser, id: idOrder } }).then(data => {
     // console.log(data[0]);
       if(data[0]){
@@ -346,7 +346,7 @@ server.post("/:idUser/canc/:idOrder", (req, res) => {
         res.status(404).send("You do not have an order created");
       }
     });
-  
+
 
 });
 
@@ -361,7 +361,24 @@ server.put("/aaa/updatePassword", (req, res) => {
     })
 });
 
-
+server.get("/cart/sumary/:idUser", (req, res) => {
+  const { idUser } = req.params;
+  var contadorSubtotal = 0;
+  Order.findOne({where: {userId: idUser, status: "created"}})
+    .then(order => {
+      if(order) {
+        order.getProducts()
+          .then(result => {
+            result.forEach((item) => {
+              contadorSubtotal += item.price
+            });
+          })
+          .then(() => {
+            res.send({contadorSubtotal, contadorEcoTax: contadorSubtotal * 0.21, total: contadorSubtotal + contadorSubtotal * 0.21 + 400})
+          })
+      }
+    })
+});
 
 
 module.exports = server;
