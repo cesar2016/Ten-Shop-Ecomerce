@@ -10,7 +10,7 @@
 .asd{
   height: auto;
   width: auto;
-  
+
 }
 
 .ddd{
@@ -23,6 +23,15 @@ background-color:rgb(248, 248, 248);
 /* background-color: orange; */
 color:orange;
 font-weight: bold;
+
+}
+
+.notCart {
+  width: 240px ;
+  background-color:rgb(248, 248, 248);
+  /* background-color: orange; */
+  color:red;
+  font-weight: bold;
 
 }
 
@@ -58,4 +67,6 @@ height: 250px;
 
 .react-rater-star.is-active {
   color:orange;
+
 }
+
