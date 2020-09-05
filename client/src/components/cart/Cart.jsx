@@ -240,7 +240,8 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
              <div class="container">
              <div class="row offspace">
              <div class="view-set-block">
-                 <div class="col-md-8 col-sm-8 col-xs-12">
+
+                 <div class="col-md-8 col-sm-8 col-xs-12" style={{paddingTop:'0px'}}>
 
       <div class="asdasd">
 			<div class="table-responsive cart_info">
