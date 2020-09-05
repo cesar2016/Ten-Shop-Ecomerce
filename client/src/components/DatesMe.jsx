@@ -125,7 +125,8 @@ const DatesMe = ({ user, loginUserCookie, updateOnlineUser, updateUser }) => {
       return;
     };
 
-
+    document.getElementById("password1").value = "";
+    document.getElementById("password2").value = "";    
     axios.put("http://localhost:3001/users/aaa/updatePassword", { id: user.id, password: changePassword.password1 })
 
     Swal.fire({
@@ -244,12 +245,12 @@ const DatesMe = ({ user, loginUserCookie, updateOnlineUser, updateUser }) => {
                   <div class="modal-body">
                       <div class="form-group">
                         <label for="recipient-name" class="col-form-label">New Password:</label>
-                        <input autofocus requireds name="password1" style={estilos.inputsChange} onChange={(e) => handleChangePassword(e)} type="password" class="form-control" id="recipient-name"/>
+                        <input autofocus requireds name="password1" style={estilos.inputsChange} onChange={(e) => handleChangePassword(e)} type="password" class="form-control" id="password1"/>
                         <div style={estilos.errorPassword}><p>{errorPassword1}</p></div>
                       </div>
                       <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Repeat Password Please:</label>
-                        <input required name="password2" style={estilos.inputsChange} onChange={(e) => handleChangePassword(e)} type="password" class="form-control" id="recipient-name"/>
+                        <input required name="password2" style={estilos.inputsChange} onChange={(e) => handleChangePassword(e)} type="password" class="form-control" id="password2"/>
                         <div style={estilos.errorPassword}><p>{errorPassword2}</p></div>
                       </div>
                   </div>
