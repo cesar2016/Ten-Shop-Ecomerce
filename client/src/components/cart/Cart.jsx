@@ -18,9 +18,11 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 
   }, [])
 
+
   React.useEffect(() => {
     getSumaryCart(onlineUser.id)
   }, [cart, getcart])
+
 
   var arr = [];
   if(ls.get('idProducts').length){
@@ -59,12 +61,10 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
   }
 
   const shipping = 400; // envío
-
   const taxes = useRef(0) // impuesto
-
   const total = useRef(0) // total
-
-
+  const total = useRef(0) // total
+  
   const handleCantidadDelProducto = (id, price) => {
 
     var subtotal_carrito = 0;
@@ -124,6 +124,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
                 updateCart(onlineUser.id, productosConSubtotales.current);
                 completeCart(onlineUser.id, result.value);                
               }
+
                 vaciarls()
                 arr = [];
                 Swal.fire({
@@ -197,6 +198,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
     // FE980F color amarillo de la pagina
 
   const handleDeleteProductCart = id => {
+
     if(typeof onlineUser == "object"){
     var order = getcart[0].order_id;
     deleteProductCart(order, id)
@@ -215,6 +217,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 
 
   }
+
 
   };
 
@@ -238,6 +241,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
              <div class="row offspace">
              <div class="view-set-block">
                  <div class="col-md-8 col-sm-8 col-xs-12">
+
       <div class="asdasd">
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
@@ -272,7 +276,9 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 									{/* <a class="cart_quantity_up" id="boton_cantidad_mas" onClick={handleBotonMas}> - </a>
 									<input class="cart_quantity_input" type="quantity" name="quantity" min="1" max={e.stock} value="1" autocomplete="off" size="2"/>
 									<a class="cart_quantity_down" id="boton_cantidad_menos"> + </a> */}
+
                   <input min="1" max={e.stock} defaultValue="1" type="number" id={e.id+"input"} onClick={() => handleCantidadDelProducto(e.id, e.price)} className="form-control inputCantidad" style={{width: "60%", borderColor:"orange"}} />
+
 								</div>
 							</td>
 							<td class="cart_total">
@@ -308,12 +314,15 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 							<li>Total <span id="total">${sumary_cart.total ? sumary_cart.total : "0"}</span></li>
 						</ul>
             <div style={{display:'flex', justifyContent:'center'}}>
+
 							<a class="btn btn-default update" href="" onClick={(e) => cancell(e)}>Cancel</a>
               {
                 typeof onlineUser === "object" ? (<a class="btn btn-default check_out" href="" onClick={(e) => alertt(e)}>Check Out</a>)
                 : (<a class="btn btn-default check_out" href="" onClick={(e) => alerttinvited(e)}>Check Out</a>)
               }
+
             </div>
+
 					</div>
 				</div>
                 </div>
@@ -321,8 +330,10 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
                 </div>
 
         </section>)
+
         : (<div className="alertacartguille">Your  <span style={{color:"black", margin:'0px 10px 0px 10px'}}>Cart</span> is Empty!</div>
         )
+
      );
  };
 
@@ -335,8 +346,10 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
         priceOrder: (id, total) => dispatch(priceOrder(id, total)),
         getAllProducts: () => dispatch(getAllProducts()),
         vaciarls: () => dispatch(vaciarls()),
+
         deleteProductCart: (orderId, productId) => dispatch(deleteProductCart(orderId, productId)),
         getSumaryCart: (id) => dispatch(getSumaryCart(id))
+
     }
   }
 
@@ -346,7 +359,9 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
       getcart: state.getcart,
       onlineUser : state.onlineUser,
       setid: state.setid,
+
       sumary_cart: state.sumary_cart
+
     }
   }
 

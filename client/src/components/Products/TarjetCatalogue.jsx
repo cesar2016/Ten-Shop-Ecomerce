@@ -56,6 +56,7 @@ var ls = require('local-storage');
 
 	  }
 
+
     const notCart = e => {
       e.preventDefault()
       Swal.fire({
@@ -73,15 +74,19 @@ var ls = require('local-storage');
 
 						<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12" >
 							<div class="product-image-wrapper">
+
 							<NavLink to ={`/product/${id}`} >
+
 								<div class="single-products">
 										<div class="productinfo text-center">
 											<img className="ddd" src={image}/>
 											<h2>{name}</h2>
 											<p>$ {price}</p>
 
+
 										</div>
 										<div style ={{"display":"flex","justifyContent": "center"}}>
+
 					  		<Rater style={{'react-rater-active': 'blue'}} rating={promedy(acum,reviews.length)} interactive={false}/>
 					  	</div>
 										<div class="product-overlay">
@@ -93,11 +98,14 @@ var ls = require('local-storage');
 								</div>
 					  	</NavLink>
 
+
 								{stock != 0 ? (<div class=" choose text-center">
+
 								<button type="button" className="btn btn-secondary addhome" onClick={(e) => addhome(e)} id="op1" value={name}>
 								<i class="fa fa-shopping-cart" style={{marginRight:'10px'}}></i>
 								Add To Cart
 								</button>
+
               </div>) :
               (<div class=" choose text-center">
               <button type="button" className="btn btn-secondary notCart" onClick={(e) => notCart(e)} id="op1" value={name}>
@@ -123,6 +131,7 @@ const mapDispatchToProps = dispatch => {
 
   const mapStateToProps = state => {
 	return {
+
 	  onlineUser : state.onlineUser,
 		reviews: state.reviews
 	}

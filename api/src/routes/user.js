@@ -278,7 +278,9 @@ server.post("/:idUser/c/order", (req, res) => {
 });
 
 server.post("/adduser", (req, res) => {
-  const { firstname, surname, password, username, email } = req.body;
+
+  const { firstname, surname, password, username, email } = req.body;  
+
 
   let transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
@@ -287,7 +289,9 @@ server.post("/adduser", (req, res) => {
     auth: {
         user: 'zander.crona48@ethereal.email', // generated ethereal user
         pass: 'nZy5srMEQazj596J2p'  // generated ethereal password
-    }
+
+    }    
+
   });
 
   // setup email data with unicode symbols
@@ -303,7 +307,9 @@ server.post("/adduser", (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         res.status(500).send(error.message);
+
       } else {
+
         console.log("ENVIA!")
         res.status(200).send("Email enviado!!!")
       }

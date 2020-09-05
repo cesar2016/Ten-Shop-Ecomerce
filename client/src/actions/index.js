@@ -379,6 +379,7 @@ export function cancellCart(idUser){
   }
 }
 
+
 export function celarordenPanel(idUser, idOrder){
   return function (dispatch) {
     return axios.post(`http://localhost:3001/users/${idUser}/canc/${idOrder}`, { withCredentials: true })
@@ -621,7 +622,6 @@ export function deleteProductCart(orderId, productId) {
   };
 };
 
-
 export function getSumaryCart(idUser) {
   console.log("USUARIOOOOOO", idUser)
   return function(dispatch) {
@@ -635,3 +635,4 @@ export function getSumaryCart(idUser) {
       })
   }
 }
+
