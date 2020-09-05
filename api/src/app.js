@@ -320,7 +320,7 @@ server.post("/", async (req, res) => {
         email:"rodrigomp88@gmail.com"
     });
 
-    const user4 = User.create({
+/*    const user4 = User.create({
         firstname: "matias",
         surname: "cordoba",
         address: "las sierras",
@@ -329,7 +329,7 @@ server.post("/", async (req, res) => {
         username: "matiascordoba",
         email: "matiascba99@gmail.com"
     });
-
+*/
     const user5 = User.create({
         firstname: "guillermo",
         surname: "ambroggio",

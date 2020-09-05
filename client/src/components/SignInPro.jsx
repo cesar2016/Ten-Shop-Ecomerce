@@ -17,6 +17,8 @@ import { loginUser ,onlineUserError, addCartInvited} from "../actions";
 import {connect} from "react-redux";
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import GoogleLogin from 'react-google-login';
+import { useGoogleLogin } from 'react-google-login'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,7 +46,12 @@ const useStyles = makeStyles((theme) => ({
   },  
 }));
 
-
+const responseGoogle = (res) => {
+  console.log(res);
+  /*loginUser({
+    email
+  })*/
+}
 
 const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited}) => {
   const classes = useStyles();
@@ -59,6 +66,7 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
 
   const handleSubmit = (e) => {          
     e.preventDefault();
+    console.log(input)
     loginUser(input);
     
   };
@@ -149,6 +157,12 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
               <Link href="/signup" style= {{"fontSize":"13px","color":"black"}} variant="body2">
                 {"I forgot the password."}
               </Link>
+                <GoogleLogin
+                clientId="1091738503095-fha2ruo3mic5qr58e7k7a3ov886bd1st.apps.googleusercontent.com"
+                buttonText="Sign in with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+              />,
               </Grid>
           </Grid>
         </form>
