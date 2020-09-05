@@ -36,7 +36,8 @@ import {
     GET_PRODUCTSXORDER,
     FINISH_ORDER,
     DELETE_PRODUCT_CART,
-    CANCELL_ORDER
+    CANCELL_ORDER,
+    GET_SUMARY_CART,
 
    } from '../actions/index';
 var ls = require('local-storage');
@@ -57,7 +58,7 @@ const initialState = {
   ordersxproduct: [],
   setid: [],
   productsxorder: {},
-
+  sumary_cart: {},
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -229,7 +230,7 @@ const reducer = (state = initialState, action) => {
     case DELETE_USER:
       return {////////////////////////////////////////
          ...state,
-          all_users: [...state.all_users.filter(user => user.id !== action.payload)]          
+          all_users: [...state.all_users.filter(user => user.id !== action.payload)]
       }
     case GET_REVIEWS:
        return {
@@ -304,6 +305,11 @@ const reducer = (state = initialState, action) => {
         getcart: state.getcart.filter(prod => prod.order_id !== action.payload.orderId && prod.product_id !== action.payload.productId),
         cart: state.cart.filter(prod => prod.order_id !== action.payload.orderId && prod.product_id !== action.payload.productId),
       }
+    case GET_SUMARY_CART:
+      return {
+        ...state,
+        sumary_cart: action.payload
+      }
 
     default:
       return state;
@@ -341,12 +347,13 @@ function reducerlogin(data){
 }
 
 function reducerUpdateUser (ar,id,body){
-  for (let i = 0; i< ar.length;i++ ){
-    if (ar[i].id === id){
-      ar[i] = Object.assign({},ar[i],body)
+  ar.forEach((item, i) => {
+    if (item.id == id) {
+      item = body;
     }
-    return ar
-   }
+  });
+  return ar
+
 }
 
 function loginUserCookie (data) {
