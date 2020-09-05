@@ -300,7 +300,8 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
                 </div>
 
         </section>)
-        : (<div class="alert alert-danger" role="alert"><h2>Your cart is empty!</h2></div>)      
+        : (<div className="alertacartguille">Your  <span style={{color:"black", margin:'0px 10px 0px 10px'}}>Cart</span> is Empty!</div>
+        )      
      );
  };
 

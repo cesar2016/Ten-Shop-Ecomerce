@@ -37,6 +37,9 @@ export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT";
 export const GET_PRODUCTSXORDER = "GET_PRODUCTSXORDER";
 export const FINISH_ORDER = "FINISH_ORDER";
 export const DELETE_PRODUCT_CART = "DELETE_PRODUCT_CART";
+export const CANCELL_ORDER = "CANCELL_ORDER";
+
+
 
 
 
@@ -376,6 +379,24 @@ export function cancellCart(idUser){
         type: CANCELL_CART,
       })
     })
+  }
+}
+
+export function celarordenPanel(idUser, idOrder){
+  return function (dispatch) {
+    return axios.post(`http://localhost:3001/users/${idUser}/canc/${idOrder}`, { withCredentials: true })
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: CANCELL_ORDER,
+      })
+    })
+  }
+}
+
+export function vaciarpanelorders () {
+  return {
+    type: FINISH_ORDER
   }
 }
 

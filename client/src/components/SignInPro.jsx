@@ -76,7 +76,7 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
               icon: 'success',
               title: 'Welcome,'+ ' ' +onlineUser.firstname.toUpperCase(),
               showConfirmButton: false,
-              timer: 3000
+              timer: 1500
             })
             history.push('/');
           /*   if(setid.length !== 0){

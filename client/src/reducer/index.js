@@ -36,6 +36,7 @@ import {
     GET_PRODUCTSXORDER,
     FINISH_ORDER,
     DELETE_PRODUCT_CART,
+    CANCELL_ORDER
 
    } from '../actions/index';
 var ls = require('local-storage');
@@ -209,6 +210,12 @@ const reducer = (state = initialState, action) => {
         getcart: [],
         cart: []
       }
+
+    case CANCELL_ORDER:
+      return {
+        ...state,
+      }
+
     case GET_ORDERS:
        return {
        ...state,
