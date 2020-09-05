@@ -356,6 +356,23 @@ server.post("/:idUser/canc/:idOrder", (req, res) => {
 
 });
 
+//COMPLETA ORDENES DESDE EL PANEL DE ADMIN:
+server.post("/:idUser/aceptar/:idOrder", (req, res) => {
+  console.log("ENTROOACAAAAA-----------------", req.body , req.params);
+  const { idUser } = req.params;
+  const { idOrder } = req.params;
+  let body = {
+    status: 'complete'
+  }
+      Order.update(body, { where: { userId: idUser, id: idOrder } }).then(data => {
+    // console.log(data[0]);
+      if(data[0]){
+      res.status(200).send("Order has been deleted/complete");
+      }
+    })
+    .catch(err => {console.log(err)})
+});
+
 server.put("/aaa/updatePassword", (req, res) => {
   const { id, password } = req.body;
   User.findOne({where: {id}})
