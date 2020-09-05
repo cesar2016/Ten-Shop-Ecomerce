@@ -6,7 +6,7 @@ import { userLogout } from "../actions/index.js"
 function NavBar({}) {
      
     return (
-		
+
         <footer id="footer">
 		 <div class="footer-top">
 			<div class="container">

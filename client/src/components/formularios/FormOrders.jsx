@@ -1,12 +1,15 @@
 import React from 'react';
 import "./FormOrders.css";
 import { connect } from "react-redux";
-import { getOrders, updateProduct, getproductsxorders,finishorder} from "../../actions";
+import { getOrders, updateProduct, getproductsxorders,finishorder, celarordenPanel,vaciarpanelorders} from "../../actions";
 import Page404 from "../Page404";
 import Swal from 'sweetalert2';
+import { useHistory } from 'react-router-dom';
 
-function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, productsxorder,finishorder}) {
- 
+
+function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, productsxorder,finishorder, celarordenPanel,vaciarpanelorders}) {
+  const history = useHistory();
+
  
       function getord(select){
         let status = select.target.value;    
@@ -31,9 +34,16 @@ function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, product
       }
 
 function orderpriv(data){
-  console.log(data);
   getproductsxorders(data.id)
 }
+
+function cancelaorden(data){
+  //console.log(data)
+  //console.log(productsxorder.userId)
+  celarordenPanel(productsxorder.userId, productsxorder.id);
+  vaciarpanelorders()
+}
+
 
 function terminarorden(data){
   finishorder(productsxorder.userId);
@@ -57,13 +67,23 @@ function terminarorden(data){
     <div class="modal-content">
       <div class="modal-header">
        {/*  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> */}
-        <div class="alert alert-danger col" role="alert">Order Summary
+        
+       <div className="alertorderguille3"><span style={{color:"black", margin:'0px 10px 0px 10px'}}>Orders</span> Summary
+        <button type="button btn-lg" class="close" data-dismiss="modal" aria-label="Close" style={{background:'white', fontSize:'40px', height:'45px'}}>
+        <span aria-hidden="true">&times;</span>
+        </button>
+       </div>
+        
+    {/*     <div class="alert alert-danger col" role="alert">Order Summary
         
         <button type="button btn-lg" class="close" data-dismiss="modal" aria-label="Close">
 
           <span aria-hidden="true">&times;</span>
         </button>
-        </div>
+        </div> */}
+
+
+
       </div>
       <div class="modal-body">
       <table class="table">
@@ -85,7 +105,7 @@ function terminarorden(data){
     })}
   </tbody>
 </table>
-  <div class="alert alert-danger col" role="alert">Order Details</div>
+<div className="alertorderguille"><span style={{color:"black", margin:'0px 10px 0px 10px'}}>Orders</span> Details</div>
   <table class="table">
   <thead>
     <tr>
@@ -94,28 +114,98 @@ function terminarorden(data){
     </tr>
   </thead>
   <tbody>
+
     <tr>
-      <td scope="row">{onlineUser.firstname+" "+onlineUser.surname}</td>
+      <td scope="row">{productsxorder.address}</td>
       <td>Credit Card</td>
     
     </tr>
-      <td scope="row">{productsxorder.address}</td>
+      
     
   </tbody>
 </table>
       </div>
       <div class="modal-footer" style={{display:"flex", justifyContent:"space-between"}}>
         
-        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancell Order</button>
+        <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal" onClick={(e) => cancelaorden(e)}>Cancell Order</button>
       
-        <button type="button" class="btn btn-success btn-lg" data-dismiss="modal" onClick={(e) => terminarorden(e)} >Confirm Order</button>
+        <button type="button" class="btn btn-warning btn-lg" data-dismiss="modal" onClick={(e) => terminarorden(e)} >Confirm Order</button>
        
       </div>
     </div>
   </div>
 </div>
    {/* <!-- Modal --> */}
+   
+     {/* <!-- Modal --> */}
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+       {/*  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> */}
+        
+       <div className="alertorderguille3"><span style={{color:"black", margin:'0px 10px 0px 10px'}}>Orders</span> Summary
+        <button type="button btn-lg" class="close" data-dismiss="modal" aria-label="Close" style={{background:'white', fontSize:'40px', height:'45px'}}>
+        <span aria-hidden="true">&times;</span>
+        </button>
+       </div>
+        
+    {/*     <div class="alert alert-danger col" role="alert">Order Summary
+        
+        <button type="button btn-lg" class="close" data-dismiss="modal" aria-label="Close">
 
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div> */}
+
+
+
+      </div>
+      <div class="modal-body">
+      <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Product</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+  {productsxorder.products && productsxorder.products.map((p) =>{ return ( <tr>
+      <th scope="row">1</th>
+      <td>{p.name}</td>
+      <td>{p.productsxorders.amount}</td>
+      <td>{p.productsxorders.total_price}</td>
+    </tr>)
+    })}
+  </tbody>
+</table>
+<div className="alertorderguille"><span style={{color:"black", margin:'0px 10px 0px 10px'}}>Orders</span> Details</div>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Shipping</th>
+      <th scope="col">Payment details</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td scope="row">{productsxorder.address}</td>
+      <td>Credit Card</td>
+    
+    </tr>
+      
+    
+  </tbody>
+</table>
+      </div>
+      
+    </div>
+  </div>
+</div>
+   {/* <!-- Modal --> */}
           <section class="contact-block"></section>
               <section class="contact-block jumbotron">
                   <div class="container">
@@ -164,7 +254,7 @@ function terminarorden(data){
                                                                       <td>
                                                                       <span className="palabras">  {p.status.toUpperCase()}</span>
                                                                       </td>
-                                                                      <td>  <span className="palabras"> {p.status== "processing" ?  <button type="button" onClick={(e) => orderpriv(p)} class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Confirm Order</button> : <span className="palabras">  {p.updatedAt.slice(0,10)+" | "+p.updatedAt.slice(11,19)}</span>}  </span></td>
+                                                                      <td>  <span className="palabras"> {p.status== "processing" ?  <button type="button" onClick={(e) => orderpriv(p)} class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">View Order</button> : <button type="button" onClick={(e) => orderpriv(p)}> <span className="palabras" data-toggle="modal" data-target="#exampleModal2">  {p.updatedAt.slice(0,10)+" | "+p.updatedAt.slice(11,19)}</span></button>}  </span></td>
                                                                     <td>  <span className="palabras"> $ {p.total_price}</span></td>
                                                                   </tr>
                                                                 )
@@ -196,6 +286,10 @@ function terminarorden(data){
       getOrders: (status) => dispatch(getOrders(status)),
       getproductsxorders: (id) => dispatch(getproductsxorders(id)),
       finishorder: (id) => dispatch(finishorder(id)),
+      celarordenPanel: (idus,idpr) => dispatch(celarordenPanel(idus,idpr)),
+      vaciarpanelorders: (idus,idpr) => dispatch(vaciarpanelorders(idus,idpr)),
+
+      
       
     }
   }
