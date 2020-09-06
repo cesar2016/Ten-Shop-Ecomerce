@@ -36,8 +36,10 @@ export const ADD_CART_INVITED = "ADD_CART_INVITED";
 export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT";
 export const GET_PRODUCTSXORDER = "GET_PRODUCTSXORDER";
 export const FINISH_ORDER = "FINISH_ORDER";
+export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const DELETE_PRODUCT_CART = "DELETE_PRODUCT_CART";
-
+export const CANCELL_ORDER = "CANCELL_ORDER";
+export const GET_SUMARY_CART = "GET_SUMARY_CART";
 
 
 
@@ -290,14 +292,11 @@ export function getUsers () {
 }
 export function updateUser(id, body) {
   return function (dispatch) {
-    return axios.put(`http://localhost:3001/users/${id}`, body)
-    .then(result => result.data)
-    .then(result => {
+    return axios.put(`http://localhost:3001/users/${id}`, body)    
       dispatch({
         type: UPDATE_USER,
         payload: {id,body}
       })
-    })
   }
 }
 
@@ -348,13 +347,10 @@ export function completeCart(idUser, addres){
   }
 }
 
-export function finishorder(idUser){
-  //console.log("Acionssssss",idUser)
-  let body = {
-    status: "complete",
-  };
+export function finishorder(idUser, idOrder){
+  console.log("Acionssssss",idUser, idOrder)
   return function (dispatch) {
-    return axios.post(`http://localhost:3001/users/${idUser}/update/cart`, body, { withCredentials: true })
+    return axios.post(`http://localhost:3001/users/${idUser}/aceptar/${idOrder}`, { withCredentials: true })
     .then(result => result.data)
     .then(result => {
       dispatch({
@@ -376,6 +372,25 @@ export function cancellCart(idUser){
         type: CANCELL_CART,
       })
     })
+  }
+}
+
+
+export function celarordenPanel(idUser, idOrder){
+  return function (dispatch) {
+    return axios.post(`http://localhost:3001/users/${idUser}/canc/${idOrder}`, { withCredentials: true })
+    .then(result => result.data)
+    .then(result => {
+      dispatch({
+        type: CANCELL_ORDER,
+      })
+    })
+  }
+}
+
+export function vaciarpanelorders () {
+  return {
+    type: FINISH_ORDER
   }
 }
 
@@ -491,7 +506,7 @@ export function vaciarls() {
 //TRAE TODAS LAS ORDENES DE UN PRODUCTO:
 export function getOrdersxproduct(idProd) {
   return function(dispatch) {
-    return axios.get(`http://localhost:3001/orders/${idProd}`)
+    return axios.get(`http://localhost:3001/orders/ORDD/${idProd}`)
     .then(result => result.data)
     .then(result => {
       dispatch({
@@ -503,6 +518,7 @@ export function getOrdersxproduct(idProd) {
 }
 //TRAE TODOS LOS PRODUCTOS DE UNA ORDEN:
 export function getproductsxorders(idOrder) {
+  console.log(idOrder);
   return function(dispatch) {
     return axios.get(`http://localhost:3001/orders/products/${idOrder}`)
     .then(result => result.data)
@@ -512,10 +528,26 @@ export function getproductsxorders(idOrder) {
         payload: result
       })
     })
+    .catch(err => {console.log("ASDASDASDADAS",err)})
+  }
+}
+
+export function getAllReviews(){
+  return function(dispatch){
+    return axios.get('http://localhost:3001/products/reviews/allReviews')
+  .then(result => result.data)
+  .then(result => {
+    dispatch({
+      type: GET_ALL_REVIEWS,
+      payload: result
+    })
+  })
   }
 }
 
 
+
+////////////////////// IMAGES PRODUTS
 
 export var images = [
 
@@ -602,3 +634,18 @@ export function deleteProductCart(orderId, productId) {
       });
   };
 };
+
+export function getSumaryCart(idUser) {
+  console.log("USUARIOOOOOO", idUser)
+  return function(dispatch) {
+    return axios.get("http://localhost:3001/users/cart/sumary/" + idUser)
+      .then(result => result.data)
+      .then(data => {
+        dispatch({
+          type: GET_SUMARY_CART,
+          payload: data
+        })
+      })
+  }
+}
+

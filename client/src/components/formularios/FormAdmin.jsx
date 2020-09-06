@@ -4,14 +4,16 @@ import { connect } from "react-redux";
 import { getUsers , updateUser, onlineUserError, deleteUser} from "../../actions";
 import Swal from 'sweetalert2';
 import Page404 from "../Page404";
+import { useHistory } from 'react-router-dom';
+
 
 
 
 function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
-  
+  const history = useHistory();
   useEffect(() => {
-    getUsers()  
-       
+    getUsers()
+
   },[])
 
   const [input, setInput] = useState([])
@@ -24,13 +26,13 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
   }
 
   var elId = useRef(null)
-   function update(id, users) {    
+   function update(id, users) {
      users.find((e) => {
-       if (e.id == id) {        
+       if (e.id == id) {
          setInput(e)
-         document.getElementById("firstname").value = e.firstname;            
+         document.getElementById("firstname").value = e.firstname;
          document.getElementById("surname").value = e.surname;
-         document.getElementById("type").value = e.type;                  
+         document.getElementById("type").value = e.type;
          var form = document.getElementById('formulario');
          form.style.display = ''
          return;
@@ -40,24 +42,24 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
    elId = useRef(null)
   const handleSubmit = function(e) {
     updateUser(elId.current, input)
-    getUsers() 
-    e.preventDefault();     
+    getUsers()
+    e.preventDefault();
     var form = document.getElementById('formulario');
         form.style.display = 'none'
-    
+
     console.log(elId.current)
-    console.log(input)    
+    console.log(input)
     getUsers();
     Swal.fire(
       'Good job!',
       'User updated successfully',
       'success'
-    )
-    
+    )    
+
   }
 
 
-  function deleUser(idUser){    
+  function deleUser(idUser){
     Swal.fire({
       title: 'Are you sure?',
       text: "Do you want to delete this User?",
@@ -67,7 +69,7 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
-      if (result.value) {        
+      if (result.value) {
         deleteUser(idUser)
         Swal.fire(
           'Deleted!',
@@ -76,10 +78,10 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
         )
       }
     })
-     
+
     // alert('Delete success Category')
 
-  }    
+  }
 
 
 
@@ -93,31 +95,31 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
-              <td class="total">Actions</td> 
+              <td class="total">Actions</td>
 							<td class="price">Type</td>
-              <td class="quantity">UserName</td>
+              <td class="quantity">Username</td>
               <td class="price">Name</td>
-							<td class="delete">SurName</td>
+							<td class="delete">Surname</td>
               <td class="total">Delete</td>
-              
+
 						</tr>
 					</thead>
 					<tbody>
-          {users && users.map((p) => {  
+          {users && users.map((p) => {
              return (
 						<tr>
               <td class="cart_total">
-							<button style={{marginRight: '2px'}} type="button" class="btn btn-success" onClick={(e) => update(elId.current = p.id, users)            
+							<button style={{marginRight: '2px'}} type="button" class="btn btn-success" onClick={(e) => update(elId.current = p.id, users)
                                             }>
               <i class="fa fa-pencil"></i>
               </button>
-              
+
               <button type="button" class="btn btn-danger" onClick={(e)=>deleUser(p.id)}>
-              <i class="fa fa-pencil"></i>
+              <i class="fa fa-times"></i>
               </button>
 							</td>
 							<td class="cart_price">
-								<p>{ p.type == 1 && 'ADMIN' ||  p.type == 2 && 'USER' || p.type == 3 && 'VISITOR'}</p>
+								<p>{ p.type == 1 && 'ADMIN' ||  p.type == 2 && 'USER'}</p>
 							</td>
                 <td class="cart_quantity">
 								<p>{p.username}</p>
@@ -128,7 +130,7 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
               <td class="cart_quantity">
 								<p>{p.surname}</p>
 							</td>
-							
+
 						</tr>
                 )
                                }
@@ -138,31 +140,34 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
 			</div>
 		</div>
     </div>
-  </section> 
+  </section>
   <div class="container">
 			<div class="row">
 				<div class="col-sm-3 my-5">
 					<div class="login-form">
-          
+
                         <form id={'formulario'} style={{display:'none'}} onSubmit = {handleSubmit}>
                           <h3>Management <span>Users</span></h3>
+                          <div class="form-group row">
+                             <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" id="username" onChange={handleInputChange} required="true"/>
+                             
+                           </div>
                            <div class="form-group row">
                              <input type="text" class="form-control form-control-lg" name="firstname" placeholder="Firstname" id="firstname" onChange={handleInputChange} required="true"/>
-                             
+
                            </div>
                            <div class="form-group row">
                              <input type="text" class="form-control form-control-lg" name="surname" id="surname" onChange={handleInputChange} required="true"/>
-                             
+
                            </div>
-                         <div class="form-group row">                           
+                         <div class="form-group row">
                              <select class="form-control form-control-lg" name="type" placeholder="Type" id="type" onChange={handleInputChange} required="true">
                                <option name='type' value='1'>Admin</option>
                                <option name='type' value='2'>User</option>
-                               <option name='type' value='3'>Visitor</option>
                              </select>
-                           </div>                                                  
+                           </div>
                            <div class="form-group row">
-                               <button type="submit" class="submit-btn">Submit</button>
+                               <button type="submit" style={{backgroundColor: "orange", borderRadius: "10px" }} class="submit-btn">Submit</button>
                            </div>
                          </form>
 					</div>
@@ -177,7 +182,7 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
       <Page404 />
       </div>
     )
-  }   
+  }
 };
 
 const mapDispatchToProps = dispatch => {
