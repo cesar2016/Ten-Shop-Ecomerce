@@ -30,22 +30,22 @@ function SliderImage() {
 						<div class="carousel-inner">
 							<div class="item active" >						
 								<div class="col">
-									<img src={imagenA}  class="girl img-responsive" alt="" />						
+									<img src={imagenA}  class="girl img-responsive" alt="" style={{width:'100%', height: '260px'}}/>						
 								</div>
 							</div>							
 							<div class="item ">
 								<div class="col">
-									<img src={imagenB} class="girl img-responsive" alt="" />								
+									<img src={imagenB} class="girl img-responsive" alt="" style={{width:'100%', height: '260px'}} />								
 								</div>
 							</div>
 							<div class="item " >						
 								<div class="col">
-									<img src={imagenC}  class="girl img-responsive" alt="" />						
+									<img src={imagenC}  class="girl img-responsive" alt="" style={{width:'100%', height: '260px'}} />						
 								</div>
 							</div>
 							<div class="item " >						
 								<div class="col">
-									<img src={imagenD}  class="girl img-responsive" alt="" />						
+									<img src={imagenD}  class="girl img-responsive" alt="" style={{width:'100%', height: '260px'}} />						
 								</div>
 							</div>
 						</div>
