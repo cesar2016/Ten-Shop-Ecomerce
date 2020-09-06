@@ -63,7 +63,6 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
   const shipping = 400; // envío
   const taxes = useRef(0) // impuesto
   const total = useRef(0) // total
-  const total = useRef(0) // total
   
   const handleCantidadDelProducto = (id, price) => {
 
@@ -141,9 +140,9 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
       e.preventDefault()
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
+        title: 'Ups...!',
         html: '<span class="aaaa">Please <b>login</b> or <b>register</b> to finalize your purchase. Thank you!</span>',
-        footer: '<a class="asdd" href="http://localhost:3000/signin">LOG IN</a>'+ '<span class="asdp">|</span>'  +'<a class="asda" href="http://localhost:3000/signup">SIGN UP</a>'
+        footer: '<a class="btn btn-info" href="http://localhost:3000/signin">LOG IN</a>'+ '&nbsp &nbsp' +'<a class="btn btn-warning" href="http://localhost:3000/signup">SIGN UP</a>'
       })
       };
 
@@ -201,17 +200,56 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 
     if(typeof onlineUser == "object"){
     var order = getcart[0].order_id;
-    deleteProductCart(order, id)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You are about to remove the product from the cart",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        //console.log(result);
+      if (result.value) {
+        deleteProductCart(order, id)
+        Swal.fire(
+          'Deleted!',
+          'The product has been clear.',
+          'success'
+        );
+      }
+    })
+
+   
   }else{
     let arry = [];
     ls.get('idProducts').forEach(function(ele){
         return arry.push(parseInt(ele))
       });
-    const result = arry.filter(word => word !== id);
-      console.log(result);
-      ls.set('idProducts', []);
-      ls.set('idProducts', result);
-      history.push('/cart')
+    const resultadoaa = arry.filter(word => word !== id);
+      //console.log(result);
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You are about to remove the product from the cart",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+          //console.log(result);
+        if (result.value) {
+          ls.set('idProducts', []);
+          ls.set('idProducts', resultadoaa);
+          history.push('/cart')
+          Swal.fire(
+            'Deleted!',
+            'The product has been clear.',
+            'success'
+          );
+        }
+      })
+      
 
 
 
@@ -240,7 +278,8 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
              <div class="container">
              <div class="row offspace">
              <div class="view-set-block">
-                 <div class="col-md-8 col-sm-8 col-xs-12">
+
+                 <div class="col-md-8 col-sm-8 col-xs-12" style={{paddingTop:'0px'}}>
 
       <div class="asdasd">
 			<div class="table-responsive cart_info">
@@ -277,7 +316,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 									<input class="cart_quantity_input" type="quantity" name="quantity" min="1" max={e.stock} value="1" autocomplete="off" size="2"/>
 									<a class="cart_quantity_down" id="boton_cantidad_menos"> + </a> */}
 
-                  <input min="1" max={e.stock} defaultValue="1" type="number" id={e.id+"input"} onClick={() => handleCantidadDelProducto(e.id, e.price)} className="form-control inputCantidad" style={{width: "60%", borderColor:"orange"}} />
+                  <input min="1" max={e.stock} defaultValue="1" type="number" id={e.id+"input"} onClick={() => handleCantidadDelProducto(e.id, e.price)} className="form-control inputCantidad" style={{width: "90%", borderColor:"orange", textAlign:'center'}} />
 
 								</div>
 							</td>
