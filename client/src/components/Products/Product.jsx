@@ -48,6 +48,7 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
     }
 }
      function handleSubmit (e) {
+      e.preventDefault()
          addReview(aux, id);
          getReviews(id);
 
@@ -210,7 +211,7 @@ var img4 = resultado.image;
                     
 								</span>
 								<p><b>Availability:</b> {resultado.stock}</p>
-								<p><b>Esatate:</b> New</p>
+								<p><b>State:</b> New</p>
 								<p><b>Shipping:</b> FREE</p>
                 <p><b>Rating: </b> 	<Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false} style={{fontSize:"30px"}} onRate={({rating}) => onRate(rating)} /></p>
 								<a><img style={{margin: "0 auto"}}  src="https://cuidar.org/images/icons/formasdepago/mini_tarjetas.jpg" width="200" height="350" class="share img-responsive"  alt="" /></a>
@@ -223,14 +224,14 @@ var img4 = resultado.image;
         {!flag ? <div class="tab-pane" id="reviews" >
 						<div class="col-sm-12">
 	    			  <div class="contact-form">
-               <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+               <form id="main-contact-form" class="contact-form row" name="contact-form" >
 				            
 				            
                     <div class="form-group col-md-8">
 				                <input type="text" onChange={handleInputChange}  style={{height: "60px", fontSize:"20px"}}  name = "comments" id="review" class="form-control" required="required" placeholder="Add comment"/>
                         Add Rating: <Rater total= {5}  onRate={({rating}) => onRate(rating)} style={{fontSize:"30px", alignSelf:"flexStart", height:"30px"}}/>
                     
-				                <input onClick={()=> handleSubmit()} type="submit" name="submit" class="btn btn-primary pull-right" value="Leave my review."/>
+				                <input onClick={(e)=> handleSubmit(e)} type="submit" name="submit" class="btn btn-primary pull-right" value="Leave my review."/>
 				            </div>
 				        </form>
                 </div>
@@ -240,12 +241,12 @@ var img4 = resultado.image;
       
 
      
-        {reviews && reviews.map (p =>
+        {reviews && reviews.map (p => 
         <div class="tab-pane fade active in" id="reviews" >
                                
 								<div class="col-sm-12">
                   <div class='container alert alert-success'>
-                  <h2 class="title text-center">MESAGES <strong>Clients</strong></h2> 
+                  
                     <ul>
                       <li><a><i class="fa fa-user"></i>
                       {all_users.map(u => {if( p.userId === u.id) return ("  " + u.firstname.charAt(0).toUpperCase()+u.firstname.slice(1) + " " + u.surname.charAt(0).toUpperCase()+u.surname.slice(1))})}

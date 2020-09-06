@@ -12,7 +12,7 @@ var ls = require('local-storage');
  function Catalogo({price, name, stock, id, image, description,addCart, onlineUser, lsset, reviews,getReviews,getAllCart,cart,rating}) {
 	const history = useHistory();
  	useEffect(()=> {
- 	 getReviews(id)
+ 	 //getReviews(id)
 	 },[])
 	 
 	 useEffect(()=> {

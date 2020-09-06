@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 
     useEffect(()=>{
         getAllCategories()
-    },[])
+    },[category])
 
     function deleteCat(name) {   
         Swal.fire({

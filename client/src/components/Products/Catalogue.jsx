@@ -10,6 +10,8 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
   React.useEffect(() => {
     getAllProducts()
     getAllReviews()
+
+
   }, [])
   function promedy(id){
       var acum = 0;
@@ -20,11 +22,14 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
         acum += r.rating
       }
     })
-
+      if (cont === 0){
+        return 0
+      } else {
       var promedy = acum / cont
       promedy.toFixed(2)
-      console.log("PRoemdios", promedy)
+      //console.log("PRoemdios", promedy)
       return promedy
+      }
     }
 
 

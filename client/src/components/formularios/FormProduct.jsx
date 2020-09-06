@@ -87,7 +87,7 @@ function FormProduct({ categories, categxproducts, deleteProduct, deleteCatxProd
         text: "Update product saccess!",
         icon: "success",
       });
-
+      getAllProducts()
     }
 
     function deleteProductxId(id) {
