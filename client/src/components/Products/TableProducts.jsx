@@ -7,10 +7,10 @@ function TableProducts({products, update, elId, deleteProductxId, categxproducts
     useEffect(() => {
       getAllCategories()
       getCategoriesxProducts()
-      getAllProducts()      
+      getAllProducts()
     }, [])
-        
-  
+
+
     return (
         <section id="cart_items">
             <div class="container">
@@ -18,31 +18,31 @@ function TableProducts({products, update, elId, deleteProductxId, categxproducts
                 <table class="table table-condensed">
                   <thead>
                     <tr class="cart_menu">
-                    <td class="total">Acciones</td>                    
+                    <td class="total">Actions</td>
                     <td class="price">Id</td>
                     <td class="quantity">Name</td>
                     <td class="delete">Category</td>
-                        
+
                     </tr>
                   </thead>
                   <tbody>
                     {
-                  products.map((p, i) => {            
+                  products.map((p, i) => {
 
-                  return (     
+                  return (
                     <tr>
                       <td class="cart_total">
                       <button style={{marginRight: '2px'}} type="button" class="btn btn-success"
                       onClick={()   => {
                         update(p.id, products);
-                         elId.current = p.id            
+                         elId.current = p.id
                          }}>
                       <i class="fa fa-pencil"></i>
                       </button>
-                      
+
                       <button type="button" class="btn btn-danger"
                       onClick={ (e) => deleteProductxId(p.id)}>
-                      <i class="fa fa-pencil"></i>
+                      <i class="fa fa-times"></i>
                       </button>
                       </td>
                       <td class="cart_price">
@@ -52,7 +52,7 @@ function TableProducts({products, update, elId, deleteProductxId, categxproducts
                         <p>{p.name}</p>
                       </td>
                       <td>
-            {categxproducts.map((cxp, i) => {//Mapea las cat que tenga cada products               
+            {categxproducts.map((cxp, i) => {//Mapea las cat que tenga cada products
                 if(cxp.product_id === p.id){
                 return (
                   <div class="btn-group" role="group" aria-label="Basic example">
@@ -60,37 +60,37 @@ function TableProducts({products, update, elId, deleteProductxId, categxproducts
                      { cxp.category}
                 </button>
                 </div>
-                ) 
+                )
                 }
-            })}       
+            })}
             </td>
-                      
-                      
+
+
                     </tr>
-)})                               
+)})
 }
                   </tbody>
                 </table>
               </div>
             </div>
-          </section> 
+          </section>
     )
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     updateProduct: (id, body) => dispatch(updateProduct(id, body)),
-    deleteCatxProd: (name, id) => dispatch(deleteCatxProd(name, id)),    
+    deleteCatxProd: (name, id) => dispatch(deleteCatxProd(name, id)),
     getCategoriesxProducts: () => dispatch(getCategoriesxProducts()),
     getAllCategories: () => dispatch(getAllCategories()),
     getAllProducts: () => dispatch(getAllProducts())
-    
+
 
   }
 }
 
 const mapStateToProps = state => {
-  return {    
+  return {
     products: state.all_products,
     categories: state.categories
   }
