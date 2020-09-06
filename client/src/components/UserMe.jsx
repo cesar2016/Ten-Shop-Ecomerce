@@ -17,7 +17,7 @@ import {connect} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    position: 'relative',    
+    position: 'relative',
   },
   layout: {
     width: 'auto',
@@ -57,17 +57,17 @@ const steps = ['About Me', 'History Orders'];
 
 function getStepContent(step) {
   switch (step) {
-    case 0:    
+    case 0:
       return <DatesMe />;
     case 1:
-      /*return <TableOrdersUserMe />;*/        
+      /*return <TableOrdersUserMe />;*/
     default:
       throw new Error('Unknown step');
   }
 }
 
 export const UserMe = () => {
-  
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -78,11 +78,11 @@ export const UserMe = () => {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-  
+
 
   return (
     <React.Fragment>
-      <CssBaseline />      
+      <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h6" align="center">
@@ -114,7 +114,7 @@ export const UserMe = () => {
                     <Button onClick={handleBack} className={classes.button}>
                       Back
                     </Button>
-                  )}                  
+                  )}
 
                   {/*<Button
                                       variant="contained"
@@ -128,7 +128,7 @@ export const UserMe = () => {
               </React.Fragment>
             )}
           </React.Fragment>}
-        </Paper>        
+        </Paper>
       </main>
     </React.Fragment>
   );
