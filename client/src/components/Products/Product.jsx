@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { images,addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset, getAllCart} from "../../actions";
+import { addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset, getAllCart} from "../../actions";
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import "./Product.css";
@@ -121,13 +121,13 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
     if(!flagOrders){flag = true}
 
   //console.log("flag", flag)
-
+//
   function changeImage(image, idimg) {
 
     if(idimg === 1){
       var element = document.getElementById("img1");
       element.style.opacity =' 0.3';
-    }else{
+    }else if(document.getElementById("img1")){
       var element = document.getElementById("img1");
       element.style.opacity ='';
     }
@@ -135,7 +135,7 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
     if(idimg === 2){
       var element = document.getElementById("img2");
       element.style.opacity =' 0.3';
-    }else{
+    }else if(document.getElementById("img2")){
       var element = document.getElementById("img2");
       element.style.opacity ='';
     }
@@ -143,7 +143,7 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
     if(idimg === 3){
       var element = document.getElementById("img3");
       element.style.opacity =' 0.3';
-    }else{
+    }else if(document.getElementById("img3")){
       var element = document.getElementById("img3");
       element.style.opacity ='';
     }
@@ -151,7 +151,7 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
     if(idimg === 4){
       var element = document.getElementById("img4");
       element.style.opacity =' 0.3';
-    }else{
+    }else if(document.getElementById("img4")){
       var element = document.getElementById("img4");
       element.style.opacity ='';
     }
@@ -159,13 +159,14 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
 
     document.getElementById("imgClickAndChange").src = image;
 }
-
-///harcod cambiar por DB
-
-var img1 = images[id - 1].img1;
-var img2 = images[id - 1].img2;
-var img3 = images[id - 1].img3;
+//
+// ///harcod cambiar por DB
+//
+var img1 = resultado.image2;
+var img2 = resultado.image3;
+var img3 = resultado.image4;
 var img4 = resultado.image;
+
 
 // var idImagenDB = 2
 // console.log('nameeeeee', images[idImagenDB - 1].id)
@@ -186,9 +187,9 @@ var img4 = resultado.image;
 
 								    <div class="carousel-inner">
 										<div class="item active">
-										  <a  onClick={(e)=> changeImage(img1, 1)}><img id={'img1'} src={img1} width='84' height='85' alt=""/></a>
-										  <a  onClick={(e)=> changeImage(img2, 2)}><img id={'img2'} src={img2} width='84' height='85' alt=""/></a>
-										  <a  onClick={(e)=> changeImage(img3, 3)}><img id={'img3'} src={img3} width='84' height='85' alt=""/></a>
+										  {!!img1 ? (<a  onClick={(e)=> changeImage(img1, 1)}><img id={'img1'} src={img1} width='84' height='85' alt=""/></a>) : <div></div>}
+										  {!!img2 ? (<a  onClick={(e)=> changeImage(img2, 2)}><img id={'img2'} src={img2} width='84' height='85' alt=""/></a>) : <div></div>}
+										  {!!img3 ? (<a  onClick={(e)=> changeImage(img3, 3)}><img id={'img3'} src={img3} width='84' height='85' alt=""/></a>) : <div></div>}
                       <a  onClick={(e)=> changeImage(img4, 4)}><img id={'img4'} src={img4} width='84' height='85' alt=""/></a>
 										</div>
 									</div>
@@ -206,7 +207,7 @@ var img4 = resultado.image;
                     {/*resultado.stock == 0 ? (<div> <button type="button" onClick={() => soldout()} class="btn btn-danger"> Sold Out  <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></button></div>) : (<div> <button type="button" onClick={() => exitoAdd()} class="btn btn-success"> Add To Cart  <i  class="fa fa-shopping-cart fa-lg"></i></button> </div>)*/}
                     {resultado.stock == 0 ? (<div> <button type="button" onClick={() => soldout()} class="btn btn-danger"> Sold Out  <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></button></div>) : typeof onlineUser !== "object" ?
                     (<div> <button type="button" onClick={() => invited()} class="btn btn-danger"> Add To Cart  <i class="fa fa-shopping-cart fa-lg"></i></button></div>) :
-                    (<div> <button type="button" onClick={() => exitoAdd()} class="btn btn-success"> Add To Cart  <i  class="fa fa-shopping-cart fa-lg"></i></button> </div>)}                    
+                    (<div> <button type="button" onClick={() => exitoAdd()} class="btn btn-success"> Add To Cart  <i  class="fa fa-shopping-cart fa-lg"></i></button> </div>)}
 								</span>
 								<p><b>Availability:</b> {resultado.stock}</p>
 								<p><b>State:</b> New</p>

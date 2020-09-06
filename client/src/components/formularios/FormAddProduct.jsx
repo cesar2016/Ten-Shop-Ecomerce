@@ -9,20 +9,23 @@ import Swal from 'sweetalert2'
 
 function FormAddProduct({products, categories, getAllCategories, getAllProducts, onlineUser}) {
     useEffect(() => {
-      getAllCategories()      
-      getAllProducts()      
+      getAllCategories()
+      getAllProducts()
     }, [])
 
     const [input, setInput] = useState({
         name: '',
         description: '',
         price: '',
-        stock: '',        
+        stock: '',
         category: [],
-        image: ""
+        image: "",
+        image2: "",
+        image3: "",
+        image4: ""
       });
 
-     
+
       const handleInputChange = function(e) {
         setInput({
           ...input,
@@ -30,9 +33,9 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
         });
       }
       var categ = [];
-      
-      const handleSubmit = function(e) { 
-        e.preventDefault();               
+
+      const handleSubmit = function(e) {
+        e.preventDefault();
         console.log("imagen",input.image)
         if (input.image === ""){
           Swal.fire({
@@ -48,17 +51,19 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
           stock: parseFloat(input.stock),
           image: input.image,
           category: categ,
-
+          image2: input.image2,
+          image3: input.image3,
+          image4: input.image4
         }
 
-         
-        if (products.length) {   
-          
-          
+
+        if (products.length) {
+
+
           for (let i = 0; i < products.length; i++) {
             const element = products[i].name;
 
-            
+
             if(element === objetoo.name){
 
               Swal.fire({
@@ -75,9 +80,9 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
                 }
               })
 
-              return 
+              return
             }///end if
-            
+
           }//end for
         }
 
@@ -93,32 +98,53 @@ function FormAddProduct({products, categories, getAllCategories, getAllProducts,
         })
         document.getElementById("contCat").innerHTML = "";
         e.preventDefault();
-        
+
         return axios.post("http://localhost:3001/products/add", objetoo)
       }
     }
 
-      
+
       function addCat(select, btnId){
         //console.log(categ.includes(select))
         //alert(btnId)
-         
+
         if(categ.includes(select)){
-          categ = categ.filter(word => word !== select); 
+          categ = categ.filter(word => word !== select);
           console.log(categ,"if true")
-          document.getElementById(btnId).style.background= "";          
+          document.getElementById(btnId).style.background= "";
 
         }else{
-          categ.push(select); 
-          console.log(categ,"if false")   
+          categ.push(select);
+          console.log(categ,"if false")
           document.getElementById(btnId).style.background= "#FE980F";
-        }          
+        }
       }
 
       const handlerImageUpload = file => {
         setInput({
           ...input,
           image: file.base64
+        })
+      }
+
+      const handlerImageUpload2 = file => {
+        setInput({
+          ...input,
+          image2: file.base64
+        })
+      }
+
+      const handlerImageUpload3 = file => {
+        setInput({
+          ...input,
+          image3: file.base64
+        })
+      }
+
+      const handlerImageUpload4 = file => {
+        setInput({
+          ...input,
+          image4: file.base64
         })
       }
 if( onlineUser.type == 1){
@@ -134,29 +160,32 @@ if( onlineUser.type == 1){
       <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange}  required />
         <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleInputChange} required/>
           <input type="text" className="form-control form-control-lg" name="price" placeholder="Price $ " id="price" onChange={handleInputChange} required/>
-          <input type="text" className="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required/>  
+          <input type="text" className="form-control form-control-lg" name="stock" placeholder="Stock" id="stock" onChange={handleInputChange} required/>
           <FileBase64 onDone={handlerImageUpload} required />
+          <FileBase64 onDone={handlerImageUpload2} required />
+          <FileBase64 onDone={handlerImageUpload3} required />
+          <FileBase64 onDone={handlerImageUpload4} required />
           <div className=" form-control-lg">
-                                     {categories.map((cat, i) => {                                      
-                                         return (  
-                                          <div class="btn-group p-3" role="group" aria-label="Basic example">                                         
+                                     {categories.map((cat, i) => {
+                                         return (
+                                          <div class="btn-group p-3" role="group" aria-label="Basic example">
                                            <button type="button"  class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
 
                                              {cat.name}
-                                           </button>   
+                                           </button>
                                            </div>
                                          )
-                                     })}      
+                                     })}
                              </div>
-                             <div className=" form-control-lg"> 
+                             <div className=" form-control-lg">
                                <span id='contCat'></span>
-                             </div> 
+                             </div>
       <div class="col-sm-4"> </div>
       <div class="col-sm-4">
       <button id = "submitButton" type="submit" className="submit-btn" value="Submit" style={{"borderRadius":"5px","background":"#FE980F",}} class="btn  btn-lg btn-block">Add Product </button>
 
        </div>
-       <div class="col-sm-4"> </div>           
+       <div class="col-sm-4"> </div>
       </form>
     </div>
   </div>
@@ -176,7 +205,7 @@ if( onlineUser.type == 1){
 };
 
 const mapDispatchToProps = dispatch => {
-  return {    
+  return {
     getAllCategories: () => dispatch(getAllCategories()),
     getAllProducts: () => dispatch(getAllProducts())
 

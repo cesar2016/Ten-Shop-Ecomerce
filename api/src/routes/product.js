@@ -24,16 +24,16 @@ server.get('/', (req, res, next) => {
 	})
  });
 
- ///elimina cat del producto por id 
+ ///elimina cat del producto por id
 server.delete('/cxp/:idName/:nameCat', (req, res) => {
 
 	console.log(req.params.idName)
 	console.log(req.params.nameCat)
 
-	 
+
 	categoriesxproducts.destroy({
 		where: {
-			product_id: req.params.idName, 
+			product_id: req.params.idName,
 			category: req.params.nameCat
 		}
 	})
@@ -45,14 +45,14 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 
  //////////////////////////////////////////////////
 
- 
+
  server.get('/:id', (req, res) => {
 	 Product.findByPk(req.params.id).then(post => {
 		 res.send(post);
 	 })
  });
 
- 
+
  server.post('/edit/:id', (req, res) => {
 	const {id} = req.params;
 	const {body} = req;
@@ -74,7 +74,7 @@ server.delete('/cxp/:idName/:nameCat', (req, res) => {
 
 
 server.post("/add", (req, res) => {
-	const { category } = req.body;	
+	const { category } = req.body;
 	addProduct(req.body)
 		.then(productCreated => {
 			if (category.length === 0) {
@@ -93,13 +93,16 @@ server.post("/add", (req, res) => {
 		})
 });
 
-function addProduct(product) {	
+function addProduct(product) {
 	return Product.create({
 		name: product.name,
 		description: product.description,
 		price: product.price,
 		stock: product.stock,
-		image: product.image
+		image: product.image,
+		image2: product.image2,
+		image3: product.image3,
+		image4: product.image4
 	})
 };
 
@@ -148,7 +151,7 @@ function searchProduct(key) {
 			[Op.or]:
 			[ { name: { [Op.iLike]: `%${key.search}%` } },
 			{ description: { [Op.iLike]: `%${key.search}%` } },
-			], 
+			],
 		},
 	});
 }
@@ -156,7 +159,7 @@ function searchProduct(key) {
 
 server.post("/update", (req, res) => {
 	const { id } = req.body;
-	const { category } = req.body;	
+	const { category } = req.body;
 	Product.findOne({ where: { id } })
 	.then((productResult) => {
 		if (category.length === 0) {
@@ -166,7 +169,7 @@ server.post("/update", (req, res) => {
 
 		if (category.length === 1) {
 			productResult.update(req.body)
-			productResult.addCategory(category[0])			
+			productResult.addCategory(category[0])
 		}
 
 		if (category.length > 1) {
@@ -193,10 +196,10 @@ server.post("/:id/review", (req, res) => {
 	})
 	.then(r=>{
 		User.findOne({ where: { username } })
-		.then(u=>{		
+		.then(u=>{
 			r.setUser(u);
 			res.send(r); // El resultado del POST!!!
-		});		
+		});
 
 	});
 
@@ -208,20 +211,20 @@ server.get("/reviews/allreviews", (req,res) => {
 
 });
 
-server.post("/review/:idReview", (req, res) => {	
+server.post("/review/:idReview", (req, res) => {
 	const { idReview } = req.params
 	const { comments } = req.body
 	const { rating } = req.body
-	Reviews.findOne({ where:  {id: idReview }})	 
-        .then(function(resp) {			 
-			if(resp) { 
-				
-					resp.update({comments})				
-									
-					resp.update({rating}) 
-							           
+	Reviews.findOne({ where:  {id: idReview }})
+        .then(function(resp) {
+			if(resp) {
+
+					resp.update({comments})
+
+					resp.update({rating})
+
 			}
-			res.send(resp)  ///Resultado del UPDATE           
+			res.send(resp)  ///Resultado del UPDATE
         })
 
 });
@@ -231,7 +234,7 @@ server.delete("/review/:idReview", (req, res) => {
 	const { id } = req.params;
 	const { idReview } = req.params;
 
-	Reviews.destroy({ where:  {id: idReview}})	
+	Reviews.destroy({ where:  {id: idReview}})
 		.then(result => {
 			res.sendStatus(200);
 		})
@@ -242,14 +245,14 @@ server.get("/:id/review", (req, res) => {
 	const { id } = req.params;
 
 	Reviews.findAll({where: {productId: id }})
-	.then((resp)=>{	
+	.then((resp)=>{
 		console.log(resp);
 		res.send(resp)
 	})
 
 
- 
-	 
+
+
 });
 
 
