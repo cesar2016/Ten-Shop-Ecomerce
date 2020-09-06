@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
-import { loginUser ,onlineUserError, addCartInvited} from "../actions";
+import { loginUser ,onlineUserError, addCartInvited, addUser} from "../actions";
 import {connect} from "react-redux";
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -46,14 +46,8 @@ const useStyles = makeStyles((theme) => ({
   },  
 }));
 
-const responseGoogle = (res) => {
-  console.log(res);
-  /*loginUser({
-    email
-  })*/
-}
 
-const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited}) => {
+const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited, addUser}) => {
   const classes = useStyles();
   const history = useHistory();
   const [input, setInput] = useState({username: "", password: ""});  
@@ -63,6 +57,18 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
       [e.target.name]: e.target.value
     });
   };
+
+  const responseGoogle = (res) => {
+  console.log(res);
+  addUser({
+    firstname:res.profileObj.givenName,
+    surname: res.profileObj.familyName,
+    password: res.accessToken,
+    username: res.profileObj.givenName + res.profileObj.familyName,
+    email: res.profileObj.email
+  })
+}
+
 
   const handleSubmit = (e) => {          
     e.preventDefault();
@@ -178,6 +184,7 @@ const mapDispatchToProps = dispatch => {
     loginUser: (body) => dispatch(loginUser(body)),
     onlineUserError: () => dispatch(onlineUserError()),
     addCartInvited: (diProduc, idUser) => dispatch(addCartInvited(diProduc, idUser)),
+    addUser:(user) => dispatch(addUser(user))
     }
 }
 const mapStateToProps = state => {
