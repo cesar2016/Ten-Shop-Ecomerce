@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
     getAllCategories()
     modifyCategory()
   },[])
+ 
 
   const [inputAdd, setInputAdd] = useState({
     name: '',
@@ -33,6 +34,7 @@ import Swal from 'sweetalert2';
   const handleAddSubmit = function(e) {
     e.preventDefault();
     addCategory(inputAdd)
+    getAllCategories()
     addName1.value = ""
     addName2.value = ""
 }
@@ -49,6 +51,7 @@ import Swal from 'sweetalert2';
     e.preventDefault();
     modifyCategory(inputModify,elId.current)
     form.style.display = 'none';
+    getAllCategories()
   };
 
   function update(elId, body) {        
@@ -80,6 +83,7 @@ import Swal from 'sweetalert2';
       showConfirmButton: false,
       timer: 2000
     })
+  getAllCategories()
 }
 
 
