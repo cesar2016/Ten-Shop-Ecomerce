@@ -348,13 +348,10 @@ export function completeCart(idUser, addres){
   }
 }
 
-export function finishorder(idUser){
-  //console.log("Acionssssss",idUser)
-  let body = {
-    status: "complete",
-  };
+export function finishorder(idUser, idOrder){
+  console.log("Acionssssss",idUser, idOrder)
   return function (dispatch) {
-    return axios.post(`http://localhost:3001/users/${idUser}/update/cart`, body, { withCredentials: true })
+    return axios.post(`http://localhost:3001/users/${idUser}/aceptar/${idOrder}`, { withCredentials: true })
     .then(result => result.data)
     .then(result => {
       dispatch({

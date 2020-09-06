@@ -63,7 +63,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
   const shipping = 400; // envío
   const taxes = useRef(0) // impuesto
   const total = useRef(0) // total
-  
+  const total = useRef(0) // total
   
   const handleCantidadDelProducto = (id, price) => {
 
