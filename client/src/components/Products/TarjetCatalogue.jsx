@@ -9,10 +9,10 @@ import { useHistory } from 'react-router-dom';
 var ls = require('local-storage');
 
 
- function Catalogo({price, name, stock, id, image, description,addCart, onlineUser, lsset, reviews,getReviews,getAllCart,cart}) {
+ function Catalogo({price, name, stock, id, image, description,addCart, onlineUser, lsset, reviews,getReviews,getAllCart,cart,rating}) {
 	const history = useHistory();
  	useEffect(()=> {
- 	 getReviews(id)
+ 	 //getReviews(id)
 	 },[])
 	 
 	 useEffect(()=> {
@@ -23,19 +23,7 @@ var ls = require('local-storage');
 	},[cart]);
 	
  	//console.log("producto: ",name, "id: ", id, "reviews: ", reviews )
- 	function promedy(acum, length){
-			var promedy = acum / length
-			if (length === 0){
-				return 0
-			}
-			promedy.toFixed(2)
- 		  //console.log("PRoemdios", promedy)
-			return promedy
-		}
- 	var acum = 0;
-    for ( let i = 0; i < reviews.length; i++) {
-      acum = acum + reviews[i].rating;
-    }
+ 	
 	function addhome(data){
 		//console.log(data.target.value);
 		Swal.fire({
@@ -96,9 +84,9 @@ var ls = require('local-storage');
 
 
 										</div>
-										<div style ={{"display":"flex","justifyContent": "center"}}>
+										<div style ={{"display":"flex","justifyContent": "center"}}> 
+					  		<Rater style={{'react-rater-active': 'blue'}} rating = {rating} interactive={false}/>
 
-					  		<Rater style={{'react-rater-active': 'blue'}} rating={promedy(acum,reviews.length)} interactive={false}/>
 					  	</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
@@ -144,7 +132,6 @@ const mapDispatchToProps = dispatch => {
 
   const mapStateToProps = state => {
 	return {
-
 	  onlineUser : state.onlineUser,
 		reviews: state.reviews,
 		cart: state.cart

@@ -64,7 +64,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
   const taxes = useRef(0) // impuesto
   const total = useRef(0) // total
 
-  
+
   const handleCantidadDelProducto = (id, price) => {
 
     var subtotal_carrito = 0;
@@ -122,7 +122,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
               } else {
                 priceOrder(onlineUser.id,total.current);
                 updateCart(onlineUser.id, productosConSubtotales.current);
-                completeCart(onlineUser.id, result.value);                
+                completeCart(onlineUser.id, result.value);
               }
 
                 vaciarls()
@@ -221,7 +221,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
       }
     })
 
-   
+
   }else{
     let arry = [];
     ls.get('idProducts').forEach(function(ele){
@@ -250,7 +250,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
           );
         }
       })
-      
+
 
 
 

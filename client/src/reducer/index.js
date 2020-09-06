@@ -35,6 +35,7 @@ import {
     ADD_CART_INVITED,
     GET_PRODUCTSXORDER,
     FINISH_ORDER,
+    GET_ALL_REVIEWS,
     DELETE_PRODUCT_CART,
     CANCELL_ORDER,
     GET_SUMARY_CART,
@@ -59,6 +60,7 @@ const initialState = {
   ordersxproduct: [],
   setid: [],
   productsxorder: {},
+  allreviews: [],
   sumary_cart: {},
 
 };
@@ -302,6 +304,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         getorders: [],
       }
+    case GET_ALL_REVIEWS:
+    return {
+      ...state,
+      allreviews: action.payload
+    }
     case DELETE_PRODUCT_CART:
       return {
         ...state,

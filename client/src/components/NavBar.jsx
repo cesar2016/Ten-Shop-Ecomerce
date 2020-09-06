@@ -78,6 +78,7 @@ console.log(cantproductos); */
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
 								<li>
+
                                     <a href="/cart">
                                         <i class="fa fa-shopping-cart badge" style={{backgroundColor:'orange'}}>
                                         {typeof onlineUser !== "object" &&  <span className="badge badge-danger" style={{marginLeft:"2px", backgroundColor:'orange'}}>  {ls.get('idProducts').length}</span>}
@@ -86,6 +87,7 @@ console.log(cantproductos); */
                                         </i>
                                         Cart
                                     </a>
+
                                 </li>
 								<li>
                                 { typeof onlineUser !== "object" &&
