@@ -38,7 +38,7 @@ function App() {
           <Route path="/" component={NavBar} />
           <Route exact path="/" component={SliderImage} />
           <Route exact path="/" component={Catalogue} />
-          <Route exact path="/product/:id" render={({match}) => <Product id={match.params.id}/> } />
+          <Route path="/product/:id" render={({match}) => <Product id={match.params.id}/> } />
           <Route exact path="/formProduct" component={FormProduct} />
           <Route exact path="/about" component={About} />
           <Route exact path="/contact" component={Contact} />

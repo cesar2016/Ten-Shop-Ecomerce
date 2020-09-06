@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { images,addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset, getAllCart} from "../../actions";
+import { images,addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset, getAllCart, getAllProducts} from "../../actions";
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import "./Product.css";
@@ -8,13 +8,14 @@ import Rater from 'react-rater' // PARA INSTALAR --> npm install --save react-ra
 import 'react-rater/lib/react-rater.css';
 var ls = require('local-storage');
 
-function Product({getImages, addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset, getAllCart}) {
+function Product({getImages, addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset, getAllCart, getAllProducts}) {
     const [input,setInput] = useState({});
     const [inputRating, setInputRating] = useState({});
 
 
 
     useEffect(()=> {
+      getAllProducts()
         getUsers();
 				getReviews(id);
 				getOrders("complete")
@@ -161,26 +162,26 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
 }
 
 ///harcod cambiar por DB
-
+if(resultado){
 var img1 = images[id - 1].img1;
 var img2 = images[id - 1].img2;
 var img3 = images[id - 1].img3;
 var img4 = resultado.image;
-
+}
 // var idImagenDB = 2
 // console.log('nameeeeee', images[idImagenDB - 1].id)
 // console.log('IDDDDDDD', id)
 
-
+if (resultado){
     return (
 
-       <section className="container" style={{marginTop: "10px"}}>
+     <section className="container" style={{marginTop: "10px"}}>
 
          <div class="product-details">
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img id="imgClickAndChange" src={resultado.image} alt="" />
-								<h3>{resultado.name}</h3>
+								<img id="imgClickAndChange" src={resultado && resultado.image} alt="" />
+								<h3>{resultado && resultado.name}</h3>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
 
@@ -198,17 +199,17 @@ var img4 = resultado.image;
 						</div>
 						<div  class="col-sm-7 title text-center">
 							<div class="product-information">
-								<h2>{resultado.name}</h2>
-								<p>{resultado.description}</p>
+								<h2>{resultado && resultado.name}</h2>
+								<p>{resultado && resultado.description}</p>
 								{/* <img src="images/product-details/rating.png" alt="" /> */}
 								<span>
-									<span>US $ {resultado.price}</span>
+									<span>US $ {resultado && resultado.price}</span>
                     {/*resultado.stock == 0 ? (<div> <button type="button" onClick={() => soldout()} class="btn btn-danger"> Sold Out  <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></button></div>) : (<div> <button type="button" onClick={() => exitoAdd()} class="btn btn-success"> Add To Cart  <i  class="fa fa-shopping-cart fa-lg"></i></button> </div>)*/}
-                    {resultado.stock == 0 ? (<div> <button type="button" onClick={() => soldout()} class="btn btn-danger"> Sold Out  <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></button></div>) : typeof onlineUser !== "object" ?
+                    {resultado && resultado.stock == 0 ? (<div> <button type="button" onClick={() => soldout()} class="btn btn-danger"> Sold Out  <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></button></div>) : typeof onlineUser !== "object" ?
                     (<div> <button type="button" onClick={() => invited()} class="btn btn-danger"> Add To Cart  <i class="fa fa-shopping-cart fa-lg"></i></button></div>) :
                     (<div> <button type="button" onClick={() => exitoAdd()} class="btn btn-success"> Add To Cart  <i  class="fa fa-shopping-cart fa-lg"></i></button> </div>)}                    
 								</span>
-								<p><b>Availability:</b> {resultado.stock}</p>
+								<p><b>Availability:</b> {resultado && resultado.stock}</p>
 								<p><b>State:</b> New</p>
 								<p><b>Shipping:</b> FREE</p>
                 <p><b>Rating: </b> 	<Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false} style={{fontSize:"30px"}} onRate={({rating}) => onRate(rating)} /></p>
@@ -268,7 +269,11 @@ var img4 = resultado.image;
 
 
 
-    );
+    );}else {
+      return(
+        <div>dryhgh</div>
+      )
+    }
 };
 const mapDispatchToProps = dispatch => {
     return {
@@ -280,6 +285,8 @@ const mapDispatchToProps = dispatch => {
         getOrdersxproduct: (idProd) => dispatch(getOrdersxproduct(idProd)),
         lsset: () => dispatch(lsset()),
         getAllCart: (id) => dispatch(getAllCart(id)),
+        getAllProducts: () => dispatch(getAllProducts()),
+
 
 
     }
