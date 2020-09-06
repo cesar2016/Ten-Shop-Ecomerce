@@ -10,8 +10,6 @@ function Catalogue({ products, getAllProducts, onlineUser, onlineUserError, logi
   React.useEffect(() => {
     getAllProducts()
     getAllReviews()
-
-
   }, [])
   function promedy(id){
       var acum = 0;
