@@ -202,6 +202,11 @@ server.post("/:id/review", (req, res) => {
 
 });
 
+server.get("/reviews/allreviews", (req,res) => {
+	Reviews.findAll()
+	.then((data) => res.send(data))
+
+});
 
 server.post("/review/:idReview", (req, res) => {	
 	const { idReview } = req.params
@@ -243,10 +248,10 @@ server.get("/:id/review", (req, res) => {
 	})
 
 
-	 
  
 	 
 });
+
 
 
 

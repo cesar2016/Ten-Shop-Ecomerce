@@ -3,29 +3,14 @@ import { connect } from "react-redux";
 import "./TarjetCatalogue.css"
 import { NavLink } from 'react-router-dom'
 import Swal from 'sweetalert2';
-import {addCart, lsset, getReviews} from "../../actions";
+import {addCart, lsset,} from "../../actions";
 import Rater from "react-rater"
 var ls = require('local-storage');
 
 
- function Catalogo({price, name, stock, id, image, description,addCart, onlineUser, lsset, reviews,getReviews}) {
- 	useEffect(()=> {
- 	 getReviews(id)
- 	},[])
- 	//console.log("producto: ",name, "id: ", id, "reviews: ", reviews )
- 	function promedy(acum, length){
-			var promedy = acum / length
-			if (length === 0){
-				return 0
-			}
-			promedy.toFixed(2)
- 		  //console.log("PRoemdios", promedy)
-			return promedy
-		}
- 	var acum = 0;
-    for ( let i = 0; i < reviews.length; i++) {
-      acum = acum + reviews[i].rating;
-    }
+ function Catalogo({price, name, stock, id, image, description,addCart, onlineUser, lsset, reviews,rating}) {
+ 	
+ 	
 	function addhome(data){
 		//console.log(data.target.value);
 		Swal.fire({
@@ -72,7 +57,7 @@ var ls = require('local-storage');
 											
 										</div>
 										<div style ={{"display":"flex","justifyContent": "center"}}> 
-					  		<Rater style={{'react-rater-active': 'blue'}} rating={promedy(acum,reviews.length)} interactive={false}/>
+					  		<Rater style={{'react-rater-active': 'blue'}} rating = {rating} interactive={false}/>
 					  	</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
@@ -102,14 +87,12 @@ const mapDispatchToProps = dispatch => {
 	return {
 		addCart: (diProduc, idUser) => dispatch(addCart(diProduc, idUser)),
 		lsset: () => dispatch(lsset()),
-		getReviews: (id) => dispatch(getReviews(id))
 	}
   }
 
   const mapStateToProps = state => {
 	return {
 	  onlineUser : state.onlineUser,  
-		reviews: state.reviews
 	}
   }
 

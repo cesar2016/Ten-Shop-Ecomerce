@@ -35,6 +35,7 @@ import {
     ADD_CART_INVITED,
     GET_PRODUCTSXORDER,
     FINISH_ORDER,
+    GET_ALL_REVIEWS,
 
    } from '../actions/index';
 var ls = require('local-storage');
@@ -55,6 +56,7 @@ const initialState = {
   ordersxproduct: [],
   setid: [],
   productsxorder: {},
+  allreviews: []
  
 };
 const reducer = (state = initialState, action) => {
@@ -300,7 +302,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         getorders: [],
       }
-      
+    case GET_ALL_REVIEWS:
+    return {
+      ...state,
+      allreviews: action.payload
+    }
+
     default:
       return state;
   }
