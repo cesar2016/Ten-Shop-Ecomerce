@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
-import { getAllCart,completeCart, updateCart, cancellCart, priceOrder, getAllProducts, vaciarls, deleteProductCart, getSumaryCart} from "../../actions";
+import { getAllCart,completeCart, updateCart, cancellCart, priceOrder, getAllProducts, vaciarls, deleteProductCart, getSumaryCart, vaciarpanelorders} from "../../actions";
 import Swal from 'sweetalert2';
 import './Cart.css'
 var ls = require('local-storage');
 
-function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder,getAllProducts, vaciarls, deleteProductCart, sumary_cart, getSumaryCart}) {
+function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder,getAllProducts, vaciarls, deleteProductCart, sumary_cart, getSumaryCart, vaciarpanelorders}) {
     const history = useHistory();
 
   React.useEffect(() => {
@@ -119,10 +119,12 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
                 priceOrder(onlineUser.id, calculaTotal())
                 updateCart(onlineUser.id, productosConSubtotales.current);
                 completeCart(onlineUser.id, result.value);
+                vaciarpanelorders()
               } else {
                 priceOrder(onlineUser.id,total.current);
                 updateCart(onlineUser.id, productosConSubtotales.current);
-                completeCart(onlineUser.id, result.value);                
+                completeCart(onlineUser.id, result.value);
+                vaciarpanelorders()                
               }
 
                 vaciarls()
@@ -385,9 +387,10 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
         priceOrder: (id, total) => dispatch(priceOrder(id, total)),
         getAllProducts: () => dispatch(getAllProducts()),
         vaciarls: () => dispatch(vaciarls()),
-
         deleteProductCart: (orderId, productId) => dispatch(deleteProductCart(orderId, productId)),
-        getSumaryCart: (id) => dispatch(getSumaryCart(id))
+        getSumaryCart: (id) => dispatch(getSumaryCart(id)),
+        vaciarpanelorders: () => dispatch(vaciarpanelorders()),
+
 
     }
   }

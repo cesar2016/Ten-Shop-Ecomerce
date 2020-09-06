@@ -145,7 +145,7 @@
         text-align: center;
     }
     .shop-menu ul{
-        display: inline-block;
+        /* display: inline-block; */
         float: none;
     }
     .header_top .col-sm-6:first-child {

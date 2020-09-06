@@ -301,6 +301,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         getorders: [],
+        productsxorder:[]
       }
     case DELETE_PRODUCT_CART:
       return {

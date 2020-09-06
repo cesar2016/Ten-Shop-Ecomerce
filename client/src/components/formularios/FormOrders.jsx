@@ -34,8 +34,14 @@ function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, product
       }
 
 function orderpriv(data){
-  getproductsxorders(data.id)
+  console.log(data, "SGFDDFGFDg",data.target.value, "ASDASDASD")
+  getproductsxorders(data.target.value)
 }
+function ordddddddd(data){
+  console.log(data, "ASDASDASD")
+  getproductsxorders(data)
+}
+
 
 function cancelaorden(data){
   //console.log(data)
@@ -61,7 +67,7 @@ function terminarorden(data){
       return (
   
           <div className="container">
-  {/* <!-- Modal --> */}
+  {/* <!-- Modal 1 --> */}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -96,8 +102,8 @@ function terminarorden(data){
     </tr>
   </thead>
   <tbody>
-  {productsxorder.products && productsxorder.products.map((p) =>{ return ( <tr>
-      <th scope="row">1</th>
+  {productsxorder.products && productsxorder.products.map((p,i) =>{ return ( <tr>
+      <th scope="row">{i}</th>
       <td>{p.name}</td>
       <td>{p.productsxorders.amount}</td>
       <td>{p.productsxorders.total_price}</td>
@@ -137,7 +143,7 @@ function terminarorden(data){
 </div>
    {/* <!-- Modal --> */}
    
-     {/* <!-- Modal --> */}
+     {/* <!-- Modal ---- 2 --> */}
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -172,8 +178,8 @@ function terminarorden(data){
     </tr>
   </thead>
   <tbody>
-  {productsxorder.products && productsxorder.products.map((p) =>{ return ( <tr>
-      <th scope="row">1</th>
+  {productsxorder.products && productsxorder.products.map((p,i) =>{ return ( <tr>
+      <th scope="row">{i}</th>
       <td>{p.name}</td>
       <td>{p.productsxorders.amount}</td>
       <td>{p.productsxorders.total_price}</td>
@@ -254,7 +260,8 @@ function terminarorden(data){
                                                                       <td>
                                                                       <span className="palabras">  {p.status.toUpperCase()}</span>
                                                                       </td>
-                                                                      <td>  <span className="palabras"> {p.status== "processing" ?  <button type="button" onClick={(e) => orderpriv(p)} class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">View Order</button> : <button type="button" onClick={(e) => orderpriv(p)}> <span className="palabras" data-toggle="modal" data-target="#exampleModal2">  {p.updatedAt.slice(0,10)+" | "+p.updatedAt.slice(11,19)}</span></button>}  </span></td>
+                                                                      {p.status== "processing" && <td>  <span className="palabras">   <button type="button" value={p.id} onClick={(e) => orderpriv(e)} class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">View Order</button> </span></td>} 
+                                                                      {p.status !== "processing" && <td>  <span className="palabras">  <button type="button" value={p.id} onClick={(e) => ordddddddd(p.id)}> <span className="palabras" data-toggle="modal" data-target="#exampleModal2">  {p.updatedAt.slice(0,10)+" | "+p.updatedAt.slice(11,19)}</span></button></span></td>}
                                                                     <td>  <span className="palabras"> $ {p.total_price}</span></td>
                                                                   </tr>
                                                                 )
@@ -287,7 +294,7 @@ function terminarorden(data){
       getproductsxorders: (id) => dispatch(getproductsxorders(id)),
       finishorder: (id, idd) => dispatch(finishorder(id, idd)),
       celarordenPanel: (idus,idpr) => dispatch(celarordenPanel(idus,idpr)),
-      vaciarpanelorders: (idus,idpr) => dispatch(vaciarpanelorders(idus,idpr)),
+      vaciarpanelorders: () => dispatch(vaciarpanelorders()),
 
       
       

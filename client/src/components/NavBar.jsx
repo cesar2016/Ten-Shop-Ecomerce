@@ -206,9 +206,9 @@ console.log(cantproductos); */
                                     </NavLink>
                                     </li>
                                     <li>
-                                    <NavLink className="dropdown-item" to={`/orders`}>
-                                        <a href="">Orders</a>
-                                    </NavLink>
+                                 {/*    <NavLink className="dropdown-item" to={`/orders`}> */}
+                                        <a href="/orders">Orders</a>
+                                   {/*  </NavLink> */}
                                     </li>
                                     <li>
                                     <NavLink className="dropdown-item" to={`/admin`}>
