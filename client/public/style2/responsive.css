@@ -200,8 +200,7 @@
     ul.sub-menu {
         position: relative;
         width: auto;
-        display: block;
-        background: transparent;
+        background-color: black;
         -webkit-box-shadow: none;
         box-shadow: none;
         top: 0;
