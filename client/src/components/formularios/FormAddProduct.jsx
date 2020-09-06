@@ -138,9 +138,10 @@ if( onlineUser.type == 1){
           <FileBase64 onDone={handlerImageUpload} required />
           <div className=" form-control-lg">
                                      {categories.map((cat, i) => {                                      
-                                         return ( 
-                                          <div class="btn-group"  style={{"margin":"3px"}} role="group" aria-label="Basic example">                                         
-                                           <button type="button" style={{"borderRadius":"5px", "background":"","color":"black"}} class="btn btn-secondary btn-lg" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
+                                         return (  
+                                          <div class="btn-group p-3" role="group" aria-label="Basic example">                                         
+                                           <button type="button"  class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
+
                                              {cat.name}
                                            </button>   
                                            </div>

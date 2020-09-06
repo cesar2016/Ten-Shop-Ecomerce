@@ -36,11 +36,10 @@ export const ADD_CART_INVITED = "ADD_CART_INVITED";
 export const GET_ORDERSXPRODUCT = "GET_ORDERSXPRODUCT";
 export const GET_PRODUCTSXORDER = "GET_PRODUCTSXORDER";
 export const FINISH_ORDER = "FINISH_ORDER";
+export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const DELETE_PRODUCT_CART = "DELETE_PRODUCT_CART";
 export const CANCELL_ORDER = "CANCELL_ORDER";
 export const GET_SUMARY_CART = "GET_SUMARY_CART";
-
-
 
 
 
@@ -533,7 +532,22 @@ export function getproductsxorders(idOrder) {
   }
 }
 
+export function getAllReviews(){
+  return function(dispatch){
+    return axios.get('http://localhost:3001/products/reviews/allReviews')
+  .then(result => result.data)
+  .then(result => {
+    dispatch({
+      type: GET_ALL_REVIEWS,
+      payload: result
+    })
+  })
+  }
+}
 
+
+
+////////////////////// IMAGES PRODUTS
 
 export var images = [
 

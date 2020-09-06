@@ -64,7 +64,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
   const taxes = useRef(0) // impuesto
   const total = useRef(0) // total
 
-  
+
   const handleCantidadDelProducto = (id, price) => {
 
     var subtotal_carrito = 0;
@@ -125,6 +125,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
                 updateCart(onlineUser.id, productosConSubtotales.current);
                 completeCart(onlineUser.id, result.value);
                 vaciarpanelorders()                
+
               }
 
                 vaciarls()
@@ -223,7 +224,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
       }
     })
 
-   
+
   }else{
     let arry = [];
     ls.get('idProducts').forEach(function(ele){
@@ -252,7 +253,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
           );
         }
       })
-      
+
 
 
 
@@ -281,6 +282,7 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
              <div class="container">
              <div class="row offspace">
              <div class="view-set-block">
+
                  <div class="col-md-8 col-sm-8 col-xs-12" style={{paddingTop:'0px'}}>
 
       <div class="asdasd">
