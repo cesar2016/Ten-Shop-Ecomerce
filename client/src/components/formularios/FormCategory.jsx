@@ -3,6 +3,7 @@ import TableCategories from '../Products/TableCategories';
 import { connect } from 'react-redux'
 import {getAllCategories, addCategory, modifyCategory, deleteCategory} from '../../actions';
 import Page404 from "../Page404";
+import Swal from 'sweetalert2';
 
  function FormCategory({categories, getAllCategories, addCategory, modifyCategory, elId, onlineUser}) {
 
@@ -48,7 +49,6 @@ import Page404 from "../Page404";
     e.preventDefault();
     modifyCategory(inputModify,elId.current)
     form.style.display = 'none';
-    alert("The category has been modify succesfully.")
   };
 
   function update(elId, body) {        
@@ -63,12 +63,32 @@ import Page404 from "../Page404";
       }
     })
   }
+
+  function addCat(){
+    Swal.fire({
+        icon: 'success',
+        title: 'Your category has been create!',
+        showConfirmButton: false,
+        timer: 2000
+      })
+ }
+
+ function updateCat(){
+  Swal.fire({
+      icon: 'success',
+      title: 'Your category has been update!',
+      showConfirmButton: false,
+      timer: 2000
+    })
+}
+
+
     
   if( onlineUser.type == 1){
   return (
      <div>
       <div class="col-md-8">
-        <h3>Category <span>List</span></h3>
+        
         <TableCategories categories={categories} update={update} elId={elId} deleteCategories={{deleteCategory}} />
                
       </div>
@@ -77,21 +97,23 @@ import Page404 from "../Page404";
 			<div class="row">
 				<div class="col-sm-3 my-5">
 					<div class="login-form">
-						<form action="#" method="post" onSubmit={handleAddSubmit} >
-            <h3>Add <span>Category</span></h3>
-            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" required onChange={handleinputAddChange} />
-            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleinputAddChange}/>
-						<button type="submit" className="submit-btn" value="Submit" class="btn btn-default update">Add</button>
-						</form>
+						<form style={{display:'none'}} onSubmit={handleModifySubmit} id = {"formulario"}>
+            <h3 class="text-center">Update <span>Category</span></h3>
+            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="ModifyName" required onChange={handleInputModifyChange} />
+            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id ="DescriptionName"onChange={handleInputModifyChange}/>
+						<div class="btn-group" role="group" aria-label="Basic example">
+            <button type="submit" onClick={() => updateCat()} className="submit-btn" value="Submit" class="btn btn-secondary">Update</button>
+						</div>
+            </form>
 					</div>
 				</div>
 				<div class="col-sm-3 my-5">
 					<div class="login-form">
-						<form onSubmit={handleModifySubmit} id = {"formulario"}>
-            <h3>Update <span>Category</span></h3>
-            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="ModifyName" required onChange={handleInputModifyChange} />
-            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id ="DescriptionName"onChange={handleInputModifyChange}/>
-						<button type="submit" className="submit-btn" value="Submit" class="btn btn-default update">Update</button>
+						<form action="#" method="post" onSubmit={handleAddSubmit} >
+            <h3 class="text-center">Add <span>Category</span></h3>
+            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" required onChange={handleinputAddChange} />
+            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleinputAddChange}/>
+						<button type="submit" onClick={() => addCat()} className="submit-btn" value="Submit" class="btn btn-lg btn-block">Add</button>
 						</form>
 					</div>
 				</div>
