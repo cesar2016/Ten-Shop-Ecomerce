@@ -279,9 +279,7 @@ server.post("/:idUser/c/order", (req, res) => {
 
 server.post("/adduser", (req, res) => {
 
-  const { firstname, surname, password, username, email, googleId } = req.body;  
-
-
+  const { firstname, surname, password, username, email, googleId } = req.body;
 
   User.findAll({
     where: {username}
@@ -291,12 +289,13 @@ server.post("/adduser", (req, res) => {
         User.create({firstname, surname, password, type: "2", username, email, googleId})
         .then(user => res.send([true, user.dataValues]))
       } else {
-        return res.send([false])
+        console.log("ACCCCAAA", result)
+        return res.send([false, result])        
       }
     })
     .catch((err) => {
       return res.send(err)
-    })  
+    })
 });
 
 
