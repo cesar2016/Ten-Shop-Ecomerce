@@ -145,7 +145,7 @@
         text-align: center;
     }
     .shop-menu ul{
-        display: inline-block;
+        /* display: inline-block; */
         float: none;
     }
     .header_top .col-sm-6:first-child {
@@ -200,8 +200,7 @@
     ul.sub-menu {
         position: relative;
         width: auto;
-        display: block;
-        background: transparent;
+        background-color: black;
         -webkit-box-shadow: none;
         box-shadow: none;
         top: 0;

@@ -303,6 +303,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         getorders: [],
+        productsxorder:[]
       }
     case GET_ALL_REVIEWS:
     return {

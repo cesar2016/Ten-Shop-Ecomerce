@@ -105,13 +105,34 @@ console.log(cantproductos); */
                                 </li>
                                 {onlineUser.firstname &&
 
-                                            <li class="dropdown">
+                                         /*    <li class="dropdown">
                                             <a href="" onClick={() => salirr()}><i class="fa fa-lock"></i>WELCOME {onlineUser.firstname.toUpperCase()} {onlineUser.surname.toUpperCase()} Logout</a>
                                             <ul role="menu" class="sub-menu">
                                             <li>LOGOUT</li>
                                             </ul>
                                             <a href="/me" id="profile"><i className="fa fa-user" aria-hidden="true"></i>Profile</a>
-                                        </li>
+                                            </li> */
+
+<li class="dropdown">
+<a>WLCOME {onlineUser.firstname.toUpperCase()+" "+onlineUser.surname.toUpperCase()} <i class="fa fa-angle-down"></i></a>
+<ul role="menu" class="sub-menu">
+<li>
+<NavLink className="dropdown-item" to={`/me`}>
+<a href=""><i className="fa fa-user" aria-hidden="true" style={{marginLeft:'10px', marginRight:'10px'}}></i>Profile</a>
+    </NavLink>
+</li>
+<li>
+<NavLink className="dropdown-item" to={`/`}>
+    <a href="" onClick={() => salirr()}><i class="fa fa-sign-out" aria-hidden="true" style={{marginLeft:'10px', marginRight:'10px'}}></i>Logout</a>
+    </NavLink>
+</li>
+</ul>
+</li>
+
+
+
+
+
                                 }
 							</ul>
 						</div>
@@ -185,9 +206,9 @@ console.log(cantproductos); */
                                     </NavLink>
                                     </li>
                                     <li>
-                                    <NavLink className="dropdown-item" to={`/orders`}>
-                                        <a href="">Orders</a>
-                                    </NavLink>
+                                
+                                        <a href="/orders">Orders</a>
+                                
                                     </li>
                                     <li>
                                     <NavLink className="dropdown-item" to={`/admin`}>

@@ -506,7 +506,7 @@ export function vaciarls() {
 //TRAE TODAS LAS ORDENES DE UN PRODUCTO:
 export function getOrdersxproduct(idProd) {
   return function(dispatch) {
-    return axios.get(`http://localhost:3001/orders/${idProd}`)
+    return axios.get(`http://localhost:3001/orders/ORDD/${idProd}`)
     .then(result => result.data)
     .then(result => {
       dispatch({
@@ -518,6 +518,7 @@ export function getOrdersxproduct(idProd) {
 }
 //TRAE TODOS LOS PRODUCTOS DE UNA ORDEN:
 export function getproductsxorders(idOrder) {
+  console.log(idOrder);
   return function(dispatch) {
     return axios.get(`http://localhost:3001/orders/products/${idOrder}`)
     .then(result => result.data)
@@ -527,6 +528,7 @@ export function getproductsxorders(idOrder) {
         payload: result
       })
     })
+    .catch(err => {console.log("ASDASDASDADAS",err)})
   }
 }
 
