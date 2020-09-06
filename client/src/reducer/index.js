@@ -346,9 +346,12 @@ function reducerAddUser(data) {
   if (data[0]) {
     const { id, username, firstname, surname, type, address } = data[1];
     return { id, username, firstname, surname, type, address };
-  } else {
+  } else if(data[1]){
+    const { id, username, firstname, surname, type, address } = data[1][0]
+    return { id, username, firstname, surname, type, address }
+  } else {    
     return 1
-    }
+  }
 }
 
 function reducerlogin(data){
