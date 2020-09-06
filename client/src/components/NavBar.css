@@ -3,6 +3,8 @@ a:visited{
     color: blanchedalmond;
 }
 
+
+
 .effect-hover{
     position: absolute;
     text-align: center;
@@ -12,4 +14,14 @@ a:visited{
     font-size: 30px;
     transition-duration: 2s;
     margin: 0px;
+  }
+
+  .navbar-nav li ul.sub-menu li a{
+    font-size: 17px;
+    
+ }
+
+  .navbar-nav li ul.sub-menu li a:hover {
+     background-color: transparent;
+     
   }

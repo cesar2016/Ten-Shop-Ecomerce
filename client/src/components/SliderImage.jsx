@@ -11,45 +11,49 @@ import imagenC from '../image/slider2.png';
 import imagenD from '../image/slider3.png';
 
 function SliderImage() {
-  
-  
-        
+
+  const estilos = {
+    imagen: {
+      height: "50px"
+    },
+  }
+
     return (
         <section id="slider">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
 					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">				
+						<ol class="carousel-indicators">
 							<li data-target="#slider-carousel" data-slide-to="1" class="active"></li>
 							<li data-target="#slider-carousel" data-slide-to="2" ></li>
 							<li data-target="#slider-carousel" data-slide-to="3" ></li>
 							<li data-target="#slider-carousel" data-slide-to="4" ></li>
 						</ol>
-						
+
 						<div class="carousel-inner">
-							<div class="item active" >						
+							<div class="item active" >
 								<div class="col">
-									<img src={imagenA}  class="girl img-responsive" alt="" style={{width:'100%', height: '260px'}}/>						
+									<img src={imagenA}  class="  img-responsive img-fluid" alt="Responsive image"  />						
 								</div>
-							</div>							
+							</div>
 							<div class="item ">
 								<div class="col">
-									<img src={imagenB} class="girl img-responsive" alt="" style={{width:'100%', height: '260px'}} />								
+									<img src={imagenB} class="  img-responsive img-fluid" alt="Responsive image"   />								
 								</div>
 							</div>
-							<div class="item " >						
+							<div class="item " >
 								<div class="col">
-									<img src={imagenC}  class="girl img-responsive" alt="" style={{width:'100%', height: '260px'}} />						
+									<img src={imagenC}  class="  img-responsive img-fluid" alt="Responsive image"  />						
 								</div>
 							</div>
-							<div class="item " >						
+							<div class="item " >
 								<div class="col">
-									<img src={imagenD}  class="girl img-responsive" alt="" style={{width:'100%', height: '260px'}} />						
+									<img src={imagenD}  class="  img-responsive img-fluid" alt="Responsive image"   />						
 								</div>
 							</div>
 						</div>
-						
+
 						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
 							<i class="fa fa-angle-left"></i>
 						</a>
@@ -57,17 +61,17 @@ function SliderImage() {
 							<i class="fa fa-angle-right"></i>
 						</a>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
 	</section>
-        
 
 
-               
-      
-        
+
+
+
+
  )
 }
 const mapStateToProps = state => {

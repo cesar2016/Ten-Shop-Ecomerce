@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,      
+      type: DataTypes.STRING,
     },
     price: {
       type: DataTypes.INTEGER,
@@ -23,5 +23,17 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    image2: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    image3: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    image4: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    }
   });
 };

@@ -13,7 +13,7 @@ function NavBar({}) {
 				<div class="row">
                 <div class="col-sm-12 text-center"> 
 					<div class='content fluid alert alert'>
-						<img src="logo.png" alt="" />
+						
 					</div>                     
 
 					<div class="contactinfo social-icons">

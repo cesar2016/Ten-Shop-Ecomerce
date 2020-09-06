@@ -26,7 +26,7 @@ server.get('/status/:status', (req, res, next) => {
  });
 
  //GET A LAS ORDENES QUE TENGAN ESE PRODUCTO
-  server.get('/:idProd', (req, res)=> {
+  server.get('/ORDD/:idProd', (req, res)=> {
 		const {idProd} = req.params
 		console.log(idProd)
 		Productsxorders.findAll({where: {product_id: idProd}})
