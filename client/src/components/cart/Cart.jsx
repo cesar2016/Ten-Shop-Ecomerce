@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
-import { getAllCart,completeCart, updateCart, cancellCart, priceOrder, getAllProducts, vaciarls, deleteProductCart, getSumaryCart} from "../../actions";
+import { getAllCart,completeCart, updateCart, cancellCart, priceOrder, getAllProducts, vaciarls, deleteProductCart, getSumaryCart, vaciarpanelorders} from "../../actions";
 import Swal from 'sweetalert2';
 import './Cart.css'
 var ls = require('local-storage');
 
-function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder,getAllProducts, vaciarls, deleteProductCart, sumary_cart, getSumaryCart}) {
+function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCart, cart, cancellCart, priceOrder,getAllProducts, vaciarls, deleteProductCart, sumary_cart, getSumaryCart, vaciarpanelorders}) {
     const history = useHistory();
 
   React.useEffect(() => {
@@ -63,8 +63,8 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
   const shipping = 400; // envío
   const taxes = useRef(0) // impuesto
   const total = useRef(0) // total
-  const total = useRef(0) // total
-  
+
+
   const handleCantidadDelProducto = (id, price) => {
 
     var subtotal_carrito = 0;
@@ -119,10 +119,13 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
                 priceOrder(onlineUser.id, calculaTotal())
                 updateCart(onlineUser.id, productosConSubtotales.current);
                 completeCart(onlineUser.id, result.value);
+                vaciarpanelorders()
               } else {
                 priceOrder(onlineUser.id,total.current);
                 updateCart(onlineUser.id, productosConSubtotales.current);
-                completeCart(onlineUser.id, result.value);                
+                completeCart(onlineUser.id, result.value);
+                vaciarpanelorders()                
+
               }
 
                 vaciarls()
@@ -201,17 +204,56 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
 
     if(typeof onlineUser == "object"){
     var order = getcart[0].order_id;
-    deleteProductCart(order, id)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You are about to remove the product from the cart",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        //console.log(result);
+      if (result.value) {
+        deleteProductCart(order, id)
+        Swal.fire(
+          'Deleted!',
+          'The product has been clear.',
+          'success'
+        );
+      }
+    })
+
+
   }else{
     let arry = [];
     ls.get('idProducts').forEach(function(ele){
         return arry.push(parseInt(ele))
       });
-    const result = arry.filter(word => word !== id);
-      console.log(result);
-      ls.set('idProducts', []);
-      ls.set('idProducts', result);
-      history.push('/cart')
+    const resultadoaa = arry.filter(word => word !== id);
+      //console.log(result);
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You are about to remove the product from the cart",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+          //console.log(result);
+        if (result.value) {
+          ls.set('idProducts', []);
+          ls.set('idProducts', resultadoaa);
+          history.push('/cart')
+          Swal.fire(
+            'Deleted!',
+            'The product has been clear.',
+            'success'
+          );
+        }
+      })
+
 
 
 
@@ -346,9 +388,10 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
         priceOrder: (id, total) => dispatch(priceOrder(id, total)),
         getAllProducts: () => dispatch(getAllProducts()),
         vaciarls: () => dispatch(vaciarls()),
-
         deleteProductCart: (orderId, productId) => dispatch(deleteProductCart(orderId, productId)),
-        getSumaryCart: (id) => dispatch(getSumaryCart(id))
+        getSumaryCart: (id) => dispatch(getSumaryCart(id)),
+        vaciarpanelorders: () => dispatch(vaciarpanelorders()),
+
 
     }
   }

@@ -30,6 +30,7 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
      users.find((e) => {
        if (e.id == id) {
          setInput(e)
+         document.getElementById("username").value = e.username;
          document.getElementById("firstname").value = e.firstname;
          document.getElementById("surname").value = e.surname;
          document.getElementById("type").value = e.type;
@@ -42,8 +43,7 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
    elId = useRef(null)
   const handleSubmit = function(e) {
     updateUser(elId.current, input)
-    getUsers()
-    e.preventDefault();
+    //getUsers()
     var form = document.getElementById('formulario');
         form.style.display = 'none'
 
@@ -55,7 +55,7 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
       'User updated successfully',
       'success'
     )    
-
+    //getUsers()
   }
 
 
@@ -100,7 +100,6 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
               <td class="quantity">Username</td>
               <td class="price">Name</td>
 							<td class="delete">Surname</td>
-              <td class="total">Delete</td>
 
 						</tr>
 					</thead>
@@ -143,11 +142,15 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
   </section>
   <div class="container">
 			<div class="row">
-				<div class="col-sm-3 my-5">
+				<div class="col-sm-3 my-5" style={{"marginTop":"25px"}}>
 					<div class="login-form">
 
-                        <form id={'formulario'} style={{display:'none'}} onSubmit = {handleSubmit}>
+                        <form id={'formulario'} onSubmit = {handleSubmit} style={{display:'none'}}>
                           <h3>Management <span>Users</span></h3>
+                          <div class="form-group row">
+                             <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" id="username" onChange={handleInputChange} required="true"/>
+                             
+                           </div>
                            <div class="form-group row">
                              <input type="text" class="form-control form-control-lg" name="firstname" placeholder="Firstname" id="firstname" onChange={handleInputChange} required="true"/>
 
@@ -163,7 +166,7 @@ function FormAdmin({ updateUser, users, onlineUser, getUsers, deleteUser}) {
                              </select>
                            </div>
                            <div class="form-group row">
-                               <button type="submit" style={{backgroundColor: "orange", borderRadius: "10px" }} class="submit-btn">Submit</button>
+                               <button  type = 'submit' style={{backgroundColor: "orange", borderRadius: "10px" }} class="submit-btn">Submit</button>
                            </div>
                          </form>
 					</div>

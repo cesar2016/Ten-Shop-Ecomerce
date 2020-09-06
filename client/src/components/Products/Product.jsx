@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { images,addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset, getAllCart} from "../../actions";
+import { addCart, addReview , getReviews, getUsers, getOrders, getOrdersxproduct, lsset, getAllCart} from "../../actions";
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import "./Product.css";
 import Rater from 'react-rater' // PARA INSTALAR --> npm install --save react-rater
-import 'react-rater/lib/react-rater.css'; 
+import 'react-rater/lib/react-rater.css';
 var ls = require('local-storage');
 
 function Product({getImages, addCart, id, products, searchProducts, onlineUser, reviews,addReview,getReviews, all_users,getUsers, newrev,getOrders,orders,getOrdersxproduct,ordersxproduct, lsset, getAllCart}) {
     const [input,setInput] = useState({});
-    const [inputRating, setInputRating] = useState({}); 
-    
-    
+    const [inputRating, setInputRating] = useState({});
+
+
 
     useEffect(()=> {
         getUsers();
 				getReviews(id);
 				getOrders("complete")
-        getOrdersxproduct(id)              
-        
-    },[newrev]);    
+        getOrdersxproduct(id)
+
+    },[newrev]);
 
     function handleInputChange (e) {
         setInput({
@@ -28,7 +28,7 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
             [e.target.name]: e.target.value
         })
     }
-    
+
     function invited () {
       ls.set('idProducts', [...ls.get('idProducts'),id]);
       lsset();
@@ -48,6 +48,7 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
     }
 }
      function handleSubmit (e) {
+      e.preventDefault()
          addReview(aux, id);
          getReviews(id);
 
@@ -61,7 +62,6 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
         return el
       }
     })
-
     var acum = 0;
     for ( let i = 0; i < reviews.length; i++) {
       acum = acum + reviews[i].rating;
@@ -85,7 +85,7 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
             showConfirmButton: false,
             timer: 1500
           })
-          getAllCart(idUser) 
+          getAllCart(idUser)
      }
 
 
@@ -119,15 +119,15 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
           })
         }
     if(!flagOrders){flag = true}
-   
-  //console.log("flag", flag)
 
+  //console.log("flag", flag)
+//
   function changeImage(image, idimg) {
 
     if(idimg === 1){
       var element = document.getElementById("img1");
       element.style.opacity =' 0.3';
-    }else{
+    }else if(document.getElementById("img1")){
       var element = document.getElementById("img1");
       element.style.opacity ='';
     }
@@ -135,7 +135,7 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
     if(idimg === 2){
       var element = document.getElementById("img2");
       element.style.opacity =' 0.3';
-    }else{
+    }else if(document.getElementById("img2")){
       var element = document.getElementById("img2");
       element.style.opacity ='';
     }
@@ -143,7 +143,7 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
     if(idimg === 3){
       var element = document.getElementById("img3");
       element.style.opacity =' 0.3';
-    }else{
+    }else if(document.getElementById("img3")){
       var element = document.getElementById("img3");
       element.style.opacity ='';
     }
@@ -151,101 +151,101 @@ function Product({getImages, addCart, id, products, searchProducts, onlineUser, 
     if(idimg === 4){
       var element = document.getElementById("img4");
       element.style.opacity =' 0.3';
-    }else{
+    }else if(document.getElementById("img4")){
       var element = document.getElementById("img4");
       element.style.opacity ='';
     }
 
-  
+
     document.getElementById("imgClickAndChange").src = image;
 }
-
-///harcod cambiar por DB
-
-var img1 = images[id - 1].img1;
-var img2 = images[id - 1].img2;
-var img3 = images[id - 1].img3;
+//
+// ///harcod cambiar por DB
+//
+var img1 = resultado.image2;
+var img2 = resultado.image3;
+var img3 = resultado.image4;
 var img4 = resultado.image;
+
 
 // var idImagenDB = 2
 // console.log('nameeeeee', images[idImagenDB - 1].id)
 // console.log('IDDDDDDD', id)
- 
-  
+
+
     return (
-      
-       <section className="container" style={{marginTop: "10px"}}>         
-         
-         <div class="product-details"> 
+
+       <section className="container" style={{marginTop: "10px"}}>
+
+         <div class="product-details">
 						<div class="col-sm-5">
 							<div class="view-product">
 								<img id="imgClickAndChange" src={resultado.image} alt="" />
 								<h3>{resultado.name}</h3>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
-								  
+
 								    <div class="carousel-inner">
 										<div class="item active">
-										  <a  onClick={(e)=> changeImage(img1, 1)}><img id={'img1'} src={img1} width='84' height='85' alt=""/></a>
-										  <a  onClick={(e)=> changeImage(img2, 2)}><img id={'img2'} src={img2} width='84' height='85' alt=""/></a>
-										  <a  onClick={(e)=> changeImage(img3, 3)}><img id={'img3'} src={img3} width='84' height='85' alt=""/></a>
+										  {!!img1 ? (<a  onClick={(e)=> changeImage(img1, 1)}><img id={'img1'} src={img1} width='84' height='85' alt=""/></a>) : <div></div>}
+										  {!!img2 ? (<a  onClick={(e)=> changeImage(img2, 2)}><img id={'img2'} src={img2} width='84' height='85' alt=""/></a>) : <div></div>}
+										  {!!img3 ? (<a  onClick={(e)=> changeImage(img3, 3)}><img id={'img3'} src={img3} width='84' height='85' alt=""/></a>) : <div></div>}
                       <a  onClick={(e)=> changeImage(img4, 4)}><img id={'img4'} src={img4} width='84' height='85' alt=""/></a>
-										</div>																			 										
+										</div>
 									</div>
-								   
+
 							</div>
 
 						</div>
 						<div  class="col-sm-7 title text-center">
-							<div class="product-information"> 								
+							<div class="product-information">
 								<h2>{resultado.name}</h2>
 								<p>{resultado.description}</p>
 								{/* <img src="images/product-details/rating.png" alt="" /> */}
 								<span>
-									<span>US $ {resultado.price}</span>								
-									  {resultado.stock === 0 && <div> <button type="button" onClick={() => soldout()} class="btn btn-danger"> Sold Out  <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></button></div>}
-                    {resultado.stock !== 0 &&  typeof onlineUser !== "object" && <div> <button type="button" onClick={() => invited()} class="btn btn-danger"> Add To Cart  <i class="fa fa-shopping-cart fa-lg"></i></button></div>}
-                    {resultado.stock !== 0 &&  typeof onlineUser === "object" && <div> <button type="button" onClick={() => exitoAdd()} class="btn btn-success"> Add To Cart  <i  class="fa fa-shopping-cart fa-lg"></i></button> </div>}
-                   {/* { resultado.stock !== 0 &&  typeof onlineUser === "object" && <div className="form-group col-md-12" ><button class="btn btn-success"><i class="fa fa-shopping-cart fa-lg"></i> Add to cart</button> </div>} */}
-                    
+									<span>US $ {resultado.price}</span>
+                    {/*resultado.stock == 0 ? (<div> <button type="button" onClick={() => soldout()} class="btn btn-danger"> Sold Out  <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></button></div>) : (<div> <button type="button" onClick={() => exitoAdd()} class="btn btn-success"> Add To Cart  <i  class="fa fa-shopping-cart fa-lg"></i></button> </div>)*/}
+                    {resultado.stock == 0 ? (<div> <button type="button" onClick={() => soldout()} class="btn btn-danger"> Sold Out  <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></button></div>) : typeof onlineUser !== "object" ?
+                    (<div> <button type="button" onClick={() => invited()} class="btn btn-danger"> Add To Cart  <i class="fa fa-shopping-cart fa-lg"></i></button></div>) :
+                    (<div> <button type="button" onClick={() => exitoAdd()} class="btn btn-success"> Add To Cart  <i  class="fa fa-shopping-cart fa-lg"></i></button> </div>)}
 								</span>
 								<p><b>Availability:</b> {resultado.stock}</p>
-								<p><b>Esatate:</b> New</p>
+								<p><b>State:</b> New</p>
 								<p><b>Shipping:</b> FREE</p>
                 <p><b>Rating: </b> 	<Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false} style={{fontSize:"30px"}} onRate={({rating}) => onRate(rating)} /></p>
 								<a><img style={{margin: "0 auto"}}  src="https://cuidar.org/images/icons/formasdepago/mini_tarjetas.jpg" width="200" height="350" class="share img-responsive"  alt="" /></a>
-							</div> 
+							</div>
 						</div>
 					</div>
 
-          
-        
+
+
         {!flag ? <div class="tab-pane" id="reviews" >
 						<div class="col-sm-12">
 	    			  <div class="contact-form">
-               <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
-				            
-				            
+               <form id="main-contact-form" class="contact-form row" name="contact-form" >
+
+
                     <div class="form-group col-md-8">
 				                <input type="text" onChange={handleInputChange}  style={{height: "60px", fontSize:"20px"}}  name = "comments" id="review" class="form-control" required="required" placeholder="Add comment"/>
                         Add Rating: <Rater total= {5}  onRate={({rating}) => onRate(rating)} style={{fontSize:"30px", alignSelf:"flexStart", height:"30px"}}/>
-                    
-				                <input onClick={()=> handleSubmit()} type="submit" name="submit" class="btn btn-primary pull-right" value="Leave my review."/>
+
+				                <input onClick={(e)=> handleSubmit(e)} type="submit" name="submit" class="btn btn-primary pull-right" value="Leave my review."/>
 				            </div>
 				        </form>
                 </div>
-            </div>        
+            </div>
 
           </div>:''}
-      
 
-     
+
+
         {reviews && reviews.map (p =>
         <div class="tab-pane fade active in" id="reviews" >
-                               
+
 								<div class="col-sm-12">
                   <div class='container alert alert-success'>
-                  <h2 class="title text-center">MESAGES <strong>Clients</strong></h2> 
+
                     <ul>
                       <li><a><i class="fa fa-user"></i>
                       {all_users.map(u => {if( p.userId === u.id) return ("  " + u.firstname.charAt(0).toUpperCase()+u.firstname.slice(1) + " " + u.surname.charAt(0).toUpperCase()+u.surname.slice(1))})}
@@ -253,22 +253,22 @@ var img4 = resultado.image;
                       </li>
                       <li><a><i class="fa fa-calendar-o"></i>
                       {p.createdAt.slice(0,10)}
-                      </a></li>                      
+                      </a></li>
                     </ul>
-                    
+
                     <p>{p.comments}</p>
-                    <p> Review 
+                    <p> Review
                     <Rater total={5} rating= {p.rating}interactive = {false} style={{fontSize:"30px"}}  />
-                    </p>								
-                    </div>	
+                    </p>
+                    </div>
                   </div>
 							</div>
               	)}
-                 
+
          </section>
- 
-               
-         
+
+
+
     );
 };
 const mapDispatchToProps = dispatch => {
@@ -281,8 +281,8 @@ const mapDispatchToProps = dispatch => {
         getOrdersxproduct: (idProd) => dispatch(getOrdersxproduct(idProd)),
         lsset: () => dispatch(lsset()),
         getAllCart: (id) => dispatch(getAllCart(id)),
-        
-        
+
+
     }
   }
 
