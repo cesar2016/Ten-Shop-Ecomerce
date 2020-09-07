@@ -169,7 +169,7 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
                 buttonText="Sign in with Google"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
-              />,
+              />
               </Grid>
           </Grid>
         </form>
