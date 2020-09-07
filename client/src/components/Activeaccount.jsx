@@ -7,8 +7,10 @@ import { activeaccount } from "../actions";
 
  function Activeaccount({onlineUser, activeaccount}) {
 
+
 if(typeof onlineUser !== 'object'){
-    activeaccount(onlineUser.id)
+    console.log(onlineUser)
+   // activeaccount(onlineUser.id)
 }
       return(
  <div className="contenedor">
