@@ -366,5 +366,48 @@ server.get("/cart/sumary/:idUser", (req, res) => {
     })
 });
 
+//SEND MAIL TO VISITED
+server.post('/send_email', (req, res) => {
+  const { body } = req;
+  // console.log("Este es el body", body.email)
+  // console.log("Este es el body", body.firstname)
+  // console.log("Este es el body", body.title)
+  // console.log("Este es el body", body.message)
+
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+        user: 'zander.crona48@ethereal.email', // generated ethereal user
+        pass: 'nZy5srMEQazj596J2p'  // generated ethereal password
+
+    }    
+
+  });
+
+  // Body Email Visited Website
+  let mailOptions = {
+      from: body.email, // sender address
+      to: 'tenshop@mailinator.com', // list of receivers
+      subject: body.firstname, // Subject line
+      text: body.title, // plain text body
+      html: "<p>"+  body.message  +"</p>" // html body
+  };
+
+// send mail visited
+transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+    res.status(500).send(error.message);
+
+  } else {
+
+    console.log("ENVIA_MESAGGE_VISITED!")
+    res.status(200).send("MESSAGE enviado!!!")
+  }
+});
+ 
+});
+
 
 module.exports = server;
