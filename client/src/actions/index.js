@@ -40,6 +40,7 @@ export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const DELETE_PRODUCT_CART = "DELETE_PRODUCT_CART";
 export const CANCELL_ORDER = "CANCELL_ORDER";
 export const GET_SUMARY_CART = "GET_SUMARY_CART";
+export const SEND_EMAIL_VISITED = "SEND_EMAIL_VISITED";
 
 
 
@@ -567,6 +568,20 @@ export function getSumaryCart(idUser) {
       .then(data => {
         dispatch({
           type: GET_SUMARY_CART,
+          payload: data
+        })
+      })
+  }
+}
+
+export function sendEmailVisited(body) {
+    
+  return function(dispatch) {
+    return axios.post(`http://localhost:3001/users/send_email/`,body)
+      .then(result => result.data)
+      .then(data => {
+        dispatch({
+          type: SEND_EMAIL_VISITED,
           payload: data
         })
       })

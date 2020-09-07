@@ -1,8 +1,49 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
- import "./Contact.css"
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";  
+import {sendEmailVisited} from "../actions"
+import {connect} from "react-redux"
+import Swal from 'sweetalert2';
 
-export default function Contact (){
+
+
+ 
+
+function Contact ({sendEmailVisited}){
+ 
+
+  const [input, setInput] = useState([])
+
+  const handleInputChange = function(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    });
+
+    
+  }
+ 
+   
+  const handleSubmit = function(e) {
+    
+    e.preventDefault()
+
+    var objeto = {
+      firstname: input.firstname,
+      email: input.email,
+      title: input.title,
+      message: input.message
+    }
+
+    sendEmailVisited(objeto)
+    document.getElementById("formulario").reset();    
+    Swal.fire(
+      'Thanks for message!',
+      'We will respond to you as soon as possible',
+      'success'
+    )    
+     
+  }
+
   return (
     
 
@@ -20,18 +61,18 @@ export default function Contact (){
           <div class="contact-form">
             <h2 class="title text-center">Get In Touch</h2>
             <div class="status alert alert-success" style={{display: 'none'}}></div>
-            <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+            <form id={'formulario'} onSubmit={handleSubmit} class="contact-form row">
                   <div class="form-group col-md-6">
-                      <input type="text" name="name" class="form-control" required="required" placeholder="Name"/>
+                      <input type="text" name="firstname" class="form-control" id="firstname" onChange={handleInputChange} required="true" placeholder="Name"/>
                   </div>
                   <div class="form-group col-md-6">
-                      <input type="email" name="email" class="form-control" required="required" placeholder="Email"/>
+                      <input type="email" name="email" class="form-control" id="email" onChange={handleInputChange} placeholder="Email"/>
                   </div>
                   <div class="form-group col-md-12">
-                      <input type="text" name="subject" class="form-control" required="required" placeholder="Subject"/>
+                      <input type="text" name="title" class="form-control" id="title" onChange={handleInputChange} placeholder="Subject"/>
                   </div>
                   <div class="form-group col-md-12">
-                      <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
+                      <textarea name="message" id="message" onChange={handleInputChange} class="form-control" rows="8" placeholder="Your Message Here"></textarea>
                   </div>                        
                   <div class="form-group col-md-12">
                       <input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit"/>
@@ -68,6 +109,18 @@ export default function Contact (){
   </div>
 
 
+  ) 
 
-  )
+
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    sendEmailVisited: (input) => dispatch(sendEmailVisited(input))    
+  }
 }
+
+
+
+export default connect(null, mapDispatchToProps)(Contact)
+
