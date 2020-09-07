@@ -24,11 +24,14 @@ passport.use(new Strategy(
     db.User.findOne({ where: {username}})
       .then(user => {
         if (!user) {
+          console.log("NO ENCUENTRA EL USUARIO")
           return done(null, false);
         }
         if (!user.correctPassword(password)) {
+          console.log("NO PASA LA CONTRASEÑA")
           return done(null, false);
         }
+        console.log("ENCUENTRA EL USUARIO", user.dataValues)
         return done(null, user.dataValues);
       })
       .catch(err => {
@@ -82,8 +85,8 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.use((req, res, next) => {
-  /*console.log("Session! ", req.session);
-  console.log("User!", req.user);*/
+  console.log("Session! ", req.session);
+  console.log("User!", req.user);
   next();
 });
 
@@ -92,6 +95,21 @@ server.use('/',ind)
 
 
 server.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) { return next(err); }
+    if (!user) {
+      return res.send(user);
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.send(user)
+    });
+  })(req, res, next);
+})
+
+server.post("/loginGoogle", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) { return next(err); }
     if (!user) {
@@ -359,7 +377,7 @@ server.post("/", async (req, res) => {
         email:"rodrigomp88@gmail.com"
     });
 
-    const user4 = User.create({
+/*    const user4 = User.create({
         firstname: "matias",
         surname: "cordoba",
         address: "las sierras",
@@ -368,7 +386,7 @@ server.post("/", async (req, res) => {
         username: "matiascordoba",
         email: "matiascba99@gmail.com"
     });
-
+*/
     const user5 = User.create({
         firstname: "guillermo",
         surname: "ambroggio",
