@@ -264,7 +264,7 @@ server.post("/", async (req, res) => {
         description: "20watts, waterproof speaker.",
         price: 5000,
         stock: 12,
-        image: "https://www.olmoshogar.com.ar/wp-content/uploads/2020/08/PARLANTE-SONY-GTKPG10-1.jpg",
+        image: "https://www.latercera.com/resizer/d-XvoqbZW0RExKwYCOtrh8lq7hA=/768x0/smart/filters:quality(70):format(webp):no_upscale()/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/RI5NSJPP2REAVJT7FQZQCJTD4M.jpg",
         image2: 'https://www.bhphotovideo.com/images/images2000x2000/sony_gtkpg10_gtk_pg10_outdoor_wireless_speaker_1475294.jpg',
         image3: 'https://images-na.ssl-images-amazon.com/images/I/71qho3p4QoL._AC_SL1500_.jpg',
         image4: 'https://ecs7.tokopedia.net/img/cache/700/attachment/2018/10/23/154031397410633/154031397410633_8f67db23-37df-46b1-9357-c079ac200be6.png'

@@ -100,25 +100,23 @@ import Swal from 'sweetalert2';
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3 my-5">
+          <div class="login-form" style= {{marginTop:"100px"}}>
+            <form action="#" method="post" onSubmit={handleAddSubmit} >
+            <h3 class="text-center">Add <span>Category</span></h3>
+            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" required onChange={handleinputAddChange} />
+            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleinputAddChange}/>
+            <button type="submit" style={{background:"orange",borderRadius:"8px"}} onClick={() => addCat()} className="submit-btn" value="Submit" class="btn btn-lg btn-block">Add</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-sm-3 my-5">
 					<div class="login-form">
 						<form style={{display:'none'}} onSubmit={handleModifySubmit} id = {"formulario"}>
             <h3 class="text-center">Update <span>Category</span></h3>
             <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="ModifyName" required onChange={handleInputModifyChange} />
             <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id ="DescriptionName"onChange={handleInputModifyChange}/>
-						<div class="btn-group" role="group" aria-label="Basic example">
-            <button type="submit" onClick={() => updateCat()} className="submit-btn" value="Submit" class="btn btn-secondary">Update</button>
-						</div>
+            <button type="submit" style={{background:"orange",borderRadius:"8px"}} onClick={() => updateCat()} className="submit-btn" value="Submit" class="btn btn-lg btn-block">Update</button>
             </form>
-					</div>
-				</div>
-				<div class="col-sm-3 my-5">
-					<div class="login-form">
-						<form action="#" method="post" onSubmit={handleAddSubmit} >
-            <h3 class="text-center">Add <span>Category</span></h3>
-            <input type="text" className="form-control form-control-lg" name="name" placeholder="Name" id="name" required onChange={handleinputAddChange} />
-            <input type="text" className="form-control form-control-lg" name="description" placeholder="Description" id="description" onChange={handleinputAddChange}/>
-						<button type="submit" onClick={() => addCat()} className="submit-btn" value="Submit" class="btn btn-lg btn-block">Add</button>
-						</form>
 					</div>
 				</div>
 			</div>

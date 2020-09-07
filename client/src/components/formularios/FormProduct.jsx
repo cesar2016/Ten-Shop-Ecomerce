@@ -172,8 +172,8 @@ if( onlineUser.type == 1){
 			<div class="row">
 				<div class="col-md-3 my-5">
 					<div class="content">
-						<form id="main-contact-form" class="contact-form row" id={'formulario'} style={{display:'none'}} onSubmit={handleSubmit}>
-            <h3>Update<span>Product</span></h3>
+						<form id="main-contact-form" class="contact-form row" id={'formulario'} style={{display:'none', marginTop:"100px"}} onSubmit={handleSubmit}>
+            <h3>Update <span>Product</span></h3>
                 <div class="form-group col-md-10">
                   <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" id="name" onChange={handleInputChange} required=""/>
                 </div>
