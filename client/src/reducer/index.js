@@ -39,7 +39,8 @@ import {
     DELETE_PRODUCT_CART,
     CANCELL_ORDER,
     GET_SUMARY_CART,
-    ACTIVE_ACCOUNT
+    ACTIVE_ACCOUNT,
+    SEND_EMAIL_ORDER
 
 
    } from '../actions/index';
@@ -327,6 +328,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
       }
+    case SEND_EMAIL_ORDER:
+      return {
+        ...state,
+    }
       
 
     default:
