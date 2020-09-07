@@ -15,7 +15,7 @@ export default () => {
     <div style={estilos.div}>
       <TwitterTimelineEmbed
         sourceType="profile"
-        screenName="soyhenry_ok"
+        screenName="TenShopSoyHenr1"
         options={{height: 600, width: 1200}}
       />
     </div>
