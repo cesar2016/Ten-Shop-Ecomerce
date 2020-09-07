@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),    
+    marginTop: theme.spacing(1),
   },
   submit: {
     backgroundColor: "#FE980F",
@@ -43,14 +43,14 @@ const useStyles = makeStyles((theme) => ({
     },
   tolink: {
     fontSize: "15px"
-  },  
+  },
 }));
 
 
 const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited, addUser}) => {
   const classes = useStyles();
   const history = useHistory();
-  const [input, setInput] = useState({username: "", password: ""});  
+  const [input, setInput] = useState({username: "", password: ""});
   const handleChange = (e) => {
     setInput({
       ...input,
@@ -63,18 +63,19 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
   addUser({
     firstname:res.profileObj.givenName,
     surname: res.profileObj.familyName,
-    password: res.accessToken,
+    password: res.Da,
     username: res.profileObj.givenName + res.profileObj.familyName,
-    email: res.profileObj.email
+    email: res.profileObj.email,
+    googleId: res.googleId
   })
 }
 
 
-  const handleSubmit = (e) => {          
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(input)
     loginUser(input);
-    
+
   };
      if ( onlineUser == 2) {
       onlineUserError()
@@ -83,7 +84,7 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
               title: 'Oops... user or password invalid!',
               showConfirmButton: false,
               timer: 3000
-            })        
+            })
     }
     if (typeof onlineUser === "object") {
       Swal.fire({
@@ -97,10 +98,10 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
               let arr = [];
               setid.forEach(function(ele){
                   return arr.push(parseInt(ele))
-                }); 
-              //console.log("SIGN IN PROOOOOOO", arr) 
+                });
+              //console.log("SIGN IN PROOOOOOO", arr)
     }  */
-  }     
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -122,12 +123,12 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
             label="Username"
             name="username"
             autoComplete="username"
-            autoFocus                    
+            autoFocus
             className={classes.input}
             helperText=""
             error={false}
-            onChange={handleChange} 
-            inputProps={{style: {fontSize: 20}}}           
+            onChange={handleChange}
+            inputProps={{style: {fontSize: 20}}}
           />
           <TextField
             variant="outlined"
@@ -139,11 +140,11 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
             type="password"
             id="password"
             autoComplete="current-password"
-            className={classes.input} 
-            onChange={handleChange} 
-            error={false}           
-            inputProps={{style: {fontSize: 20}}}           
-          />          
+            className={classes.input}
+            onChange={handleChange}
+            error={false}
+            inputProps={{style: {fontSize: 20}}}
+          />
           <Button
             type="submit"
             fullWidth
@@ -153,13 +154,13 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
           >
             Sign In
           </Button>
-          <Grid container>            
-            <Grid item xs={12} sm={6}>               
+          <Grid container>
+            <Grid item xs={12} sm={6}>
               <Link href="/signup" style= {{"fontSize":"13px","color":"black"}} variant="body2">
                 {"You don't have an account?"}
               </Link>
               </Grid>
-              <Grid item xs={12} sm={6}>  
+              <Grid item xs={12} sm={6}>
               <Link href="/signup" style= {{"fontSize":"13px","color":"black"}} variant="body2">
                 {"I forgot the password."}
               </Link>
@@ -173,7 +174,7 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
           </Grid>
         </form>
       </div>
-      <Box mt={8}>        
+      <Box mt={8}>
       </Box>
     </Container>
   );

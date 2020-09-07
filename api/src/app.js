@@ -24,11 +24,14 @@ passport.use(new Strategy(
     db.User.findOne({ where: {username}})
       .then(user => {
         if (!user) {
+          console.log("NO ENCUENTRA EL USUARIO")
           return done(null, false);
         }
         if (!user.correctPassword(password)) {
+          console.log("NO PASA LA CONTRASEÑA")
           return done(null, false);
         }
+        console.log("ENCUENTRA EL USUARIO", user.dataValues)
         return done(null, user.dataValues);
       })
       .catch(err => {
@@ -92,6 +95,21 @@ server.use('/',ind)
 
 
 server.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) { return next(err); }
+    if (!user) {
+      return res.send(user);
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.send(user)
+    });
+  })(req, res, next);
+})
+
+server.post("/loginGoogle", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) { return next(err); }
     if (!user) {
