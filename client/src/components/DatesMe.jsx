@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -53,6 +53,10 @@ const estilos = {
 
 
 const DatesMe = ({ user, loginUserCookie, updateOnlineUser, updateUser }) => {
+  
+  useEffect(() => {
+    loginUserCookie()
+  },[])
 
   const [input, setInput] = useState({});
   const [boton, setBoton] = useState(false)

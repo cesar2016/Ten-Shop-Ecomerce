@@ -315,20 +315,24 @@ server.post("/:idUser/c/order", (req, res) => {
 
 /* server.post("/adduser", (req, res) => {
 
-  const { firstname, surname, password, username, email } = req.body;  
-const SENDGRID_API_KEY = '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';
 
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const msg = {
-    to: 'tenshopsoyhenry@gmail.com',
-    from: email,
-    subject: 'Sending with Twilio SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  };
-  sgMail.send(msg);
+  const { firstname, surname, password, username, email, googleId } = req.body;
 
-}); */
+  User.findAll({
+    where: {username}
+  })
+    .then(result => {
+      if (!result.length) {
+        User.create({firstname, surname, password, type: "2", username, email, googleId})
+        .then(user => res.send([true, user.dataValues, password]))
+      } else {
+        return res.send([false, result, password])
+      }
+    })
+    .catch((err) => {
+      return res.send(err)
+    })
+});
 
 
 //CANCELA ORDENES DESDE EL PANEL DE ADMIN:
@@ -399,6 +403,7 @@ server.get("/cart/sumary/:idUser", (req, res) => {
     })
 });
 
+
 server.post("/activeaccount/:idUser", (req, res) => {
   const { idUser } = req.params;
   const body = {
@@ -410,6 +415,50 @@ server.post("/activeaccount/:idUser", (req, res) => {
   res.status(200).send("the user has been updated");
   })
   .catch(() => res.status(404).send("ERROR. user has not be complete"));
+});
+
+
+//SEND MAIL TO VISITED
+server.post('/send_email', (req, res) => {
+  const { body } = req;
+  // console.log("Este es el body", body.email)
+  // console.log("Este es el body", body.firstname)
+  // console.log("Este es el body", body.title)
+  // console.log("Este es el body", body.message)
+
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+        user: 'zander.crona48@ethereal.email', // generated ethereal user
+        pass: 'nZy5srMEQazj596J2p'  // generated ethereal password
+
+    }    
+
+  });
+
+  // Body Email Visited Website
+  let mailOptions = {
+      from: body.email, // sender address
+      to: 'tenshop@mailinator.com', // list of receivers
+      subject: body.firstname, // Subject line
+      text: body.title, // plain text body
+      html: "<p>"+  body.message  +"</p>" // html body
+  };
+
+// send mail visited
+transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+    res.status(500).send(error.message);
+
+  } else {
+
+    console.log("ENVIA_MESAGGE_VISITED!")
+    res.status(200).send("MESSAGE enviado!!!")
+  }
+});
+ 
 });
 
 

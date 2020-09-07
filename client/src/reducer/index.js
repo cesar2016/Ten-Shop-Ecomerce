@@ -1,4 +1,4 @@
-
+import axios from "axios";
 import {
     GET_ALL_PRODUCT,
     GET_SEARCH_PRODUCTS,
@@ -350,10 +350,27 @@ export default reducer;
 function reducerAddUser(data) {
   if (data[0]) {
     const { id, username, firstname, surname, type, address } = data[1];
+    var password = data[2]
+    if (data[1].googleId) {
+      axios.post("http://localhost:3001/loginGoogle", {username, password}, { withCredentials: true })
+    } else {
+      axios.post("http://localhost:3001/login", {username, password}, { withCredentials: true })
+    }
     return { id, username, firstname, surname, type, address };
+
+  } else if(data[1]){
+    const { id, username, firstname, surname, type, address } = data[1][0]
+    var password = data[2]
+    if (data[1][0].googleId) {
+      axios.post("http://localhost:3001/loginGoogle", {username, password}, { withCredentials: true })
+    } else {
+      axios.post("http://localhost:3001/login", {username, password}, { withCredentials: true })
+    }
+    return { id, username, firstname, surname, type, address }
+
   } else {
     return 1
-    }
+  }
 }
 
 function reducerlogin(data){

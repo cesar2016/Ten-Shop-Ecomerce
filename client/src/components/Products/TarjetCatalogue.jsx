@@ -71,8 +71,8 @@ var ls = require('local-storage');
 		<div className="content">
 
 
-						<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12" >
-							<div class="product-image-wrapper">
+						<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12"  >
+							<div class="product-image-wrapper" id="tarjetita">
 
 							<NavLink to ={`/product/${id}`} >
 
@@ -90,23 +90,23 @@ var ls = require('local-storage');
 					  	</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
-												<h2>{description}</h2>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Click for more detail</a>
+												<h2 style= {{marginBottom:"60px"}}>{description}</h2>
+												<a href="#" class="btn btn-default add-to-cart" style={{borderRadius:"10px"}} ><i class="fa fa-shopping-cart" ></i>Click for more detail</a>
 											</div>
 										</div>
 								</div>
 					  	</NavLink>
 
 
-								{stock != 0 ? (<div class=" choose text-center">
+								{stock != 0 ? (<div class="  text-center">
 
 								<button type="button" className="btn btn-secondary addhome" onClick={(e) => addhome(e)} id="op1" value={name}>
 								<i class="fa fa-shopping-cart" style={{marginRight:'10px'}}></i>
-								Add To Cart
+								Add to cart
 								</button>
 
               </div>) :
-              (<div class=" choose text-center">
+              (<div class="  text-center">
               <button type="button" className="btn btn-secondary notCart" onClick={(e) => notCart(e)} id="op1" value={name}>
               <i class="fa fa fa-ban" style={{marginRight:'7px'}}></i>
               Sold Out

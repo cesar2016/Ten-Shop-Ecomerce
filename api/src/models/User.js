@@ -44,9 +44,13 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true
     },
+
     statusemail: {
       type: DataTypes.ENUM("active", "inactive"),
       allowNull: true,
+    },
+    googleId: {
+      type:DataTypes.STRING
     }   
   });
   
