@@ -281,12 +281,49 @@ server.post("/adduser", (req, res) => {
 
   const { firstname, surname, password, username, email, googleId } = req.body;
 
+  
+
   User.findAll({
     where: {username}
   })
     .then(result => {
       if (!result.length) {
-        User.create({firstname, surname, password, type: "2", username, email, googleId})
+
+        let transporter = nodemailer.createTransport({
+          host: 'smtp.ethereal.email',
+          port: 587,
+          secure: false, // true for 465, false for other ports
+          auth: {
+              user: 'zander.crona48@ethereal.email', // generated ethereal user
+              pass: 'nZy5srMEQazj596J2p'  // generated ethereal password
+      
+          }    
+      
+        });
+      
+        // Body Email Visited Website
+        let mailOptions = {
+            from: 'tenshop@mailinator.com', // sender address
+            to: 'tenshop@mailinator.com', // list of receivers
+            subject: 'TEN/SHOP', // Subject line
+            text:' HIGH USER', // plain text body
+            html: "<p><h3>WELCOME!!! </h3>"+  username  +"</p>" // html body
+        };
+      
+      // send mail visited
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          res.status(500).send(error.message);
+      
+        } else {
+      
+          console.log("ENVIA_MESAGGE_VISITED!")
+          res.status(200).send("MESSAGE enviado!!!")
+        }
+      });
+
+
+        User.create({firstname, surname, password, type: "2", username, email, googleId})        
         .then(user => res.send([true, user.dataValues, password]))
       } else {
         return res.send([false, result, password])
