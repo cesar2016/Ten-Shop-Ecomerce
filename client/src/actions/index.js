@@ -41,6 +41,7 @@ export const DELETE_PRODUCT_CART = "DELETE_PRODUCT_CART";
 export const CANCELL_ORDER = "CANCELL_ORDER";
 export const GET_SUMARY_CART = "GET_SUMARY_CART";
 export const ACTIVE_ACCOUNT = "ACTIVE_ACCOUNT";
+export const SEND_EMAIL_ORDER = "SEND_EMAIL_ORDER";
 export const SEND_EMAIL_VISITED = "SEND_EMAIL_VISITED";
 
 
@@ -550,7 +551,7 @@ export function getAllReviews(){
 
 export function activeaccount(idUser){
   return function(dispatch){
-    return axios.get(`http://localhost:3001/users/activeaccount/${idUser}`)
+    return axios.get(`http://localhost:3001/users/activeaccount/${idUser}`, { withCredentials: true })
   .then(result => result.data)
   .then(result => {
     dispatch({
@@ -559,6 +560,22 @@ export function activeaccount(idUser){
   })
   }
 }
+
+export function sendemailorder(User, body){
+let first = User.firstname;
+let last = User.surname
+let email = User.email
+  return function(dispatch){
+    return axios.post(`http://localhost:3001/users/sendorder/${first}/${last}/${email}`,body, { withCredentials: true })
+  .then(result => result.data)
+  .then(result => {
+    dispatch({
+      type: SEND_EMAIL_ORDER,
+    })
+  })
+  }
+}
+
 
 
 export function deleteProductCart(orderId, productId) {
