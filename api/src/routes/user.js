@@ -304,10 +304,12 @@ server.post("/adduser", (req, res) => {
         // Body Email Visited Website
         let mailOptions = {
             from: 'tenshop@mailinator.com', // sender address
-            to: 'tenshop@mailinator.com', // list of receivers
-            subject: 'TEN/SHOP', // Subject line
+            //to: 'tenshop@mailinator.com', // list of receivers
+            to: 'cesars.pro@gmail.com', // list of receivers
+            subject: 'WELCOMO TO TEN/SHOP', // Subject line
             text:' HIGH USER', // plain text body
-            html: "<p><h3>WELCOME!!! </h3>"+  username  +"</p>" // html body
+            //html: "<p><h3>WELCOME!!! </h3>"+  username  +"</p>" // html body
+            html:"<div class={'card text-center'}><div class={'card-header'}WELCOME"+ firstname +" "+ surname +" </div><div class={'card-body'}><h5 class={'card-title'}>VALIDATE YOUR DATA PLEASE</h5><p class={'card-text'}><strong>USUARIO: </strong>"+ username +" <strong>PASSWORD: </strong>********</p><a href={'#'} class={'btn btn-primary'}>VALIDATE</a></div><div class={'card-footer text-muted'}>www.tenshop.com</div></div>"
         };
       
       // send mail visited
