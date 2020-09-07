@@ -6,6 +6,7 @@ const crypto = require('crypto'); //npm i --save sequelize crypto
 const sgMail = require('@sendgrid/mail');
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport'); // npm i nodemailer-sendgrid-transport
+const template = require("../../../client/src/components/EmailRegistration.jsx"); 
 
 
 
@@ -96,7 +97,7 @@ server.post("/adduser", (req, res) => {
         User.create({firstname, surname, password, type: "2", username, email, googleId})
         .then(user => {
            
-          var htmemail = template(username);
+          var htmemail = template(username, firstname, surname);
     
           var client = nodemailer.createTransport({
             service: 'SendGrid',
@@ -111,7 +112,7 @@ server.post("/adduser", (req, res) => {
             to: email,
             subject: 'Hello,'+' '+firstname+' '+'Welcome to tenshop!',
             text: 'Hello world',
-            html: '<b>Hello world</b>'
+            html: htmemail,
           };
           
           client.sendMail(emailsend, function(err, info){
@@ -397,6 +398,20 @@ server.get("/cart/sumary/:idUser", (req, res) => {
       }
     })
 });
+
+server.post("/activeaccount/:idUser", (req, res) => {
+  const { idUser } = req.params;
+  const body = {
+    statusemail: "active"
+  }
+
+  User.update(body, { where: {id: idUser}})
+  .then(result => {
+  res.status(200).send("the user has been updated");
+  })
+  .catch(() => res.status(404).send("ERROR. user has not be complete"));
+});
+
 
 
 module.exports = server;
