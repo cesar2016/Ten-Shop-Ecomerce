@@ -114,7 +114,7 @@ console.log(cantproductos); */
                                             </li> */
 
 <li class="dropdown">
-<a>WLCOME {onlineUser.firstname.toUpperCase()+" "+onlineUser.surname.toUpperCase()} <i class="fa fa-angle-down"></i></a>
+<a>WELCOME {onlineUser.firstname.toUpperCase()+" "+onlineUser.surname.toUpperCase()} <i class="fa fa-angle-down"></i></a>
 <ul role="menu" class="sub-menu">
 <li>
 <NavLink className="dropdown-item" to={`/me`}>
@@ -206,9 +206,9 @@ console.log(cantproductos); */
                                     </NavLink>
                                     </li>
                                     <li>
-                                
+
                                         <a href="/orders">Orders</a>
-                                
+
                                     </li>
                                     <li>
                                     <NavLink className="dropdown-item" to={`/admin`}>
