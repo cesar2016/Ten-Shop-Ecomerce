@@ -279,59 +279,22 @@ server.post("/:idUser/c/order", (req, res) => {
 
 server.post("/adduser", (req, res) => {
 
-  const { firstname, surname, password, username, email } = req.body;  
+  const { firstname, surname, password, username, email, googleId } = req.body;
 
-
-  let transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-        user: 'zander.crona48@ethereal.email', // generated ethereal user
-        pass: 'nZy5srMEQazj596J2p'  // generated ethereal password
-
-    }    
-
-  });
-
-  // setup email data with unicode symbols
-  let mailOptions = {
-      from: 'zander.crona48@ethereal.email', // sender address
-      to: 'tenshop@mailinator.com', // list of receivers
-      subject: 'Node Contact Request', // Subject line
-      text: 'TE HAS LOGUEADO CORRECTAMENTE!', // plain text body
-      html: "<p>HAS LOGUEADO CORRECTAMENTE!</p>" // html body
-  };
-
-  // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        res.status(500).send(error.message);
-
-      } else {
-
-        console.log("ENVIA!")
-        res.status(200).send("Email enviado!!!")
-      }
-  });
-
-
-
-/*
   User.findAll({
     where: {username}
   })
     .then(result => {
       if (!result.length) {
-        User.create({firstname, surname, password, type: "2", username, email})
-        .then(user => res.send([true, user.dataValues]))
+        User.create({firstname, surname, password, type: "2", username, email, googleId})
+        .then(user => res.send([true, user.dataValues, password]))
       } else {
-        return res.send([false])
+        return res.send([false, result, password])
       }
     })
     .catch((err) => {
       return res.send(err)
-    })    */
+    })
 });
 
 
