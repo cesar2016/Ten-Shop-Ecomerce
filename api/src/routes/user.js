@@ -313,26 +313,6 @@ server.post("/:idUser/c/order", (req, res) => {
   .catch(() => res.status(404).send("ERROR. Order has not be complete"));
 });
 
-/* server.post("/adduser", (req, res) => {
-
-
-  const { firstname, surname, password, username, email, googleId } = req.body;
-
-  User.findAll({
-    where: {username}
-  })
-    .then(result => {
-      if (!result.length) {
-        User.create({firstname, surname, password, type: "2", username, email, googleId})
-        .then(user => res.send([true, user.dataValues, password]))
-      } else {
-        return res.send([false, result, password])
-      }
-    })
-    .catch((err) => {
-      return res.send(err)
-    })
-});
 
 
 //CANCELA ORDENES DESDE EL PANEL DE ADMIN:
@@ -460,7 +440,6 @@ transporter.sendMail(mailOptions, (error, info) => {
 });
  
 });
-
 
 
 module.exports = server;
