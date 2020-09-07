@@ -187,10 +187,10 @@ var img4 = resultado.image;
 
 								    <div class="carousel-inner">
 										<div class="item active">
-										  {!!img1 ? (<a  onClick={(e)=> changeImage(img1, 1)}><img id={'img1'} src={img1} width='84' height='85' alt=""/></a>) : <div></div>}
-										  {!!img2 ? (<a  onClick={(e)=> changeImage(img2, 2)}><img id={'img2'} src={img2} width='84' height='85' alt=""/></a>) : <div></div>}
-										  {!!img3 ? (<a  onClick={(e)=> changeImage(img3, 3)}><img id={'img3'} src={img3} width='84' height='85' alt=""/></a>) : <div></div>}
-                      <a  onClick={(e)=> changeImage(img4, 4)}><img id={'img4'} src={img4} width='84' height='85' alt=""/></a>
+										  {!!img1 ? (<a  onMouseOver={(e)=> changeImage(img1, 1)}><img id={'img1'} src={img1} width='84' height='85' alt=""/></a>) : <div></div>}
+										  {!!img2 ? (<a  onMouseOver={(e)=> changeImage(img2, 2)}><img id={'img2'} src={img2} width='84' height='85' alt=""/></a>) : <div></div>}
+										  {!!img3 ? (<a  onMouseOver={(e)=> changeImage(img3, 3)}><img id={'img3'} src={img3} width='84' height='85' alt=""/></a>) : <div></div>}
+                      <a  onMouseOver={(e)=> changeImage(img4, 4)}><img id={'img4'} src={img4} width='84' height='85' alt=""/></a>
 										</div>
 									</div>
 
