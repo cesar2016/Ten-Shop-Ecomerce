@@ -70,3 +70,7 @@ height: 250px;
 
 }
 
+#tarjetita {
+  border-radius:10px;
+  box-shadow:  3px 7px 5px 4px rgb(205, 209, 206);
+}
