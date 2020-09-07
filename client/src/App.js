@@ -23,6 +23,7 @@ import Orders from './components/formularios/FormAdmin';
 import SliderImage from './components/SliderImage';
 import Footer from './components/Footer';
 import Page404 from './components/Page404';
+import Activeaccount from './components/Activeaccount';
 var ls = require('local-storage');
 
 
@@ -38,7 +39,7 @@ function App() {
           <Route path="/" component={NavBar} />
           <Route exact path="/" component={SliderImage} />
           <Route exact path="/" component={Catalogue} />
-          <Route exact path="/product/:id" render={({match}) => <Product id={match.params.id}/> } />
+          <Route path="/product/:id" render={({match}) => <Product id={match.params.id}/> } />
           <Route exact path="/formProduct" component={FormProduct} />
           <Route exact path="/about" component={About} />
           <Route exact path="/contact" component={Contact} />
@@ -53,6 +54,7 @@ function App() {
           <Route exact path="/orders" component={FormOrders} />
           <Route exact path="/admin" component={FormAdmin} />
           <Route exact path="/404" component={Page404} />
+          <Route exact path="/activeaccount" component={Activeaccount} />
           <Route exact path="/me" component={UserMe}/>
           <Route path="/" component={Footer} />
       </div>

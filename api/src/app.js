@@ -391,7 +391,7 @@ server.post("/", async (req, res) => {
         firstname: "guillermo",
         surname: "ambroggio",
         address: "chaco",
-        password: "1234",
+        password: "ASDasd1234!",
         type: 1,
         username: "guillermoambroggio",
         email: "guillermoambroggio@gmail.com"

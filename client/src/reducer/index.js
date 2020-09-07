@@ -39,6 +39,7 @@ import {
     DELETE_PRODUCT_CART,
     CANCELL_ORDER,
     GET_SUMARY_CART,
+    ACTIVE_ACCOUNT
 
 
    } from '../actions/index';
@@ -322,7 +323,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         sumary_cart: action.payload
       }
-
+    case ACTIVE_ACCOUNT:
+      return {
+        ...state,
+      }
+      
 
     default:
       return state;

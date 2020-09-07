@@ -40,7 +40,9 @@ export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const DELETE_PRODUCT_CART = "DELETE_PRODUCT_CART";
 export const CANCELL_ORDER = "CANCELL_ORDER";
 export const GET_SUMARY_CART = "GET_SUMARY_CART";
+export const ACTIVE_ACCOUNT = "ACTIVE_ACCOUNT";
 export const SEND_EMAIL_VISITED = "SEND_EMAIL_VISITED";
+
 
 
 
@@ -541,6 +543,18 @@ export function getAllReviews(){
     dispatch({
       type: GET_ALL_REVIEWS,
       payload: result
+    })
+  })
+  }
+}
+
+export function activeaccount(idUser){
+  return function(dispatch){
+    return axios.get(`http://localhost:3001/users/activeaccount/${idUser}`)
+  .then(result => result.data)
+  .then(result => {
+    dispatch({
+      type: ACTIVE_ACCOUNT,
     })
   })
   }

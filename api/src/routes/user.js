@@ -3,7 +3,10 @@ const { User, Order , Productsxorders , Product} = require('../db.js');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 const crypto = require('crypto'); //npm i --save sequelize crypto
-const nodemailer = require("nodemailer");
+const sgMail = require('@sendgrid/mail');
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport'); // npm i nodemailer-sendgrid-transport
+const template = require("../../../client/src/components/EmailRegistration.jsx"); 
 
 
 
@@ -82,21 +85,54 @@ server.get('/:idUser/orders', (req, res, next) => {
  });
 
 //CREAR USUARIOS
- server.post('/', (req, res) => {
-   const { body } = req;
-   console.log("Este es el body",body, body.password)
-  User.create({
-    firstname: body.firstname,
-    surname: body.surname,
-    address: body.address,
-    password: body.password,
-    type: body.type
-  }).then(user => {
-       res.status(200).send("user created")
+server.post("/adduser", (req, res) => {
+
+  const { firstname, surname, password, username, email, googleId } = req.body;
+
+  User.findAll({
+    where: {username}
   })
-  .catch(err => {
-    res.status(404).send("Error. The user was not created")
-  })
+    .then(result => {
+      if (!result.length) {
+        User.create({firstname, surname, password, type: "2", username, email, googleId})
+        .then(user => {
+           
+          var htmemail = template(username, firstname, surname);
+    
+          var client = nodemailer.createTransport({
+            service: 'SendGrid',
+            auth: {
+              user: 'apikey',
+              pass: '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'
+            }
+          });
+
+          var emailsend = {
+            from: 'tenshopsoyhenry@gmail.com',
+            to: email,
+            subject: 'Hello,'+' '+firstname+' '+'Welcome to tenshop!',
+            text: 'Hello world',
+            html: htmemail,
+          };
+          
+          client.sendMail(emailsend, function(err, info){
+              if (err ){
+                console.log(err);
+              }
+              else {
+                console.log('Message sent: ' + info.response);
+              }
+          });
+
+          res.send([true, user.dataValues, password]);
+        })
+      } else {
+        return res.send([false, result, password])
+      }
+    })
+    .catch((err) => {
+      return res.send(err)
+    })
 });
 
 
@@ -277,7 +313,8 @@ server.post("/:idUser/c/order", (req, res) => {
   .catch(() => res.status(404).send("ERROR. Order has not be complete"));
 });
 
-server.post("/adduser", (req, res) => {
+/* server.post("/adduser", (req, res) => {
+
 
   const { firstname, surname, password, username, email, googleId } = req.body;
 
@@ -366,6 +403,21 @@ server.get("/cart/sumary/:idUser", (req, res) => {
     })
 });
 
+
+server.post("/activeaccount/:idUser", (req, res) => {
+  const { idUser } = req.params;
+  const body = {
+    statusemail: "active"
+  }
+
+  User.update(body, { where: {id: idUser}})
+  .then(result => {
+  res.status(200).send("the user has been updated");
+  })
+  .catch(() => res.status(404).send("ERROR. user has not be complete"));
+});
+
+
 //SEND MAIL TO VISITED
 server.post('/send_email', (req, res) => {
   const { body } = req;
@@ -408,6 +460,7 @@ transporter.sendMail(mailOptions, (error, info) => {
 });
  
 });
+
 
 
 module.exports = server;
