@@ -95,7 +95,8 @@ server.post("/adduser", (req, res) => {
       if (!result.length) {
         User.create({firstname, surname, password, type: "2", username, email, googleId})
         .then(user => {
-
+           
+          var htmemail = template(username);
     
           var client = nodemailer.createTransport({
             service: 'SendGrid',
@@ -104,10 +105,7 @@ server.post("/adduser", (req, res) => {
               pass: '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'
             }
           });
-          
-          
-          //var client = nodemailer.createTransport(sgTransport(options));
-          
+
           var emailsend = {
             from: 'tenshopsoyhenry@gmail.com',
             to: email,
@@ -124,20 +122,7 @@ server.post("/adduser", (req, res) => {
                 console.log('Message sent: ' + info.response);
               }
           });
-          
-/*           const SENDGRID_API_KEY = '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';
-          
 
-          sgMail.setApiKey(SENDGRID_API_KEY);
-          const msg = {
-            to: 'tenshopsoyhenry@gmail.com',
-            from: email,
-            subject: 'Sending with Twilio SendGrid is Fun',
-            text: 'and easy to do anywhere, even with Node.js',
-            html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-          };
-          sgMail.send(msg);
-          console.log("ESTOY ACA LINEA 138 //", msg); */
           res.send([true, user.dataValues, password]);
         })
       } else {
