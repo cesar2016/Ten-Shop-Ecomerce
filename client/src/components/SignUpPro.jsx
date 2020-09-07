@@ -268,6 +268,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
                 label="First Name"
                 autoFocus
                 onChange={handleInputChange}
+                inputProps={{style: {fontSize: 20}}}
               />
               <FormHelperText
                 id="help" 
@@ -285,6 +286,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
                 name="surname"
                 autoComplete="lname"
                 onChange={handleInputChange}
+                inputProps={{style: {fontSize: 20}}}
               />
               <FormHelperText
                 id="help" 
@@ -302,6 +304,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
                 name="email"
                 autoComplete="email"
                 onChange={handleInputChange}
+                inputProps={{style: {fontSize: 20}}}
               />
               <FormHelperText
                 id="help" 
@@ -318,6 +321,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
                 label="Username"
                 id="username"
                 onChange={handleInputChange}
+                inputProps={{style: {fontSize: 20}}}
               />
               <FormHelperText
                 id="help" 
@@ -336,6 +340,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
                 id="password"
                 autoComplete="current-password"
                 onChange={handleInputChange}
+                inputProps={{style: {fontSize: 20}}}
               />
               <FormHelperText
                 id="help" 
@@ -354,6 +359,7 @@ function SignUp ({addUser, onlineUser,getUsers,all_users, addCartInvited, setid}
                 id="password"
                 autoComplete="current-password"
                 onChange={handleInputChange}
+                inputProps={{style: {fontSize: 20}}}
               />
               <FormHelperText
                 id="help" 
