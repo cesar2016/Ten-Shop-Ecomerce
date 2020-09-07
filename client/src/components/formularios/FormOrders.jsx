@@ -1,13 +1,13 @@
 import React from 'react';
 import "./FormOrders.css";
 import { connect } from "react-redux";
-import { getOrders, updateProduct, getproductsxorders,finishorder, celarordenPanel,vaciarpanelorders} from "../../actions";
+import { getOrders, updateProduct, getproductsxorders,finishorder, celarordenPanel,vaciarpanelorders, sendemailorder} from "../../actions";
 import Page404 from "../Page404";
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
 
 
-function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, productsxorder,finishorder, celarordenPanel,vaciarpanelorders}) {
+function FormProduct({ orders, getOrders, onlineUser,getproductsxorders, productsxorder,finishorder, celarordenPanel,vaciarpanelorders,sendemailorder}) {
   const history = useHistory();
 
  
@@ -52,7 +52,14 @@ function cancelaorden(data){
 
 
 function terminarorden(data){
+  let usuario = orders.find((el) => {
+    if (el.userId == productsxorder.userId) {
+      return el
+    }
+  });
+ 
   finishorder(productsxorder.userId, productsxorder.id);
+  sendemailorder(usuario.user,productsxorder)
   Swal.fire({
     icon: 'success',
     title: 'The Order,'+ ' ' +productsxorder.id+' '+ 'is Complete',
@@ -200,7 +207,6 @@ function terminarorden(data){
     <tr>
       <td scope="row">{productsxorder.address}</td>
       <td>Credit Card</td>
-    
     </tr>
       
     
@@ -295,6 +301,7 @@ function terminarorden(data){
       finishorder: (id, idd) => dispatch(finishorder(id, idd)),
       celarordenPanel: (idus,idpr) => dispatch(celarordenPanel(idus,idpr)),
       vaciarpanelorders: () => dispatch(vaciarpanelorders()),
+      sendemailorder: (id, body) => dispatch(sendemailorder(id, body)),
 
       
       

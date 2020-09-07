@@ -6,8 +6,8 @@ const crypto = require('crypto'); //npm i --save sequelize crypto
 const sgMail = require('@sendgrid/mail');
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport'); // npm i nodemailer-sendgrid-transport
-const template = require("../../../client/src/components/EmailRegistration.jsx"); 
-
+const template = require("../../../client/src/components/EmailRegistration.jsx");
+const templateorder = require("../../../client/src/components/EmailOrder.jsx"); 
 
 
 
@@ -97,7 +97,7 @@ server.post("/adduser", (req, res) => {
         User.create({firstname, surname, password, type: "2", username, email, googleId})
         .then(user => {
            
-          var htmemail = template(username, firstname, surname);
+           var htmemail = template(username, firstname, surname);
     
           var client = nodemailer.createTransport({
             service: 'SendGrid',
@@ -123,7 +123,7 @@ server.post("/adduser", (req, res) => {
                 console.log('Message sent: ' + info.response);
               }
           });
-
+ 
           res.send([true, user.dataValues, password]);
         })
       } else {
@@ -313,27 +313,6 @@ server.post("/:idUser/c/order", (req, res) => {
   .catch(() => res.status(404).send("ERROR. Order has not be complete"));
 });
 
-/* server.post("/adduser", (req, res) => {
-
-
-  const { firstname, surname, password, username, email, googleId } = req.body;
-
-  User.findAll({
-    where: {username}
-  })
-    .then(result => {
-      if (!result.length) {
-        User.create({firstname, surname, password, type: "2", username, email, googleId})
-        .then(user => res.send([true, user.dataValues, password]))
-      } else {
-        return res.send([false, result, password])
-      }
-    })
-    .catch((err) => {
-      return res.send(err)
-    })
-});
-
 
 //CANCELA ORDENES DESDE EL PANEL DE ADMIN:
 server.post("/:idUser/canc/:idOrder", (req, res) => {
@@ -358,7 +337,7 @@ server.post("/:idUser/canc/:idOrder", (req, res) => {
 
 //COMPLETA ORDENES DESDE EL PANEL DE ADMIN:
 server.post("/:idUser/aceptar/:idOrder", (req, res) => {
-  console.log("ENTROOACAAAAA-----------------", req.body , req.params);
+  //console.log("ENTROOACAAAAA-----------------", req.body , req.params);
   const { idUser } = req.params;
   const { idOrder } = req.params;
   let body = {
@@ -417,6 +396,42 @@ server.post("/activeaccount/:idUser", (req, res) => {
   .catch(() => res.status(404).send("ERROR. user has not be complete"));
 });
 
+
+
+server.post("/sendorder/:first/:last/:email", (req, res) => {
+  const { first } = req.params;
+  const { last } = req.params;
+  const { email } = req.params;
+  const { body } = req;
+  console.log(body);
+  let total_price = body.total_price
+  var htmlorder = templateorder(first,last,total_price);
+    
+  var client = nodemailer.createTransport({
+    service: 'SendGrid',
+    auth: {
+      user: 'apikey',
+      pass: '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'
+    }
+  });
+
+  var emailsend = {
+    from: 'tenshopsoyhenry@gmail.com',
+    to: email,
+    subject: 'Thanks!. Your purchase is being processed',
+    text: 'Hello world',
+    html: htmlorder,
+  };
+  
+  client.sendMail(emailsend, function(err, info){
+      if (err ){
+        console.log(err);
+      }
+      else {
+        console.log('Message sent: ' + info.response);
+      }
+  });
+});
 
 //SEND MAIL TO VISITED
 server.post('/send_email', (req, res) => {
