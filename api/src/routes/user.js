@@ -3,7 +3,9 @@ const { User, Order , Productsxorders , Product} = require('../db.js');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 const crypto = require('crypto'); //npm i --save sequelize crypto
-const nodemailer = require("nodemailer");
+const sgMail = require('@sendgrid/mail');
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport'); // npm i nodemailer-sendgrid-transport
 
 
 
@@ -82,21 +84,69 @@ server.get('/:idUser/orders', (req, res, next) => {
  });
 
 //CREAR USUARIOS
- server.post('/', (req, res) => {
-   const { body } = req;
-   console.log("Este es el body",body, body.password)
-  User.create({
-    firstname: body.firstname,
-    surname: body.surname,
-    address: body.address,
-    password: body.password,
-    type: body.type
-  }).then(user => {
-       res.status(200).send("user created")
+server.post("/adduser", (req, res) => {
+
+  const { firstname, surname, password, username, email, googleId } = req.body;
+
+  User.findAll({
+    where: {username}
   })
-  .catch(err => {
-    res.status(404).send("Error. The user was not created")
-  })
+    .then(result => {
+      if (!result.length) {
+        User.create({firstname, surname, password, type: "2", username, email, googleId})
+        .then(user => {
+
+    
+          var client = nodemailer.createTransport({
+            service: 'SendGrid',
+            auth: {
+              user: 'apikey',
+              pass: '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'
+            }
+          });
+          
+          
+          //var client = nodemailer.createTransport(sgTransport(options));
+          
+          var emailsend = {
+            from: 'tenshopsoyhenry@gmail.com',
+            to: email,
+            subject: 'Hello,'+' '+firstname+' '+'Welcome to tenshop!',
+            text: 'Hello world',
+            html: '<b>Hello world</b>'
+          };
+          
+          client.sendMail(emailsend, function(err, info){
+              if (err ){
+                console.log(err);
+              }
+              else {
+                console.log('Message sent: ' + info.response);
+              }
+          });
+          
+/*           const SENDGRID_API_KEY = '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';
+          
+
+          sgMail.setApiKey(SENDGRID_API_KEY);
+          const msg = {
+            to: 'tenshopsoyhenry@gmail.com',
+            from: email,
+            subject: 'Sending with Twilio SendGrid is Fun',
+            text: 'and easy to do anywhere, even with Node.js',
+            html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+          };
+          sgMail.send(msg);
+          console.log("ESTOY ACA LINEA 138 //", msg); */
+          res.send([true, user.dataValues, password]);
+        })
+      } else {
+        return res.send([false, result, password])
+      }
+    })
+    .catch((err) => {
+      return res.send(err)
+    })
 });
 
 
@@ -277,62 +327,22 @@ server.post("/:idUser/c/order", (req, res) => {
   .catch(() => res.status(404).send("ERROR. Order has not be complete"));
 });
 
-server.post("/adduser", (req, res) => {
+/* server.post("/adduser", (req, res) => {
 
   const { firstname, surname, password, username, email } = req.body;  
+const SENDGRID_API_KEY = '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';
 
-
-  let transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-        user: 'zander.crona48@ethereal.email', // generated ethereal user
-        pass: 'nZy5srMEQazj596J2p'  // generated ethereal password
-
-    }    
-
-  });
-
-  // setup email data with unicode symbols
-  let mailOptions = {
-      from: 'zander.crona48@ethereal.email', // sender address
-      to: 'tenshop@mailinator.com', // list of receivers
-      subject: 'Node Contact Request', // Subject line
-      text: 'TE HAS LOGUEADO CORRECTAMENTE!', // plain text body
-      html: "<p>HAS LOGUEADO CORRECTAMENTE!</p>" // html body
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const msg = {
+    to: 'tenshopsoyhenry@gmail.com',
+    from: email,
+    subject: 'Sending with Twilio SendGrid is Fun',
+    text: 'and easy to do anywhere, even with Node.js',
+    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
   };
+  sgMail.send(msg);
 
-  // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        res.status(500).send(error.message);
-
-      } else {
-
-        console.log("ENVIA!")
-        res.status(200).send("Email enviado!!!")
-      }
-  });
-
-
-
-/*
-  User.findAll({
-    where: {username}
-  })
-    .then(result => {
-      if (!result.length) {
-        User.create({firstname, surname, password, type: "2", username, email})
-        .then(user => res.send([true, user.dataValues]))
-      } else {
-        return res.send([false])
-      }
-    })
-    .catch((err) => {
-      return res.send(err)
-    })    */
-});
+}); */
 
 
 //CANCELA ORDENES DESDE EL PANEL DE ADMIN:
