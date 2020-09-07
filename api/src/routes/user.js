@@ -287,10 +287,9 @@ server.post("/adduser", (req, res) => {
     .then(result => {
       if (!result.length) {
         User.create({firstname, surname, password, type: "2", username, email, googleId})
-        .then(user => res.send([true, user.dataValues]))
+        .then(user => res.send([true, user.dataValues, password]))
       } else {
-        console.log("ACCCCAAA", result)
-        return res.send([false, result])        
+        return res.send([false, result, password])
       }
     })
     .catch((err) => {
