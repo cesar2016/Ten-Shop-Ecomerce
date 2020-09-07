@@ -144,9 +144,9 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
       e.preventDefault()
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
+        title: 'Ups...!',
         html: '<span class="aaaa">Please <b>login</b> or <b>register</b> to finalize your purchase. Thank you!</span>',
-        footer: '<a class="asdd" href="http://localhost:3000/signin">LOG IN</a>'+ '<span class="asdp">|</span>'  +'<a class="asda" href="http://localhost:3000/signup">SIGN UP</a>'
+        footer: '<a class="btn btn-info" href="http://localhost:3000/signin">LOG IN</a>'+ '&nbsp &nbsp' +'<a class="btn btn-warning" href="http://localhost:3000/signup">SIGN UP</a>'
       })
       };
 
@@ -224,7 +224,6 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
       }
     })
 
-
   }else{
     let arry = [];
     ls.get('idProducts').forEach(function(ele){
@@ -253,7 +252,6 @@ function Cart({products, getAllCart, getcart, onlineUser, updateCart, completeCa
           );
         }
       })
-
 
 
 
