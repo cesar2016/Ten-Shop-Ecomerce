@@ -169,7 +169,7 @@ if( onlineUser.type == 1){
                                      {categories.map((cat, i) => {
                                          return (
                                           <div class="btn-group p-3" role="group" aria-label="Basic example">
-                                           <button type="button"  class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
+                                           <button style ={{marginRight:'2px', color:"black",border:"solid 1px black",borderRadius:"5px"}} type="button"  class="btn btn-secondary" id={`${i}`}  onClick={(e) => addCat(cat.name, i)} value={cat.name}>
 
                                              {cat.name}
                                            </button>

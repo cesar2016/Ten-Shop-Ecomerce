@@ -213,7 +213,7 @@ if (resultado){
 								</span>
 								<p><b>Availability:</b> {resultado && resultado.stock}</p>
 								<p><b>State:</b> New</p>
-								<p><b>Shipping:</b> FREE</p>
+								<p><b>Shipping:</b> $400</p>
                 <p><b>Rating: </b> 	<Rater total={5} rating={promedy(acum, reviews.length)} interactive = {false} style={{fontSize:"30px"}} onRate={({rating}) => onRate(rating)} /></p>
 								<a><img style={{margin: "0 auto"}}  src="https://cuidar.org/images/icons/formasdepago/mini_tarjetas.jpg" width="200" height="350" class="share img-responsive"  alt="" /></a>
 							</div>
@@ -259,7 +259,7 @@ if (resultado){
                     </ul>
 
                     <p>{p.comments}</p>
-                    <p> Review
+                    <p> Rating:
                     <Rater total={5} rating= {p.rating}interactive = {false} style={{fontSize:"30px"}}  />
                     </p>
                     </div>

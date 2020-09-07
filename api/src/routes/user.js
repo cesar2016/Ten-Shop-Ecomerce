@@ -477,5 +477,4 @@ transporter.sendMail(mailOptions, (error, info) => {
 });
 
 
-
 module.exports = server;

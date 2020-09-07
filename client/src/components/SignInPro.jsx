@@ -19,7 +19,7 @@ import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import GoogleLogin from 'react-google-login';
 import { useGoogleLogin } from 'react-google-login'
-
+import "./SignIn.css"
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -44,6 +44,11 @@ const useStyles = makeStyles((theme) => ({
   tolink: {
     fontSize: "15px"
   },
+  anchoGoogle: {
+    width: "200px",
+    marginLeft:"60px"
+}
+
 }));
 
 
@@ -164,7 +169,11 @@ const SignIn = ({ loginUser, onlineUser , onlineUserError, setid, addCartInvited
               <Link href="/signup" style= {{"fontSize":"13px","color":"black"}} variant="body2">
                 {"I forgot the password."}
               </Link>
-                <GoogleLogin
+                
+              </Grid>
+              <Grid item xs={12} sm={6} style={{paddingLeft:"50px"}} >
+              <GoogleLogin
+              className= {classes.anchoGoogle}
                 clientId="1091738503095-fha2ruo3mic5qr58e7k7a3ov886bd1st.apps.googleusercontent.com"
                 buttonText="Sign in with Google"
                 onSuccess={responseGoogle}
