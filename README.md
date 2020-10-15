@@ -3,13 +3,13 @@
 Para probar el proyecto "npm install" en /client y en /api
 
 
-<div style="text-align:center"><img src="./images/home.png" alt="imagen"/></div>
+<div style="text-align:center"><img src="https://github.com/cesar2016/E-Shop-TenShop/raw/master/images/home.png"/></div>
 <hr>
-<div style="text-align:center"><img src="./images/cart.png" alt="imagen"/></div>
+<div style="text-align:center"><img src="https://github.com/cesar2016/E-Shop-TenShop/raw/master/images/cart.png"/></div>
 <hr>
-<div style="text-align:center"><img src="./images/product.png" alt="imagen"/></div>
+<div style="text-align:center"><img src="https://github.com/cesar2016/E-Shop-TenShop/raw/master/images/product.png" alt="imagen"/></div>
 <hr>
-<div style="text-align:center"><img src="./images/reviews.png" alt="imagen"/></div>
+<div style="text-align:center"><img src="https://github.com/cesar2016/E-Shop-TenShop/raw/master/images/reviews.png" alt="imagen"/></div>
 
 
 # E-Comerce TEN-SHOP
