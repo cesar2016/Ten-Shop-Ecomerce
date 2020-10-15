@@ -12,8 +12,8 @@ Para probar el proyecto "npm install" en /client y en /api
 <div style="text-align:center"><img src="./images/reviews.png" alt="imagen"/></div>
 
 
-# BOWLING SCORE
-- Un tanteador de Bowling no tiene nada de extraño hasta que debes programarlo, un buen desafio para desarrollar buenas practicas y capacidad de logicasobre todo
+# E-Comerce TEN-SHOP
+- Un E-Comerce que muestra articulos electronicos a la venta
 
 ## Objetivos del Proyecto
 
