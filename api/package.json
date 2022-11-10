@@ -42,7 +42,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2017": "^6.24.1",
     "chai": "^4.2.0",
-    "mocha": "^8.1.1",
+    "mocha": "^10.1.0",
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2",
     "supertest-session": "^4.0.0"
