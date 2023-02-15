@@ -65,3 +65,4 @@ Tenés que reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias
 El contenido de `client` fue creado usando: Create React App.
 
 ### cesars.pro@gmail.com
+## Para ver y descargar mi CV: <a href="https://shorten.world/qxnxs"> Clic Aca ...</a>
